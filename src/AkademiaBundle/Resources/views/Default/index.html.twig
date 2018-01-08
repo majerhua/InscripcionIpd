@@ -1,0 +1,688 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Akademia{% endblock %}
+
+
+
+{% block body  %}
+
+<header  class="header" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>                        
+	      </button>
+	      <a class="navbar-brand" href="#">Instituto Peruano de Deporte</a>
+	    </div>
+
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav navbar-right">
+		      <li class="active"><a href="#">Inicio</a></li>
+	  	      <li><a href="#">Nosotros</a></li>
+	  	      <li><a href="#inscribete">Inscribete</a></li>
+		      <li><a href="#">Contactanos</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+
+</header>
+
+<section  id="inscribete"  class="inscripcion">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="container" style="display:flex; flex-wrap:wrap; justify-content:center;" >
+				<div class="bar-inscripcion" style="width:20em; height:15px; margin-top:65px;  border-radius:20px; background-color:#e7edef; position:relative; display:flex; flex-wrap:wrap; justify-content: space-between; " >
+					<div class="bar-inscripcion__1" style="postion:absolute; background-color: rgba(255, 24, 23, 1); width:20px; height:20px; border-radius:50%; text-align:center; color:white; font-weight:bold;" >1</div>
+					<div class="bar-inscripcion__2" style="postion:absolute; background-color: rgba(255, 24, 23, 0.4); width:20px; height:20px; border-radius:50%; text-align:center; color:white; font-weight:bold;"   >2</div>
+					<div class="bar-inscripcion__3" style="postion:absolute; background-color:rgba(255, 24, 23, 0.4); width:20px; height:20px; border-radius:50%; text-align:center; color:white; font-weight:bold; ">3</div>
+				</div>		
+			</div>
+		</div>
+	
+		<div class="row">
+
+	        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+	        <div class="card">	
+          		<p class="title-card">Apoderado</p>
+					<div class="form-group">
+						<label for="dniApoderado">DNI Apoderado</label>
+			          <input id="dniApoderado" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
+			          
+			          <span class="cargarDatosApoderado" >Actualizando....</span>
+			          <span class="mensajeEdad" ></span>
+					</div>
+
+        		
+					<div class="form-group">
+						<label for="apellidoPaterno">Apellido Paterno</label>
+			          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+			          
+					</div>
+			
+					<div class="form-group">
+						<label for="apellidoMaterno">Apellido Materno</label>
+			          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+			          
+					</div>
+      						      						
+        		<div class="form-group">
+        			<label for="nombre">Nombres</label>
+	          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
+		          	
+				</div>
+
+				<div class="form-group">
+					<label for="fechaNacimiento">Fecha de Nacimiento</label>
+		          	<input class="form-control"  id="fechaNacimiento" type="text"  id="fechaNacimiento"  name="fechaNacimiento">
+		          					
+				</div>
+
+
+				<div class="form-group col s12">
+					<label>Sexo</label>
+				    <select id="sexo" class="form-control"  name="sexo" >
+				    	<option value="">--SELECCIONAR--</option>
+				      	<option value="masculino">Masculino</option>
+				      	<option value="femenino">Femenino</option>
+				    </select>
+				</div>
+        </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+        	<div class="card">
+
+          		<p class="title-card">Direccion</p>
+
+	            <div class="form-group">
+					<label>Departamento</label>
+	            	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
+	                	<option value="">--Seleccionar--</option>
+	                {% for departamento in departamentos %}
+	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
+	                {% endfor %}
+	            	</select>
+            	</div>
+ 
+		        <div class="form-group">
+		        	<label>Provincia</label>
+		            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
+		                <option value="">--Seleccionar--</option>
+		            </select>               
+		        </div>
+ 
+
+	            <div class="form-group">
+	            	<label>Distrito</label>
+	                <select id="distrito" name="distrito"  class="form-control">
+	                    <option value="">--Seleccionar--</option>
+	                </select> 
+	            </div>
+
+
+				<div class="form-group">
+					<label for="direccion">Direccion</label>
+		          	<input id="direccion" class="form-control" type="text"  id="direccion"  name="direccion"  >
+				</div>
+
+
+				<div class="form-group">
+					<label for="telefono">Telefono</label>
+		          	<input id="telefono" class="form-control" type="text"  id="telefono"  name="telefono"  >
+				</div>
+
+				<div class="form-group">
+					<label for="correo">Correo Electronico</label>
+		          	<input id="correo" class="form-control" type="text"  id="correo"  name="correo"  >
+				</div>
+
+        	</div>
+    	</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+
+			<div class="card">
+
+      			<p class="title-card">Participante</p>
+				<div class="form-group">
+				<label for="dni-hijo">DNI</label>
+	          	<input id="dni-hijo" class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo"  >
+			</div>
+
+			<div class="form-group">
+				<label for="apellidoPaternoHijo">Apellido Paterno</label>
+	          	<input id="apellidoPaterno-hijo" class="form-control" type="text"  id="apellidoPaterno-hijo"  name="apellidoPaterno-hijo"  >
+			</div>
+
+			<div class="form-group">
+				<label for="apellidoMaterno-hijo">Apellido Materno</label>
+          		<input id="apellidoMaterno-hijo" class="form-control" type="text"  id="apellidoMaterno-hijo"  name="apellidoMaterno-hijo"  >
+			</div>
+
+			<div class="form-group">
+				<label for="nombre-hijo">Nombre</label>
+          		<input id="nombre-hijo" class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  >
+			</div>
+
+	
+			<div style="display:flex; flex-wrap:wrap; " >
+
+			<div class="form-group" style="width:50%;padding-left:5px;">
+				<label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
+	          	<input id="fechaNacimiento-hijo" class="form-control" type="text"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+			</div>
+
+			<div class="form-group" style="width:50%;padding-left:5px;  ">
+				<label for="sexo-hijo">Sexo</label>
+	          	<select id="sexo-hijo" class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+
+	          		<option value="">--SELECCIONAR--</option>
+	          		<option value="masculino" >MASCULINO</option>
+	          		<option value="femenino" >FEMENINO</option>
+
+	          	</select>
+			</div>
+
+			<div class="form-group" style="width:50%;padding:5px;" >
+
+				<label for="parentesco">Parentesco</label>
+	          	<select id="parentesco" class="form-control" type="text"  id="parentesco"  name="parentesco">
+
+	          		<option value="">--SELECCIONAR--</option>
+	          		<option value="hijo" >HIJO</option>
+	          		<option value="sobrino">SOBRINO</option>
+	          		<option value="nieto">NIETO</option>
+	          		<option value="otros">OTROS</option>
+	          	</select>
+
+			</div>
+
+			<div class="form-group" style="width:50%;padding:5px; ">
+				<label for="tipoSeguro">Tipo de Seguro</label>
+				<select id="tipoSeguro" class="form-control" type="text"  id="tipoSeguro"  name="tipoSeguro">
+
+					<option value="">--SELECCIONAR--</option>
+					<option value="EsSALUD" >EsSALUD</option>
+					<option value="SIS" >SIS</option>
+					<option value="PRIVADO" >PRIVADO</option>
+
+				</select>
+	          	
+			</div>
+
+			</div>
+
+			</div>
+
+		</div>
+
+		<div class="form-group pull-right"  >
+			<button class="btn btn-danger" btn-lg>CONTINUAR</button>
+		</div>
+
+</div>
+</div>
+
+<!--
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+        <div class="card">
+      		<p class="title-card" >Horarios</p>
+            <div class="form-group">
+				<label>Departamento</label>
+	            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
+	                <option value="">--Seleccionar--</option>
+
+	                {% for departamento in departamentos %}
+
+	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
+
+	                {% endfor %}
+
+	            </select>
+            </div>
+ 
+            <div class="form-group">
+            	<label>Provincia</label>
+                <select  id="provinciaHorario" class="form-control"  name="provincia" onchange="cambiarProvinciaHorario(this)">
+                    <option value="">--Seleccionar--</option>
+                </select>               
+            </div>
+ 
+
+            <div class="form-group">
+            	<label>Distrito</label>
+                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
+                    <option value="">--Seleccionar--</option>
+                </select> 
+            </div>
+
+
+            <div class="form-group">
+            	<label>Complejo Deportivo</label>
+                <select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
+                    <option value="">--Seleccionar--</option>
+                </select> 
+            </div>
+
+            <div class="form-group">
+            	<label>Disciplina Deportiva</label>
+                <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                </select> 
+            </div>
+
+			<div class="form-group">
+	  			<a href="#"><button class="btn btn-primary btn-lg"  >Continuar</button></a>
+	  		</div>
+
+    	</div>
+
+    </div>
+	</div>
+-->
+
+	
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</section>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="{{asset('assets/vendor/js/scroll.js')}}"></script>
+<script>
+	
+	$.ajax({
+
+		type:'GET',
+		dataType: 'json',
+		url: "{{url('akademia_getPost')}}",
+
+		beforeSend: function(){
+			
+		},
+
+		success: function(data){
+			
+
+			var dataPost = JSON.parse(data);
+			console.log("Post ==> ",dataPost);
+
+		},
+
+		error: function(error){
+			console.log(error);
+		}
+
+	});
+
+
+	
+
+
+	function cambiarDepartamento(departamento){
+
+		idDepartamento = departamento.value;
+		console.log(idDepartamento);
+
+		$("#provincia").empty();
+		$("#distrito").empty();
+		$("#provincia").append("<option value='' >--Seleccionar--</option>");
+		$("#distrito").append("<option value='' >--Seleccionar--</option>");
+		{% for provincia in provincias  %}
+
+			if("{{provincia.departamento.id}}" == idDepartamento){
+
+				console.log("{{provincia.nombre}}");
+				console.log("{{provincia.id}}");
+				
+				$("#provincia").append("<option value={{provincia.id}} >{{provincia.nombre}}</option>");
+				
+			}
+		{% endfor %}
+
+	}
+
+	function cambiarProvincia(provincia){
+
+		idProvincia = provincia.value;
+		console.log(idProvincia);
+
+		$("#distrito").empty();
+		$("#distrito").append("<option value='' >--Seleccionar--</option>");
+		{% for distrito in distritos  %}
+
+			if("{{distrito.provincia.id}}" == idProvincia){
+
+				console.log("{{distrito.nombre}}");
+				console.log("{{distrito.id}}");
+				
+				$("#distrito").append("<option value={{distrito.id}} >{{distrito.nombre}}</option>");
+				
+			}
+
+		{% endfor %}
+
+	}
+
+// HORARIO
+
+	function cambiarDepartamentoHorario(departamentoHorario){
+
+		var idDepartamentoHorario = departamentoHorario.value;
+		console.log(idDepartamentoHorario);
+
+		$("#provinciaHorario").empty();
+		$("#distritoHorario").empty();
+		$("#provinciaHorario").append("<option value='' >--Seleccionar--</option>");
+		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
+		$("#complejosDeportivo").empty();
+		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
+		$("#disciplinaDeportiva").empty();
+		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+		{% for provincia in provincias  %}
+
+			if("{{provincia.departamento.id}}" == idDepartamentoHorario){
+
+				console.log("{{provincia.nombre}}");
+				console.log("{{provincia.id}}");
+				
+				$("#provinciaHorario").append("<option value={{provincia.id}} >{{provincia.nombre}}</option>");
+				
+			}
+		{% endfor %}
+
+	}
+
+	function cambiarProvinciaHorario(provinciaHorario){
+
+		var idProvinciaHorario = provinciaHorario.value;
+		console.log(idProvinciaHorario);
+
+		$("#distritoHorario").empty();
+		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
+		$("#complejosDeportivo").empty();
+		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
+		$("#disciplinaDeportiva").empty();
+		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+		{% for distrito in distritos  %}
+
+			if("{{distrito.provincia.id}}" == idProvinciaHorario){
+
+				console.log("{{distrito.nombre}}");
+				console.log("{{distrito.id}}");
+				
+				$("#distritoHorario").append("<option value={{distrito.id}} >{{distrito.nombre}}</option>");	
+			}
+
+		{% endfor %}
+	}
+
+	function cambiarDistritoHorario(distritoHorario){
+
+		var idDistritoHorario = distritoHorario.value;
+		console.log(idDistritoHorario);
+
+		$("#complejosDeportivo").empty();
+		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
+		$("#disciplinaDeportiva").empty();
+		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+		{% for complejoDeportivo in complejosDeportivo  %}
+
+			if("{{complejoDeportivo.distrito.id}}" == idDistritoHorario){
+
+				console.log("{{complejoDeportivo.nombre}}");
+				console.log("{{complejoDeportivo.id}}");
+				
+				$("#complejosDeportivo").append("<option value={{complejoDeportivo.id}} >{{complejoDeportivo.nombre}}</option>");
+				
+			}
+
+		{% endfor %}
+
+	}
+
+
+	function cambiarComplejoDeportivo(complejoDeportivo){
+
+		var idComplejoDeportivo = complejoDeportivo.value;
+		console.log(idComplejoDeportivo);
+
+		
+		$("#disciplinaDeportiva").empty();
+		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+		{% for complejoDisciplina in complejosDisciplinas  %}
+
+			if("{{complejoDisciplina.complejoDeportivo.id}}" == idComplejoDeportivo){
+
+				console.log("{{complejoDisciplina.disciplinaDeportiva.nombre}}");
+				console.log("{{complejoDisciplina.disciplinaDeportiva.id}}");
+				
+				$("#disciplinaDeportiva").append("<option value={{complejoDisciplina.disciplinaDeportiva.id}} >{{complejoDisciplina.disciplinaDeportiva.nombre}}</option>");
+				
+			}
+
+		{% endfor %}
+	
+	}
+
+
+$("#btn-register-apoderado").on('click',function(){
+	
+	registrarApoderado();	
+})
+
+
+
+
+
+	function registrarApoderado(){
+
+
+		var dataRegisterApoderado={
+
+			"dni" : $("#dniApoderado").val(),
+			"apellidoPaterno" : $("#apellidoPaterno").val(),
+			"apellidoMaterno" : $("#apellidoMaterno").val(),
+			"nombre" : $("#nombre").val(),
+			"fechaNacimiento" : $("#fechaNacimiento").val(),
+			"sexo" : $("#sexo").val(),
+			"distrito" : $("#distrito").val(),
+			"direccion" : $("#direccion").val(),
+			"telefono" : $("#telefono").val(),
+			"correo" : $("#correo").val(),
+			"persona": "apoderado"
+		};
+
+
+		$.ajax({
+
+			type:'POST',
+			dataType: 'json',
+			url: "{{url('akademia_registrar')}}",
+			data: dataRegisterApoderado,
+
+			beforeSend: function(){
+				
+			},
+
+			success: function(data){
+				
+				//var dataApoderado = JSON.parse(data);
+				console.log(data);
+
+			},
+
+			error: function(error){
+				console.log(error);
+			}
+
+		});
+
+
+	}
+
+
+
+	$('.cargarDatosApoderado').hide();	
+
+	function buscarDniApoderado(refDni){
+
+		datoDniPersona = {
+
+			'dni' : refDni.value,
+			"persona": 'apoderado'
+		};
+
+		$.ajax({
+
+			type:'POST',
+			dataType: 'json',
+			url: "{{url('akademia_homepage')}}",
+			data: datoDniPersona,
+
+			beforeSend: function(){
+
+				$('.cargarDatosApoderado').show();
+			},
+
+			success: function(data){
+				
+				var dataApoderado = JSON.parse(data);
+
+				console.log("Busqueda DNI ==> ",dataApoderado);
+
+				
+
+					$(dataApoderado).each(function(index,valor){
+
+						if(valor.edad >=18){
+
+							$("#apellidoPaterno").val(valor.apellidoPaterno);
+							$("#apellidoMaterno").val(valor.apellidoMaterno);
+							$("#nombre").val(valor.nombre);
+							$("#fechaNacimiento").val(valor.fechaNacimiento);
+							$("#sexo").val(valor.sexo);
+
+						}
+
+						else{
+
+							$(".mensajeEdad").empty();
+							$(".mensajeEdad").append("Usted Es menor de edad");
+						}
+					});					
+				
+					$('.cargarDatosApoderado').hide();
+				
+			},
+
+			error: function(error){
+				console.log(error);
+			}
+
+		});
+	}
+
+
+	function buscarDniHijo(refDni){
+
+		var datoDniPersona = {
+
+			'dni' : refDni.value,
+			"persona": 'hijo'
+		};
+
+		$.ajax({
+
+			type:'POST',
+			dataType: 'json',
+			url: "{{url('akademia_homepage')}}",
+			data: datoDniPersona,
+
+			beforeSend: function(){
+
+				$('.cargarDatosApoderado').show();
+			},
+
+			success: function(data){
+				
+				var dataHijo = JSON.parse(data);
+
+				console.log("Busqueda DNI ==> ",dataHijo);
+
+					$(dataHijo).each(function(index,valor){
+
+						if(valor.edad <18){
+
+							$("#apellidoPaterno").val(valor.apellidoPaterno);
+							$("#apellidoMaterno").val(valor.apellidoMaterno);
+							$("#nombre").val(valor.nombre);
+							$("#fechaNacimiento").val(valor.fechaNacimiento);
+							$("#sexo").val(valor.sexo);
+
+						}
+
+						else{
+
+							$(".mensajeEdad").empty();
+							$(".mensajeEdad").append("Usted Es menor de edad");
+						}
+					});					
+				
+					$('.cargarDatosApoderado').hide();
+				
+			},
+
+			error: function(error){
+				console.log(error);
+			}
+
+		});
+	}
+
+
+
+</script>
+
+
+{% endblock %}
+

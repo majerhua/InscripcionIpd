@@ -1,0 +1,39 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+
+}
+
+
+.header{
+
+	height:100vh; 
+	background-color:orange; 
+	 background-size:cover; 
+	 background-position:center center; 
+	  background-attachment: fixed; "
+
+
+}
+
+
+.card{
+	padding: 14px;
+	width: 97%;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.title-card{
+	font-size: 1.7em;
+	font-weight: bold;
+	color: #ffab40;
+}
+
+.inscripcion{
+	height: 100vh;
+	width: 100%;
+}
