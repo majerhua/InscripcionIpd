@@ -94,4 +94,3 @@ class Post
         return $this->fecha->format('Y-m-d');
     }
 }
-

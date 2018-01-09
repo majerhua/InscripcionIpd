@@ -15,6 +15,12 @@ class Apoderado
 
 
     /**
+     * @ORM\OneToMany(targetEntity="Participante", mappedBy="apoderado")
+     */
+    private $participantes;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="Distrito", inversedBy="apoderados")
      * @ORM\JoinColumn(name="distrito_id", referencedColumnName="id")
      */
@@ -322,5 +328,29 @@ class Apoderado
     public function getDistrito()
     {
         return $this->distrito;
+    }
+
+    /**
+     * Set fechaNacimiento
+     *
+     * @param \DateTime $fechaNacimiento
+     *
+     * @return Apoderado
+     */
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fechaNacimiento = $fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaNacimiento
+     *
+     * @return \DateTime
+     */
+    public function getFechaNacimiento()
+    {
+        return $this->fechaNacimiento->format('Y-m-d');
     }
 }

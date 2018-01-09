@@ -12,6 +12,7 @@ use AkademiaBundle\Entity\ComplejoDeportivo;
 use AkademiaBundle\Entity\DisciplinaDeportiva;
 use AkademiaBundle\Entity\Distrito;
 use AkademiaBundle\Entity\Persona;
+use AkademiaBundle\Entity\Participante;
 use AkademiaBundle\Entity\Post;
 use AkademiaBundle\Entity\ComplejoDisciplina;
 
@@ -112,60 +113,76 @@ class DefaultController extends Controller
 
         if($request->isXmlHttpRequest()){
 
-            $estado = $request->request->get('persona');
 
-            if($estado == "apoderado"){
+            //DATOS APODERADO
 
-                $dni = $request->request->get('dni');
-                $apellidoPaterno = $request->request->get('apellidoPaterno');
-                $apellidoMaterno = $request->request->get('apellidoMaterno');
-                $nombre = $request->request->get('nombre'); 
-                $fechaNacimiento = $request->request->get('fechaNacimiento');
-                $sexo = $request->request->get('sexo');
-                $distrito = $request->request->get('distrito');
-                $direccion = $request->request->get('direccion');
-                $telefono = $request->request->get('telefono');
-                $correo = $request->request->get('correo');
+            $dni = $request->request->get('dni');
+            $apellidoPaterno = $request->request->get('apellidoPaterno');
+            $apellidoMaterno = $request->request->get('apellidoMaterno');
+            $nombre = $request->request->get('nombre'); 
+            $fechaNacimiento = $request->request->get('fechaNacimiento');
+            $sexo = $request->request->get('sexo');
+            $distrito = $request->request->get('distrito');
+            $direccion = $request->request->get('direccion');
+            $telefono = $request->request->get('telefono');
+            $correo = $request->request->get('correo');
 
-                $apoderado = new Apoderado();
 
-                $apoderado->setDni($dni);
-                $apoderado->setApellidoPaterno($apellidoPaterno);
-                $apoderado->setApellidoMaterno($apellidoMaterno);
-                $apoderado->setNombre($nombre);
-                $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
-                $apoderado->setSexo($sexo);
+            //DATOS PARTICIPANTE
 
-                $em = $this->getDoctrine()->getRepository(Distrito::class);
-                $buscarDistrito = $em->find($distrito);
-                $apoderado->setDistrito($buscarDistrito);
+            $dniParticipante = $request->request->get('dniParticipante');
+            $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
+            $apellidoMaternoParticipante = $request->request->get('apellidoMaternoParticipante');
+            $nombreParticipante = $request->request->get('nombreParticipante'); 
+            $fechaNacimientoParticipante = $request->request->get('fechaNacimientoParticipante');
+            $sexoParticipante = $request->request->get('sexoParticipante');
+            $parentesco = $request->request->get('parentesco');
+            $tipoSeguro = $request->request->get('tipoSeguro');
 
-                $apoderado->setDireccion($direccion);
-                $apoderado->setTelefono($telefono);
-                $apoderado->setCorreo($correo);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($apoderado);
-                $em->flush();
+            $apoderado = new Apoderado();
+            $apoderado->setDni($dni);
+            $apoderado->setApellidoPaterno($apellidoPaterno);
+            $apoderado->setApellidoMaterno($apellidoMaterno);
+            $apoderado->setNombre($nombre);
+            $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
+            $apoderado->setSexo($sexo);
 
-                $idApoderado = $apoderado->getId();
+            $em = $this->getDoctrine()->getRepository(Distrito::class);
+            $buscarDistrito = $em->find($distrito);
+            $apoderado->setDistrito($buscarDistrito);
 
-                //REALIZAR CONSULTAS SQL
-                $em = $this->getDoctrine()->getEntityManager();
-                $db = $em->getConnection();
-                $query = "select (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from apoderado where id='$idApoderado';";
-                $stmt = $db->prepare($query);
-                $params = array();
-                $stmt->execute($params);
-                $po=$stmt->fetchAll();
-                
-                return new JsonResponse($po);
+            $apoderado->setDireccion($direccion);
+            $apoderado->setTelefono($telefono);
+            $apoderado->setCorreo($correo);
 
-            }else{
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($apoderado);
+            $em->flush();
 
-                return new JsonResponse("No es apoderado");
-            }
+            $idApoderado = $apoderado->getId();
 
+            $participante = new Participante();
+
+            $participante->setDni($dniParticipante);
+            $participante->setApellidoPaterno($apellidoPaternoParticipante);
+            $participante->setApellidoMaterno($apellidoMaternoParticipante);
+            $participante->setNombre($nombreParticipante);
+            $participante->setFechaNacimiento(new \DateTime($fechaNacimientoParticipante));
+            $participante->setSexo($sexoParticipante);
+            $participante->setParentesco($parentesco);
+            $participante->setTipoDeSeguro($tipoSeguro);
+
+            $em = $this->getDoctrine()->getRepository(Apoderado::class);
+            $buscarApoderadoInscripcion = $em->find($idApoderado);
+            $participante->setApoderado($buscarApoderadoInscripcion);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($participante);
+            $em->flush();
+
+            
+            return new JsonResponse("Primer paso terminado!");
 
         }
 

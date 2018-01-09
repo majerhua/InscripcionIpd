@@ -8,7 +8,7 @@
 
 {% block body  %}
 
-<header  class="header" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
+<header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container-fluid">
@@ -23,9 +23,9 @@
 
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		      <li class="active"><a href="#">Inicio</a></li>
+		      <li class="active"><a href="#inicio">Inicio</a></li>
 	  	      <li><a href="#">Nosotros</a></li>
-	  	      <li><a href="#inscribete">Inscribete</a></li>
+	  	      <li><a href="#inscribete" >Inscribete</a></li>
 		      <li><a href="#">Contactanos</a></li>
 	      </ul>
 	    </div>
@@ -34,50 +34,49 @@
 
 </header>
 
-<section  id="inscribete"  class="inscripcion">
-
-	<div class="container">
-
-		<div class="row">
-			<div class="container" style="display:flex; flex-wrap:wrap; justify-content:center;" >
-				<div class="bar-inscripcion" style="width:20em; height:15px; margin-top:65px;  border-radius:20px; background-color:#e7edef; position:relative; display:flex; flex-wrap:wrap; justify-content: space-between; " >
-					<div class="bar-inscripcion__1" style="postion:absolute; background-color: rgba(255, 24, 23, 1); width:20px; height:20px; border-radius:50%; text-align:center; color:white; font-weight:bold;" >1</div>
-					<div class="bar-inscripcion__2" style="postion:absolute; background-color: rgba(255, 24, 23, 0.4); width:20px; height:20px; border-radius:50%; text-align:center; color:white; font-weight:bold;"   >2</div>
-					<div class="bar-inscripcion__3" style="postion:absolute; background-color:rgba(255, 24, 23, 0.4); width:20px; height:20px; border-radius:50%; text-align:center; color:white; font-weight:bold; ">3</div>
-				</div>		
-			</div>
-		</div>
+<section  id="inscribete"  class="proceso-inscripcion">
 	
-		<div class="row">
+	<div class="progreso">
+		<div class="container-titulo">		
+			<p>PRE - INSCRIPCION 2018 I</p>	
+		</div>
+		<div class="progreso_container">
+			<div class="progreso__barraInscripcion">
+				<div class="bar-inscripcion__1 active" >1</div>
+				<div class="bar-inscripcion__2 ">2</div>
+				<div class="bar-inscripcion__3">3</div>
+			</div>		
+		</div>
+	</div>
 
-	        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+	<div class="proceso-inscripcion__inscripcion" id="process1" >
+	<div class="container">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+
 	        <div class="card">	
-          		<p class="title-card">Apoderado</p>
-					<div class="form-group">
-						<label for="dniApoderado">DNI Apoderado</label>
-			          <input id="dniApoderado" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
-			          
-			          <span class="cargarDatosApoderado" >Actualizando....</span>
-			          <span class="mensajeEdad" ></span>
-					</div>
 
-        		
-					<div class="form-group">
-						<label for="apellidoPaterno">Apellido Paterno</label>
-			          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
-			          
-					</div>
-			
-					<div class="form-group">
-						<label for="apellidoMaterno">Apellido Materno</label>
-			          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
-			          
-					</div>
-      						      						
-        		<div class="form-group">
-        			<label for="nombre">Nombres</label>
+          		<p class="title-card">Apoderado</p>
+
+				<div class="form-group">
+					<label for="dniApoderado">DNI Apoderado</label>
+		          	<input id="dniApoderado" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
+		          	<span class="cargarDatosApoderado" >Actualizando....</span>
+		          	<span class="mensajeEdad" ></span>
+				</div>
+
+				<div class="form-group">
+					<label for="apellidoPaterno">Apellido Paterno</label>
+		          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+				</div>
+				
+				<div class="form-group">
+					<label for="apellidoMaterno">Apellido Materno</label>
+		          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+				</div>
+	      						      						
+	    		<div class="form-group">
+	    			<label for="nombre">Nombres</label>
 	          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
-		          	
 				</div>
 
 				<div class="form-group">
@@ -95,8 +94,14 @@
 				      	<option value="femenino">Femenino</option>
 				    </select>
 				</div>
+
         </div>
-        </div>
+
+    </div>
+
+
+
+<!--SECCION DIRECCION-->
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
         	<div class="card">
@@ -128,12 +133,10 @@
 	                </select> 
 	            </div>
 
-
 				<div class="form-group">
 					<label for="direccion">Direccion</label>
 		          	<input id="direccion" class="form-control" type="text"  id="direccion"  name="direccion"  >
 				</div>
-
 
 				<div class="form-group">
 					<label for="telefono">Telefono</label>
@@ -148,138 +151,101 @@
         	</div>
     	</div>
 
+<!-- FIN SECCION DIRECCION--->
 
+<!--SECCION PARTICIPANTE-->
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
 
 			<div class="card">
 
       			<p class="title-card">Participante</p>
+
 				<div class="form-group">
-				<label for="dni-hijo">DNI</label>
-	          	<input id="dni-hijo" class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo"  >
-			</div>
+					<label for="dni-hijo">DNI</label>
+	          		<input class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo">
+		        	<span class="cargarDatosParticipante">Actualizando....</span>
+	          		<span class="mensajeEdadParticipante"></span>
+				</div>
 
-			<div class="form-group">
-				<label for="apellidoPaternoHijo">Apellido Paterno</label>
-	          	<input id="apellidoPaterno-hijo" class="form-control" type="text"  id="apellidoPaterno-hijo"  name="apellidoPaterno-hijo"  >
-			</div>
+				<div class="form-group">
+					<label for="apellidoPaternoHijo">Apellido Paterno</label>
+	          		<input  class="form-control" type="text"  id="apellidoPaterno-hijo"  name="apellidoPaterno-hijo"  >
+				</div>
 
-			<div class="form-group">
-				<label for="apellidoMaterno-hijo">Apellido Materno</label>
-          		<input id="apellidoMaterno-hijo" class="form-control" type="text"  id="apellidoMaterno-hijo"  name="apellidoMaterno-hijo"  >
-			</div>
+				<div class="form-group">
+					<label for="apellidoMaterno-hijo">Apellido Materno</label>
+		      		<input  class="form-control" type="text"  id="apellidoMaterno-hijo"  name="apellidoMaterno-hijo"  >
+				</div>
 
-			<div class="form-group">
-				<label for="nombre-hijo">Nombre</label>
-          		<input id="nombre-hijo" class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  >
-			</div>
+				<div class="form-group">
+					<label for="nombre-hijo">Nombre</label>
+          			<input  class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  >
+				</div>
 
-	
-			<div style="display:flex; flex-wrap:wrap; " >
+				<div style="display:flex; flex-wrap:wrap;">
 
-			<div class="form-group" style="width:50%;padding-left:5px;">
-				<label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
-	          	<input id="fechaNacimiento-hijo" class="form-control" type="text"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
-			</div>
+					<div class="form-group" style="width:50%;padding-left:5px;">
+						<label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
+			          	<input  class="form-control" type="text"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+					</div>
 
-			<div class="form-group" style="width:50%;padding-left:5px;  ">
-				<label for="sexo-hijo">Sexo</label>
-	          	<select id="sexo-hijo" class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+					<div class="form-group" style="width:50%;padding-left:5px;  ">
+						<label for="sexo-hijo">Sexo</label>
+			          	<select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+			          		<option value="">--SELECCIONAR--</option>
+			          		<option value="masculino" >MASCULINO</option>
+			          		<option value="femenino" >FEMENINO</option>
+			          	</select>
+					</div>
 
-	          		<option value="">--SELECCIONAR--</option>
-	          		<option value="masculino" >MASCULINO</option>
-	          		<option value="femenino" >FEMENINO</option>
+					<div class="form-group" style="width:50%;padding:5px;" >
+						<label for="parentesco">Parentesco</label>
+			          	<select id="parentesco" class="form-control" type="text"  name="parentesco">
+			          		<option value="">--SELECCIONAR--</option>
+			          		<option value="hijo" >HIJO</option>
+			          		<option value="sobrino">SOBRINO</option>
+			          		<option value="nieto">NIETO</option>
+			          		<option value="otros">OTROS</option>
+			          	</select>
+					</div>
 
-	          	</select>
-			</div>
+					<div class="form-group" style="width:50%;padding:5px;">
+						<label for="tipoSeguro">Tipo de Seguro</label>
+						<select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
+							<option value="">--SELECCIONAR--</option>
+							<option value="EsSALUD" >EsSALUD</option>
+							<option value="SIS" >SIS</option>
+							<option value="PRIVADO" >PRIVADO</option>
+						</select>
+					</div>
 
-			<div class="form-group" style="width:50%;padding:5px;" >
-
-				<label for="parentesco">Parentesco</label>
-	          	<select id="parentesco" class="form-control" type="text"  id="parentesco"  name="parentesco">
-
-	          		<option value="">--SELECCIONAR--</option>
-	          		<option value="hijo" >HIJO</option>
-	          		<option value="sobrino">SOBRINO</option>
-	          		<option value="nieto">NIETO</option>
-	          		<option value="otros">OTROS</option>
-	          	</select>
-
-			</div>
-
-			<div class="form-group" style="width:50%;padding:5px; ">
-				<label for="tipoSeguro">Tipo de Seguro</label>
-				<select id="tipoSeguro" class="form-control" type="text"  id="tipoSeguro"  name="tipoSeguro">
-
-					<option value="">--SELECCIONAR--</option>
-					<option value="EsSALUD" >EsSALUD</option>
-					<option value="SIS" >SIS</option>
-					<option value="PRIVADO" >PRIVADO</option>
-
-				</select>
-	          	
-			</div>
+				</div>
 
 			</div>
-
-			</div>
-
 		</div>
+<!--FIN SECCION PARTICIPANTE-->
+	</div>
+	</div>
 
-		<div class="form-group pull-right"  >
-			<button class="btn btn-danger" btn-lg>CONTINUAR</button>
-		</div>
+	<div class="form-group pull-right container-boton "  >
+		<button class="btn btn-danger" id="btn-register-apoderado">CONTINUAR</button>
+	</div>
 
-</div>
-</div>
+
+
 
 <!--
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
         <div class="card">
       		<p class="title-card" >Horarios</p>
-            <div class="form-group">
-				<label>Departamento</label>
-	            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
-	                <option value="">--Seleccionar--</option>
+            
 
-	                {% for departamento in departamentos %}
-
-	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
-
-	                {% endfor %}
-
-	            </select>
-            </div>
- 
-            <div class="form-group">
-            	<label>Provincia</label>
-                <select  id="provinciaHorario" class="form-control"  name="provincia" onchange="cambiarProvinciaHorario(this)">
-                    <option value="">--Seleccionar--</option>
-                </select>               
-            </div>
  
 
-            <div class="form-group">
-            	<label>Distrito</label>
-                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-                    <option value="">--Seleccionar--</option>
-                </select> 
-            </div>
 
 
-            <div class="form-group">
-            	<label>Complejo Deportivo</label>
-                <select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-                    <option value="">--Seleccionar--</option>
-                </select> 
-            </div>
 
-            <div class="form-group">
-            	<label>Disciplina Deportiva</label>
-                <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control">
-                    <option value="">--Seleccionar--</option>
-                </select> 
-            </div>
+
 
 			<div class="form-group">
 	  			<a href="#"><button class="btn btn-primary btn-lg"  >Continuar</button></a>
@@ -291,33 +257,124 @@
 	</div>
 -->
 
+
+</section>
+
+<div class="proceso-inscripcion__horarios" id="process2">
 	
+	<div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-8">
+		
+		<p class="title-card text-center"  >ELIGE UN COMPLEJO DEPORTIVO</p>
+
+		<div class="complejo">
+			
+			<div class="form-group form-group-tam">
+				<label>Departamento</label>
+	            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
+	                <option value="">--Seleccionar--</option>
+
+	                {% for departamento in departamentos %}
+
+	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
+
+	                {% endfor %}
+
+	            </select>
+        	</div>
+
+            <div class="form-group form-group-tam">
+            	<label>Provincia</label>
+                <select  id="provinciaHorario" class="form-control"  name="provincia" onchange="cambiarProvinciaHorario(this)">
+                    <option value="">--Seleccionar--</option>
+                </select>               
+            </div>
+
+            <div class="form-group form-group-tam">
+            	<label>Distrito</label>
+                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
+                    <option value="">--Seleccionar--</option>
+                </select> 
+            </div>
+
+            <div class="form-group form-group-tam">
+        		<label>Complejo Deportivo</label>
+            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
+                <option value="">--Seleccionar--</option>
+            	</select>
+        	</div>
 
 
+		</div>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+		<div class="mapa">
+			
+		   <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" height="400" frameborder="0" style="border:0"></iframe>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+		</div>
 
-  </div>
+		
+	</div>
+
+	<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
+
+		<p class="title-card text-center"  >DEPORTE Y HORARIO</p>
+
+        <div class="form-group container-select-deporte"  >
+        	<label>Deportiva: </label>
+            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control">
+                <option value="">--Seleccionar--</option>
+            </select> 
+        </div>
+
+        <div class="form-group" >
+        	<label>Horario</label>
+        	<p>6 a 7 años</p>
+        </div>
+
+        <div class="form-group" >
+        	<p>8:00 a 9:00 am</p>
+        	<p>De martes a viernes</p>
+        	<p>40 vacantes</p>
+        </div>
+
+        <div class="form-group" >
+        	
+			<p>Otras Edades</p>
+
+			<div>
+				<p>8 a 9</p>
+				<p>9:00 a 10:00 am</p>
+			</div>	
+
+			<div>
+				<p>10 a 12</p>
+				<p>10:00 a 11:00 am</p>
+			</div>	
+
+			<div>
+				<p>13 a 14</p>
+				<p>11:00 a 12:00 am</p>
+			</div>
+
+			<div>
+				<p>15 a 17</p>
+				<p>12:00 a 1:00 pm</p>
+			</div>		
+
+        </div>
+		
+	</div>
+
 </div>
 
 
-</section>
+
+
+
+
+
+
+
 
 {% endblock %}
 
@@ -519,6 +576,7 @@ $("#btn-register-apoderado").on('click',function(){
 
 		var dataRegisterApoderado={
 
+			//DATOS APODERADO
 			"dni" : $("#dniApoderado").val(),
 			"apellidoPaterno" : $("#apellidoPaterno").val(),
 			"apellidoMaterno" : $("#apellidoMaterno").val(),
@@ -529,7 +587,17 @@ $("#btn-register-apoderado").on('click',function(){
 			"direccion" : $("#direccion").val(),
 			"telefono" : $("#telefono").val(),
 			"correo" : $("#correo").val(),
-			"persona": "apoderado"
+
+			//DATOS HIJO
+
+			"dniParticipante" : $("#dni-hijo").val(),
+			"apellidoPaternoParticipante" : $("#apellidoPaterno-hijo").val(),
+			"apellidoMaternoParticipante" : $("#apellidoMaterno-hijo").val(),
+			"nombreParticipante" : $("#nombre-hijo").val(),
+			"fechaNacimientoParticipante" : $("#fechaNacimiento-hijo").val(),
+			"sexoParticipante" : $("#sexo-hijo").val(),
+			"parentesco" : $("#parentesco").val(),
+			"tipoSeguro" : $("#tipoSeguro").val()
 		};
 
 
@@ -586,13 +654,12 @@ $("#btn-register-apoderado").on('click',function(){
 
 			success: function(data){
 				
-				var dataApoderado = JSON.parse(data);
+				var dataParticiapnte = JSON.parse(data);
 
-				console.log("Busqueda DNI ==> ",dataApoderado);
+				console.log("Busqueda DNI ==> ",dataParticiapnte);
 
-				
-
-					$(dataApoderado).each(function(index,valor){
+			
+					$(dataParticiapnte).each(function(index,valor){
 
 						if(valor.edad >=18){
 
@@ -622,7 +689,7 @@ $("#btn-register-apoderado").on('click',function(){
 		});
 	}
 
-
+	$('.cargarDatosParticipante').hide();
 	function buscarDniHijo(refDni){
 
 		var datoDniPersona = {
@@ -640,7 +707,7 @@ $("#btn-register-apoderado").on('click',function(){
 
 			beforeSend: function(){
 
-				$('.cargarDatosApoderado').show();
+				$('.cargarDatosParticipante').show();
 			},
 
 			success: function(data){
@@ -653,22 +720,21 @@ $("#btn-register-apoderado").on('click',function(){
 
 						if(valor.edad <18){
 
-							$("#apellidoPaterno").val(valor.apellidoPaterno);
-							$("#apellidoMaterno").val(valor.apellidoMaterno);
-							$("#nombre").val(valor.nombre);
-							$("#fechaNacimiento").val(valor.fechaNacimiento);
-							$("#sexo").val(valor.sexo);
-
+							$("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
+							$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
+							$("#nombre-hijo").val(valor.nombre);
+							$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
+							$("#sexo-hijo").val(valor.sexo);
 						}
 
 						else{
 
-							$(".mensajeEdad").empty();
-							$(".mensajeEdad").append("Usted Es menor de edad");
+							$(".mensajeEdadParticpante").empty();
+							$(".mensajeEdadParticipante").append("Usted Es mayor de edad");
 						}
 					});					
 				
-					$('.cargarDatosApoderado').hide();
+					$('.cargarDatosParticipante').hide();
 				
 			},
 

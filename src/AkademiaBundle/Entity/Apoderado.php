@@ -353,4 +353,45 @@ class Apoderado
     {
         return $this->fechaNacimiento->format('Y-m-d');
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->participantes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add participante
+     *
+     * @param \AkademiaBundle\Entity\Participante $participante
+     *
+     * @return Apoderado
+     */
+    public function addParticipante(\AkademiaBundle\Entity\Participante $participante)
+    {
+        $this->participantes[] = $participante;
+
+        return $this;
+    }
+
+    /**
+     * Remove participante
+     *
+     * @param \AkademiaBundle\Entity\Participante $participante
+     */
+    public function removeParticipante(\AkademiaBundle\Entity\Participante $participante)
+    {
+        $this->participantes->removeElement($participante);
+    }
+
+    /**
+     * Get participantes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParticipantes()
+    {
+        return $this->participantes;
+    }
 }

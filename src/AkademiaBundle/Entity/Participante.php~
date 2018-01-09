@@ -287,28 +287,5 @@ class Participante
     {
         return $this->tipoDeSeguro;
     }
-
-    /**
-     * Set apoderado
-     *
-     * @param \AkademiaBundle\Entity\Apoderado $apoderado
-     *
-     * @return Participante
-     */
-    public function setApoderado(\AkademiaBundle\Entity\Apoderado $apoderado = null)
-    {
-        $this->apoderado = $apoderado;
-
-        return $this;
-    }
-
-    /**
-     * Get apoderado
-     *
-     * @return \AkademiaBundle\Entity\Apoderado
-     */
-    public function getApoderado()
-    {
-        return $this->apoderado;
-    }
 }
+
