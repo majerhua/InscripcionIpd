@@ -14,7 +14,9 @@ use AkademiaBundle\Entity\Distrito;
 use AkademiaBundle\Entity\Persona;
 use AkademiaBundle\Entity\Participante;
 use AkademiaBundle\Entity\Post;
+use AkademiaBundle\Entity\Inscribete;
 use AkademiaBundle\Entity\ComplejoDisciplina;
+use AkademiaBundle\Entity\Horario;
 
 
 use Symfony\Component\HttpFoundation\JsonResponse; 
@@ -83,7 +85,6 @@ class DefaultController extends Controller
                 return new JsonResponse($jsonContent); 
 
             }
-
                 
 		}
 
@@ -105,8 +106,10 @@ class DefaultController extends Controller
         $em =  $this->getDoctrine()->getRepository(DisciplinaDeportiva::class);
         $disciplinasDeportivas = $em->findAll();
 
+        $em =  $this->getDoctrine()->getRepository(Horario::class);
+        $horarios = $em->findAll();
 
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array("departamentos" => $departamentos, "provincias" => $provincias, "distritos" => $distritos, "complejosDeportivo" => $complejosDeportivo , "complejosDisciplinas" => $complejosDisciplinas , "disciplinasDeportivas" => $disciplinasDeportivas) );
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array("departamentos" => $departamentos, "provincias" => $provincias, "distritos" => $distritos, "complejosDeportivo" => $complejosDeportivo , "complejosDisciplinas" => $complejosDisciplinas , "disciplinasDeportivas" => $disciplinasDeportivas , "horarios" => $horarios ) );
     }
 
     public function registrarAction(Request $request){
@@ -181,21 +184,63 @@ class DefaultController extends Controller
             $em->persist($participante);
             $em->flush();
 
-            
-            return new JsonResponse("Primer paso terminado!");
+            $idParticipante  = $participante->getId();
 
+            $em = $this->getDoctrine()->getEntityManager();
+            $db = $em->getConnection();
+            $query = "select id,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from participante where id='$idParticipante';";
+            $stmt = $db->prepare($query);
+            $params = array();
+            $stmt->execute($params);
+            $edadAndId = $stmt->fetchAll();
+
+            if(!empty($edadAndId)){
+                return new JsonResponse($edadAndId);    
+            }else{
+                return new JsonResponse(null);
+            }
+            
         }
 
         return new JsonResponse("No es ajax");
 
     }
 
-
-    public function postAction(Request $request){
-
+    public function registerFinalAction(Request $request){
 
         if($request->isXmlHttpRequest()){
 
+            $idParticipante = $request->request->get('idParticipante');
+            $idHorario = $request->request->get('idHorario');
+            $fechaInscripcion = $hoy = date("Y-m-d");
+            $estado ="activo";
+
+            $inscripcion = new Inscribete();
+
+            $inscripcion->setEstado($estado);
+            $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
+
+            $em = $this->getDoctrine()->getRepository(Participante::class);
+            $buscarParticipante = $em->find($idParticipante);
+            $inscripcion->setParticipante($buscarParticipante);
+
+            $em = $this->getDoctrine()->getRepository(Horario::class);
+            $buscarHorario = $em->find($idHorario);
+            $inscripcion->setHorario($buscarHorario);            
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($inscripcion);
+            $em->flush();          
+
+            return new JsonResponse("Inscrito");
+        }
+
+    }
+
+
+    public function postAction(Request $request){
+
+        if($request->isXmlHttpRequest()){
 
             $em = $this->getDoctrine()->getRepository(Post::class);
             $posts = $em->findAll();
@@ -211,19 +256,8 @@ class DefaultController extends Controller
             $serializer = new Serializer($normalizers, $encoders);
             $jsonContent = $serializer->serialize($posts, 'json');
 
-
-
             return new JsonResponse($jsonContent);  
-
         }
-
-
-    }
-
-
-    public function pruebaGetAction(Request  $request){
-
- 
 
 
     }

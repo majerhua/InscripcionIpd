@@ -15,4 +15,8 @@ akademia_getPost:
     defaults: { _controller: AkademiaBundle:Default:post}
     methods:  [GET,POST]
 
+akademia_registerFinal:
+    path:     /register/final
+    defaults: { _controller: AkademiaBundle:Default:registerFinal}
+    methods:  [GET,POST]
 

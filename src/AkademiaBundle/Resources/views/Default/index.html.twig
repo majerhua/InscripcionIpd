@@ -8,6 +8,10 @@
 
 {% block body  %}
 
+
+
+{{dump(horarios)}}	
+
 <header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -135,17 +139,17 @@
 
 				<div class="form-group">
 					<label for="direccion">Direccion</label>
-		          	<input id="direccion" class="form-control" type="text"  id="direccion"  name="direccion"  >
+		          	<input id="direccion" class="form-control" value="aaaaa"  type="text"  id="direccion"  name="direccion"  >
 				</div>
 
 				<div class="form-group">
 					<label for="telefono">Telefono</label>
-		          	<input id="telefono" class="form-control" type="text"  id="telefono"  name="telefono"  >
+		          	<input id="telefono" class="form-control" value="1234" type="text"  id="telefono"  name="telefono"  >
 				</div>
 
 				<div class="form-group">
 					<label for="correo">Correo Electronico</label>
-		          	<input id="correo" class="form-control" type="text"  id="correo"  name="correo"  >
+		          	<input id="correo" class="form-control" type="text"  value="majerhua123"  id="correo"  name="correo"  >
 				</div>
 
         	</div>
@@ -192,7 +196,7 @@
 					<div class="form-group" style="width:50%;padding-left:5px;  ">
 						<label for="sexo-hijo">Sexo</label>
 			          	<select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-			          		<option value="">--SELECCIONAR--</option>
+			          		//<option value="">--SELECCIONAR--</option>
 			          		<option value="masculino" >MASCULINO</option>
 			          		<option value="femenino" >FEMENINO</option>
 			          	</select>
@@ -201,7 +205,7 @@
 					<div class="form-group" style="width:50%;padding:5px;" >
 						<label for="parentesco">Parentesco</label>
 			          	<select id="parentesco" class="form-control" type="text"  name="parentesco">
-			          		<option value="">--SELECCIONAR--</option>
+			          		<!--<option value="">--SELECCIONAR--</option>-->
 			          		<option value="hijo" >HIJO</option>
 			          		<option value="sobrino">SOBRINO</option>
 			          		<option value="nieto">NIETO</option>
@@ -212,7 +216,7 @@
 					<div class="form-group" style="width:50%;padding:5px;">
 						<label for="tipoSeguro">Tipo de Seguro</label>
 						<select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
-							<option value="">--SELECCIONAR--</option>
+							<!--<option value="">--SELECCIONAR--</option>-->
 							<option value="EsSALUD" >EsSALUD</option>
 							<option value="SIS" >SIS</option>
 							<option value="PRIVADO" >PRIVADO</option>
@@ -225,42 +229,15 @@
 		</div>
 <!--FIN SECCION PARTICIPANTE-->
 	</div>
+
+			<div class="form-group pull-right container-boton "  >
+					<button class="btn btn-danger" id="boton-next">CONTINUAR</button>
+			</div>
 	</div>
 
-	<div class="form-group pull-right container-boton "  >
-		<button class="btn btn-danger" id="btn-register-apoderado">CONTINUAR</button>
-	</div>
 
-
-
-
-<!--
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
-        <div class="card">
-      		<p class="title-card" >Horarios</p>
-            
-
- 
-
-
-
-
-
-
-			<div class="form-group">
-	  			<a href="#"><button class="btn btn-primary btn-lg"  >Continuar</button></a>
-	  		</div>
-
-    	</div>
-
-    </div>
-	</div>
--->
-
-
-</section>
-
-<div class="proceso-inscripcion__horarios" id="process2">
+<!--INICIO SECCION HORARIO-->
+	<div class="proceso-inscripcion__horarios" id="process2">
 	
 	<div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-8">
 		
@@ -308,7 +285,7 @@
 
 		<div class="mapa">
 			
-		   <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" height="400" frameborder="0" style="border:0"></iframe>
+		   <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" frameborder="0" style="border:0"></iframe>
 
 		</div>
 
@@ -317,74 +294,58 @@
 
 	<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
 
-		<p class="title-card text-center"  >DEPORTE Y HORARIO</p>
+		<p class="title-card text-center">DEPORTE Y HORARIO</p>
 
         <div class="form-group container-select-deporte"  >
         	<label>Deportiva: </label>
-            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control">
+            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
                 <option value="">--Seleccionar--</option>
             </select> 
         </div>
 
-        <div class="form-group" >
-        	<label>Horario</label>
-        	<p>6 a 7 años</p>
+        <div class="form-group  container-edad-participante" >
+        	<p>Edad</p>
+        	<p><span  id="edadMinima" ></span> a <a id="edadMaxima"></a> años </p>
         </div>
 
-        <div class="form-group" >
-        	<p>8:00 a 9:00 am</p>
-        	<p>De martes a viernes</p>
-        	<p>40 vacantes</p>
+        <div class="form-group  container-horario-participante">
+        	<div><span id="horaInicio" ></span> am a <span id="horaFin"></span> am</div>
+        	<div>De martes a viernes</div>
+        	<div><span id="vacantes"></span>vacantes</div>
         </div>
 
         <div class="form-group" >
         	
 			<p>Otras Edades</p>
+	
+			<div class="horario-otrasEdades" >
+	
+        	</div>
 
-			<div>
-				<p>8 a 9</p>
-				<p>9:00 a 10:00 am</p>
-			</div>	
+			<div class="form-group pull-right container-boton-final"  >
+			<button class="btn btn-danger" id="boton-next-final">CONTINUAR</button>
 
-			<div>
-				<p>10 a 12</p>
-				<p>10:00 a 11:00 am</p>
-			</div>	
-
-			<div>
-				<p>13 a 14</p>
-				<p>11:00 a 12:00 am</p>
-			</div>
-
-			<div>
-				<p>15 a 17</p>
-				<p>12:00 a 1:00 pm</p>
 			</div>		
-
-        </div>
+		</div>	
 		
+
+
+
 	</div>
 
 </div>
 
+	
 
-
-
-
-
-
-
-
+</section>
 
 {% endblock %}
-
-
 
 {% block javascripts %}
 
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
-<script src="{{asset('assets/vendor/js/scroll.js')}}"></script>
+<!--<script src="{{asset('assets/vendor/js/scroll.js')}}"></script>-->
 <script>
 	
 	$.ajax({
@@ -401,7 +362,7 @@
 			
 
 			var dataPost = JSON.parse(data);
-			console.log("Post ==> ",dataPost);
+			//console.log("Post ==> ",dataPost);
 
 		},
 
@@ -412,8 +373,43 @@
 	});
 
 
-	
+	$("#boton-next-final").on('click',function(){
 
+		var datosInscripcion = {
+			'idParticipante' : sessionStorage.getItem('idParticipante'),
+			'idHorario' : sessionStorage.getItem('idHorario')		
+		}		
+		$.ajax({
+
+			type:'POST',
+			dataType: 'json',
+			url: "{{url('akademia_registerFinal')}}",
+			data: datosInscripcion,
+
+			beforeSend: function(){
+				
+			},
+
+			success: function(data){
+				console.log(data);
+			},
+
+			error: function(error){
+				console.log(error);
+			}
+				
+		});
+	});
+
+
+/*EVENTO BOTON NEXT PROCESSO 2*/
+
+	$("#process2").hide();
+
+	$("#boton-next").on('click',function(){
+		registrarApoderado();	
+	})
+/*EVENTO FIN BOTON NEXT PROCESSO 2*/	
 
 	function cambiarDepartamento(departamento){
 
@@ -553,7 +549,7 @@
 				console.log("{{complejoDisciplina.disciplinaDeportiva.nombre}}");
 				console.log("{{complejoDisciplina.disciplinaDeportiva.id}}");
 				
-				$("#disciplinaDeportiva").append("<option value={{complejoDisciplina.disciplinaDeportiva.id}} >{{complejoDisciplina.disciplinaDeportiva.nombre}}</option>");
+				$("#disciplinaDeportiva").append("<option value={{complejoDisciplina.id}} >{{complejoDisciplina.disciplinaDeportiva.nombre}}</option>");
 				
 			}
 
@@ -562,17 +558,56 @@
 	}
 
 
-$("#btn-register-apoderado").on('click',function(){
+	function cambiarDisciplinaDeportiva(complejoDisciplina){
+
+		var idComplejoDisciplina = complejoDisciplina.value;
+		console.log(idComplejoDisciplina);
+
+		$(".horario-otrasEdades").empty();
+		{% for horario in horarios  %}
+
+			if("{{horario.complejoDisciplina.id}}" == idComplejoDisciplina){
+
+				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
+
+					console.log("Horario  ==> {{horario.id}}");
+
+					localStorage.removeItem('idHorario');
+					sessionStorage.setItem("idHorario", "{{horario.id}}");
+
+					$("#vacantes").empty();
+					$("#vacantes").append("{{horario.vacantes}}");
+
+					$("#horaInicio").empty();
+					$("#horaInicio").append("{{horario.horaInicio}}");
+
+					$("#horaFin").empty();
+					$("#horaFin").append("{{horario.horaFin}}");
+
+					$("#edadMinima").empty();
+					$("#edadMinima").append("{{horario.edadMinima}}");
+
+					$("#edadMaxima").empty();
+					$("#edadMaxima").append("{{horario.edadMaxima}}");
+
+					console.log("{{horario.vacantes}}");
+					console.log("{{horario.horaInicio}}");
+					console.log("{{horario.horaFin}}");
+					console.log("{{horario.edadMinima}}");
+					console.log("{{horario.edadMaxima}}");
+					
+				}else{
+				
+				$(".horario-otrasEdades").append("<div><p>{{horario.edadMinima}} a {{horario.edadMaxima}}</p><p>{{horario.horaInicio}} a {{horario.horaFin}} am</p></div>");
+				}
+		
+			}
+
+		{% endfor %}
 	
-	registrarApoderado();	
-})
-
-
-
-
+	}
 
 	function registrarApoderado(){
-
 
 		var dataRegisterApoderado={
 
@@ -600,7 +635,6 @@ $("#btn-register-apoderado").on('click',function(){
 			"tipoSeguro" : $("#tipoSeguro").val()
 		};
 
-
 		$.ajax({
 
 			type:'POST',
@@ -613,22 +647,38 @@ $("#btn-register-apoderado").on('click',function(){
 			},
 
 			success: function(data){
-				
+								
 				//var dataApoderado = JSON.parse(data);
 				console.log(data);
+
+				if( typeof(parseInt(data[0].edad)) == 'number'){
+
+					$(".bar-inscripcion__1").removeClass('active');
+					$(".bar-inscripcion__2").addClass('active');
+
+					$("#process1").hide();
+					$("#process2").show();
+
+					localStorage.removeItem('edad');
+					sessionStorage.setItem("edad", data[0].edad);
+					console.log(data[0].edad);
+
+					localStorage.removeItem('idParticipante');
+					sessionStorage.setItem("idParticipante", data[0].id);
+					console.log(data[0].id);
+
+				}else{
+					console.log("No se ha registrado");
+				}
 
 			},
 
 			error: function(error){
 				console.log(error);
 			}
-
+				
 		});
-
-
 	}
-
-
 
 	$('.cargarDatosApoderado').hide();	
 
@@ -725,12 +775,14 @@ $("#btn-register-apoderado").on('click',function(){
 							$("#nombre-hijo").val(valor.nombre);
 							$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
 							$("#sexo-hijo").val(valor.sexo);
+
 						}
 
 						else{
 
 							$(".mensajeEdadParticpante").empty();
 							$(".mensajeEdadParticipante").append("Usted Es mayor de edad");
+
 						}
 					});					
 				

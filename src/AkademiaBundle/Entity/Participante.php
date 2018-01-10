@@ -13,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Participante
 {
 
+    /**
+     * @ORM\OneToMany(targetEntity="Inscribete", mappedBy="participante")
+     */
+    private $inscripciones;    
 
     /**
      * @ORM\ManyToOne(targetEntity="Apoderado", inversedBy="participantes")
@@ -310,5 +314,46 @@ class Participante
     public function getApoderado()
     {
         return $this->apoderado;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->inscripciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add inscripcione
+     *
+     * @param \AkademiaBundle\Entity\Inscribete $inscripcione
+     *
+     * @return Participante
+     */
+    public function addInscripcione(\AkademiaBundle\Entity\Inscribete $inscripcione)
+    {
+        $this->inscripciones[] = $inscripcione;
+
+        return $this;
+    }
+
+    /**
+     * Remove inscripcione
+     *
+     * @param \AkademiaBundle\Entity\Inscribete $inscripcione
+     */
+    public function removeInscripcione(\AkademiaBundle\Entity\Inscribete $inscripcione)
+    {
+        $this->inscripciones->removeElement($inscripcione);
+    }
+
+    /**
+     * Get inscripciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInscripciones()
+    {
+        return $this->inscripciones;
     }
 }

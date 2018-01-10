@@ -23,14 +23,12 @@ body{
 
 	height:100vh;
 	width: 100%;
-	background-color: green;
 	padding-top: 56px;
 }
 	
 
 	.progreso{
 		height: 80px;
-		background-color: blue;
 	}
 
 	.container-titulo{
@@ -105,6 +103,15 @@ body{
 				background-color: rgba(255, 24, 23, 1); 
 			}
 
+			.container-boton-final{
+	
+			}
+
+			.horario-otrasEdades>div{
+				display: flex;
+				flex-wrap: wrap;
+			}
+
 		.container-boton{
 			padding-right: 125px;
 		}
@@ -115,18 +122,14 @@ body{
 .proceso-inscripcion__horarios{
 
 	width: 100%;
-	height: 100vh;
+	height: 74vh;
 	background-color: gray;
-	padding-top: 60px;
 	display: flex;
 	flex-wrap: wrap;
 }
 
 	.proceso-inscripcion__horarios__complejo-mapa{
-
-		
 		background-color:red;
-
 	}
 
 		.complejo{
@@ -141,7 +144,7 @@ body{
 		}
 
 			.form-group{
-				background-color: orange;
+				
 			}
 
 			.form-group-tam{
@@ -165,6 +168,42 @@ body{
 				margin-left: 14px;
 			}
 
+		.container-edad-participante{
+			padding-top: 10px;
+			width: 70%;
+			margin:0 auto;
+			justify-content: space-around; ;
+			background-color: blue;
+			display: flex;
+		}
+
+		.container-horario-participante{
+			padding-top: 10px;
+			width: 70%;
+			margin:0 auto;
+
+			background-color: brown;
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			flex-direction: column;
+		}
+
+			.container-horario-participante>div{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+
+	.mapa{
+		height: 55vh;
+
+	}
+
+
+		.mapa>iframe{
+			height: 50vh;
+		}
 /*FIN PROCESO DE INSCRIPCION */
 
 .card{

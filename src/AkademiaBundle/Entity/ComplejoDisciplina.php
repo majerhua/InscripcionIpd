@@ -15,6 +15,11 @@ class ComplejoDisciplina
 
 
     /**
+     * @ORM\OneToMany(targetEntity="Horario", mappedBy="complejoDisciplina")
+     */
+    private $horarios;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="DisciplinaDeportiva", inversedBy="complejosDisciplinas")
      * @ORM\JoinColumn(name="disciplinaDeportiva_id", referencedColumnName="id")
      */
@@ -92,5 +97,46 @@ class ComplejoDisciplina
     public function getDisciplinaDeportiva()
     {
         return $this->disciplinaDeportiva;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->horarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add horario
+     *
+     * @param \AkademiaBundle\Entity\Horario $horario
+     *
+     * @return ComplejoDisciplina
+     */
+    public function addHorario(\AkademiaBundle\Entity\Horario $horario)
+    {
+        $this->horarios[] = $horario;
+
+        return $this;
+    }
+
+    /**
+     * Remove horario
+     *
+     * @param \AkademiaBundle\Entity\Horario $horario
+     */
+    public function removeHorario(\AkademiaBundle\Entity\Horario $horario)
+    {
+        $this->horarios->removeElement($horario);
+    }
+
+    /**
+     * Get horarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHorarios()
+    {
+        return $this->horarios;
     }
 }
