@@ -19,7 +19,6 @@ class Apoderado
      */
     private $participantes;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Distrito", inversedBy="apoderados")
      * @ORM\JoinColumn(name="distrito_id", referencedColumnName="id")
