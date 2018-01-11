@@ -217,7 +217,7 @@ class Participante
      */
     public function getFechaNacimiento()
     {
-        return $this->fechaNacimiento;
+        return $this->fechaNacimiento->format('Y-m-d');
     }
 
     /**

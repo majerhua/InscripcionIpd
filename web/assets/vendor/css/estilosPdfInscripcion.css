@@ -1,0 +1,103 @@
+.container__pdfFichaInscripcion{
+	width: 70%;
+	margin:0 auto;
+
+	padding-top: 15px;
+	height: 100vh;
+
+	font-family: 'Open Sans', sans-serif;
+}
+
+	.container__pdfFichaInscripcion>p{
+		font-weight: bold;
+		font-size: 1.3em;
+		padding-left: 150px;
+	}
+
+	.pdfFichaInscripcion__header{
+
+	}
+
+		.pdfFichaInscripcion__header>p{
+			font-size:1.2em;
+			font-family: 'Marcellus SC', serif;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.pdfFichaInscripcion__header>div{
+			
+			text-align: center;
+		}
+
+			.pdfFichaInscripcion__header> div > p{
+				font-weight: bold;				
+			}
+			.pdfFichaInscripcion__header> div > p:first-child{
+
+				font-size: 1.4em;
+			}
+
+	.container-datosPersonales{
+		display: flex;
+
+		padding-left: 155px;
+		flex-wrap: wrap;
+
+	}		
+
+		.pdfFichaInscripcion__campos{
+			
+			width: 20%;
+			display: flex;
+			font-weight: bold;
+			flex-wrap: wrap;
+			flex-direction: column; 
+
+			padding: 3px 10px 3px 20px;
+		}
+
+			.pdfFichaInscripcion__campos>p{
+				font-size: 0.8em;
+				
+			}
+
+		.pdfFichaInscripcion__valores{
+			width: 75%;
+			
+		}
+			.pdfFichaInscripcion__valores>p{
+				font-size: 0.8em;
+			}
+	
+	.container__disciplina-horario{
+		width: 100%;
+		padding-left: 150px;
+	}
+
+		.container__disciplina-horario>div {
+		
+			display: flex;
+			flex-wrap: wrap;
+			font-weight: bold;
+			font-size: 1.3em;
+
+		}
+
+	#fichaPdfComplejoDeportivo{
+		font-weight: normal;
+	}
+
+	#fichaPdfDisciplinaDeporiva{
+		font-weight: normal;
+	}
+
+	#fichaPdfHorario{
+		font-weight: normal;
+	}
+
+	.parrafo__disciplina-horario{
+		padding-right: 5px;
+	}
+	
+

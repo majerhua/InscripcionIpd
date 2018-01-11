@@ -10,8 +10,6 @@
 
 
 
-{{dump(horarios)}}	
-
 <header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -350,9 +348,9 @@
 			<p>Nombre</p>
 			<p>Apellido Paterno</p>
 			<p>Apellido Materno</p>
+			<p>Distrito</p>
 			<p>Domicilio</p>
 			<p>Fecha Nacimiento</p>
-			<p>Direccion</p>
 			<p>Telefono</p>
 			<p>Dni</p>
 			<p>Edad</p>
@@ -362,22 +360,28 @@
 			<p>Horario</p>
 		</div>
 
-		<div class="valores col-md8-8  col-lg-8">
+		<div class="valores col-md-8  col-lg-8">
 			
-			<span id="nombre-ficha"></span>
-			<span id="apellidoPaterni-ficha" ></span>
-			<span id="apellidoMaterno-ficha" ></span>
-			<span id="domicilio-ficha" ></span>
-			<span id="fechaNacimiento-ficha" ></span>
-			<span id="direccion-ficha" ></span>
-			<span id="telefono-ficha" ></span>
-			<span id="dni-ficha" ></span>
-			<span id="edad-ficha" ></span>
-			<span id="email-ficha" ></span>
-			<span id="deporte-ficha" ></span>
-			<span id="complejo-ficha" ></span>
-			<span id="horario-ficha" ></span>
+			<p id="nombre-ficha"></p>
+			<p id="apellidoPaterni-ficha" ></p>
+			<p id="apellidoMaterno-ficha" ></p>
+			<p id="distrito-ficha" ></p>
+			<p id="domicilio-ficha" ></p>
+			<p id="fechaNacimiento-ficha" ></p>
+			<p id="telefono-ficha" ></p>
+			<p id="dni-ficha" ></p>
+			<p id="edad-ficha" ></p>
+			<p id="email-ficha" ></p>
+			<p id="deporte-ficha" ></p>
+			<p id="complejo-ficha" ></p>
+			<p id="horario-ficha" ></p>
 
+		</div>
+
+		<div  class="col-md-12 col-lg-12">
+			
+			<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" >Imprimir Ficha</button></a>
+			<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" >Imprimir Decla.Jurada</button></a>
 		</div>
 
 	</div>
@@ -390,13 +394,13 @@
 		    </tr>
 		    <tr>
 		        <td colspan="2" class="table-cuerpo" > 
-		            <p>Yo,  identificado(a) con Documento Nacional de Identidad Nº , padre/madre o apoderado
-		                del menor  con Domicilio 
+		            <p>Yo, <span id="nombrePadre-declaracion-jurada"></span> <span id="apellidoPaterno-declaracion-jurada"></span> <span id="apellidoMaterno-declaracion-jurada"></span> identificado(a) con Documento Nacional de Identidad Nº <span id="dniPadre-declaracion-jurada" ></span>, padre/madre o apoderado
+		                del menor hijo <span id="nombre-declaracion-jurada" ></span> <span id="apellidoPaterno-declaracion-jurada" ></span>  <span id="apellidoMaterno-declaracion-jurada" ></span>con Domicilio <span id="domicilio-declaracion-jurada" ></span>
 		                {#Distrito {{ dataDec[0].distrito_apo }}#} Teléfono .</p>
 		            <p>Formulo la presente Declaración Jurada de Autorización, en virtud del Principio de Presunción de Veracidad y el artículo 
 		                42º de la Ley Nº 27444, "Ley del Procedimiento Administrativo General". <span class="importante">Para Autorizar, a mi menor hijo(a)/tutelado(a)</span> 
-		               , identificado(a) con DNI Nº <span class="importante"> a participar en el Programa "DEPORTE PARA TODOS"</span> 
-		                que se realizará entre los meses de {#{{ dataDec[0].meses|upper }}#} en la infraestructura deportiva del IPD .</p>
+		               , identificado(a) con DNI Nº <span class="dniParticipante-declaracion-jurada"></span>  <span class="importante"> a participar en el Programa "DEPORTE PARA TODOS"</span> 
+		                que se realizará  en la infraestructura deportiva del IPD  <span id="complejo-declaracion-jurada" ></span> .</p>
 		            <p>Es por ello, que me comprometo libre y voluntariamente, asumir las responsabilidades que se pudieran presentarse sobre la participación 
 		                de mi menor hijo/tutelado durante el Programa Deporte para Todos, conforme se precisa a continuación:</p>
 		            <ol style="margin-left:10px;" >
@@ -499,6 +503,23 @@
 
 	});
 
+
+	//$("#btn-imprimir-fichaInscripcion").on('click',function(){
+
+		//location.href ="/academia/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion");
+		//window.open("/academia/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+
+
+	//});
+
+	//$("#btn-imprimir-declaracion-jurada").on('click',function(){
+
+
+		//location.href ="/academia/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion");
+
+	//});
+	
+
 	$("#process3").hide();
 
 	$("#boton-next-final").on('click',function(){
@@ -522,9 +543,42 @@
 			},
 
 			success: function(data){
-				console.log(data);
+				var dataTotalInscripcion =JSON.parse(data); 
+				console.log(dataTotalInscripcion);
 				$("#process2").hide();
 				$("#process3").show();
+
+				$(dataTotalInscripcion).each(function(index,valor){
+
+					sessionStorage.removeItem("idInscripcion");
+					sessionStorage.setItem("idInscripcion",valor.id);
+
+					$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+
+					$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/pdf/declaracion-jurada"+sessionStorage.getItem("idInscripcion"));
+
+					$("#nombre-ficha").append(valor.participante.nombre);
+					$("#apellidoPaterni-ficha").append(valor.participante.apellidoPaterno);
+					$("#apellidoMaterno-ficha").append(valor.participante.apellidoMaterno);
+					$("#distrito-ficha").append(valor.participante.apoderado.distrito.nombre);
+					$("#domicilio-ficha").append(valor.participante.apoderado.direccion);
+					$("#fechaNacimiento-ficha").append(valor.participante.fechaNacimiento);
+					$("#telefono-ficha").append(valor.participante.apoderado.telefono);
+					$("#dni-ficha").append(valor.participante.dni);
+					$("#edad-ficha").append(sessionStorage.getItem("edad"));
+					$("#email-ficha").append(valor.participante.apoderado.correo);
+					$("#deporte-ficha").append(valor.horario.complejoDisciplina.complejoDeportivo.nombre);
+					$("#complejo-ficha").append(valor.horario.complejoDisciplina.disciplinaDeportiva.nombre);
+					$("#horario-ficha").append(valor.horario.horaInicio+" a "+valor.horario.horaFin);
+
+
+					$("nombrePadre-declaracion-jurada").append(valor.apoderado.nombre);
+
+					$(".bar-inscripcion__2").removeClass('active');
+					$(".bar-inscripcion__3").addClass('active');
+
+				});
+
 			},
 
 			error: function(error){
@@ -792,7 +846,7 @@
 					$("#process1").hide();
 					$("#process2").show();
 
-					localStorage.removeItem('edad');
+					sessionStorage.removeItem('edad');
 					sessionStorage.setItem("edad", data[0].edad);
 					console.log(data[0].edad);
 

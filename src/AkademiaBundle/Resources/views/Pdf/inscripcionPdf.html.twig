@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+	<style type="text/css">
+
+	.container__pdfFichaInscripcion{
+	width: 85%;
+	margin:0 auto;
+
+	padding-top: 30px;
+	height: 100vh;
+
+	font-family: 'Open Sans', sans-serif;
+}
+
+	.container__pdfFichaInscripcion>p{
+		font-weight: bold;
+		font-size: 1.3em;
+	}
+
+	.pdfFichaInscripcion__header{
+
+	}
+
+		.pdfFichaInscripcion__header>p{
+			font-size:1.8em;
+			font-family: 'Marcellus SC', serif;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.pdfFichaInscripcion__header>div{
+			
+			text-align: center;
+		}
+
+			.pdfFichaInscripcion__header> div > p{
+				font-weight: bold;				
+			}
+			.pdfFichaInscripcion__header> div > p:first-child{
+
+				font-size: 1.4em;
+			}
+
+	.container-datosPersonales{
+		
+			width: 100%;
+			padding-bottom: 20px;
+
+	}		
+
+		.pdfFichaInscripcion__campos{
+			
+			width: 40%;
+
+			font-weight: bold;
+ 			float: left;
+
+			
+		}
+
+			.pdfFichaInscripcion__campos>p{
+				font-size: 1.1em;
+				
+			}
+
+		.pdfFichaInscripcion__valores{
+			width: 60%;
+			
+			float: left;
+			
+		}
+			.pdfFichaInscripcion__valores>p{
+				font-size: 1.1em;
+			}
+	
+	.container__disciplina-horario{
+		width: 100%;
+		
+	}
+
+		.container__disciplina-horario>div {
+			
+
+			font-weight: bold;
+			font-size: 1.3em;
+			
+
+		}
+
+	#fichaPdfComplejoDeportivo{
+		font-weight: normal;
+	}
+
+	#fichaPdfDisciplinaDeporiva{
+		font-weight: normal;
+	}
+
+	#fichaPdfHorario{
+		font-weight: normal;
+	}
+
+	.parrafo__disciplina-horario{
+		padding-right: 5px;
+	}
+
+		.container__logo{
+	border:1px solid black;
+	width: 180px;
+	height: 100px;
+	border-radius: 10px;
+	overflow: hidden;
+	margin:0 auto;
+
+	}
+
+	.container__logo>img{
+		border:1px solid black;
+	}
+	</style>
+</head>
+<body>
+
+
+		<div class="container__pdfFichaInscripcion">
+
+		<div  class="pdfFichaInscripcion__header">
+			
+			<div class="container__logo">
+				<img  height="100" width="180" src="http://www.deportesperu.pe/wp-content/uploads/2014/01/logosipd-011.jpg" >
+			</div>
+
+			<p>DIRECCION NACIONAL DE RECREACION Y PROMOCION DEL DEPORTE</p>
+
+			<div>
+				<p>ACADEMIA IPD</p>
+				<p>VERANO 2018</p>
+			</div>
+
+			<p>FICHA DE INSCRIPCION</p>
+		</div>
+
+
+		<p>DATOS PERSONALES:</p>
+		
+		<div class="container-datosPersonales" >
+			<div class="pdfFichaInscripcion__campos"> 
+				
+				<p>Nombre:</p>
+				<p>Apellido Paterno:</p>
+				<p>Apellido Materno:</p>
+				<p>Distrito:</p>
+				<p>Domicilio:</p>
+				<p>Fecha Nacimiento:</p>
+				<p>Telefono:</p>
+				<p>Dni:</p>
+				<p>Edad:</p>
+				<p>Email:</p>
+			</div>
+
+			<div class="pdfFichaInscripcion__valores">
+				
+					
+			
+				<p id="nombre-ficha">{{inscripcion.participante.nombre}}</p>
+				<p id="apellidoPaterni-ficha" >{{inscripcion.participante.apellidoPaterno}}</p>
+				<p id="apellidoMaterno-ficha" >{{inscripcion.participante.apellidoMaterno}}</p>
+				<p id="distrito-ficha" >{{inscripcion.participante.apoderado.distrito.nombre}}</p>
+				<p id="domicilio-ficha" >{{inscripcion.participante.apoderado.direccion}}</p>
+				<p id="fechaNacimiento-ficha">{{inscripcion.participante.fechaNacimiento}}</p>
+				<p id="telefono-ficha" >{{inscripcion.participante.apoderado.telefono}}</p>
+				<p id="dni-ficha" >{{inscripcion.participante.dni}}</p>
+				<p id="edad-ficha" >{{edad[0]["edad"]}}</p>
+				<p id="email-ficha" >{{inscripcion.participante.apoderado.correo}}</p>
+
+				
+			</div>
+		</div>
+
+		<div class="container__disciplina-horario">
+
+			<div>
+				<p class="parrafo__disciplina-horario">COMPLEJO DEPORTIVO: </p>
+
+				<p><span id="fichaPdfComplejoDeportivo">{{inscripcion.horario.complejoDisciplina.complejoDeportivo.nombre}}</span></p>
+			</div>
+			
+			<div>
+				<p class="parrafo__disciplina-horario">DISCIPLINA DEPORIVA: </p>
+
+				<p><span id="fichaPdfDisciplinaDeporiva"> {{inscripcion.horario.complejoDisciplina.disciplinaDeportiva.nombre}}</span></p>
+			</div>
+
+			<div>
+				
+				<p class="parrafo__disciplina-horario">HORARIOS: </p>
+
+				<p><span id="fichaPdfHorario" > De {{inscripcion.horario.horaInicio}} a {{inscripcion.horario.horaFin}} martes a viernes.</span></p>
+
+			</div>		
+	
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+
+		var edadFicha = document.getElementById("edad-ficha");
+
+		var nodoEdadFicha = document.createTextNode(sessionStorage.getItem('edad'));
+
+		//edadFicha.appendChild(nodoEdadFicha);
+
+			
+
+	</script>
+</body>
+</html>
+
+	
+
+
+

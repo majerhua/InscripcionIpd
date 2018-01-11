@@ -20,3 +20,12 @@ akademia_registerFinal:
     defaults: { _controller: AkademiaBundle:Default:registerFinal}
     methods:  [GET,POST]
 
+akademia_generarPdfInscripcion:
+    path:     /pdf/inscripcion/{id}
+    defaults: { _controller: AkademiaBundle:Default:generarPdfInscripcion}
+    methods:  [GET,POST]
+
+akademia_generarPdfDeclaracionJurada:
+    path:     /pdf/declaracion-jurada/{id}
+    defaults: { _controller: AkademiaBundle:Default:generarPdfDeclaracionJurada}
+    methods:  [GET,POST]

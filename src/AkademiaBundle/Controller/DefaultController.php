@@ -4,6 +4,7 @@ namespace AkademiaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use AkademiaBundle\Entity\Apoderado;
 use AkademiaBundle\Entity\Departamento;
@@ -206,6 +207,167 @@ class DefaultController extends Controller
 
     }
 
+
+
+public function generarPdfInscripcionAction(Request $request , $id)
+    {   
+        
+    
+        $snappy = $this->get('knp_snappy.pdf');
+
+        $inscripcion = $this->getDoctrine()->getRepository(Inscribete::class)->find($id);
+        $horario = $this->getDoctrine()->getRepository(Horario::class)->findAll();
+        $apoderado = $this->getDoctrine()->getRepository(Apoderado::class)->findAll();
+        $distrito = $this->getDoctrine()->getRepository(Distrito::class)->findAll();
+        $disciplinaDeportiva = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class)->findAll();
+        $complejoDisciplina = $this->getDoctrine()->getRepository(ComplejoDisciplina::class)->findAll();
+        $complejoDeportivo = $this->getDoctrine()->getRepository(ComplejoDeportivo::class)->findAll();
+
+
+        $idParticipante  = $inscripcion->getParticipante()->getId();
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+        $query = "select (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from participante where id='$idParticipante';";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $edad = $stmt->fetchAll();
+
+
+        $participante = $this->getDoctrine()->getRepository(Participante::class)->findAll();
+
+        $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', array("inscripcion" =>$inscripcion
+           , "edad" => $edad));
+
+         $filename = "file";
+
+        return new Response(
+            $snappy->getOutputFromHtml($html,
+                    array(
+                        'encoding' => 'utf-8',
+                        'title'=> 'Inscripcion PDF',
+                        'images' => true,
+                        'enable-javascript' => true,
+                        'javascript-delay' => 3000,
+                        'no-stop-slow-scripts' =>false
+                    )
+            ),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename = "'.$filename.'.pdf" '
+            )
+        );
+        
+        /*
+        
+        $inscripcion = $this->getDoctrine()->getRepository(Inscribete::class)->find($id);
+        $horario = $this->getDoctrine()->getRepository(Horario::class)->findAll();
+        $apoderado = $this->getDoctrine()->getRepository(Apoderado::class)->findAll();
+        $distrito = $this->getDoctrine()->getRepository(Distrito::class)->findAll();
+        $disciplinaDeportiva = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class)->findAll();
+        $complejoDisciplina = $this->getDoctrine()->getRepository(ComplejoDisciplina::class)->findAll();
+        $complejoDeportivo = $this->getDoctrine()->getRepository(ComplejoDeportivo::class)->findAll();
+
+
+
+       $idParticipante  = $inscripcion->getParticipante()->getId();
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+        $query = "select (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from participante where id='$idParticipante';";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $edad = $stmt->fetchAll();
+
+
+
+        $participante = $this->getDoctrine()->getRepository(Participante::class)->findAll();
+        return $this->render('AkademiaBundle:Pdf:inscripcionPdf.html.twig', array("inscripcion" =>$inscripcion, "edad"=>$edad) );
+        */
+    }
+
+    public function generarPdfDeclaracionJuradaAction(Request $request , $id){
+
+        
+
+        $snappy = $this->get('knp_snappy.pdf');
+
+        $inscripcion = $this->getDoctrine()->getRepository(Inscribete::class)->find($id);
+        $horario = $this->getDoctrine()->getRepository(Horario::class)->findAll();
+        $apoderado = $this->getDoctrine()->getRepository(Apoderado::class)->findAll();
+        $distrito = $this->getDoctrine()->getRepository(Distrito::class)->findAll();
+        $disciplinaDeportiva = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class)->findAll();
+        $complejoDisciplina = $this->getDoctrine()->getRepository(ComplejoDisciplina::class)->findAll();
+        $complejoDeportivo = $this->getDoctrine()->getRepository(ComplejoDeportivo::class)->findAll();
+
+
+        $idParticipante  = $inscripcion->getParticipante()->getId();
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+        $query = "select (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from participante where id='$idParticipante';";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $edad = $stmt->fetchAll();
+
+
+        $participante = $this->getDoctrine()->getRepository(Participante::class)->findAll();
+
+        $html = $this->renderView('AkademiaBundle:Pdf:declaracionJuradaPdf.html.twig', array("inscripcion" =>$inscripcion
+           , "edad" => $edad));
+
+         $filename = "file";
+
+        return new Response(
+            $snappy->getOutputFromHtml($html,
+                    array(
+                        'encoding' => 'utf-8',
+                        'title'=> 'Declaracion Jurada',
+                        'images' => true,
+                        'enable-javascript' => true,
+                        'javascript-delay' => 3000,
+                        'no-stop-slow-scripts' =>false
+                    )
+            ),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename = "'.$filename.'.pdf" '
+            )
+        );
+        
+        
+        /*
+        $inscripcion = $this->getDoctrine()->getRepository(Inscribete::class)->find($id);
+        $horario = $this->getDoctrine()->getRepository(Horario::class)->findAll();
+        $apoderado = $this->getDoctrine()->getRepository(Apoderado::class)->findAll();
+        $distrito = $this->getDoctrine()->getRepository(Distrito::class)->findAll();
+        $disciplinaDeportiva = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class)->findAll();
+        $complejoDisciplina = $this->getDoctrine()->getRepository(ComplejoDisciplina::class)->findAll();
+        $complejoDeportivo = $this->getDoctrine()->getRepository(ComplejoDeportivo::class)->findAll();
+
+
+
+       $idParticipante  = $inscripcion->getParticipante()->getId();
+        $em = $this->getDoctrine()->getEntityManager();
+        $db = $em->getConnection();
+        $query = "select (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from participante where id='$idParticipante';";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+        $edad = $stmt->fetchAll();
+
+
+
+        $participante = $this->getDoctrine()->getRepository(Participante::class)->findAll();
+        return $this->render('AkademiaBundle:Pdf:declaracionJuradaPdf.html.twig', array("inscripcion" =>$inscripcion, "edad"=>$edad) );
+        
+        */
+    }
+
     public function registerFinalAction(Request $request){
 
         if($request->isXmlHttpRequest()){
@@ -230,9 +392,26 @@ class DefaultController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($inscripcion);
-            $em->flush();          
+            $em->flush();
 
-            return new JsonResponse("Inscrito");
+            $em = $this->getDoctrine()->getRepository(Inscribete::class);
+            $buscarInscripcion = $em->find($inscripcion->getId());
+
+
+            $encoders = array(new JsonEncoder());
+            $normalizer = new ObjectNormalizer();
+
+            $normalizer->setCircularReferenceLimit(1);
+                //Add Circular reference handler
+            $normalizer->setCircularReferenceHandler(function ($object) {
+                return $object->getId();
+            });
+            $normalizers = array($normalizer);
+            $serializer = new Serializer($normalizers, $encoders);
+            $jsonContent = $serializer->serialize($buscarInscripcion,'json');
+
+            return new JsonResponse($jsonContent);
+
         }
 
     }
