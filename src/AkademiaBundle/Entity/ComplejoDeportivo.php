@@ -7,13 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ComplejoDeportivo
  *
- * @ORM\Table(name="complejo_deportivo")
+ * @ORM\Table(name="CATASTRO.edificacionesdeportivas")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\ComplejoDeportivoRepository")
  */
 class ComplejoDeportivo
 {
-
-
 
     /**
      * @ORM\OneToMany(targetEntity="ComplejoDisciplina", mappedBy="complejoDeportivo")
@@ -23,7 +21,7 @@ class ComplejoDeportivo
 
     /**
      * @ORM\ManyToOne(targetEntity="Distrito", inversedBy="complejosDeportivo")
-     * @ORM\JoinColumn(name="distrito_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ubicodigo", referencedColumnName="ubicodigo")
      */
     private $distrito;
 
@@ -31,7 +29,7 @@ class ComplejoDeportivo
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="ede_codigo", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -40,16 +38,31 @@ class ComplejoDeportivo
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="ede_nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="direccion", type="string", length=255)
+     * @ORM\Column(name="ede_direccion", type="string", length=255)
      */
     private $direccion;
+
+
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="ede_coordenadax", type="string", length=30)
+     */
+    private $latitud;
+
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="ede_coordenaday", type="string", length=30)
+     */
+    private $longitud;
 
 
     /**
@@ -173,5 +186,53 @@ class ComplejoDeportivo
     public function getComplejosDisciplinas()
     {
         return $this->complejosDisciplinas;
+    }
+
+    /**
+     * Set latitud
+     *
+     * @param string $latitud
+     *
+     * @return ComplejoDeportivo
+     */
+    public function setLatitud($latitud)
+    {
+        $this->latitud = $latitud;
+
+        return $this;
+    }
+
+    /**
+     * Get latitud
+     *
+     * @return string
+     */
+    public function getLatitud()
+    {
+        return $this->latitud;
+    }
+
+    /**
+     * Set longitud
+     *
+     * @param string $longitud
+     *
+     * @return ComplejoDeportivo
+     */
+    public function setLongitud($longitud)
+    {
+        $this->longitud = $longitud;
+
+        return $this;
+    }
+
+    /**
+     * Get longitud
+     *
+     * @return string
+     */
+    public function getLongitud()
+    {
+        return $this->longitud;
     }
 }

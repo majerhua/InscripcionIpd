@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Distrito
  *
- * @ORM\Table(name="distrito")
+ * @ORM\Table(name="grubigeo")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\DistritoRepository")
  */
 class Distrito
@@ -25,15 +25,9 @@ class Distrito
     private $apoderados;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Provincia", inversedBy="distritos")
-     * @ORM\JoinColumn(name="provincia_id", referencedColumnName="id")
-     */
-    private $provincia;
-
-    /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="ubicodigo", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -42,10 +36,9 @@ class Distrito
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="ubinombre", type="string", length=255)
      */
     private $nombre;
-
 
     /**
      * Get id
@@ -81,29 +74,6 @@ class Distrito
         return $this->nombre;
     }
 
-    /**
-     * Set provincia
-     *
-     * @param \AkademiaBundle\Entity\Departamento $provincia
-     *
-     * @return Distrito
-     */
-    public function setProvincia(\AkademiaBundle\Entity\Departamento $provincia = null)
-    {
-        $this->provincia = $provincia;
-
-        return $this;
-    }
-
-    /**
-     * Get provincia
-     *
-     * @return \AkademiaBundle\Entity\Departamento
-     */
-    public function getProvincia()
-    {
-        return $this->provincia;
-    }
     /**
      * Constructor
      */

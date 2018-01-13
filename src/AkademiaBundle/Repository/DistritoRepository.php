@@ -10,4 +10,41 @@ namespace AkademiaBundle\Repository;
  */
 class DistritoRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+	public function getDepartamentos(){
+
+
+        $query = "select ubidpto as id ,ubinombre as nombre from grubigeo where ubiprovincia='00' and ubidistrito='00' AND ubidpto!='00';";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $departamentos = $stmt->fetchAll();
+
+        return $departamentos;
+
+	}
+
+
+	public function getProvincias(){
+
+        $query = "select ubidpto as idDepartamento,ubiprovincia as idProvincia , ubinombre as nombreProvincia from grubigeo where ubidistrito='00' AND ubidpto!='00' AND ubiprovincia!='00';";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $provincias = $stmt->fetchAll();
+
+
+        return $provincias; 		
+	}
+
+	public function getDistritos(){
+
+       $query = "select ubidpto as idDepartamento,ubiprovincia as idProvincia, ubidistrito idDistrito ,ubinombre as nombreDistrito from grubigeo where ubidistrito!='00' AND ubidpto!='00' AND ubiprovincia!='00';";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $distritos = $stmt->fetchAll();
+
+
+
+        return $distritos;		
+	}
 }

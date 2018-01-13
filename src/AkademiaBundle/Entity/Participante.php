@@ -40,6 +40,13 @@ class Participante
      */
     private $dni;
 
+        /**
+     * @var integer
+     *
+     * @ORM\Column(name="percodigo", type="integer", unique=true)
+     */
+    private $percodigo;
+
     /**
      * @var string
      *
@@ -355,5 +362,29 @@ class Participante
     public function getInscripciones()
     {
         return $this->inscripciones;
+    }
+
+    /**
+     * Set percodigo
+     *
+     * @param integer $percodigo
+     *
+     * @return Participante
+     */
+    public function setPercodigo($percodigo)
+    {
+        $this->percodigo = $percodigo;
+
+        return $this;
+    }
+
+    /**
+     * Get percodigo
+     *
+     * @return integer
+     */
+    public function getPercodigo()
+    {
+        return $this->percodigo;
     }
 }

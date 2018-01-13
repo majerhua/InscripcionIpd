@@ -35,6 +35,15 @@ class Apoderado
      */
     private $id;
 
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="percodigo", type="integer", unique=true)
+     */
+    private $percodigo;
+
+
     /**
      * @var string
      *
@@ -392,5 +401,29 @@ class Apoderado
     public function getParticipantes()
     {
         return $this->participantes;
+    }
+
+    /**
+     * Set percodigo
+     *
+     * @param integer $percodigo
+     *
+     * @return Apoderado
+     */
+    public function setPercodigo($percodigo)
+    {
+        $this->percodigo = $percodigo;
+
+        return $this;
+    }
+
+    /**
+     * Get percodigo
+     *
+     * @return integer
+     */
+    public function getPercodigo()
+    {
+        return $this->percodigo;
     }
 }

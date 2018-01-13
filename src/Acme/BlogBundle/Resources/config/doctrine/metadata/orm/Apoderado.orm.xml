@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Apoderado" table="apoderado">
+    <indexes>
+      <index name="IDX_EAB782CEE557397E" columns="distrito_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="UNIQ_EAB782CE7F8F253B" columns="dni"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="dni" type="string" column="dni" length="8" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellidopaterno" type="string" column="apellidoPaterno" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellidomaterno" type="string" column="apellidoMaterno" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sexo" type="string" column="sexo" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechanacimiento" type="date" column="fechaNacimiento" nullable="false"/>
+    <field name="direccion" type="string" column="direccion" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="telefono" type="string" column="telefono" length="9" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="correo" type="string" column="correo" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="distrito" target-entity="Distrito" fetch="LAZY">
+      <join-columns>
+        <join-column name="distrito_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

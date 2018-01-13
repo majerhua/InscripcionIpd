@@ -10,6 +10,14 @@
 
 
 
+
+{% for provincia in provincias %}
+
+	
+
+{% endfor %}
+
+
 <header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -47,116 +55,124 @@
 				<div class="bar-inscripcion__1 active" >1</div>
 				<div class="bar-inscripcion__2 ">2</div>
 				<div class="bar-inscripcion__3">3</div>
+				<div class="bar-inscripcion__4">4</div>
+				<div class="bar-inscripcion__5">5</div>
 			</div>		
 		</div>
 	</div>
 
-	<div class="proceso-inscripcion__inscripcion" id="process1" >
-	<div class="container">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+	<div id="proceso1" class="proceso1">
+		
+	        <div class="container-card">
+		        <div class="card">	
 
-	        <div class="card">	
+	          		<p class="title-card">Apoderado</p>
 
-          		<p class="title-card">Apoderado</p>
+					<div class="form-group">
+						<label for="dniApoderado">DNI Apoderado</label>
+			          	<input id="dniApoderado" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
+			          	<span class="cargarDatosApoderado" >Actualizando....</span>
+			          	<span class="mensajeEdad" ></span>
+					</div>
 
-				<div class="form-group">
-					<label for="dniApoderado">DNI Apoderado</label>
-		          	<input id="dniApoderado" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
-		          	<span class="cargarDatosApoderado" >Actualizando....</span>
-		          	<span class="mensajeEdad" ></span>
-				</div>
+					<div class="form-group">
+						<label for="apellidoPaterno">Apellido Paterno</label>
+			          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+					</div>
+					
+					<div class="form-group">
+						<label for="apellidoMaterno">Apellido Materno</label>
+			          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+					</div>
+		      						      						
+		    		<div class="form-group">
+		    			<label for="nombre">Nombres</label>
+		          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
+					</div>
 
-				<div class="form-group">
-					<label for="apellidoPaterno">Apellido Paterno</label>
-		          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
-				</div>
-				
-				<div class="form-group">
-					<label for="apellidoMaterno">Apellido Materno</label>
-		          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
-				</div>
-	      						      						
-	    		<div class="form-group">
-	    			<label for="nombre">Nombres</label>
-	          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
-				</div>
-
-				<div class="form-group">
-					<label for="fechaNacimiento">Fecha de Nacimiento</label>
-		          	<input class="form-control"  id="fechaNacimiento" type="text"  id="fechaNacimiento"  name="fechaNacimiento">
-		          					
-				</div>
-
-
-				<div class="form-group col s12">
-					<label>Sexo</label>
-				    <select id="sexo" class="form-control"  name="sexo" >
-				    	<option value="">--SELECCIONAR--</option>
-				      	<option value="masculino">Masculino</option>
-				      	<option value="femenino">Femenino</option>
-				    </select>
-				</div>
-
-        </div>
-
-    </div>
+					<div class="form-group">
+						<label for="fechaNacimiento">Fecha de Nacimiento</label>
+			          	<input class="form-control"  id="fechaNacimiento" type="text"  id="fechaNacimiento"  name="fechaNacimiento">
+			          					
+					</div>
 
 
+					<div class="form-group col s12">
+						<label>Sexo</label>
+					    <select id="sexo" class="form-control"  name="sexo" >
+					    	<option value="">--SELECCIONAR--</option>
+					      	<option value="masculino">Masculino</option>
+					      	<option value="femenino">Femenino</option>
+					    </select>
+					</div>
 
-<!--SECCION DIRECCION-->
+	        </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
-        	<div class="card">
+	    </div>
+		
+	</div>
 
-          		<p class="title-card">Direccion</p>
 
-	            <div class="form-group">
-					<label>Departamento</label>
-	            	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
-	                	<option value="">--Seleccionar--</option>
-	                {% for departamento in departamentos %}
-	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
-	                {% endfor %}
-	            	</select>
-            	</div>
- 
-		        <div class="form-group">
-		        	<label>Provincia</label>
-		            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
-		                <option value="">--Seleccionar--</option>
-		            </select>               
-		        </div>
- 
+	<div class="proceso2"  id="proceso2">
+		
+	  <div class="container-card ">
+	    	
+	    <div class="card">
 
-	            <div class="form-group">
-	            	<label>Distrito</label>
-	                <select id="distrito" name="distrito"  class="form-control">
-	                    <option value="">--Seleccionar--</option>
-	                </select> 
-	            </div>
+	  		<p class="title-card">Direccion</p>
 
-				<div class="form-group">
-					<label for="direccion">Direccion</label>
-		          	<input id="direccion" class="form-control" value="aaaaa"  type="text"  id="direccion"  name="direccion"  >
-				</div>
+	        <div class="form-group">
+				<label>Departamento</label>
+	        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
+	            	<option value="">--Seleccionar--</option>
+	            
+	            {% for departamento in departamentos %}
+	            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+	            {% endfor %}
+	        	</select> 
+	    	</div>
 
-				<div class="form-group">
-					<label for="telefono">Telefono</label>
-		          	<input id="telefono" class="form-control" value="1234" type="text"  id="telefono"  name="telefono"  >
-				</div>
+	        <div class="form-group">
+	        	<label>Provincia</label>
+	            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
+	                <option value="">--Seleccionar--</option>
+	            </select>               
+	        </div>
 
-				<div class="form-group">
-					<label for="correo">Correo Electronico</label>
-		          	<input id="correo" class="form-control" type="text"  value="majerhua123"  id="correo"  name="correo"  >
-				</div>
 
-        	</div>
-    	</div>
+	        <div class="form-group">
+	        	<label>Distrito</label>
+	            <select id="distrito" name="distrito"  class="form-control">
+	                <option value="">--Seleccionar--</option>
+	            </select> 
+	        </div>
 
+			<div class="form-group">
+				<label for="direccion">Direccion</label>
+	          	<input id="direccion" class="form-control" value="aaaaa"  type="text"  id="direccion"  name="direccion"  >
+			</div>
+
+			<div class="form-group">
+				<label for="telefono">Telefono</label>
+	          	<input id="telefono" class="form-control" value="1234" type="text"  id="telefono"  name="telefono"  >
+			</div>
+
+			<div class="form-group">
+				<label for="correo">Correo Electronico</label>
+	          	<input id="correo" class="form-control" type="text"  value="majerhua123"  id="correo"  name="correo"  >
+			</div>
+
+	    	</div>
+		</div>
+
+	</div>
+
+{#
+     
 <!-- FIN SECCION DIRECCION--->
 
 <!--SECCION PARTICIPANTE-->
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+		<div class="conteiner-card" id="proceso2" >
 
 			<div class="card">
 
@@ -226,6 +242,7 @@
 			</div>
 		</div>
 <!--FIN SECCION PARTICIPANTE-->
+#}
 	</div>
 
 			<div class="form-group pull-right container-boton "  >
@@ -247,12 +264,12 @@
 				<label>Departamento</label>
 	            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
 	                <option value="">--Seleccionar--</option>
-
+			{#
 	                {% for departamento in departamentos %}
 
 	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
 
-	                {% endfor %}
+	                {% endfor %}#}
 
 	            </select>
         	</div>
@@ -609,12 +626,12 @@
 		$("#distrito").append("<option value='' >--Seleccionar--</option>");
 		{% for provincia in provincias  %}
 
-			if("{{provincia.departamento.id}}" == idDepartamento){
+			if("{{provincia['idDepartamento']}}" == idDepartamento){
 
-				console.log("{{provincia.nombre}}");
-				console.log("{{provincia.id}}");
+				console.log("{{provincia['nombreProvincia']}}");
+				console.log("{{provincia['idProvincia']}}");
 				
-				$("#provincia").append("<option value={{provincia.id}} >{{provincia.nombre}}</option>");
+				$("#provincia").append("<option value={{provincia['idProvincia']}}  data-departamento={{provincia['idDepartamento']}} >{{provincia['nombreProvincia']}}</option>");
 				
 			}
 		{% endfor %}
@@ -624,25 +641,22 @@
 	function cambiarProvincia(provincia){
 
 		idProvincia = provincia.value;
-		console.log(idProvincia);
+		idDepartamento = $(provincia[1]).attr('data-departamento');
 
 		$("#distrito").empty();
 		$("#distrito").append("<option value='' >--Seleccionar--</option>");
 		{% for distrito in distritos  %}
 
-			if("{{distrito.provincia.id}}" == idProvincia){
-
-				console.log("{{distrito.nombre}}");
-				console.log("{{distrito.id}}");
+			if("{{distrito['idProvincia']}}" == idProvincia  && {{distrito['idDepartamento']}} == idDepartamento ){
 				
-				$("#distrito").append("<option value={{distrito.id}} >{{distrito.nombre}}</option>");
+				$("#distrito").append("<option value={{distrito['idDistrito']}} >{{distrito['nombreDistrito']}}</option>");
 				
 			}
 
 		{% endfor %}
 
 	}
-
+{#
 // HORARIO
 
 	function cambiarDepartamentoHorario(departamentoHorario){
@@ -793,7 +807,7 @@
 		{% endfor %}
 	
 	}
-
+#}
 	function registrarApoderado(){
 
 		var dataRegisterApoderado={
@@ -891,11 +905,15 @@
 
 			success: function(data){
 				
+				console.log(data)
+				
+
+			if(data !== ""){
 				var dataParticiapnte = JSON.parse(data);
 
 				console.log("Busqueda DNI ==> ",dataParticiapnte);
 
-			
+					
 					$(dataParticiapnte).each(function(index,valor){
 
 						if(valor.edad >=18){
@@ -904,7 +922,13 @@
 							$("#apellidoMaterno").val(valor.apellidoMaterno);
 							$("#nombre").val(valor.nombre);
 							$("#fechaNacimiento").val(valor.fechaNacimiento);
-							$("#sexo").val(valor.sexo);
+
+							if(valor.sexo == 1){
+								$("#sexo").val('masculino');	
+							}else{
+								$("#sexo").val('femenino');
+							}
+							
 
 						}
 
@@ -914,7 +938,7 @@
 							$(".mensajeEdad").append("Usted Es menor de edad");
 						}
 					});					
-				
+				}
 					$('.cargarDatosApoderado').hide();
 				
 			},

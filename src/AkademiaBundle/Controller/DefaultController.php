@@ -37,36 +37,45 @@ class DefaultController extends Controller
 
                 $dni = $request->request->get('dni');
 
-                $em = $this->getDoctrine()->getEntityManager();
-                $db = $em->getConnection();
-                $query = "select dni, apellidoPaterno, apellidoMaterno, nombre, sexo, fechaNacimiento, (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from persona where dni='$dni';";
-                $stmt = $db->prepare($query);
-                $params = array();
-                $stmt->execute($params);
-                $po = $stmt->fetchAll();
 
-                $encoders = array(new JsonEncoder());
-                $normalizer = new ObjectNormalizer();
-                //$normalizer->setCircularReferenceLimit(1);
-                // Add Circular reference handler
-                //$normalizer->setCircularReferenceHandler(function ($object) {
-                  //  return $object->getId();
-                //});
-                $normalizers = array($normalizer);
-                $serializer = new Serializer($normalizers, $encoders);
-                $jsonContent = $serializer->serialize($po,'json');
+                if($dni != ''){
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $db = $em->getConnection();
+                    $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
+                    $stmt = $db->prepare($query);
+                    $params = array();
+                    $stmt->execute($params);
+                    $po = $stmt->fetchAll();
 
-                return new JsonResponse($jsonContent); 
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+                    //$normalizer->setCircularReferenceLimit(1);
+                    // Add Circular reference handler
+                    //$normalizer->setCircularReferenceHandler(function ($object) {
+                      //  return $object->getId();
+                    //});
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($po,'json');
 
+                    return new JsonResponse($jsonContent); 
+                }else{
+                    return new JsonResponse(""); 
+                }
             }
              
             if($request->request->get('persona') == "hijo"){
 
                 $dni = $request->request->get('dni');
 
+                if($dni != ''){
+
+                
+
+
                 $em = $this->getDoctrine()->getEntityManager();
                 $db = $em->getConnection();
-                $query = "select dni, apellidoPaterno, apellidoMaterno, nombre, sexo, fechaNacimiento, (cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from persona where dni='$dni';";
+                $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
                 $stmt = $db->prepare($query);
                 $params = array();
                 $stmt->execute($params);
@@ -85,18 +94,19 @@ class DefaultController extends Controller
 
                 return new JsonResponse($jsonContent); 
 
+                }else{
+                    return new JsonResponse(""); 
+                }
+
             }
                 
 		}
 
-        $em =  $this->getDoctrine()->getRepository(Departamento::class);
-    	$departamentos = $em->findAll();
+        $em2 = $this->getDoctrine()->getManager();
 
-        $em =  $this->getDoctrine()->getRepository(Provincia::class);
-    	$provincias = $em->findAll();
-
-        $em =  $this->getDoctrine()->getRepository(Distrito::class);
-    	$distritos = $em->findAll();
+        $mdlDepartamento = $em2->getRepository('AkademiaBundle:Distrito')->getDepartamentos();
+        $mdlProvincia = $em2->getRepository('AkademiaBundle:Distrito')->getProvincias();
+        $mdlDistrito = $em2->getRepository('AkademiaBundle:Distrito')->getDistritos();
 
         $em =  $this->getDoctrine()->getRepository(ComplejoDeportivo::class);
         $complejosDeportivo = $em->findAll();
@@ -110,7 +120,7 @@ class DefaultController extends Controller
         $em =  $this->getDoctrine()->getRepository(Horario::class);
         $horarios = $em->findAll();
 
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array("departamentos" => $departamentos, "provincias" => $provincias, "distritos" => $distritos, "complejosDeportivo" => $complejosDeportivo , "complejosDisciplinas" => $complejosDisciplinas , "disciplinasDeportivas" => $disciplinasDeportivas , "horarios" => $horarios ) );
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $complejosDeportivo , "complejosDisciplinas" => $complejosDisciplinas , "disciplinasDeportivas" => $disciplinasDeportivas , "horarios" => $horarios, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito  ) );
     }
 
     public function registrarAction(Request $request){

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DisciplinaDeportiva
  *
- * @ORM\Table(name="disciplina_deportiva")
+ * @ORM\Table(name="CATASTRO.disciplina")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\DisciplinaDeportivaRepository")
  */
 class DisciplinaDeportiva
@@ -21,7 +21,7 @@ class DisciplinaDeportiva
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="dis_codigo", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -30,16 +30,10 @@ class DisciplinaDeportiva
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="dis_descripcion", type="string", length=255)
      */
     private $nombre;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
-     */
-    private $descripcion;
 
 
     /**
@@ -76,29 +70,6 @@ class DisciplinaDeportiva
         return $this->nombre;
     }
 
-    /**
-     * Set descripcion
-     *
-     * @param string $descripcion
-     *
-     * @return DisciplinaDeportiva
-     */
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcion
-     *
-     * @return string
-     */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
 
     /**
      * Constructor

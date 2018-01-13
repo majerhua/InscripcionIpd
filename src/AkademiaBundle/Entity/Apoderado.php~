@@ -19,7 +19,6 @@ class Apoderado
      */
     private $participantes;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Distrito", inversedBy="apoderados")
      * @ORM\JoinColumn(name="distrito_id", referencedColumnName="id")
@@ -35,6 +34,15 @@ class Apoderado
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="percodigo", type="integer", unique=true)
+     */
+    private $percodigo;
+
 
     /**
      * @var string

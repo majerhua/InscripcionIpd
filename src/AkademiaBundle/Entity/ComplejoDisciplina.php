@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ComplejoDisciplina
  *
- * @ORM\Table(name="complejo_disciplina")
+ * @ORM\Table(name="CATASTRO.edificacionDisciplina")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\ComplejoDisciplinaRepository")
  */
 class ComplejoDisciplina
@@ -21,20 +21,20 @@ class ComplejoDisciplina
     
     /**
      * @ORM\ManyToOne(targetEntity="DisciplinaDeportiva", inversedBy="complejosDisciplinas")
-     * @ORM\JoinColumn(name="disciplinaDeportiva_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="dis_codigo", referencedColumnName="dis_codigo")
      */
     private $disciplinaDeportiva;    
 
     /**
      * @ORM\ManyToOne(targetEntity="ComplejoDeportivo", inversedBy="complejosDisciplinas")
-     * @ORM\JoinColumn(name="complejoDeportivo_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ede_codigo", referencedColumnName="ede_codigo")
      */
     private $complejoDeportivo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="edi_codigo", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

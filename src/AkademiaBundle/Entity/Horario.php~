@@ -68,6 +68,26 @@ class Horario
      */
     private $edadMaxima;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="discapacitados", type="string", length=1)
+     */
+    private $discapacitados;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="turno", type="string", length=100)
+     */
+    private $turno;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="convocatoria", type="string", length=1)
+     */
+    private $convocatoria;
 
     /**
      * Get id
@@ -262,5 +282,77 @@ class Horario
     public function getInscripciones()
     {
         return $this->inscripciones;
+    }
+
+    /**
+     * Set discapacitados
+     *
+     * @param string $discapacitados
+     *
+     * @return Horario
+     */
+    public function setDiscapacitados($discapacitados)
+    {
+        $this->discapacitados = $discapacitados;
+
+        return $this;
+    }
+
+    /**
+     * Get discapacitados
+     *
+     * @return string
+     */
+    public function getDiscapacitados()
+    {
+        return $this->discapacitados;
+    }
+
+    /**
+     * Set convocatoria
+     *
+     * @param string $convocatoria
+     *
+     * @return Horario
+     */
+    public function setConvocatoria($convocatoria)
+    {
+        $this->convocatoria = $convocatoria;
+
+        return $this;
+    }
+
+    /**
+     * Get convocatoria
+     *
+     * @return string
+     */
+    public function getConvocatoria()
+    {
+        return $this->convocatoria;
+    }
+
+    /**
+     * Set turno
+     *
+     * @param string $turno
+     *
+     * @return Horario
+     */
+    public function setTurno($turno)
+    {
+        $this->turno = $turno;
+
+        return $this;
+    }
+
+    /**
+     * Get turno
+     *
+     * @return string
+     */
+    public function getTurno()
+    {
+        return $this->turno;
     }
 }

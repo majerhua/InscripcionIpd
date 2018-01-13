@@ -54,7 +54,7 @@ body{
 	}
 
 		.progreso__barraInscripcion{
-			width:20em;
+			width:25em;
 			height:15px;
 			border-radius:30px;
 			background-color:#e7edef;
@@ -328,3 +328,22 @@ body{
 		font-family: 'Open Sans', sans-serif;
 		font-size: 10px;
 	}
+
+
+
+.proceso1{
+
+	background-color: red;
+	width: 100%;
+}
+
+	.proceso1 , .proceso2>div{
+		background-color: orange;
+		width: 35%;
+		margin:0 auto;
+	}
+
+
+		.card{
+
+		}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ComplejoDisciplina" table="complejo_disciplina">
+    <indexes>
+      <index name="IDX_A69BD7377D07B3D9" columns="complejoDeportivo_id"/>
+      <index name="IDX_A69BD737504D6849" columns="disciplinaDeportiva_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="disciplinadeportiva" target-entity="DisciplinaDeportiva" fetch="LAZY">
+      <join-columns>
+        <join-column name="disciplinaDeportiva_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="complejodeportivo" target-entity="ComplejoDeportivo" fetch="LAZY">
+      <join-columns>
+        <join-column name="complejoDeportivo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
