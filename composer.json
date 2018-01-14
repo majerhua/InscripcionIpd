@@ -31,10 +31,7 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
-<<<<<<< HEAD
-=======
         "isoft/mssql-bundle": "master-dev",
->>>>>>> 75d4d4cb92ccba26e4aa377a6664609ef0ded467
         "whiteoctober/tcpdf-bundle": "^1.0"
     },
     "require-dev": {
