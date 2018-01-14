@@ -21,4 +21,6 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         return $horarios;
 	}
 
+
+
 }
