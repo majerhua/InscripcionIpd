@@ -164,16 +164,16 @@
 				
 					
 			
-				<p id="nombre-ficha">{{inscripcion.participante.nombre}}</p>
-				<p id="apellidoPaterni-ficha" >{{inscripcion.participante.apellidoPaterno}}</p>
-				<p id="apellidoMaterno-ficha" >{{inscripcion.participante.apellidoMaterno}}</p>
-				<p id="distrito-ficha" >{{inscripcion.participante.apoderado.distrito.nombre}}</p>
-				<p id="domicilio-ficha" >{{inscripcion.participante.apoderado.direccion}}</p>
-				<p id="fechaNacimiento-ficha">{{inscripcion.participante.fechaNacimiento}}</p>
-				<p id="telefono-ficha" >{{inscripcion.participante.apoderado.telefono}}</p>
-				<p id="dni-ficha" >{{inscripcion.participante.dni}}</p>
-				<p id="edad-ficha" >{{edad[0]["edad"]}}</p>
-				<p id="email-ficha" >{{inscripcion.participante.apoderado.correo}}</p>
+				<p id="nombre-ficha">{{inscripcion[0]['nombre']}}</p>
+				<p id="apellidoPaterni-ficha" >{{inscripcion[0]['apellidoPaterno']}}</p>
+				<p id="apellidoMaterno-ficha" >{{inscripcion[0]['apellidoMaterno']}}</p>
+				<p id="distrito-ficha" >{{inscripcion[0]['distrito']}}</p>
+				<p id="domicilio-ficha" >{{inscripcion[0]['direccion']}}</p>
+				<p id="fechaNacimiento-ficha">{{inscripcion[0]['fechaNacimiento']}}</p>
+				<p id="telefono-ficha" >{{inscripcion[0]['telefono']}}</p>
+				<p id="dni-ficha" >{{inscripcion[0]['dni']}}</p>
+				<p id="edad-ficha" >{{inscripcion[0]['edad']}}</p>
+				<p id="email-ficha" >{{inscripcion[0]['correo']}}</p>
 
 				
 			</div>
@@ -184,20 +184,20 @@
 			<div>
 				<p class="parrafo__disciplina-horario">COMPLEJO DEPORTIVO: </p>
 
-				<p><span id="fichaPdfComplejoDeportivo">{{inscripcion.horario.complejoDisciplina.complejoDeportivo.nombre}}</span></p>
+				<p><span id="fichaPdfComplejoDeportivo">{{inscripcion[0]['nombreComplejo']}}</span></p>
 			</div>
 			
 			<div>
 				<p class="parrafo__disciplina-horario">DISCIPLINA DEPORIVA: </p>
 
-				<p><span id="fichaPdfDisciplinaDeporiva"> {{inscripcion.horario.complejoDisciplina.disciplinaDeportiva.nombre}}</span></p>
+				<p><span id="fichaPdfDisciplinaDeporiva"> {{inscripcion[0]['nombreDisciplina']}}</span></p>
 			</div>
 
 			<div>
 				
 				<p class="parrafo__disciplina-horario">HORARIOS: </p>
 
-				<p><span id="fichaPdfHorario" > De {{inscripcion.horario.horaInicio}} a {{inscripcion.horario.horaFin}} martes a viernes.</span></p>
+				<p><span id="fichaPdfHorario" > De {{inscripcion[0]['horaInicio']}} a {{inscripcion[0]['horaFin']}} martes a viernes.</span></p>
 
 			</div>		
 	

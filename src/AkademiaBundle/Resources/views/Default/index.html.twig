@@ -795,9 +795,7 @@
 			},
 			success: function(data){
 
-
-				console.log(data);
-			
+				var valor =JSON.parse(data)[0];
 
 
 				sessionStorage.removeItem("idInscripcion");
@@ -805,24 +803,22 @@
 
 				$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
 
-				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/pdf/declaracion-jurada"+sessionStorage.getItem("idInscripcion"));
+				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
 
-				$("#nombre-ficha").append(valor.participante.nombre);
-				$("#apellidoPaterni-ficha").append(valor.participante.apellidoPaterno);
-				$("#apellidoMaterno-ficha").append(valor.participante.apellidoMaterno);
-				$("#distrito-ficha").append(valor.participante.apoderado.distrito.nombre);
-				$("#domicilio-ficha").append(valor.participante.apoderado.direccion);
-				$("#fechaNacimiento-ficha").append(valor.participante.fechaNacimiento);
-				$("#telefono-ficha").append(valor.participante.apoderado.telefono);
-				$("#dni-ficha").append(valor.participante.dni);
+				$("#nombre-ficha").append(valor.nombre);
+				$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
+				$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
+				$("#distrito-ficha").append(valor.distrito);
+				$("#domicilio-ficha").append(valor.direccion);
+				$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
+				$("#telefono-ficha").append(valor.telefono);
+				$("#dni-ficha").append(valor.dni);
 				$("#edad-ficha").append(sessionStorage.getItem("edad"));
-				$("#email-ficha").append(valor.participante.apoderado.correo);
-				$("#deporte-ficha").append(valor.horario.complejoDisciplina.complejoDeportivo.nombre);
-				$("#complejo-ficha").append(valor.horario.complejoDisciplina.disciplinaDeportiva.nombre);
-				$("#horario-ficha").append(valor.horario.horaInicio+" a "+valor.horario.horaFin);
-
-				$("nombrePadre-declaracion-jurada").append(valor.apoderado.nombre);
-
+				$("#email-ficha").append(valor.correo);
+				$("#deporte-ficha").append(valor.nombreDisciplina);
+				$("#complejo-ficha").append(valor.nombreComplejo);
+				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
+				$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 				$(".bar-inscripcion__2").removeClass('active');
 				$(".bar-inscripcion__3").addClass('active');
 
