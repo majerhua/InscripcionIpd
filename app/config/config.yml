@@ -42,7 +42,8 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_sqlsrv
+        driver_class:   \Realestate\MssqlBundle\Driver\PDODblib\Driver
+#        driver: pdo_sqlsrv
         host: '%database_host%'
         port: '%database_port%'
         dbname: '%database_name%'
@@ -69,12 +70,12 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-knp_snappy:
-    pdf:
-        enabled:    true
-        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
-        options:    []
-    image:
-        enabled:    true
-        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
-        options:    []
+#knp_snappy:
+#    pdf:
+#        enabled:    true
+#        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
+#        options:    []
+#    image:
+#        enabled:    true
+#        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
+#        options:    []
