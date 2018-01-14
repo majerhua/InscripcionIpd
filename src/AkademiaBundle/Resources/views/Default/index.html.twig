@@ -109,7 +109,7 @@
 		</div>
 
 		<div class="container-boton-1">
-			<button class="btn btn-danger" >Continuar</button>
+			<button class="btn btn-danger" id="boton1">Continuar</button>
 		</div>
 
 	</div>
@@ -168,7 +168,7 @@
 		</div>
 
 		<div class="container-boton-2">
-			<button class="btn btn-danger" >Continuar</button>
+			<button class="btn btn-danger" id="boton2" >Continuar</button>
 		</div>
 		
 	</div>
@@ -617,7 +617,6 @@
 				var nombreDis = "{{ complejoDisciplina['nombreDisciplina'] }} ";
 
 				$("#disciplinaDeportiva").append("<option value = {{complejoDisciplina['id']}}>"+nombreDis.trim()+"</option>");
-
 			}
 		{% endfor %}
 	}
@@ -696,9 +695,14 @@
 
 
 	}
+/*
+	$("#proceso1").hide();
+	$("#proceso1").hide();
+	$("#proceso1").hide();
+	$("#proceso1").hide();
+	$("#proceso1").hide();*/
 
-
-	$("container-boton-1").on('click',function(){
+	$("#boton1").on('click',function(){
 
 		//DATOS APODERADO
 		sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
@@ -707,24 +711,37 @@
 		sessionStorage.setItem("nombre-apoderado", $("#nombre").val())
 		sessionStorage.setItem("fechaNacimiento-apoderado" , $("#fechaNacimiento").val());
 		sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
-
-
 	});
 
 
-	$("container-boton-2").on('click',function(){
-
+	$("#boton2").on('click',function(){
 		//DATOS APODERADO
 		sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
 		sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
 		sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
 		sessionStorage.setItem("correo-apoderado", $("#correo").val());
+	});
+
+$("#boton3").on('click',function(){
+
+		//DATOS APODERADO
+		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+		sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+		sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+		sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+		sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+		sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
 
 	});
 
 
+
 	$("#boton-next-final").on('click',function(){
 		//DATOS APODERADO
+
+		/*
 		sessionStorage.setItem('dni-apoderado', $("#dniApoderado").val());
 		sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val()) 	
 		sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
@@ -747,7 +764,7 @@
 		sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
 		sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
 		sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
-		
+		*/
 		registrarApoderado();
 
 	});

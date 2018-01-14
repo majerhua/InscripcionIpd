@@ -4,37 +4,8 @@
 	<title></title>
 	
 	<style type="text/css">
+{#
 
-	.container__pdfFichaInscripcion{
-	width: 85%;
-	margin:0 auto;
-
-	padding-top: 30px;
-	height: 100vh;
-
-	font-family: 'Open Sans', sans-serif;
-}
-
-	.container__pdfFichaInscripcion>p{
-		font-weight: bold;
-		font-size: 1.3em;
-	}
-
-	.pdfFichaInscripcion__header{
-
-	}
-
-		.pdfFichaInscripcion__header>p{
-			font-size:1.8em;
-			font-family: 'Marcellus SC', serif;
-			font-weight: bold;
-			text-align: center;
-		}
-
-		.pdfFichaInscripcion__header>div{
-			
-			text-align: center;
-		}
 
 			.pdfFichaInscripcion__header> div > p{
 				font-weight: bold;				
@@ -106,116 +77,130 @@
 		padding-right: 5px;
 	}
 
-		.container__logo{
-	border:1px solid black;
-	width: 180px;
-	height: 100px;
-	border-radius: 10px;
-	overflow: hidden;
-	margin:0 auto;
 
-	}
 
 	.container__logo>img{
 		border:1px solid black;
 	}
+#}
 	</style>
+
 </head>
 <body>
 
 
-		<div class="container__pdfFichaInscripcion">
-
+	<div style="width: 85%; margin:0 auto; height: 100vh; font-family: 'Open Sans'; sans-serif;">
 		<div  class="pdfFichaInscripcion__header">
 			
-			<div class="container__logo">
-				<img  height="100" width="180" src="http://www.deportesperu.pe/wp-content/uploads/2014/01/logosipd-011.jpg" >
+			<div class="container__logo" style=" border-radius: 10px;overflow: hidden; text-align:center; " >
+				<img  height="70"  width="100" src="http://www.deportesperu.pe/wp-content/uploads/2014/01/logosipd-011.jpg" >
 			</div>
-
-			<p>DIRECCION NACIONAL DE RECREACION Y PROMOCION DEL DEPORTE</p>
-
-			<div>
-				<p>ACADEMIA IPD</p>
-				<p>VERANO 2018</p>
-			</div>
-
-			<p>FICHA DE INSCRIPCION</p>
+			<p style="font-weight: bold;font-size:1.3em;font-family: 'Marcellus SC', serif;font-weight: bold; text-align: center; padding-bottom:-20px;" >DIRECCION NACIONAL DE RECREACION Y PROMOCION DEL DEPORTE</p>
+			<p style="text-align:center;">ACADEMIA IPD</p>
+			<p style="text-align:center;">VERANO 2018</p>
+			<p style="text-align: center;font-size:1.4em;font-family: 'Marcellus SC', serif;font-weight: bold; ">FICHA DE INSCRIPCION</p>
 		</div>
 
+		<table>
+			<tbody>
+					<tr style="margin:4px;">
+					<td colspan="1" ></td>
+					<td colspan="1">DATOS PERSONALES:</td>
+					<td colspan="1"></td>
+				</tr>
+				<tr style="margin:4px;">
 
-		<p>DATOS PERSONALES:</p>
-		
-		<div class="container-datosPersonales" >
-			<div class="pdfFichaInscripcion__campos"> 
-				
-				<p>Nombre:</p>
-				<p>Apellido Paterno:</p>
-				<p>Apellido Materno:</p>
-				<p>Distrito:</p>
-				<p>Domicilio:</p>
-				<p>Fecha Nacimiento:</p>
-				<p>Telefono:</p>
-				<p>Dni:</p>
-				<p>Edad:</p>
-				<p>Email:</p>
-			</div>
+					<td colspan="1" ></td>
+					<td colspan="1">Nombre: {{inscripcion[0]['nombre']}}</td>
+					<td colspan="1"></td>
+				</tr>
 
-			<div class="pdfFichaInscripcion__valores">
-				
-					
-			
-				<p id="nombre-ficha">{{inscripcion[0]['nombre']}}</p>
-				<p id="apellidoPaterni-ficha" >{{inscripcion[0]['apellidoPaterno']}}</p>
-				<p id="apellidoMaterno-ficha" >{{inscripcion[0]['apellidoMaterno']}}</p>
-				<p id="distrito-ficha" >{{inscripcion[0]['distrito']}}</p>
-				<p id="domicilio-ficha" >{{inscripcion[0]['direccion']}}</p>
-				<p id="fechaNacimiento-ficha">{{inscripcion[0]['fechaNacimiento']}}</p>
-				<p id="telefono-ficha" >{{inscripcion[0]['telefono']}}</p>
-				<p id="dni-ficha" >{{inscripcion[0]['dni']}}</p>
-				<p id="edad-ficha" >{{inscripcion[0]['edad']}}</p>
-				<p id="email-ficha" >{{inscripcion[0]['correo']}}</p>
+				<tr style="margin:4px;">
 
-				
-			</div>
-		</div>
+					<td colspan="1" ></td>
+					<td colspan="1">Apellido Paterno: {{inscripcion[0]['apellidoPaterno']}}</td>
+					<td colspan="1"></td>
+				</tr>
 
-		<div class="container__disciplina-horario">
+				<tr style="margin:4px;">
 
-			<div>
-				<p class="parrafo__disciplina-horario">COMPLEJO DEPORTIVO: </p>
+					<td colspan="1" ></td>
+					<td colspan="1">Apellido Materno: {{inscripcion[0]['apellidoMaterno']}}</td>
+					<td colspan="1"></td>
+				</tr>
+				<tr style="margin:4px;">
 
-				<p><span id="fichaPdfComplejoDeportivo">{{inscripcion[0]['nombreComplejo']}}</span></p>
-			</div>
-			
-			<div>
-				<p class="parrafo__disciplina-horario">DISCIPLINA DEPORIVA: </p>
+					<td colspan="1" ></td>
+					<td colspan="1">Distrito: {{inscripcion[0]['distrito']}}</td>
+					<td colspan="1"></td>
+				</tr>
 
-				<p><span id="fichaPdfDisciplinaDeporiva"> {{inscripcion[0]['nombreDisciplina']}}</span></p>
-			</div>
+				<tr style="margin:4px;">
 
-			<div>
-				
-				<p class="parrafo__disciplina-horario">HORARIOS: </p>
+					<td colspan="1" ></td>
+					<td colspan="1">Domicilio: {{inscripcion[0]['nombre']}}</td>
+					<td colspan="1"></td>
+				</tr>
 
-				<p><span id="fichaPdfHorario" > De {{inscripcion[0]['horaInicio']}} a {{inscripcion[0]['horaFin']}} martes a viernes.</span></p>
+				<tr style="margin:4px;">
 
-			</div>		
-	
-		</div>
+					<td colspan="1" ></td>
+					<td colspan="1">Fecha Nacimiento: {{inscripcion[0]['fechaNacimiento']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Telefono: {{inscripcion[0]['telefono']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Dni: {{inscripcion[0]['dni']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Edad: {{inscripcion[0]['edad']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Email: {{inscripcion[0]['correo']}}</td>
+					<td colspan="1"></td>
+				</tr>
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">COMPLEJO DEPORTIVO: {{inscripcion[0]['nombreComplejo']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">DISCIPLINA DEPORIVA: {{inscripcion[0]['nombreDisciplina']}}</td>
+					<td colspan="1"></td>
+				</tr style="margin:4px;">
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">HORARIOS: De {{inscripcion[0]['horaInicio']}} a {{inscripcion[0]['horaFin']}} martes a viernes.</td>
+					<td colspan="1"></td>
+				</tr>
+
+			</tbody>
+		</table>
 
 	</div>
-
-	<script type="text/javascript">
-
-		var edadFicha = document.getElementById("edad-ficha");
-
-		var nodoEdadFicha = document.createTextNode(sessionStorage.getItem('edad'));
-
-		//edadFicha.appendChild(nodoEdadFicha);
-
-			
-
-	</script>
 </body>
 </html>
 

@@ -241,19 +241,33 @@ class DefaultController extends Controller
 
 public function generarPdfInscripcionAction(Request $request , $id)
     {   
-        
-    
-        $snappy = $this->get('knp_snappy.pdf');
+      
+    $em2 = $this->getDoctrine()->getManager();
+    $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
 
+    $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
+ 
+    $pdf = $this->container->get("white_october.tcpdf")->create();
+    $pdf->SetAuthor('IPD');
+    $pdf->SetTitle('Ficha de Inscripcion');
+    $pdf->SetSubject('Mecenazgo Deportivo');
+    $pdf->SetKeywords('TCPDF, PDF, Mecenazgo Deportivo, IPD, Sistemas IPD, Deportistas');       
+    $pdf->AddPage();
+    $pdf->setCellPaddings(0, 0, 0, 0);                
+    $pdf->writeHTMLCell(
+                $w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true
+        );         
+    $pdf->writeHTML($html);
+    $pdf->Output("compromisoIPD.pdf", 'I');
+
+
+
+    /*
+        $snappy = $this->get('knp_snappy.pdf');
         $em2 = $this->getDoctrine()->getManager();
         $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
-
-
-
         $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', array("inscripcion" =>$mdlFicha));
-
          $filename = "file";
-
         return new Response(
             $snappy->getOutputFromHtml($html,
                     array(
@@ -270,7 +284,7 @@ public function generarPdfInscripcionAction(Request $request , $id)
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'inline; filename = "'.$filename.'.pdf" '
             )
-        );
+        );*/
         
         /*
         
@@ -302,35 +316,25 @@ public function generarPdfInscripcionAction(Request $request , $id)
 
     public function generarPdfDeclaracionJuradaAction(Request $request , $id){
 
-        
-
-        $snappy = $this->get('knp_snappy.pdf');
 
 
         $em2 = $this->getDoctrine()->getManager();
         $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
 
-        $html = $this->renderView('AkademiaBundle:Pdf:declaracionJuradaPdf.html.twig', array("inscripcion" =>$mdlFicha));
-
-         $filename = "file";
-
-        return new Response(
-            $snappy->getOutputFromHtml($html,
-                    array(
-                        'encoding' => 'utf-8',
-                        'title'=> 'Declaracion Jurada',
-                        'images' => true,
-                        'enable-javascript' => true,
-                        'javascript-delay' => 3000,
-                        'no-stop-slow-scripts' =>false
-                    )
-            ),
-            200,
-            array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename = "'.$filename.'.pdf" '
-            )
-        );
+        $html = $this->renderView('AkademiaBundle:Pdf:declaracionJuradaPdf.html.twig', ["inscripcion" => $mdlFicha]);
+     
+        $pdf = $this->container->get("white_october.tcpdf")->create();
+        $pdf->SetAuthor('IPD');
+        $pdf->SetTitle('Declaracion Jurada');
+        $pdf->SetSubject('Mecenazgo Deportivo');
+        $pdf->SetKeywords('TCPDF, PDF, Mecenazgo Deportivo, IPD, Sistemas IPD, Deportistas');       
+        $pdf->AddPage();
+        $pdf->setCellPaddings(0, 0, 0, 0);                
+        $pdf->writeHTMLCell(
+                    $w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true
+            );         
+        $pdf->writeHTML($html);
+        $pdf->Output("compromisoIPD.pdf", 'I');
         
         
         /*
