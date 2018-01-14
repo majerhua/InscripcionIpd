@@ -17,8 +17,13 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new AkademiaBundle\AkademiaBundle(),
+<<<<<<< HEAD
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
+=======
+            new Realestate\MssqlBundle\RealestateMssqlBundle(),
+            //new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+>>>>>>> 75d4d4cb92ccba26e4aa377a6664609ef0ded467
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

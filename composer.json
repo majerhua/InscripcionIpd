@@ -24,7 +24,6 @@
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
-        "knplabs/knp-snappy-bundle": "^1.5",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^3.1.0",
@@ -32,6 +31,10 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
+<<<<<<< HEAD
+=======
+        "isoft/mssql-bundle": "master-dev",
+>>>>>>> 75d4d4cb92ccba26e4aa377a6664609ef0ded467
         "whiteoctober/tcpdf-bundle": "^1.0"
     },
     "require-dev": {
