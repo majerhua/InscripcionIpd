@@ -13,7 +13,7 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getComplejoDisciplinas(){
 
-       $query = "select  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo ,dis.dis_descripcion as nombreDisciplina, dis.dis_codigo as idDisciplina from CATASTRO.edificacionDisciplina as edidis, CATASTRO.disciplina as dis where edidis.dis_codigo = dis.dis_codigo;";
+       $query = "select  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo ,rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina from CATASTRO.edificacionDisciplina as edidis, CATASTRO.disciplina as dis where edidis.dis_codigo = dis.dis_codigo;";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $complejosDeportivos = $stmt->fetchAll();
