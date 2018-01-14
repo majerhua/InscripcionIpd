@@ -60,127 +60,130 @@
 			</div>		
 		</div>
 	</div>
-
-	<div id="proceso1" class="proceso1">
 		
-	        <div class="container-card">
-		        <div class="card">	
+	<div id="proceso1"  class="proceso1">
+		
+        <div class="container-card">
+	        <div class="card">	
 
-	          		<p class="title-card">Apoderado</p>
+          		<p class="title-card">Apoderado</p>
 
-					<div class="form-group">
-						<label for="dniApoderado">DNI Apoderado</label>
-			          	<input id="dniApoderado" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
-			          	<span class="cargarDatosApoderado" >Actualizando....</span>
-			          	<span class="mensajeEdad" ></span>
-					</div>
+				<div class="form-group">
+					<label for="dniApoderado">DNI Apoderado</label>
+		          	<input id="dniApoderado" value="74510745" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
+		          	<span class="cargarDatosApoderado" >Actualizando....</span>
+		          	<span class="mensajeEdad" ></span>
+				</div>
 
-					<div class="form-group">
-						<label for="apellidoPaterno">Apellido Paterno</label>
-			          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
-					</div>
-					
-					<div class="form-group">
-						<label for="apellidoMaterno">Apellido Materno</label>
-			          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
-					</div>
-		      						      						
-		    		<div class="form-group">
-		    			<label for="nombre">Nombres</label>
-		          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
-					</div>
+				<div class="form-group">
+					<label for="apellidoPaterno">Apellido Paterno</label>
+		          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+				</div>
+				
+				<div class="form-group">
+					<label for="apellidoMaterno">Apellido Materno</label>
+		          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+				</div>
+	      						      						
+	    		<div class="form-group">
+	    			<label for="nombre">Nombres</label>
+	          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
+				</div>
 
-					<div class="form-group">
-						<label for="fechaNacimiento">Fecha de Nacimiento</label>
-			          	<input class="form-control"  id="fechaNacimiento" type="text"  id="fechaNacimiento"  name="fechaNacimiento">
-			          					
-					</div>
+				<div class="form-group">
+					<label for="fechaNacimiento">Fecha de Nacimiento</label>
+		          	<input class="form-control"  id="fechaNacimiento" type="text"  id="fechaNacimiento"  name="fechaNacimiento">
+		          					
+				</div>
 
-
-					<div class="form-group col s12">
-						<label>Sexo</label>
-					    <select id="sexo" class="form-control"  name="sexo" >
-					    	<option value="">--SELECCIONAR--</option>
-					      	<option value="masculino">Masculino</option>
-					      	<option value="femenino">Femenino</option>
-					    </select>
-					</div>
+				<div class="form-group col s12">
+					<label>Sexo</label>
+				    <select id="sexo" class="form-control"  name="sexo" >
+				    	<option value="">--SELECCIONAR--</option>
+				      	<option value="masculino">Masculino</option>
+				      	<option value="femenino">Femenino</option>
+				    </select>
+				</div>
 
 	        </div>
+		</div>
 
-	    </div>
-		
-	</div>
-
-
-	<div class="proceso2"  id="proceso2">
-		
-	  <div class="container-card ">
-	    	
-	    <div class="card">
-
-	  		<p class="title-card">Direccion</p>
-
-	        <div class="form-group">
-				<label>Departamento</label>
-	        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
-	            	<option value="">--Seleccionar--</option>
-	            
-	            {% for departamento in departamentos %}
-	            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
-	            {% endfor %}
-	        	</select> 
-	    	</div>
-
-	        <div class="form-group">
-	        	<label>Provincia</label>
-	            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
-	                <option value="">--Seleccionar--</option>
-	            </select>               
-	        </div>
-
-
-	        <div class="form-group">
-	        	<label>Distrito</label>
-	            <select id="distrito" name="distrito"  class="form-control">
-	                <option value="">--Seleccionar--</option>
-	            </select> 
-	        </div>
-
-			<div class="form-group">
-				<label for="direccion">Direccion</label>
-	          	<input id="direccion" class="form-control" value="aaaaa"  type="text"  id="direccion"  name="direccion"  >
-			</div>
-
-			<div class="form-group">
-				<label for="telefono">Telefono</label>
-	          	<input id="telefono" class="form-control" value="1234" type="text"  id="telefono"  name="telefono"  >
-			</div>
-
-			<div class="form-group">
-				<label for="correo">Correo Electronico</label>
-	          	<input id="correo" class="form-control" type="text"  value="majerhua123"  id="correo"  name="correo"  >
-			</div>
-
-	    	</div>
+		<div class="container-boton-1">
+			<button class="btn btn-danger" >Continuar</button>
 		</div>
 
 	</div>
 
-{#
-     
-<!-- FIN SECCION DIRECCION--->
+	<div  id="proceso2" class="proceso2">
+		
+	  	<div class="container-card ">
+		    	
+		    <div class="card">
 
-<!--SECCION PARTICIPANTE-->
-		<div class="conteiner-card" id="proceso2" >
+		  		<p class="title-card">Direccion</p>
+
+		        <div class="form-group">
+					<label>Departamento</label>
+		        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
+		            	<option value="">--Seleccionar--</option>
+		            
+			            {% for departamento in departamentos %}
+			            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+			            {% endfor %}
+
+		        	</select> 
+		    	</div>
+
+		        <div class="form-group">
+		        	<label>Provincia</label>
+		            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
+		                <option value="">--Seleccionar--</option>
+		            </select>               
+		        </div>
+
+
+		        <div class="form-group">
+		        	<label>Distrito</label>
+		            <select id="distrito" name="distrito"  class="form-control">
+		                <option value="">--Seleccionar--</option>
+		            </select> 
+		        </div>
+
+				<div class="form-group">
+					<label for="direccion">Direccion</label>
+		          	<input id="direccion" class="form-control" value="aaaaa"  type="text"  id="direccion"  name="direccion"  >
+				</div>
+
+				<div class="form-group">
+					<label for="telefono">Telefono</label>
+		          	<input id="telefono" class="form-control" value="1234" type="text"  id="telefono"  name="telefono"  >
+				</div>
+
+				<div class="form-group">
+					<label for="correo">Correo Electronico</label>
+		          	<input id="correo" class="form-control" type="text"  value="majerhua123"  id="correo"  name="correo"  >
+				</div>
+
+	    	</div>
+		</div>
+
+		<div class="container-boton-2">
+			<button class="btn btn-danger" >Continuar</button>
+		</div>
+		
+	</div>
+
+
+	<div class="proceso3" id="proceso3" >
+	  	<div class="container-card ">
 
 			<div class="card">
 
-      			<p class="title-card">Participante</p>
+	  			<p class="title-card">Participante</p>
 
 				<div class="form-group">
 					<label for="dni-hijo">DNI</label>
-	          		<input class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo">
+	          		<input  value="72307204" class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo">
 		        	<span class="cargarDatosParticipante">Actualizando....</span>
 	          		<span class="mensajeEdadParticipante"></span>
 				</div>
@@ -197,7 +200,7 @@
 
 				<div class="form-group">
 					<label for="nombre-hijo">Nombre</label>
-          			<input  class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  >
+	      			<input  class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  >
 				</div>
 
 				<div style="display:flex; flex-wrap:wrap;">
@@ -241,9 +244,176 @@
 
 			</div>
 		</div>
-<!--FIN SECCION PARTICIPANTE-->
-#}
+
+		<div class="container-boton-3">
+			<button class="btn btn-danger" id="boton3" >Continuar</button>
+		</div>
 	</div>
+	
+
+
+	<div class="proceso-inscripcion__horarios" id="process4">
+	
+		<div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-8">
+			
+			<p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p>
+
+			<div class="complejo">
+				
+				<div class="form-group form-group-tam">
+					<label>Departamento</label>
+		            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
+		                <option value="">--Seleccionar--</option>
+
+			            {% for departamento in departamentos %}
+			            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+			            {% endfor %}
+						
+		            </select>
+	        	</div>
+
+	            <div class="form-group form-group-tam">
+	            	<label>Provincia</label>
+	                <select  id="provinciaHorario" class="form-control"  name="provincia" onchange="cambiarProvinciaHorario(this)">
+	                    <option value="">--Seleccionar--</option>
+	                </select>               
+	            </div>
+
+	            <div class="form-group form-group-tam">
+	            	<label>Distrito</label>
+	                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
+	                    <option value="">--Seleccionar--</option>
+	                </select> 
+	            </div>
+
+	            <div class="form-group form-group-tam">
+	        		<label>Complejo Deportivo</label>
+	            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
+	                <option value="">--Seleccionar--</option>
+	            	</select>
+	        	</div>
+
+
+			</div>
+
+			<div class="mapa">
+				
+			   <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" frameborder="0" style="border:0"></iframe>
+
+			</div>
+
+			
+		</div>
+
+		<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
+
+			<p class="title-card text-center">DEPORTE Y HORARIO</p>
+
+	        <div class="form-group container-select-deporte"  >
+	        	<label>Deportive: </label>
+	            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
+	                <option value="">--Seleccionar--</option>
+	            </select> 
+	        </div>
+
+	        <div class="form-group container-select-deporte"  >
+	        	<label>Horario: </label>
+	            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
+	                <option value="">--Seleccionar--</option>
+	            </select> 
+	        </div>
+
+	        <div class="form-group  container-edad-participante" >
+	        	<p>Edad</p>
+	        	<p><span  id="edadMinima" ></span> a <a id="edadMaxima"></a> años </p>
+	        </div>
+
+	        <div class="form-group  container-horario-participante">
+	        	<div><span id="horaInicio" ></span> am a <span id="horaFin"></span> am</div>
+	        	<div>De martes a viernes</div>
+	        	<div><span id="vacantes"></span>vacantes</div>
+	        </div>
+
+	        <div class="form-group" >
+	        	
+				<p>Otras Edades</p>
+			
+				<div class="horario-otrasEdades" >
+		
+	        	</div>
+
+				<div class="form-group pull-right container-boton-final"  >
+				<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripcion</button>
+
+				</div>		
+			</div>	
+ 			
+		</div>
+	</div>
+
+
+	<div class="pdf_inscripcion" id="process5" >
+	
+		<div class="pdf_inscripcion__1"  >
+			<div class="pdf_inscripcion__ficha">
+				
+				<div class="tituloFicha col-md-12  col-lg-12">
+					
+					<p>FICHA DE INSCRIPCION</p>
+					<P>ACADEMIA IPD VERANO 2018</p>
+
+				</div>
+
+				<div class="campos  col-md-4  col-lg-4"> 
+					
+					<p>Nombre</p>
+					<p>Apellido Paterno</p>
+					<p>Apellido Materno</p>
+					<p>Distrito</p>
+					<p>Domicilio</p>
+					<p>Fecha Nacimiento</p>
+					<p>Telefono</p>
+					<p>Dni</p>
+					<p>Edad</p>
+					<p>Email</p>
+					<p>Deporte</p>
+					<p>Complejo</p>
+					<p>Horario</p>
+				</div>
+
+				<div class="valores col-md-8  col-lg-8">
+					
+					<p id="nombre-ficha"></p>
+					<p id="apellidoPaterni-ficha" ></p>
+					<p id="apellidoMaterno-ficha" ></p>
+					<p id="distrito-ficha" ></p>
+					<p id="domicilio-ficha" ></p>
+					<p id="fechaNacimiento-ficha" ></p>
+					<p id="telefono-ficha" ></p>
+					<p id="dni-ficha" ></p>
+					<p id="edad-ficha" ></p>
+					<p id="email-ficha" ></p>
+					<p id="deporte-ficha" ></p>
+					<p id="complejo-ficha" ></p>
+					<p id="horario-ficha" ></p>
+
+				</div>
+
+				<div  class="col-md-12 col-lg-12">
+					
+					<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" >Imprimir Ficha</button></a>
+					<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" >Imprimir Decla.Jurada</button></a>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="pdf_inscripcion__confirmacion">
+			
+		</div>
+	</div>
+	
+	<div>
 
 			<div class="form-group pull-right container-boton "  >
 					<button class="btn btn-danger" id="boton-next">CONTINUAR</button>
@@ -251,241 +421,6 @@
 	</div>
 
 
-<!--INICIO SECCION HORARIO-->
-	<div class="proceso-inscripcion__horarios" id="process2">
-	
-	<div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-8">
-		
-		<p class="title-card text-center"  >ELIGE UN COMPLEJO DEPORTIVO</p>
-
-		<div class="complejo">
-			
-			<div class="form-group form-group-tam">
-				<label>Departamento</label>
-	            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
-	                <option value="">--Seleccionar--</option>
-			{#
-	                {% for departamento in departamentos %}
-
-	                	<option value="{{departamento.id}}" >{{departamento.nombre}}</option>
-
-	                {% endfor %}#}
-
-	            </select>
-        	</div>
-
-            <div class="form-group form-group-tam">
-            	<label>Provincia</label>
-                <select  id="provinciaHorario" class="form-control"  name="provincia" onchange="cambiarProvinciaHorario(this)">
-                    <option value="">--Seleccionar--</option>
-                </select>               
-            </div>
-
-            <div class="form-group form-group-tam">
-            	<label>Distrito</label>
-                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-                    <option value="">--Seleccionar--</option>
-                </select> 
-            </div>
-
-            <div class="form-group form-group-tam">
-        		<label>Complejo Deportivo</label>
-            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-                <option value="">--Seleccionar--</option>
-            	</select>
-        	</div>
-
-
-		</div>
-
-		<div class="mapa">
-			
-		   <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" frameborder="0" style="border:0"></iframe>
-
-		</div>
-
-		
-	</div>
-
-	<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
-
-		<p class="title-card text-center">DEPORTE Y HORARIO</p>
-
-        <div class="form-group container-select-deporte"  >
-        	<label>Deportiva: </label>
-            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
-                <option value="">--Seleccionar--</option>
-            </select> 
-        </div>
-
-        <div class="form-group  container-edad-participante" >
-        	<p>Edad</p>
-        	<p><span  id="edadMinima" ></span> a <a id="edadMaxima"></a> años </p>
-        </div>
-
-        <div class="form-group  container-horario-participante">
-        	<div><span id="horaInicio" ></span> am a <span id="horaFin"></span> am</div>
-        	<div>De martes a viernes</div>
-        	<div><span id="vacantes"></span>vacantes</div>
-        </div>
-
-        <div class="form-group" >
-        	
-			<p>Otras Edades</p>
-		
-			<div class="horario-otrasEdades" >
-	
-        	</div>
-
-			<div class="form-group pull-right container-boton-final"  >
-			<button class="btn btn-danger" id="boton-next-final">CONTINUAR</button>
-
-			</div>		
-		</div>	
-		
-	</div>
-
-</div>
-
-
-<div class="pdf_inscripcion" id="process3" >
-	
-	<div class="pdf_inscripcion__1"  >
-	<div class="pdf_inscripcion__ficha">
-		
-		<div class="tituloFicha col-md-12  col-lg-12">
-			
-			<p>FICHA DE INSCRIPCION</p>
-			<P>ACADEMIA IPD VERANO 2018</p>
-
-		</div>
-
-		<div class="campos  col-md-4  col-lg-4"> 
-			
-			<p>Nombre</p>
-			<p>Apellido Paterno</p>
-			<p>Apellido Materno</p>
-			<p>Distrito</p>
-			<p>Domicilio</p>
-			<p>Fecha Nacimiento</p>
-			<p>Telefono</p>
-			<p>Dni</p>
-			<p>Edad</p>
-			<p>Email</p>
-			<p>Deporte</p>
-			<p>Complejo</p>
-			<p>Horario</p>
-		</div>
-
-		<div class="valores col-md-8  col-lg-8">
-			
-			<p id="nombre-ficha"></p>
-			<p id="apellidoPaterni-ficha" ></p>
-			<p id="apellidoMaterno-ficha" ></p>
-			<p id="distrito-ficha" ></p>
-			<p id="domicilio-ficha" ></p>
-			<p id="fechaNacimiento-ficha" ></p>
-			<p id="telefono-ficha" ></p>
-			<p id="dni-ficha" ></p>
-			<p id="edad-ficha" ></p>
-			<p id="email-ficha" ></p>
-			<p id="deporte-ficha" ></p>
-			<p id="complejo-ficha" ></p>
-			<p id="horario-ficha" ></p>
-
-		</div>
-
-		<div  class="col-md-12 col-lg-12">
-			
-			<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" >Imprimir Ficha</button></a>
-			<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" >Imprimir Decla.Jurada</button></a>
-		</div>
-
-	</div>
-
-	<div class="pdf_inscripcion__declaracion-jurada">
-		
-		<table style="font-size: 10px;width: 100%;" align="center" border="0">
-		    <tr>
-		        <td colspan="2"><b>DECLARACION JURADA DE AUTORIZACION</b></td>
-		    </tr>
-		    <tr>
-		        <td colspan="2" class="table-cuerpo" > 
-		            <p>Yo, <span id="nombrePadre-declaracion-jurada"></span> <span id="apellidoPaterno-declaracion-jurada"></span> <span id="apellidoMaterno-declaracion-jurada"></span> identificado(a) con Documento Nacional de Identidad Nº <span id="dniPadre-declaracion-jurada" ></span>, padre/madre o apoderado
-		                del menor hijo <span id="nombre-declaracion-jurada" ></span> <span id="apellidoPaterno-declaracion-jurada" ></span>  <span id="apellidoMaterno-declaracion-jurada" ></span>con Domicilio <span id="domicilio-declaracion-jurada" ></span>
-		                {#Distrito {{ dataDec[0].distrito_apo }}#} Teléfono .</p>
-		            <p>Formulo la presente Declaración Jurada de Autorización, en virtud del Principio de Presunción de Veracidad y el artículo 
-		                42º de la Ley Nº 27444, "Ley del Procedimiento Administrativo General". <span class="importante">Para Autorizar, a mi menor hijo(a)/tutelado(a)</span> 
-		               , identificado(a) con DNI Nº <span class="dniParticipante-declaracion-jurada"></span>  <span class="importante"> a participar en el Programa "DEPORTE PARA TODOS"</span> 
-		                que se realizará  en la infraestructura deportiva del IPD  <span id="complejo-declaracion-jurada" ></span> .</p>
-		            <p>Es por ello, que me comprometo libre y voluntariamente, asumir las responsabilidades que se pudieran presentarse sobre la participación 
-		                de mi menor hijo/tutelado durante el Programa Deporte para Todos, conforme se precisa a continuación:</p>
-		            <ol style="margin-left:10px;" >
-		                <li>Declaro que mi hijo(a)/tutelado(a) se encuentra apto física y mentalmente para realizar actividades físicas, deportivas y recreactivas en general, por lo que <span class="importante" >libero de toda responsabilidad</span > al IPD por cualquier eventualidad que pueda surgir por el normal transcurrir de las actividades del Programa Deporte para Todos.</li>
-		                <li>Informaré al IPD sobre cualquier cambio en el estado físico o de salud de mi hijo(a)/tutelado(a) que se detecte o se desarrolle en cualquier etapa de su vida, después de la fecha en que se firme el presente documento.</li>
-		                <li>Manifiesto que mi hijo(a)/tutelado(a), es responsable en todo momento por su comportamiento en el programa Deporte para Todos, por lo que libero de responsabilidad al Instituto Peruano del Deporte y a sus empleados por cualquier daño o gasto que resulte del comportamiento de mi menor hijo(a)/tutelado(a).</li>
-		                <li>Comprendo que la participación de mi menor hijo(a)/tutelado(a) en estos deportes conlleva un riesgo, como es la producción de lesiones, en especial en la práctica de deportes de contacto, <span class="importante">por lo que expresamente demuestro mi conformidad con todos los riesgos que existen en el deporte en el cual mi hijo(a)/tutelado(a) participará.</span></li>
-		                <li>Es mi responsabilidad como padre, madre y/o apoderado(a), que mi menor hijo(a)/tutelado(a) cuente con un seguro médico vigente, para atenderse ante cualquier emergencia y urgencia médica que se pueda presentar durante su participación en el Programa Deporte para Todos.</li>
-		                <li>Los casos no mencionados en los párrafos anteriores, serán evaluados por los responsables del Programa Deporte para Todos de acuerdo a la gravedad de los hechos suscitados y si resultara infractor mi menor hijo(a)/tutelado(a) o mi persona, asumiré las responsabilidades que esto demanda sin perjucio alguno al IPD.</li>
-		            </ol>
-		            <p>En ese sentido, el Instituto Peruano del Deporte, tomará en cuenta la información consignada en este documento, reservándose el derecho de llevar a cabo las verificaciones correspondientes; 
-		                así como solicitar la acreditación de la misma. En caso de detectarse de omitir, ocultar o consignar información falsa, se procederá con las acciones legales que corresponden.</p>
-		            <p>Seguidamente, en caso de resultar falsa la información que proporciono, me sujeto a los alcances de lo establecido en el artículo 411º del Código Penal, 
-		                concordante con el artículo 32º de la Ley Nº 27444, Ley del Procedimiento Administrativo General.</p>
-		            <p>Por medio de la presente, eximo al IPD y a sus empleados de todo reclamo, demanda o actuación legal que estuviese de cualquier forma relacionada con la 
-		                participación del menor de edad que se encuentra bajo mi cargo, durante el desarrollo del programa Deporte para Todos, excepto que tales reclamos se basen en la 
-		                negligencia o en la conducta inapropiada intencional de los trabajadores del IPD, siempre y cuando estos mismos ocurran dentro de los horarios en los que se desarrolle las actividades del programa.
-		            Por tal motivo y en constancia de lo expuesto, firmo el presente documento.</p>
-		        </td>       
-		    </tr>
-		    <br/>
-		    <tr>
-		        <td style="width: 50%; text-align: center;">
-					<div style="width:90px; margin:0 auto;  height:45px;  border:1px solid black "  >
-						
-					</div>
-		        </td>
-		{#        <td style="width: 50%" align="center">&nbsp;</td>#}
-		    </tr>    
-		    <tr>
-		        <td style="width: 50%" align="center">____________________________</td>
-		        <td style="width: 50%" align="center">____________________________</td>
-		    </tr>
-		    <tr>
-		        <td style="width: 50%"   align="center"><p style="font-size:12px;">HUELLA DACTILAR</p></td>
-		        <td style="width: 50%"   align="center"><p style="font-size:12px;">FIRMA<br/></p></td>
-		    </tr>	
-		    <tr>
-		        <td colspan="2" style="text-align: left">
-		           <p style="font-size:12px;" > Lima, {{ "now"|date("d") }} de {{ "now"|date("m")|replace({
-		                '01'  : 'Enero',
-		                '02'  : 'Febrero',
-		                '03'  : 'Marzo',
-		                '04'  : 'Abril',
-		                '05'  : 'Mayo',
-		                '06'  : 'Junio',
-		                '07'  : 'Julio',
-		                '08'  : 'Agosto',
-		                '09'  : 'Setiembre',
-		                '10'  : 'Octubre',
-		                '11'  : 'Noviembre',
-		                '12'  : 'Diciembre'
-		            }) }} del {{ "now"|date("Y") }}</p>
-		        </td>
-		    </tr>
-		</table>
-
-	</div>
-	
-	</div>
-
-	<div class="pdf_inscripcion__confirmacion">
-		
-	</div>
-
-
-</div>
-	
 
 </section>
 
@@ -498,27 +433,6 @@
 <!--<script src="{{asset('assets/vendor/js/scroll.js')}}"></script>-->
 <script>
 	
-	$.ajax({
-
-		type:'GET',
-		dataType: 'json',
-		url: "{{url('akademia_getPost')}}",
-
-		beforeSend: function(){
-			
-		},
-
-		success: function(data){
-		
-			var dataPost = JSON.parse(data);
-			//console.log("Post ==> ",dataPost);
-		},
-
-		error: function(error){
-			console.log(error);
-		}
-
-	});
 
 
 	//$("#btn-imprimir-fichaInscripcion").on('click',function(){
@@ -535,69 +449,30 @@
 		//location.href ="/academia/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion");
 
 	//});
-	
-
-	$("#process3").hide();
-
-	$("#boton-next-final").on('click',function(){
-
-		
+	/*
+	$("#boton-next-final")Finalizar Inscripcion('click',function(){
 
 		var datosInscripcion = {
-			'idParticipante' : sessionStorage.getItem('idParticipante'),
-			'idHorario' : sessionStorage.getItem('idHorario')		
+			'idParti cipante' : sessionStorage.getItem('idParticipante'),
+					
 		}
 
 		$.ajax({
-
 			type:'POST',
 			dataType: 'json',
 			url: "{{url('akademia_registerFinal')}}",
 			data: datosInscripcion,
-
 			beforeSend: function(){
 				
 			},
-
 			success: function(data){
 				var dataTotalInscripcion =JSON.parse(data); 
 				console.log(dataTotalInscripcion);
 				$("#process2").hide();
 				$("#process3").show();
-
 				$(dataTotalInscripcion).each(function(index,valor){
-
-					sessionStorage.removeItem("idInscripcion");
-					sessionStorage.setItem("idInscripcion",valor.id);
-
-					$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
-
-					$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/pdf/declaracion-jurada"+sessionStorage.getItem("idInscripcion"));
-
-					$("#nombre-ficha").append(valor.participante.nombre);
-					$("#apellidoPaterni-ficha").append(valor.participante.apellidoPaterno);
-					$("#apellidoMaterno-ficha").append(valor.participante.apellidoMaterno);
-					$("#distrito-ficha").append(valor.participante.apoderado.distrito.nombre);
-					$("#domicilio-ficha").append(valor.participante.apoderado.direccion);
-					$("#fechaNacimiento-ficha").append(valor.participante.fechaNacimiento);
-					$("#telefono-ficha").append(valor.participante.apoderado.telefono);
-					$("#dni-ficha").append(valor.participante.dni);
-					$("#edad-ficha").append(sessionStorage.getItem("edad"));
-					$("#email-ficha").append(valor.participante.apoderado.correo);
-					$("#deporte-ficha").append(valor.horario.complejoDisciplina.complejoDeportivo.nombre);
-					$("#complejo-ficha").append(valor.horario.complejoDisciplina.disciplinaDeportiva.nombre);
-					$("#horario-ficha").append(valor.horario.horaInicio+" a "+valor.horario.horaFin);
-
-
-					$("nombrePadre-declaracion-jurada").append(valor.apoderado.nombre);
-
-					$(".bar-inscripcion__2").removeClass('active');
-					$(".bar-inscripcion__3").addClass('active');
-
 				});
-
 			},
-
 			error: function(error){
 				console.log(error);
 			}
@@ -605,15 +480,15 @@
 		});
 	});
 
-
+*/
 /*EVENTO BOTON NEXT PROCESSO 2*/
 
-	$("#process2").hide();
 
-	$("#boton-next").on('click',function(){
-		registrarApoderado();	
-	})
-/*EVENTO FIN BOTON NEXT PROCESSO 2*/	
+
+	//$("#boton-next-final").on('click',function(){
+		//registrarApoderado();	
+	//})
+/*EVENTO FI N BOTON NEXT PROCESSO 2*/	
 
 	function cambiarDepartamento(departamento){
 
@@ -656,7 +531,7 @@
 		{% endfor %}
 
 	}
-{#
+
 // HORARIO
 
 	function cambiarDepartamentoHorario(departamentoHorario){
@@ -674,22 +549,21 @@
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 		{% for provincia in provincias  %}
 
-			if("{{provincia.departamento.id}}" == idDepartamentoHorario){
+			if("{{provincia['idDepartamento']}}" == idDepartamentoHorario){
 
-				console.log("{{provincia.nombre}}");
-				console.log("{{provincia.id}}");
+				console.log("{{provincia['nombreProvincia']}}");
+				console.log("{{provincia['idProvincia']}}");
 				
-				$("#provinciaHorario").append("<option value={{provincia.id}} >{{provincia.nombre}}</option>");
+				$("#provinciaHorario").append("<option value={{provincia['idProvincia']}}  data-departamento={{provincia['idDepartamento']}} >{{provincia['nombreProvincia']}}</option>");
 				
 			}
 		{% endfor %}
-
 	}
 
 	function cambiarProvinciaHorario(provinciaHorario){
 
-		var idProvinciaHorario = provinciaHorario.value;
-		console.log(idProvinciaHorario);
+		idProvinciaHorario = provinciaHorario.value;
+		idDepartamentoHorario = $(provinciaHorario[1]).attr('data-departamento');
 
 		$("#distritoHorario").empty();
 		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
@@ -697,17 +571,13 @@
 		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+
 		{% for distrito in distritos  %}
-
-			if("{{distrito.provincia.id}}" == idProvinciaHorario){
-
-				console.log("{{distrito.nombre}}");
-				console.log("{{distrito.id}}");
-				
-				$("#distritoHorario").append("<option value={{distrito.id}} >{{distrito.nombre}}</option>");	
+			if("{{distrito['idProvincia']}}" == idProvinciaHorario  && {{distrito['idDepartamento']}} == idDepartamentoHorario ){
+				$("#distritoHorario").append("<option value={{distrito['idDistrito']}} >{{distrito['nombreDistrito']}}</option>");				
 			}
-
 		{% endfor %}
+
 	}
 
 	function cambiarDistritoHorario(distritoHorario){
@@ -721,17 +591,15 @@
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 		{% for complejoDeportivo in complejosDeportivo  %}
 
-			if("{{complejoDeportivo.distrito.id}}" == idDistritoHorario){
+			if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario){
 
-				console.log("{{complejoDeportivo.nombre}}");
-				console.log("{{complejoDeportivo.id}}");
+				console.log("{{complejoDeportivo['nombre']}}");
+				console.log("{{complejoDeportivo['id']}}");
 				
-				$("#complejosDeportivo").append("<option value={{complejoDeportivo.id}} >{{complejoDeportivo.nombre}}</option>");
+				$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
 				
 			}
-
 		{% endfor %}
-
 	}
 
 
@@ -739,23 +607,19 @@
 
 		var idComplejoDeportivo = complejoDeportivo.value;
 		console.log(idComplejoDeportivo);
-
 		
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 		{% for complejoDisciplina in complejosDisciplinas  %}
 
-			if("{{complejoDisciplina.complejoDeportivo.id}}" == idComplejoDeportivo){
+			if("{{complejoDisciplina['idComplejoDeportivo']}}" == idComplejoDeportivo){
+				
+				var nombreDis = "{{ complejoDisciplina['nombreDisciplina'] }} ";
 
-				console.log("{{complejoDisciplina.disciplinaDeportiva.nombre}}");
-				console.log("{{complejoDisciplina.disciplinaDeportiva.id}}");
-				
-				$("#disciplinaDeportiva").append("<option value={{complejoDisciplina.id}} >{{complejoDisciplina.disciplinaDeportiva.nombre}}</option>");
-				
+				$("#disciplinaDeportiva").append("<option value = {{complejoDisciplina['id']}}>"+nombreDis.trim()+"</option>");
+
 			}
-
 		{% endfor %}
-	
 	}
 
 
@@ -763,77 +627,161 @@
 
 		var idComplejoDisciplina = complejoDisciplina.value;
 		console.log(idComplejoDisciplina);
-
+		$("#horario").empty();
 		$(".horario-otrasEdades").empty();
+		$("#horario").append("<option value='' >--Seleccionar--</option>");
+		$("#vacantes").empty();
+		$("#horaInicio").empty();
+		$("#horaFin").empty();
+		$("#edadMinima").empty();
+		$("#edadMaxima").empty();
+
 		{% for horario in horarios  %}
 
-			if("{{horario.complejoDisciplina.id}}" == idComplejoDisciplina){
+			if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
 
 				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
 
-					console.log("Horario  ==> {{horario.id}}");
-
+					console.log("Horario  ==> {{horario['id']}}");
 					localStorage.removeItem('idHorario');
-					sessionStorage.setItem("idHorario", "{{horario.id}}");
-
-					$("#vacantes").empty();
-					$("#vacantes").append("{{horario.vacantes}}");
-
-					$("#horaInicio").empty();
-					$("#horaInicio").append("{{horario.horaInicio}}");
-
-					$("#horaFin").empty();
-					$("#horaFin").append("{{horario.horaFin}}");
-
-					$("#edadMinima").empty();
-					$("#edadMinima").append("{{horario.edadMinima}}");
-
-					$("#edadMaxima").empty();
-					$("#edadMaxima").append("{{horario.edadMaxima}}");
-
-					console.log("{{horario.vacantes}}");
-					console.log("{{horario.horaInicio}}");
-					console.log("{{horario.horaFin}}");
-					console.log("{{horario.edadMinima}}");
-					console.log("{{horario.edadMaxima}}");
-					
+					sessionStorage.setItem("idHorario", "{{horario['id']}}");
+					$("#horario").append("<option value={{horario['id']}} >HORARIO {{horario['id']}}</option>");
 				}else{
 				
-				$(".horario-otrasEdades").append("<div><p>{{horario.edadMinima}} a {{horario.edadMaxima}}</p><p>{{horario.horaInicio}} a {{horario.horaFin}} am</p></div>");
+				$(".horario-otrasEdades").append("<div><p>{{horario['edadMinima']}} a {{horario['edadMaxima']}}</p><p>{{horario['horaInicio']}} a {{horario['horaFin']}} am</p></div>");
 				}
+
 		
 			}
 
 		{% endfor %}
 	
 	}
-#}
+
+	function cambiarHorario(horario){
+
+		var idHorario = horario.value;
+		console.log(idHorario);
+
+		{% for horario in horarios  %}
+
+			if("{{horario['id']}}" == idHorario){
+
+				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
+
+					console.log("Horario  ==> {{horario['id']}}");
+
+					localStorage.removeItem('idHorario');
+					sessionStorage.setItem("idHorario", "{{horario['id']}}");
+
+					$("#vacantes").empty();
+					$("#vacantes").append("{{horario['vacantes']}}");
+
+					$("#horaInicio").empty();
+					$("#horaInicio").append("{{horario['horaInicio']}}");
+
+					$("#horaFin").empty();
+					$("#horaFin").append("{{horario['horaFin']}}");
+
+					$("#edadMinima").empty();
+					$("#edadMinima").append("{{horario['edadMinima']}}");
+
+					$("#edadMaxima").empty();
+					$("#edadMaxima").append("{{horario['edadMaxima']}}");
+					
+				}		
+			}
+
+		{% endfor %}
+
+
+	}
+
+
+	$("container-boton-1").on('click',function(){
+
+		//DATOS APODERADO
+		sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
+		sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val()) 	
+		sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
+		sessionStorage.setItem("nombre-apoderado", $("#nombre").val())
+		sessionStorage.setItem("fechaNacimiento-apoderado" , $("#fechaNacimiento").val());
+		sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
+
+
+	});
+
+
+	$("container-boton-2").on('click',function(){
+
+		//DATOS APODERADO
+		sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
+		sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
+		sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
+		sessionStorage.setItem("correo-apoderado", $("#correo").val());
+
+	});
+
+
+	$("#boton-next-final").on('click',function(){
+		//DATOS APODERADO
+		sessionStorage.setItem('dni-apoderado', $("#dniApoderado").val());
+		sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val()) 	
+		sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
+		sessionStorage.setItem("nombre-apoderado", $("#nombre").val())
+		sessionStorage.setItem("fechaNacimiento-apoderado" , $("#fechaNacimiento").val());
+		sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
+		//DATOS APODERADO
+		sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
+		sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
+		sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
+		sessionStorage.setItem("correo-apoderado", $("#correo").val());
+
+		//DATOS APODERADO
+		
+		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+		sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+		sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+		sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+		sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+		sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
+		
+		registrarApoderado();
+
+	});
+
+
 	function registrarApoderado(){
 
 		var dataRegisterApoderado={
 
 			//DATOS APODERADO
-			"dni" : $("#dniApoderado").val(),
-			"apellidoPaterno" : $("#apellidoPaterno").val(),
-			"apellidoMaterno" : $("#apellidoMaterno").val(),
-			"nombre" : $("#nombre").val(),
-			"fechaNacimiento" : $("#fechaNacimiento").val(),
-			"sexo" : $("#sexo").val(),
-			"distrito" : $("#distrito").val(),
-			"direccion" : $("#direccion").val(),
-			"telefono" : $("#telefono").val(),
-			"correo" : $("#correo").val(),
+			"dni" : sessionStorage.getItem('dni-apoderado'),
+			"apellidoPaterno" : sessionStorage.getItem('apellidoPaterno-apoderado'),
+			"apellidoMaterno" : sessionStorage.getItem('apellidoMaterno-apoderado'),
+			"nombre" : sessionStorage.getItem('nombre-apoderado'),
+			"fechaNacimiento" : sessionStorage.getItem('fechaNacimiento-apoderado'),
+			"sexo" : sessionStorage.getItem('sexo-apoderado'),
+			"distrito" : sessionStorage.getItem('distrito-apoderado'),
+			"direccion" : sessionStorage.getItem('direccion-apoderado'),
+			"telefono" : sessionStorage.getItem('telefono-apoderado'),
+			"correo" : sessionStorage.getItem('correo-apoderado'),
+
+			//HORARIO
+			'idHorario' : sessionStorage.getItem('idHorario'),
+
 
 			//DATOS HIJO
-
-			"dniParticipante" : $("#dni-hijo").val(),
-			"apellidoPaternoParticipante" : $("#apellidoPaterno-hijo").val(),
-			"apellidoMaternoParticipante" : $("#apellidoMaterno-hijo").val(),
-			"nombreParticipante" : $("#nombre-hijo").val(),
-			"fechaNacimientoParticipante" : $("#fechaNacimiento-hijo").val(),
-			"sexoParticipante" : $("#sexo-hijo").val(),
-			"parentesco" : $("#parentesco").val(),
-			"tipoSeguro" : $("#tipoSeguro").val()
+			"dniParticipante" : sessionStorage.getItem('dni-participante'),
+			"apellidoPaternoParticipante" : sessionStorage.getItem('apellidoPaterno-participante'),
+			"apellidoMaternoParticipante" : sessionStorage.getItem('apellidoMaterno-partcipante'),
+			"nombreParticipante" : sessionStorage.getItem('nombre-partcipante'),
+			"fechaNacimientoParticipante" : sessionStorage.getItem('fechaNacimiento-partcipante'),
+			"sexoParticipante" : sessionStorage.getItem('sexoParticipante'),
+			"parentesco" : sessionStorage.getItem('parentesco-partcipante'),
+			"tipoSeguro" : sessionStorage.getItem('tipoSeguro-partcipante')
 		};
 
 		$.ajax({
@@ -842,38 +790,43 @@
 			dataType: 'json',
 			url: "{{url('akademia_registrar')}}",
 			data: dataRegisterApoderado,
-
 			beforeSend: function(){
 				
 			},
-
 			success: function(data){
-								
-				//var dataApoderado = JSON.parse(data);
+
+
 				console.log(data);
+			
 
-				if( typeof(parseInt(data[0].edad)) == 'number'){
 
-					$(".bar-inscripcion__1").removeClass('active');
-					$(".bar-inscripcion__2").addClass('active');
+				sessionStorage.removeItem("idInscripcion");
+				sessionStorage.setItem("idInscripcion",valor.id);
 
-					$("#process1").hide();
-					$("#process2").show();
+				$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
 
-					sessionStorage.removeItem('edad');
-					sessionStorage.setItem("edad", data[0].edad);
-					console.log(data[0].edad);
+				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/pdf/declaracion-jurada"+sessionStorage.getItem("idInscripcion"));
 
-					localStorage.removeItem('idParticipante');
-					sessionStorage.setItem("idParticipante", data[0].id);
-					console.log(data[0].id);
+				$("#nombre-ficha").append(valor.participante.nombre);
+				$("#apellidoPaterni-ficha").append(valor.participante.apellidoPaterno);
+				$("#apellidoMaterno-ficha").append(valor.participante.apellidoMaterno);
+				$("#distrito-ficha").append(valor.participante.apoderado.distrito.nombre);
+				$("#domicilio-ficha").append(valor.participante.apoderado.direccion);
+				$("#fechaNacimiento-ficha").append(valor.participante.fechaNacimiento);
+				$("#telefono-ficha").append(valor.participante.apoderado.telefono);
+				$("#dni-ficha").append(valor.participante.dni);
+				$("#edad-ficha").append(sessionStorage.getItem("edad"));
+				$("#email-ficha").append(valor.participante.apoderado.correo);
+				$("#deporte-ficha").append(valor.horario.complejoDisciplina.complejoDeportivo.nombre);
+				$("#complejo-ficha").append(valor.horario.complejoDisciplina.disciplinaDeportiva.nombre);
+				$("#horario-ficha").append(valor.horario.horaInicio+" a "+valor.horario.horaFin);
 
-				}else{
-					console.log("No se ha registrado");
-				}
+				$("nombrePadre-declaracion-jurada").append(valor.apoderado.nombre);
+
+				$(".bar-inscripcion__2").removeClass('active');
+				$(".bar-inscripcion__3").addClass('active');
 
 			},
-
 			error: function(error){
 				console.log(error);
 			}
@@ -928,8 +881,6 @@
 							}else{
 								$("#sexo").val('femenino');
 							}
-							
-
 						}
 
 						else{
@@ -985,7 +936,15 @@
 							$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
 							$("#nombre-hijo").val(valor.nombre);
 							$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
-							$("#sexo-hijo").val(valor.sexo);
+
+							if(valor.sexo == 1){
+								$("#sexo-hijo").val('masculino');	
+							}else{
+								$("#sexo-hijo").val('femenino');
+							}
+
+							sessionStorage.removeItem('edad');
+							sessionStorage.setItem("edad", valor.edad);
 
 						}
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Distrito
  *
- * @ORM\Table(name="grubigeo")
+ * @ORM\Table(name="dbo.grubigeo")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\DistritoRepository")
  */
 class Distrito

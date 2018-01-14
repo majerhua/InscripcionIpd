@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Horario
  *
- * @ORM\Table(name="horario")
+ * @ORM\Table(name="ACADEMIA.horario")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\HorarioRepository")
  */
 class Horario
@@ -20,7 +20,7 @@ class Horario
 
     /**
      * @ORM\ManyToOne(targetEntity="ComplejoDisciplina", inversedBy="horarios")
-     * @ORM\JoinColumn(name="complejoDisciplina_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="edi_codigo", referencedColumnName="edi_codigo")
      */
     private $complejoDisciplina;
 

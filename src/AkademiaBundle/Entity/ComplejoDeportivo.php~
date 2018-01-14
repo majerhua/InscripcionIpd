@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class ComplejoDeportivo
 {
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="ComplejoDisciplina", mappedBy="complejoDeportivo")
      */
@@ -22,7 +20,7 @@ class ComplejoDeportivo
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="grubigeo", inversedBy="complejosDeportivo")
+     * @ORM\ManyToOne(targetEntity="Distrito", inversedBy="complejosDeportivo")
      * @ORM\JoinColumn(name="ubicodigo", referencedColumnName="ubicodigo")
      */
     private $distrito;
@@ -55,14 +53,14 @@ class ComplejoDeportivo
    /**
      * @var string
      *
-     * @ORM\Column(name="ede_latitud", type="string", length=255)
+     * @ORM\Column(name="ede_coordenadax", type="string", length=30)
      */
     private $latitud;
 
    /**
      * @var string
      *
-     * @ORM\Column(name="edelongitud", type="string", length=255)
+     * @ORM\Column(name="ede_coordenaday", type="string", length=30)
      */
     private $longitud;
 

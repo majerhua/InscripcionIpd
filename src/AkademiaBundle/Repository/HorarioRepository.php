@@ -10,4 +10,15 @@ namespace AkademiaBundle\Repository;
  */
 class HorarioRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function getHorarios(){
+
+       $query = "  select *from ACADEMIA.horario;";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
+
+        return $horarios;
+	}
+
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Inscribete
  *
- * @ORM\Table(name="inscribete")
+ * @ORM\Table(name="ACADEMIA.inscribete")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\InscribeteRepository")
  */
 class Inscribete

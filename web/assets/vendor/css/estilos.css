@@ -20,124 +20,164 @@ body{
 }
 
 .proceso-inscripcion{
-
-	height:100vh;
-	width: 100%;
-	padding-top: 56px;
-}
 	
+	padding-top: 8vh;
+	background-color: green;
+
+}
 
 	.progreso{
 		height: 80px;
 	}
 
-	.container-titulo{
-
-		width: 100%;
-		line-height: 40px;
-		color:#cb2f1d;
-		font-family: 'Marcellus SC', serif;
-		text-align: center;
-		font-weight: bold;
-	}
-
-		.container-titulo >p {
-			font-size: 1.8em;
-		}
-
-
-	.progreso_container{
-		display:flex; 
-		flex-wrap:wrap; 
-		justify-content:center; 
-		margin:4px 5px 3px 4px;
-	}
-
-		.progreso__barraInscripcion{
-			width:25em;
-			height:15px;
-			border-radius:30px;
-			background-color:#e7edef;
+		.progreso_container{
 			display:flex; 
 			flex-wrap:wrap; 
-			justify-content: 
-			space-between; 
+			justify-content:center; 
+			margin:4px 5px 3px 4px;
 		}
-
-
-
-
-			.bar-inscripcion__1{
-
-				background-color: rgba(255, 24, 23, 0.4); 
-				width:20px;
-				height:20px;
-				border-radius:50%;
-				text-align:center;
-				color:white; 
-				font-weight:bold;
-			}
-
-			.bar-inscripcion__2{
-				 
-				background-color: rgba(255, 24, 23, 0.4); 
-				width:20px; 
-				height:20px; 
-				border-radius:50%; 
-				text-align:center; 
-				color:white; 
-				font-weight:bold;
-			}
-
-			.bar-inscripcion__3{
-				
-				background-color:rgba(255, 24, 23, 0.4);
-				width:20px;
-				height:20px;
-				border-radius:50%; 
-				text-align:center; 
-				color:white; 
-				font-weight:bold; 
-			}
-
-			.active{
-				background-color: rgba(255, 24, 23, 1); 
-			}
-
-			.container-boton-final{
 	
-			}
+/* INICIO PROCESO 1*/
 
-			.horario-otrasEdades>div{
-				display: flex;
-				flex-wrap: wrap;
-			}
+	.proceso1{
+		height: 100vh;
+		width: 100%;
+		background-color: blue; 
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		align-items: center;
+	}
 
-		.container-boton{
-			padding-right: 125px;
+		.container-card{
+			width: 50%;
+			background-color: white;
 		}
+/*FIN*/
 
+/* INICIO PROCESO 2*/
 
-	.pdf_inscripcion{
+	.proceso2{
+
+		height: 100vh;
+		width: 100%;
+		background-color: orange; 
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		align-items: center;	
 
 	}
 
-		.pdf_inscripcion__ficha{
+/*FIN*/
+
+
+
+	.proceso3{
+
+		height: 100vh;
+		width: 100%;
+		background-color: orange; 
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		align-items: center;	
+
+	}
+
+		.container-titulo{
+
+			width: 100%;
+			line-height: 40px;
+			color:#cb2f1d;
+			font-family: 'Marcellus SC', serif;
+			text-align: center;
+			font-weight: bold;
+		}
+
+			.container-titulo >p {
+				font-size: 1.8em;
+			}
+
+
+	.proceso2{
+
+	}
+
+
+			.progreso__barraInscripcion{
+				width:25em;
+				height:15px;
+				border-radius:30px;
+				background-color:#e7edef;
+				display:flex; 
+				flex-wrap:wrap; 
+				justify-content: 
+				space-between; 
+			}
+
+
+
+
+				.bar-inscripcion__1{
+
+					background-color: rgba(255, 24, 23, 0.4); 
+					width:20px;
+					height:20px;
+					border-radius:50%;
+					text-align:center;
+					color:white; 
+					font-weight:bold;
+				}
+
+				.bar-inscripcion__2{
+					 
+					background-color: rgba(255, 24, 23, 0.4); 
+					width:20px; 
+					height:20px; 
+					border-radius:50%; 
+					text-align:center; 
+					color:white; 
+					font-weight:bold;
+				}
+
+				.bar-inscripcion__3{
+					
+					background-color:rgba(255, 24, 23, 0.4);
+					width:20px;
+					height:20px;
+					border-radius:50%; 
+					text-align:center; 
+					color:white; 
+					font-weight:bold; 
+				}
+
+				.active{
+					background-color: rgba(255, 24, 23, 1); 
+				}
+
+				.container-boton-final{
+		
+				}
+
+				.horario-otrasEdades>div{
+					display: flex;
+					flex-wrap: wrap;
+				}
+
+			.container-boton{
+				padding-right: 125px;
+			}
+
+
+		.pdf_inscripcion{
 
 		}
 
-#process2{
+			.pdf_inscripcion__ficha{
 
-}
+			}
 
-#process1{
-
-}
-
-
-#process3{
-	
-}
 
 /*PROCESO 2 DE INSCRIPCION */
 
@@ -329,21 +369,3 @@ body{
 		font-size: 10px;
 	}
 
-
-
-.proceso1{
-
-	background-color: red;
-	width: 100%;
-}
-
-	.proceso1 , .proceso2>div{
-		background-color: orange;
-		width: 35%;
-		margin:0 auto;
-	}
-
-
-		.card{
-
-		}

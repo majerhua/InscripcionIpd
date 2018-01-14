@@ -37,7 +37,6 @@ class DefaultController extends Controller
 
                 $dni = $request->request->get('dni');
 
-
                 if($dni != ''){
                     $em = $this->getDoctrine()->getEntityManager();
                     $db = $em->getConnection();
@@ -69,9 +68,6 @@ class DefaultController extends Controller
                 $dni = $request->request->get('dni');
 
                 if($dni != ''){
-
-                
-
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $db = $em->getConnection();
@@ -107,20 +103,12 @@ class DefaultController extends Controller
         $mdlDepartamento = $em2->getRepository('AkademiaBundle:Distrito')->getDepartamentos();
         $mdlProvincia = $em2->getRepository('AkademiaBundle:Distrito')->getProvincias();
         $mdlDistrito = $em2->getRepository('AkademiaBundle:Distrito')->getDistritos();
+        $mdlComplejoDeportivo = $em2->getRepository('AkademiaBundle:ComplejoDeportivo')->getComplejosDeportivos();
+        $mdlComplejoDisciplina = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejoDisciplinas();
+        $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
 
-        $em =  $this->getDoctrine()->getRepository(ComplejoDeportivo::class);
-        $complejosDeportivo = $em->findAll();
 
-        $em =  $this->getDoctrine()->getRepository(ComplejoDisciplina::class);
-        $complejosDisciplinas = $em->findAll();
-
-        $em =  $this->getDoctrine()->getRepository(DisciplinaDeportiva::class);
-        $disciplinasDeportivas = $em->findAll();
-
-        $em =  $this->getDoctrine()->getRepository(Horario::class);
-        $horarios = $em->findAll();
-
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $complejosDeportivo , "complejosDisciplinas" => $complejosDisciplinas , "disciplinasDeportivas" => $disciplinasDeportivas , "horarios" => $horarios, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito  ) );
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito  ) );
     }
 
     public function registrarAction(Request $request){
@@ -197,19 +185,50 @@ class DefaultController extends Controller
 
             $idParticipante  = $participante->getId();
 
-            $em = $this->getDoctrine()->getEntityManager();
-            $db = $em->getConnection();
-            $query = "select id,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from participante where id='$idParticipante';";
-            $stmt = $db->prepare($query);
-            $params = array();
-            $stmt->execute($params);
-            $edadAndId = $stmt->fetchAll();
 
-            if(!empty($edadAndId)){
-                return new JsonResponse($edadAndId);    
-            }else{
-                return new JsonResponse(null);
-            }
+            //REGISTRO FINAL
+
+            $idHorario = $request->request->get('idHorario');
+            $fechaInscripcion = $hoy = date("Y-m-d");
+
+
+            $inscripcion = new Inscribete();
+
+            $estado="activo";
+            $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
+
+
+            $inscripcion->setEstado($estado);
+            $em = $this->getDoctrine()->getRepository(Participante::class);
+            $buscarParticipante = $em->find($idParticipante);
+            $inscripcion->setParticipante($buscarParticipante);
+
+            $em = $this->getDoctrine()->getRepository(Horario::class);
+            $buscarHorario = $em->find($idHorario);
+            $inscripcion->setHorario($buscarHorario);            
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($inscripcion);
+            $em->flush();
+
+            $em = $this->getDoctrine()->getRepository(Inscribete::class);
+            $buscarInscripcion = $em->find($inscripcion->getId());
+
+            /*
+            $encoders = array(new JsonEncoder());
+            $normalizer = new ObjectNormalizer();
+
+            $normalizer->setCircularReferenceLimit(1);
+                //Add Circular reference handler
+            $normalizer->setCircularReferenceHandler(function ($object) {
+                return $object->getId();
+            });
+            $normalizers = array($normalizer);
+            $serializer = new Serializer($normalizers, $encoders);
+            $jsonContent = $serializer->serialize($buscarInscripcion,'json');*/
+
+            return new JsonResponse($inscripcion->getId());
+
             
         }
 

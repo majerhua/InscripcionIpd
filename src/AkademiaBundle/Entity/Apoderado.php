@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Apoderado
  *
- * @ORM\Table(name="apoderado")
+ * @ORM\Table(name="ACADEMIA.apoderado")
  * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\ApoderadoRepository")
  */
 class Apoderado
@@ -21,7 +21,7 @@ class Apoderado
 
     /**
      * @ORM\ManyToOne(targetEntity="Distrito", inversedBy="apoderados")
-     * @ORM\JoinColumn(name="distrito_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ubicodigo", referencedColumnName="ubicodigo")
      */
 
     private $distrito;
