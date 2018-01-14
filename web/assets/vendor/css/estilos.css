@@ -22,7 +22,7 @@ body{
 .proceso-inscripcion{
 	
 	padding-top: 8vh;
-	background-color: green;
+
 
 }
 
@@ -42,7 +42,6 @@ body{
 	.proceso1{
 		height: 100vh;
 		width: 100%;
-		background-color: blue; 
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
@@ -61,7 +60,6 @@ body{
 
 		height: 100vh;
 		width: 100%;
-		background-color: orange; 
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
@@ -77,7 +75,6 @@ body{
 
 		height: 100vh;
 		width: 100%;
-		background-color: orange; 
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;

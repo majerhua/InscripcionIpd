@@ -19,7 +19,6 @@ use AkademiaBundle\Entity\Inscribete;
 use AkademiaBundle\Entity\ComplejoDisciplina;
 use AkademiaBundle\Entity\Horario;
 
-
 use Symfony\Component\HttpFoundation\JsonResponse; 
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -45,19 +44,14 @@ class DefaultController extends Controller
                     $params = array();
                     $stmt->execute($params);
                     $po = $stmt->fetchAll();
-
                     $encoders = array(new JsonEncoder());
                     $normalizer = new ObjectNormalizer();
-                    //$normalizer->setCircularReferenceLimit(1);
-                    // Add Circular reference handler
-                    //$normalizer->setCircularReferenceHandler(function ($object) {
-                      //  return $object->getId();
-                    //});
                     $normalizers = array($normalizer);
                     $serializer = new Serializer($normalizers, $encoders);
                     $jsonContent = $serializer->serialize($po,'json');
 
-                    return new JsonResponse($jsonContent); 
+                    return new JsonResponse($jsonContent);
+
                 }else{
                     return new JsonResponse(""); 
                 }
@@ -67,35 +61,62 @@ class DefaultController extends Controller
 
                 $dni = $request->request->get('dni');
 
-                if($dni != ''){
+                $em2 = $this->getDoctrine()->getManager();
+                $mdlDniParticipanteBusqueda = $em2->getRepository('AkademiaBundle:Participante')->buscarParticipante($dni);
 
-                $em = $this->getDoctrine()->getEntityManager();
-                $db = $em->getConnection();
-                $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
-                $stmt = $db->prepare($query);
-                $params = array();
-                $stmt->execute($params);
-                $po = $stmt->fetchAll();
+                if(empty($mdlDniParticipanteBusqueda)){
 
-                $encoders = array(new JsonEncoder());
-                $normalizer = new ObjectNormalizer();
-                //$normalizer->setCircularReferenceLimit(1);
-                // Add Circular reference handler
-                //$normalizer->setCircularReferenceHandler(function ($object) {
-                  //  return $object->getId();
-                //});
-                $normalizers = array($normalizer);
-                $serializer = new Serializer($normalizers, $encoders);
-                $jsonContent = $serializer->serialize($po,'json');
+                    if($dni != ''){
 
-                return new JsonResponse($jsonContent); 
+                        $em = $this->getDoctrine()->getEntityManager();
+                        $db = $em->getConnection();
+                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
+                        $stmt = $db->prepare($query);
+                        $params = array();
+                        $stmt->execute($params);
+                        $po = $stmt->fetchAll();
+                        $encoders = array(new JsonEncoder());
+                        $normalizer = new ObjectNormalizer();
+                        $normalizers = array($normalizer);
+                        $serializer = new Serializer($normalizers, $encoders);
+                        $jsonContent = $serializer->serialize($po,'json');
 
-                }else{
-                    return new JsonResponse(""); 
+                        return new JsonResponse($jsonContent); 
+
+                    }else{
+                        return new JsonResponse(""); 
+                    }
+
+                }else if($mdlDniParticipanteBusqueda[0]['dni'] != $dni){
+
+                        if($dni != ''){
+
+                            $em = $this->getDoctrine()->getEntityManager();
+                            $db = $em->getConnection();
+                            $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
+                            $stmt = $db->prepare($query);
+                            $params = array();
+                            $stmt->execute($params);
+                            $po = $stmt->fetchAll();
+                            $encoders = array(new JsonEncoder());
+                            $normalizer = new ObjectNormalizer();
+                            $normalizers = array($normalizer);
+                            $serializer = new Serializer($normalizers, $encoders);
+                            $jsonContent = $serializer->serialize($po,'json');
+
+                            return new JsonResponse($jsonContent); 
+
+                        }else{
+                            return new JsonResponse(""); 
+                        }
+
                 }
 
-            }
-                
+                else{
+
+                    return new JsonResponse(""); 
+                }
+            }      
 		}
 
         $em2 = $this->getDoctrine()->getManager();

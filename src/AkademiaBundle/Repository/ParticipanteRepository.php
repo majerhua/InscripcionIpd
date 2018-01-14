@@ -10,4 +10,14 @@ namespace AkademiaBundle\Repository;
  */
 class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function buscarParticipante($dni){
+
+       $query = "  select dni from ACADEMIA.participante where dni='$dni'";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $dni = $stmt->fetchAll();
+
+    	return $dni;
+	}
 }

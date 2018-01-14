@@ -10,4 +10,5 @@ namespace AkademiaBundle\Repository;
  */
 class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }
