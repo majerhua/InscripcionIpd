@@ -255,8 +255,8 @@
 		            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
 		                <option value="">--Seleccionar--</option>
 
-			            {% for departamento in departamentos %}
-			            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+			            {% for departamentoCD in departamentosCD %}
+			            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
 			            {% endfor %}
 						
 		            </select>
@@ -325,21 +325,41 @@
 	        </div>
 
 	        <div class="form-group" >
-	        	
-				<p>Otras Edades</p>
-			
-				<div class="horario-otrasEdades" >
-		
-	        	</div>
 
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Ver Horario de Otra Edades</button>
+				
 				<div class="form-group pull-right container-boton-final"  >
 				<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripcion</button>
 
 				</div>		
 			</div>	
- 			
 		</div>
+
 	</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ventana de Horarios</h4>
+      </div>
+      <div class="modal-body">
+        <p>Los siguientes horarios no pertenecen a tu edad</p>
+
+			<div class="horario-otrasEdades" >
+		
+        	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 	<div class="pdf_inscripcion" id="process5" >
 	
@@ -619,6 +639,8 @@
     </div>
 </section>
 
+
+
 {% endblock %}
 
 {% block javascripts %}
@@ -685,14 +707,14 @@
 		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		{% for provincia in provincias  %}
+		{% for provinciaCD in provinciasCD  %}
 
-			if("{{provincia['idDepartamento']}}" == idDepartamentoHorario){
+			if("{{provinciaCD['idDepartamento']}}" == idDepartamentoHorario){
 
-				console.log("{{provincia['nombreProvincia']}}");
-				console.log("{{provincia['idProvincia']}}");
+				console.log("{{provinciaCD['nombreProvincia']}}");
+				console.log("{{provinciaCD['idProvincia']}}");
 				
-				$("#provinciaHorario").append("<option value={{provincia['idProvincia']}}  data-departamento={{provincia['idDepartamento']}} >{{provincia['nombreProvincia']}}</option>");
+				$("#provinciaHorario").append("<option value={{provinciaCD['idProvincia']}}  data-departamento={{provinciaCD['idDepartamento']}} >{{provinciaCD['nombreProvincia']}}</option>");
 				
 			}
 		{% endfor %}
@@ -710,9 +732,9 @@
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 
-		{% for distrito in distritos  %}
-			if("{{distrito['idProvincia']}}" == idProvinciaHorario  && {{distrito['idDepartamento']}} == idDepartamentoHorario ){
-				$("#distritoHorario").append("<option value={{distrito['idDistrito']}} >{{distrito['nombreDistrito']}}</option>");				
+		{% for ditritoCD in ditritosCD  %}
+			if("{{ditritoCD['idProvincia']}}" == idProvinciaHorario  && {{ditritoCD['idDepartamento']}} == idDepartamentoHorario ){
+				$("#distritoHorario").append("<option value={{ditritoCD['idDistrito']}} >{{ditritoCD['nombreDistrito']}}</option>");				
 			}
 		{% endfor %}
 
@@ -729,7 +751,7 @@
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 		{% for complejoDeportivo in complejosDeportivo  %}
 
-			if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario){
+			if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1  ){
 
 				console.log("{{complejoDeportivo['nombre']}}");
 				console.log("{{complejoDeportivo['id']}}");
@@ -775,20 +797,20 @@
 
 		{% for horario in horarios  %}
 
+			var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
+			var horaFin = "{{horario['horaFin']}}".substr(0,5);
+
 			if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
-
 				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-
 					console.log("Horario  ==> {{horario['id']}}");
 					localStorage.removeItem('idHorario');
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
-					$("#horario").append("<option value={{horario['id']}} >HORARIO {{horario['id']}}</option>");
+					$("#horario").append("<option value={{horario['id']}} >{{horario['turno']}} de"+horaInicio+" a "+horaFin+"</option>");
 				}else{
 				
-				$(".horario-otrasEdades").append("<div><p>{{horario['edadMinima']}} a {{horario['edadMaxima']}}</p><p>{{horario['horaInicio']}} a {{horario['horaFin']}} am</p></div>");
-				}
 
-		
+				$(".horario-otrasEdades").append("<div><p>{{horario['edadMinima']}} a {{horario['edadMaxima']}}</p><p>"+horaInicio+" a "+horaFin+" am</p></div>");
+				}		
 			}
 
 		{% endfor %}
@@ -801,6 +823,9 @@
 		console.log(idHorario);
 
 		{% for horario in horarios  %}
+
+			var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
+			var horaFin = "{{horario['horaFin']}}".substr(0,5);
 
 			if("{{horario['id']}}" == idHorario){
 
@@ -815,7 +840,7 @@
 					$("#vacantes").append("Cantidad de Vacantes {{horario['vacantes']}}");
 
 					$("#rango-hora-horario").empty();
-					$("#rango-hora-horario").append("De {{horario['horaInicio']}} a {{horario['horaFin']}}");
+					$("#rango-hora-horario").append("De "+horaInicio+" a "+horaFin);
 
 
 					$("#turno").empty();
@@ -831,15 +856,18 @@
 
 
 	}
-
-	//$("#proceso1").hide();
+	
+	$("#proceso1").hide();
 	$("#proceso2").hide();
 	$("#proceso3").hide();
-	$("#process4").hide();
+	$("#process4").show();
 	$("#process5").hide();
+	
+
 
 	$("#boton1").on('click',function(){
 
+		sessionStorage.clear()
 		//DATOS APODERADO
 		sessionStorage.removeItem("dni-apoderado");
 		sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
@@ -1059,7 +1087,6 @@ function calcularEdad(fecha)
 
 			//HORARIO
 			'idHorario' : sessionStorage.getItem('idHorario'),
-
 
 			//DATOS HIJO
 			"dniParticipante" : sessionStorage.getItem('dni-participante'),

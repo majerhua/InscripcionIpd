@@ -236,17 +236,16 @@ body{
 
 	.proceso-inscripcion__horarios__horario{
 		
+		background-color: red;
 
 	}
-
 		.container-select-deporte{
-			width: 70%;
+			width: 90%;
 			margin:0 auto;
 			justify-content: space-around; ;
-			
+			margin-top: 5px;
 			display: flex;
 		}
-
 			.container-select-deporte>select{
 				margin-left: 14px;
 			}
@@ -256,7 +255,6 @@ body{
 			width: 70%;
 			margin:0 auto;
 			justify-content: space-around; ;
-			
 			display: flex;
 		}
 
@@ -446,4 +444,43 @@ body{
 	margin-top: 10vh;
 	overflow-y: scroll;
 	height: 90vh;
+}
+
+.sugerencias{
+
+	margin-top: 10vh;
+
+	height: 90vh;
+}
+
+
+.footer{
+	background: #CB2F1D;
+	color: #FFFFFF;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
+
+.footer a {
+	color: #FFFFFF;
+}
+
+.container-sugerencias{
+	
+}
+
+.sugerencias{
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.card-sugerencias{
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.btn-sugerencias{
+	margin-top: 20px;
 }

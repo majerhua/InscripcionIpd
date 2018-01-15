@@ -30,7 +30,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
    participante.id = inscribete.participante_id and apoderado.id = participante.apoderado_id 
    and grubigeo.ubicodigo = apoderado.ubicodigo  and edificacionDisciplina.edi_codigo = 
    horario.edi_codigo and edificacionDisciplina.dis_codigo = disciplina.dis_codigo and
-   edificacionDeportiva.ede_codigo = edificacionDisciplina.ede_codigo;";
+   edificacionDeportiva.ede_codigo = edificacionDisciplina.ede_codigo and inscribete.id = '$idInscripcion';";
     	$stmt = $this->getEntityManager()->getConnection()->prepare($query);
     	$stmt->execute();
     	$ficha = $stmt->fetchAll();

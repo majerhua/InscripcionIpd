@@ -119,6 +119,9 @@ class DefaultController extends Controller
 
         $em2 = $this->getDoctrine()->getManager();
 
+        $mdlDitritoCD = $em2->getRepository('AkademiaBundle:Distrito')->getDitritosCD();
+        $mdlProvinciasCD = $em2->getRepository('AkademiaBundle:Distrito')->getProvinciasCD();
+        $mdlDepartamentosCD = $em2->getRepository('AkademiaBundle:Distrito')->getDepartamentosCD();
         $mdlDepartamento = $em2->getRepository('AkademiaBundle:Distrito')->getDepartamentos();
         $mdlProvincia = $em2->getRepository('AkademiaBundle:Distrito')->getProvincias();
         $mdlDistrito = $em2->getRepository('AkademiaBundle:Distrito')->getDistritos();
@@ -127,7 +130,8 @@ class DefaultController extends Controller
         $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
 
 
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito  ) );
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD ,
+            "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD ));
     }
 
     public function registrarAction(Request $request){
