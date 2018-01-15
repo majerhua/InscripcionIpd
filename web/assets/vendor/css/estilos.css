@@ -354,12 +354,16 @@ body{
 		.pdf_inscripcion__ficha{
 			
 
-			width: 35%;
+			width: 45%;
 
 		}
 			.valores{
 				display: flex;
 				flex-direction: column;				
+			}
+
+			.campos{
+				
 			}
 
 			.valores>p{
