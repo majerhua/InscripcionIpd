@@ -442,7 +442,8 @@ body{
 	}
 
 .preguntas-frecuentes{
-
-	background-color: red;
-	height: 100vh;
+	
+	margin-top: 10vh;
+	overflow-y: scroll;
+	height: 90vh;
 }
