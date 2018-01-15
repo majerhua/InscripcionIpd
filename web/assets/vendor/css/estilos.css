@@ -353,18 +353,22 @@ body{
 
 		.pdf_inscripcion__ficha{
 			
-			background-color: red;
-			width: 45%;
+			
+			width: 90%;
+			display: flex;
+			flex-wrap: wrap;
 
 		}
 			.valores{
 				display: flex;
-				background-color: orange;
+				width: 60%;
+				
 				flex-direction: column;				
 			}
 
 			.campos{
-			width: 60%;
+			width: 40%;
+			
 			}
 
 			.valores>p{
@@ -437,3 +441,8 @@ body{
 		font-size: 10px;
 	}
 
+.preguntas-frecuentes{
+
+	background-color: red;
+	height: 100vh;
+}
