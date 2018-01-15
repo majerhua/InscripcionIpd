@@ -18,15 +18,13 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>                        
 	      </button>
-	      <a class="navbar-brand" href="#">Instituto Peruano de Deporte</a>
+	      <a class="navbar-brand" href="#">LA ACADEMIA IPD 2018</a>
 	    </div>
 
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		      <li class="active"><a href="#inicio">Inicio</a></li>
-	  	      <li><a href="#">Nosotros</a></li>
+		      <li ><a href="#inicio">Inicio</a></li>
 	  	      <li><a href="#inscribete" >Inscribete</a></li>
-		      <li><a href="#">Contactanos</a></li>
 	      </ul>
 	    </div>
 	  </div>
@@ -57,6 +55,7 @@
 	        <div class="card">	
 
           		<p class="title-card">Apoderado</p>
+			
 
 				<div class="form-group">
 					<label for="dniApoderado">DNI Apoderado</label>
@@ -82,7 +81,7 @@
 
 				<div class="form-group">
 					<label for="fechaNacimiento">Fecha de Nacimiento</label>
-		          	<input class="form-control"  id="fechaNacimiento" type="text"  id="fechaNacimiento"  name="fechaNacimiento">
+		          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
 		          					
 				</div>
 
@@ -90,8 +89,8 @@
 					<label>Sexo</label>
 				    <select id="sexo" class="form-control"  name="sexo" >
 				    	<option value="">--SELECCIONAR--</option>
-				      	<option value="masculino">Masculino</option>
-				      	<option value="femenino">Femenino</option>
+				      	<option value="1">Masculino</option>
+				      	<option value="0">Femenino</option>
 				    </select>
 				</div>
 
@@ -204,8 +203,8 @@
 						<label for="sexo-hijo">Sexo</label>
 			          	<select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
 			          		//<option value="">--SELECCIONAR--</option>
-			          		<option value="masculino" >MASCULINO</option>
-			          		<option value="femenino" >FEMENINO</option>
+			          		<option value="1" >MASCULINO</option>
+			          		<option value="0" >FEMENINO</option>
 			          	</select>
 					</div>
 
@@ -297,7 +296,7 @@
 
 		<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
 
-			<p class="title-card text-center">DEPORTE Y HORARIO</p>
+			<p class="title-card text-center">DEPORTES Y HORARIOS</p>
 
 	        <div class="form-group container-select-deporte"  >
 	        	<label>Deportive: </label>
@@ -314,14 +313,14 @@
 	        </div>
 
 	        <div class="form-group  container-edad-participante" >
-	        	<p>Edad</p>
-	        	<p><span  id="edadMinima" ></span> a <a id="edadMaxima"></a> años </p>
+	        	<p>Tu Horario es el siguiente..</p>
 	        </div>
 
 	        <div class="form-group  container-horario-participante">
-	        	<div><span id="horaInicio" ></span> am a <span id="horaFin"></span> am</div>
-	        	<div>De martes a viernes</div>
-	        	<div><span id="vacantes"></span>vacantes</div>
+	        	<div id="rango-edad-horario" ></div>
+	        	<div id="rango-hora-horario"></div>
+	        	<div id="turno"></div>
+	        	<div id="vacantes"></div>
 	        </div>
 
 	        <div class="form-group" >
@@ -341,21 +340,17 @@
 		</div>
 	</div>
 
-
 	<div class="pdf_inscripcion" id="process5" >
 	
-		<div class="pdf_inscripcion__1"  >
+		<div class="pdf_inscripcion__1">
+
+			<div class="tituloFicha">
+				<p>FICHA DE INSCRIPCION</p>
+				<P>ACADEMIA IPD VERANO 2018</p>
+			</div>
+
 			<div class="pdf_inscripcion__ficha">
-				
-				<div class="tituloFicha col-md-12  col-lg-12">
-					
-					<p>FICHA DE INSCRIPCION</p>
-					<P>ACADEMIA IPD VERANO 2018</p>
-
-				</div>
-
-				<div class="campos  col-md-4  col-lg-4"> 
-					
+				<div class="campos  col-md-4  col-lg-4"> 	
 					<p>Nombre</p>
 					<p>Apellido Paterno</p>
 					<p>Apellido Materno</p>
@@ -389,17 +384,42 @@
 
 				</div>
 
-				<div  class="col-md-12 col-lg-12">
-					
-					<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" >Imprimir Ficha</button></a>
-					<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" >Imprimir Decla.Jurada</button></a>
-				</div>
+
 
 			</div>
 		</div>
 
-		<div class="pdf_inscripcion__confirmacion">
+		<div class="pdf_inscripcion__2">
 			
+			<div class="pdfInscripcion2__container-titulo">
+				<p>PRE-INSCRIPCION CONFIRMADA <i class="icon-checklist" style="font-size:1.6em;"></i></p>
+			</div>
+			<div class="pdfInscripcion2__container-mensaje-lugar">
+				<p>
+					Acercate al complejo que eligistes para confirmar tu preinscripcion 
+				</p>
+				<p>
+					Inscripcion Presencial no se reservan vacantes!.
+				</p>
+			</div>
+
+			<div class="lista-requisitos"> 
+				<p>*OBLIGATORIO</p>
+				<ol>
+					<li>Presentar ficha  y declaracion impresa</li>
+					<li>Dni del menor  y el apoderado(Original y Copia)</li>
+					<li>Copia de Ficha de seguro SIS, EsSalud, o privado</li>
+					<li>Foto tamaño  carnet del menor (Actualizado)</li>
+				</ol>
+			</div>
+
+			<div  class="col-md-12 col-lg-12">
+					
+				<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
+				<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Decla.Jurada</button></a>
+			</div>
+
+
 		</div>
 	</div>
 	
@@ -416,63 +436,6 @@
 <!--<script src="{{asset('assets/vendor/js/scroll.js')}}"></script>-->
 <script>
 	
-
-
-	//$("#btn-imprimir-fichaInscripcion").on('click',function(){
-
-		//location.href ="/academia/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion");
-		//window.open("/academia/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
-
-
-	//});
-
-	//$("#btn-imprimir-declaracion-jurada").on('click',function(){
-
-
-		//location.href ="/academia/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion");
-
-	//});
-	/*
-	$("#boton-next-final")Finalizar Inscripcion('click',function(){
-
-		var datosInscripcion = {
-			'idParti cipante' : sessionStorage.getItem('idParticipante'),
-					
-		}
-
-		$.ajax({
-			type:'POST',
-			dataType: 'json',
-			url: "{{url('akademia_registerFinal')}}",
-			data: datosInscripcion,
-			beforeSend: function(){
-				
-			},
-			success: function(data){
-				var dataTotalInscripcion =JSON.parse(data); 
-				console.log(dataTotalInscripcion);
-				$("#process2").hide();
-				$("#process3").show();
-				$(dataTotalInscripcion).each(function(index,valor){
-				});
-			},
-			error: function(error){
-				console.log(error);
-			}
-				
-		});
-	});
-
-*/
-/*EVENTO BOTON NEXT PROCESSO 2*/
-
-
-
-	//$("#boton-next-final").on('click',function(){
-		//registrarApoderado();	
-	//})
-/*EVENTO FI N BOTON NEXT PROCESSO 2*/	
-
 	function cambiarDepartamento(departamento){
 
 		idDepartamento = departamento.value;
@@ -657,19 +620,17 @@
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
 
 					$("#vacantes").empty();
-					$("#vacantes").append("{{horario['vacantes']}}");
+					$("#vacantes").append("Cantidad de Vacantes {{horario['vacantes']}}");
 
-					$("#horaInicio").empty();
-					$("#horaInicio").append("{{horario['horaInicio']}}");
+					$("#rango-hora-horario").empty();
+					$("#rango-hora-horario").append("De {{horario['horaInicio']}} a {{horario['horaFin']}}");
 
-					$("#horaFin").empty();
-					$("#horaFin").append("{{horario['horaFin']}}");
 
-					$("#edadMinima").empty();
-					$("#edadMinima").append("{{horario['edadMinima']}}");
+					$("#turno").empty();
+					$("#turno").append("{{horario['turno']}}");
 
-					$("#edadMaxima").empty();
-					$("#edadMaxima").append("{{horario['edadMaxima']}}");
+					$("#rango-edad-horario").empty();
+					$("#rango-edad-horario").append("Rango de Edad {{horario['edadMinima']}} a {{horario['edadMaxima']}} ");
 					
 				}		
 			}
@@ -708,6 +669,10 @@
 
 		$("#proceso1").hide();
 		$("#proceso2").show();
+
+
+		$(".bar-inscripcion__1").removeClass('active');
+		$(".bar-inscripcion__2").addClass('active');	
 	});
 
 
@@ -727,6 +692,9 @@
 
 		$("#proceso2").hide();
 		$("#proceso3").show();
+
+		$(".bar-inscripcion__2").removeClass('active');
+		$(".bar-inscripcion__3").addClass('active');
 
 	});
 
@@ -762,11 +730,16 @@ $("#boton3").on('click',function(){
 		if( sessionStorage.getItem("edad") != null  ){
 			if(sessionStorage.getItem("edad") < 18){
 				$("#proceso3").hide();
-				$("#process4").show();			
+				$("#process4").show();	
+
+				$(".bar-inscripcion__3").removeClass('active');
+				$(".bar-inscripcion__4").addClass('active');		
 			}
 		}
 
-	});
+
+
+});
 
 
 
@@ -774,32 +747,9 @@ $("#boton3").on('click',function(){
 
 		$("#process4").hide();
 		$("#process5").show();
-		//DATOS APODERADO
 
-		/*
-		sessionStorage.setItem('dni-apoderado', $("#dniApoderado").val());
-		sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val()) 	
-		sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
-		sessionStorage.setItem("nombre-apoderado", $("#nombre").val())
-		sessionStorage.setItem("fechaNacimiento-apoderado" , $("#fechaNacimiento").val());
-		sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
-		//DATOS APODERADO
-		sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
-		sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
-		sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
-		sessionStorage.setItem("correo-apoderado", $("#correo").val());
-
-		//DATOS APODERADO
-		
-		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
-		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
-		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
-		sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
-		sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
-		sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
-		sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
-		sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
-		*/
+		$(".bar-inscripcion__4").removeClass('active');
+		$(".bar-inscripcion__5").addClass('active');
 		registrar();
 
 	});
@@ -926,7 +876,7 @@ $(".mensajeEdad").empty();
 							$("#fechaNacimiento").val(valor.fechaNacimiento);
 
 							if(valor.sexo == 1){
-								$("#sexo").val('masculino');	
+								$("#sexo").val('1');	
 							}else{
 								$("#sexo").val('femenino');
 							}
@@ -987,12 +937,8 @@ $(".mensajeEdad").empty();
 								$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
 								$("#nombre-hijo").val(valor.nombre);
 								$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
+								$("#sexo-hijo").val(valor.sexo);	
 
-								if(valor.sexo == 1){
-									$("#sexo-hijo").val('masculino');	
-								}else{
-									$("#sexo-hijo").val('femenino');
-								}
 
 								sessionStorage.removeItem('edad');
 								sessionStorage.setItem("edad", valor.edad);
@@ -1026,6 +972,11 @@ $(".mensajeEdad").empty();
 	}
 
 
+	$("#proceso1").hide();
+	$("#proceso2").hide();
+	$("#proceso3").hide();
+	$("#process4").show();
+	$("#process5").hide();
 
 </script>
 

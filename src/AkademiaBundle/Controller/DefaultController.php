@@ -31,9 +31,7 @@ class DefaultController extends Controller
     {
 
 		if($request->isXmlHttpRequest()){
-
             if($request->request->get('persona') == "apoderado"){
-
                 $dni = $request->request->get('dni');
 
                 if($dni != ''){

@@ -149,6 +149,29 @@ body{
 					font-weight:bold; 
 				}
 
+				.bar-inscripcion__4{
+					
+					background-color:rgba(255, 24, 23, 0.4);
+					width:20px;
+					height:20px;
+					border-radius:50%; 
+					text-align:center; 
+					color:white; 
+					font-weight:bold; 
+				}
+				.bar-inscripcion__5{
+					
+					background-color:rgba(255, 24, 23, 0.4);
+					width:20px;
+					height:20px;
+					border-radius:50%; 
+					text-align:center; 
+					color:white; 
+					font-weight:bold; 
+				}
+
+
+
 				.active{
 					background-color: rgba(255, 24, 23, 1); 
 				}
@@ -241,8 +264,7 @@ body{
 			padding-top: 10px;
 			width: 70%;
 			margin:0 auto;
-
-			
+			color:green;
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
@@ -289,37 +311,59 @@ body{
 
 
 .pdf_inscripcion{
-	width: 95%;
+	width: 90%;
 	margin:0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	height: 100vh;
+
 }
+
+
+	.tituloFicha{
+		width: 100%
+		background-color:white;
+		color:#cb2f1d;
+		font-weight: bold;
+
+	}	
+
+		.tituloFicha>p:first-child{
+			font-size: 1.5em;
+			font-weight:bold;
+
+			
+		}
+
+		.tituloFicha>p{
+			font-family: 'Marcellus SC', serif;
+			color:#cb2f1d;
+			text-align: center;
+		}
 
 	.pdf_inscripcion__1{
 		
-		width: 100%;
+		width: 50%;
+		
 		display: flex;
+		padding-top: 1em;
+		flex-direction: column;
 		flex-wrap: wrap;
 	}
 
 		.pdf_inscripcion__ficha{
+			
 
-			width: 30%;
+			width: 35%;
+
 		}
-
-			.campos{
-				
-			}
-
 			.valores{
-				
 				display: flex;
 				flex-direction: column;				
-
 			}
 
 			.valores>p{
-
-				font-size: 0.6em;
-
+				font-size: 0.8em;
 			}				
 				.valores>p::first-letter{
 					font-weight: bold;
@@ -327,34 +371,56 @@ body{
 				}
 
 				.campos>p{
-					font-size: 0.6em;
+					font-size: 0.8em;
 					font-weight: bold;
 				}
+	
+	.pdf_inscripcion__2{
 
-
-			.tituloFicha{
-				color:#cb2f1d;
-				font-weight: bold;
-
-			}	
-
-			.tituloFicha>p:first-child{
-				font-size: 1.5em;
-				font-weight:bold;
-
-				
-			}
-
-			.tituloFicha>p{
-				font-family: 'Marcellus SC', serif;
-				color:#cb2f1d;
-				text-align: center;
-			}
+		width: 50%;
+		padding-top: 1em;
+	}
 
 	.pdf_inscripcion__declaracion-jurada{
 		width: 70%;
 
 	}
+	
+		.pdfInscripcion2__container-titulo{
+			text-align: left;
+
+			text-transform: uppercase;
+		}
+
+			.pdfInscripcion2__container-titulo>p{
+				color:green;
+				font-size: 1.7em;
+				font-weight: bold;
+				font-family: 'Open Sans', sans-serif;
+
+
+			}
+
+			.pdfInscripcion2__container-mensaje-lugar{
+
+				padding: 20px;
+				margin:0 auto;				
+			}
+
+				.pdfInscripcion2__container-mensaje-lugar>p{
+					color:gray;
+					font-size: 1em;
+					font-weight: bold;
+					font-family: 'Open Sans', sans-serif;
+				}
+			.lista-requisitos{
+
+				width: 100%;
+				padding: 1em 1em 3em 1em;
+			}
+				.lista-requisitos>ol>li {
+					font-size: 0.9em;
+				}
 
 .table-cuerpo  p, li{
 	font-size: 0.6em;
