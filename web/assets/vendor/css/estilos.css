@@ -353,17 +353,18 @@ body{
 
 		.pdf_inscripcion__ficha{
 			
-
+			background-color: red;
 			width: 45%;
 
 		}
 			.valores{
 				display: flex;
+				background-color: orange;
 				flex-direction: column;				
 			}
 
 			.campos{
-				
+			width: 60%;
 			}
 
 			.valores>p{
