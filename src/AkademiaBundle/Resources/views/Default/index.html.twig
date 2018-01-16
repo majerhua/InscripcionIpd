@@ -1,19 +1,12 @@
 
 {% extends '::base.html.twig' %}
-
-
 {% block title %}Akademia{% endblock %}
-
-
-
 {% block body  %}
 
 <header>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
 		<div class="container">
-			
-			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="icon-bar"></span>
@@ -28,7 +21,7 @@
 					<li><a href="#inscribete">Inscripciones</a></li>
 					<li><a href="#preguntas-frecuentes" onclick="click();">Consultas</a></li>
 				</ul>
-			</div><!-- /.navbar-collapse -->
+			</div>
 		</div>
 	</nav>
 
@@ -197,7 +190,7 @@
 				<div class="form-group col s12">
 					<label>Sexo</label>
 				    <select id="sexo" class="form-control"  name="sexo" >
-				    	<option value="">--SELECCIONAR--</option>
+				    	<option value="0"selected>--SELECCIONAR--</option>
 				      	<option value="1">Masculino</option>
 				      	<option value="0">Femenino</option>
 				    </select>
@@ -268,7 +261,6 @@
 		<div class="container-boton-2">
 			<button class="btn btn-danger" id="boton2" >Continuar</button>
 		</div>
-		
 	</div>
 
 
@@ -851,7 +843,7 @@
 	function cambiarDepartamento(departamento){
 
 		idDepartamento = departamento.value;
-		console.log(idDepartamento);
+		//console.log(idDepartamento);
 
 		$("#provincia").empty();
 		$("#distrito").empty();
@@ -861,8 +853,8 @@
 
 			if("{{provincia['idDepartamento']}}" == idDepartamento){
 
-				console.log("{{provincia['nombreProvincia']}}");
-				console.log("{{provincia['idProvincia']}}");
+				//console.log("{{provincia['nombreProvincia']}}");
+				//console.log("{{provincia['idProvincia']}}");
 				
 				$("#provincia").append("<option value={{provincia['idProvincia']}}  data-departamento={{provincia['idDepartamento']}} >{{provincia['nombreProvincia']}}</option>");
 				
@@ -892,11 +884,13 @@
 
 // HORARIO
 
-	function cambiarDepartamentoHorario(departamentoHorario){
-
-		var idDepartamentoHorario = departamentoHorario.value;
-		console.log(idDepartamentoHorario);
-
+	function cambiarDepartamentoHorario(departamentoHorario,cod){
+        if (cod==0){
+            var idDepartamentoHorario = departamentoHorario.value;
+        }else{
+            var idDepartamentoHorario = departamentoHorario;
+        }
+                
 		$("#provinciaHorario").empty();
 		$("#distritoHorario").empty();
 		$("#provinciaHorario").append("<option value='' >--Seleccionar--</option>");
@@ -918,11 +912,15 @@
 		{% endfor %}
 	}
 
-	function cambiarProvinciaHorario(provinciaHorario){
-
-		idProvinciaHorario = provinciaHorario.value;
-		idDepartamentoHorario = $(provinciaHorario[1]).attr('data-departamento');
-
+	function cambiarProvinciaHorario(provinciaHorario,cod){
+                if (cod==0){
+                    var idProvinciaHorario = provinciaHorario.value;
+                    idDepartamentoHorario = $(provinciaHorario[1]).attr('data-departamento');
+                }else{
+                    var idProvinciaHorario = provinciaHorario;
+                    idDepartamentoHorario = cod;
+                }
+		
 		$("#distritoHorario").empty();
 		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
 		$("#complejosDeportivo").empty();
@@ -931,17 +929,18 @@
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 
 		{% for ditritoCD in ditritosCD  %}
+                     
 			if("{{ditritoCD['idProvincia']}}" == idProvinciaHorario  && {{ditritoCD['idDepartamento']}} == idDepartamentoHorario ){
-				$("#distritoHorario").append("<option value={{ditritoCD['idDistrito']}} >{{ditritoCD['nombreDistrito']}}</option>");				
+				$("#distritoHorario").append("<option value={{ditritoCD['idDistrito']}} >{{ditritoCD['nombreDistrito']}}</option>");	
+                               
 			}
 		{% endfor %}
 
 	}
-
 	function cambiarDistritoHorario(distritoHorario){
 
 		var idDistritoHorario = distritoHorario.value;
-		console.log(idDistritoHorario);
+		//console.log(idDistritoHorario);
 
 		$("#complejosDeportivo").empty();
 		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
@@ -983,7 +982,6 @@
 	function cambiarDisciplinaDeportiva(complejoDisciplina){
 
 		var idComplejoDisciplina = complejoDisciplina.value;
-		console.log(idComplejoDisciplina);
 		$("#horario").empty();
 		$(".horario-otrasEdades").empty();
 		$("#horario").append("<option value='' >--Seleccionar--</option>");
@@ -1059,98 +1057,137 @@
 	$("#proceso3").hide();
 	$("#process4").hide();
 	$("#process5").hide();
-	$("#preguntas-frecuentes").show();	
-
-	function click(){
-		$("#proceso1").hide();
-		$("#proceso2").hide();
-		$("#proceso3").hide();
-		$("#process4").hide();
-		$("#process5").hide();
-		$("#preguntas-frecuentes").show();	
-	}
+	$("#preguntas-frecuentes").hide();	
 
 
 	$("#boton1").on('click',function(){
 
-		sessionStorage.clear()
-		//DATOS APODERADO
-		sessionStorage.removeItem("dni-apoderado");
-		sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
+	if($("#dniApoderado").val()==""){
+       alertify.error('<p style="color:white">Se requiere el campo DNI</p>'); 
+    }else if($("#apellidoPaterno").val()==""){
+       alertify.error('<p style="color:white">Se requiere el campo apellido paterno</p>'); 
+    }else if($("#apellidoMaterno").val()==""){
+       alertify.error('<p style="color:white">Se requiere el campo apellido materno</p>'); 
+    }else if($("#nombre").val()==""){
+      alertify.error('<p style="color:white">Se requiere el campo nombres</p>'); 
+    }else if($("#fechaNacimiento").val()==""){
+      alertify.error('<p style="color:white">Se requiere el campo fecha de nacimiento</p>'); 
+    }else if($("#sexo").val()==0){
+       alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
+    }else{
+        sessionStorage.clear()
+        //DATOS APODERADO
+        sessionStorage.removeItem("dni-apoderado");
+        sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
 
-		sessionStorage.removeItem("apellidoPaterno-apoderado");
-		sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
+        sessionStorage.removeItem("apellidoPaterno-apoderado");
+        sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
 
-		sessionStorage.removeItem("apellidoMaterno-apoderado");
-		sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
+        sessionStorage.removeItem("apellidoMaterno-apoderado");
+        sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
 
-		sessionStorage.removeItem("nombre-apoderado");
-		sessionStorage.setItem("nombre-apoderado", $("#nombre").val());
+        sessionStorage.removeItem("nombre-apoderado");
+        sessionStorage.setItem("nombre-apoderado", $("#nombre").val());
 
-		sessionStorage.removeItem("fechaNacimiento-apoderado");
-		sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
+        sessionStorage.removeItem("fechaNacimiento-apoderado");
+        sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
 
-		sessionStorage.removeItem("sexo-apoderado");
-		sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
+        sessionStorage.removeItem("sexo-apoderado");
+        sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
 
-		$("#proceso1").hide();
-		$("#proceso2").show();
+        $("#proceso1").hide();
+        $("#proceso2").show();
 
 
-		$(".bar-inscripcion__1").removeClass('active');
-		$(".bar-inscripcion__2").addClass('active');	
+        $(".bar-inscripcion__1").removeClass('active');
+        $(".bar-inscripcion__2").addClass('active');	
+        }	
 	});
 
 
 	$("#boton2").on('click',function(){
 		//DATOS APODERADO
-		sessionStorage.removeItem("distrito-apoderado");
-		sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
+	   if($("#distrito").val()==0){
+	           alertify.error('<p style="color:white">Debe seleccionar el campo distrito</p>'); 
+	        }else if($("#direccion").val()==0){
+	           alertify.error('<p style="color:white">Debe seleccionar el campo dirección</p>'); 
+	        }else if($("#telefono").val()==""){
+	           alertify.error('<p style="color:white">Se requiere el campo telefono</p>'); 
+	        }else if($("#correo").val()==""){
+	          alertify.error('<p style="color:white">Se requiere el campo correo electronico</p>'); 
+	        }else{
+	            sessionStorage.removeItem("distrito-apoderado");
+	            sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
 
-		sessionStorage.removeItem("direccion-apoderado");
-		sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
+	            sessionStorage.removeItem("direccion-apoderado");
+	            sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
 
-		sessionStorage.removeItem("telefono-apoderado");
-		sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
+	            sessionStorage.removeItem("telefono-apoderado");
+	            sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
 
-		sessionStorage.removeItem("correo-apoderado");
-		sessionStorage.setItem("correo-apoderado", $("#correo").val());
+	            sessionStorage.removeItem("correo-apoderado");
+	            sessionStorage.setItem("correo-apoderado", $("#correo").val());
 
-		$("#proceso2").hide();
-		$("#proceso3").show();
+	            $("#departamentoHorario").val($("#departamento").val());
+	            cambiarDepartamentoHorario($("#departamento").val(),1);
+	            $("#provinciaHorario").val($("#provincia").val());
+	            cambiarProvinciaHorario($("#provincia").val(),$("#departamento").val());
+	            {#$("#distritoHorario").val($("#distrito").val());#}
+	            
+	            $("#proceso2").hide();
+	            $("#proceso3").show();
 
-		$(".bar-inscripcion__2").removeClass('active');
-		$(".bar-inscripcion__3").addClass('active');
+	            $(".bar-inscripcion__2").removeClass('active');
+	            $(".bar-inscripcion__3").addClass('active');
+
+	        }
 
 	});
 
 $("#boton3").on('click',function(){
 
 		//DATOS APODERADO
-		sessionStorage.removeItem("dni-participante");
-		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+		 if($("#dni-hijo").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo DNI</p>'); 
+                }else if($("#apellidoPaterno-hijo").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo apellido paterno</p>'); 
+                }else if($("#apellidoMaterno-hijo").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo apellido materno</p>'); 
+                }else if($("#nombre-hijo").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo nombres</p>'); 
+                }else if($("#fechaNacimiento-hijo").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo fecha de nacimiento</p>'); 
+                }else if($("#sexo-hijo").val()==0){
+                   alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
+                }else{
+                    //DATOS APODERADO
+                    sessionStorage.removeItem("dni-participante");
+                    sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
 
-		sessionStorage.removeItem("apellidoPaterno-participante");
-		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+                    sessionStorage.removeItem("apellidoPaterno-participante");
+                    sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
 
-		sessionStorage.removeItem("apellidoMaterno-partcipante");
-		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+                    sessionStorage.removeItem("apellidoMaterno-partcipante");
+                    sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
 
-		sessionStorage.removeItem("nombre-partcipante");
-		sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+                    sessionStorage.removeItem("nombre-partcipante");
+                    sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
 
-		sessionStorage.removeItem("fechaNacimiento-partcipante");
-		sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+                    sessionStorage.removeItem("fechaNacimiento-partcipante");
+                    sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
 
-		sessionStorage.removeItem("sexo-partcipante");
-		sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+                    sessionStorage.removeItem("sexo-partcipante");
+                    sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
 
-		sessionStorage.removeItem("parentesco-partcipante");
-		sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+                    sessionStorage.removeItem("parentesco-partcipante");
+                    sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
 
-		sessionStorage.removeItem("tipoSeguro-partcipante");
-		sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
+                    sessionStorage.removeItem("tipoSeguro-partcipante");
+                    sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
 
+                    console.log("EDAD SESION"+sessionStorage.getItem("edad"));
+                }
+		
 		console.log("EDAD SESION"+sessionStorage.getItem("edad"));
 
 
@@ -1256,9 +1293,6 @@ function calcularEdad(fecha)
 		}
 	}
 
-
-
-
 });
 
 
@@ -1354,9 +1388,7 @@ function calcularEdad(fecha)
 $(".mensajeEdad").empty();
 	function buscarDniApoderado(refDni){
 
-
-
-		datoDniPersona = {
+     		datoDniPersona = {
 
 			'dni' : refDni.value,
 			"persona": 'apoderado'
@@ -1420,9 +1452,11 @@ $(".mensajeEdad").empty();
 		});
 	}
 
+//-----------------------------------------------------------------------------------------
+
 	$('.cargarDatosParticipante').hide();
 	function buscarDniHijo(refDni){
-
+                $(".mensajeEdadParticipante").empty();
 		var datoDniPersona = {
 
 			'dni' : refDni.value,
@@ -1437,12 +1471,21 @@ $(".mensajeEdad").empty();
 			data: datoDniPersona,
 
 			beforeSend: function(){
-
+                                $(".mensajeEdad").empty();
 				$('.cargarDatosParticipante').show();
 			},
 
 			success: function(data){
-				
+				$("#apellidoPaterno-hijo").attr('readonly', false);
+                                $("#apellidoMaterno-hijo").attr('readonly', false);
+                                $("#nombre-hijo").attr('readonly', false);
+                                $("#fechaNacimiento-hijo").attr('readonly', false);
+                                $("#sexo-hijo").attr('readonly', false);
+                                $("#apellidoPaterno-hijo").val("");
+                                $("#apellidoMaterno-hijo").val("");
+                                $("#nombre-hijo").val("");
+                                $("#fechaNacimiento-hijo").val("");
+                                $("#sexo-hijo").val(0);
 				if(data != ""){
 					var dataHijo = JSON.parse(data);
 
@@ -1451,7 +1494,12 @@ $(".mensajeEdad").empty();
 						$(dataHijo).each(function(index,valor){
 
 							if(valor.edad <18){
-
+                                                                $("#apellidoPaterno-hijo").attr('readonly', true);
+                                                                $("#apellidoMaterno-hijo").attr('readonly', true);
+                                                                $("#nombre-hijo").attr('readonly', true);
+                                                                $("#fechaNacimiento-hijo").attr('readonly', true);
+                                                                $("#sexo-hijo").attr('readonly', true);
+                                                                
 								$("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
 								$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
 								$("#nombre-hijo").val(valor.nombre);
@@ -1459,14 +1507,21 @@ $(".mensajeEdad").empty();
 								$("#sexo-hijo").val(valor.sexo);
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
-							}
-
-							else{
+							}else{
 								console.log("Se ha removido edad");
 								sessionStorage.removeItem("edad");
 								$(".mensajeEdadParticpante").empty();
 								$(".mensajeEdadParticipante").append("Usted Es mayor de edad");
-
+                                                                $("#apellidoPaterno-hijo").attr('readonly', false);
+                                                                $("#apellidoMaterno-hijo").attr('readonly', false);
+                                                                $("#nombre-hijo").attr('readonly', false);
+                                                                $("#fechaNacimiento-hijo").attr('readonly', false);
+                                                                $("#sexo-hijo").attr('readonly', false);
+                                                                $("#apellidoPaterno-hijo").val("");
+                                                                $("#apellidoMaterno-hijo").val("");
+                                                                $("#nombre-hijo").val("");
+                                                                $("#fechaNacimiento-hijo").val("");
+                                                                $("#sexo-hijo").val(0);
 							}
 						});					
 					
@@ -1477,6 +1532,7 @@ $(".mensajeEdad").empty();
 						$(".mensajeEdadParticpante").empty();
 						$('.cargarDatosParticipante').hide();
 						$(".mensajeEdadParticipante").append("Usted ya esta registrado!..");
+                                                
 				}
 				
 			},
@@ -1487,7 +1543,6 @@ $(".mensajeEdad").empty();
 
 		});
 	}
-
 
 </script>
 
