@@ -1,646 +1,635 @@
 
 {% extends '::base.html.twig' %}
-
-
 {% block title %}Akademia{% endblock %}
-
-
-
 {% block body  %}
 
-<header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
-
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>                        
-	      </button>
-	      <a class="navbar-brand" href="#">LA ACADEMIA IPD 2018</a>
-	    </div>
-
-	    <div class="collapse navbar-collapse" id="myNavbar">
-	      <ul class="nav navbar-nav navbar-right">
-		      <li ><a href="#inicio">Inicio</a></li>
-	  	      <li><a href="#inscribete" >Inscribete</a></li>
-	  	      <li><a href="#preguntas-frecuentes">Preguntas Frecuentes</a></li>
-	      </ul>
-	    </div>
-	  </div>
-	</nav>
-
-</header>
-
-<section  id="inscribete"  class="proceso-inscripcion">
-	
-	<div class="progreso">
-		<div class="container-titulo">		
-			<p>PRE - INSCRIPCION 2018 I</p>	
-		</div>
-		<div class="progreso_container">
-			<div class="progreso__barraInscripcion">
-				<div class="bar-inscripcion__1 active" >1</div>
-				<div class="bar-inscripcion__2 ">2</div>
-				<div class="bar-inscripcion__3">3</div>
-				<div class="bar-inscripcion__4">4</div>
-				<div class="bar-inscripcion__5">5</div>
-			</div>		
-		</div>
-	</div>
-		
-	<div id="proceso1"  class="proceso1">
-		
-        <div class="container-card">
-	        <div class="card">	
-
-          		<p class="title-card">Apoderado</p>
-			
-
-				<div class="form-group">
-					<label for="dniApoderado">DNI Apoderado</label>
-		          	<input id="dniApoderado" value="74510745" class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate">
-		          	<span class="cargarDatosApoderado" >Actualizando....</span>
-		          	<span class="mensajeEdad" ></span>
-				</div>
-
-				<div class="form-group">
-					<label for="apellidoPaterno">Apellido Paterno</label>
-		          <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
-				</div>
-				
-				<div class="form-group">
-					<label for="apellidoMaterno">Apellido Materno</label>
-		          <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
-				</div>
-	      						      						
-	    		<div class="form-group">
-	    			<label for="nombre">Nombres</label>
-	          		<input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"  >
-				</div>
-
-				<div class="form-group">
-					<label for="fechaNacimiento">Fecha de Nacimiento</label>
-		          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
-		          					
-				</div>
-
-				<div class="form-group col s12">
-					<label>Sexo</label>
-				    <select id="sexo" class="form-control"  name="sexo" >
-				    	<option value="">--SELECCIONAR--</option>
-				      	<option value="1">Masculino</option>
-				      	<option value="0">Femenino</option>
-				    </select>
-				</div>
-
-	        </div>
-		</div>
-
-		<div class="container-boton-1">
-			<button class="btn btn-danger" id="boton1">Continuar</button>
-		</div>
-
-	</div>
-
-	<div  id="proceso2" class="proceso2">
-		
-	  	<div class="container-card ">
-		    	
-		    <div class="card">
-
-		  		<p class="title-card">Direccion</p>
-
-		        <div class="form-group">
-					<label>Departamento</label>
-		        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
-		            	<option value="">--Seleccionar--</option>
-		            
-			            {% for departamento in departamentos %}
-			            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
-			            {% endfor %}
-
-		        	</select> 
-		    	</div>
-
-		        <div class="form-group">
-		        	<label>Provincia</label>
-		            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
-		                <option value="">--Seleccionar--</option>
-		            </select>               
-		        </div>
-
-
-		        <div class="form-group">
-		        	<label>Distrito</label>
-		            <select id="distrito" name="distrito"  class="form-control">
-		                <option value="">--Seleccionar--</option>
-		            </select> 
-		        </div>
-
-				<div class="form-group">
-					<label for="direccion">Direccion</label>
-		          	<input id="direccion" class="form-control" value="aaaaa"  type="text"  id="direccion"  name="direccion"  >
-				</div>
-
-				<div class="form-group">
-					<label for="telefono">Telefono</label>
-		          	<input id="telefono" class="form-control" value="1234" type="text"  id="telefono"  name="telefono"  >
-				</div>
-
-				<div class="form-group">
-					<label for="correo">Correo Electronico</label>
-		          	<input id="correo" class="form-control" type="text"  value="majerhua123"  id="correo"  name="correo"  >
-				</div>
-
-	    	</div>
-		</div>
-
-		<div class="container-boton-2">
-			<button class="btn btn-danger" id="boton2" >Continuar</button>
-		</div>
-		
-	</div>
-
-
-	<div class="proceso3" id="proceso3" >
-	  	<div class="container-card ">
-
-			<div class="card">
-
-	  			<p class="title-card">Participante</p>
-
-				<div class="form-group">
-					<label for="dni-hijo">DNI</label>
-	          		<input  value="72307204" class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo">
-		        	<span class="cargarDatosParticipante">Actualizando....</span>
-	          		<span class="mensajeEdadParticipante"></span>
-				</div>
-
-				<div class="form-group">
-					<label for="apellidoPaternoHijo">Apellido Paterno</label>
-	          		<input  class="form-control" type="text"  id="apellidoPaterno-hijo"  name="apellidoPaterno-hijo"  >
-				</div>
-
-				<div class="form-group">
-					<label for="apellidoMaterno-hijo">Apellido Materno</label>
-		      		<input  class="form-control" type="text"  id="apellidoMaterno-hijo"  name="apellidoMaterno-hijo"  >
-				</div>
-
-				<div class="form-group">
-					<label for="nombre-hijo">Nombre</label>
-	      			<input  class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  >
-				</div>
-
-				<div style="display:flex; flex-wrap:wrap;">
-
-					<div class="form-group" style="width:50%;padding-left:5px;">
-						<label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
-			          	<input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
-					</div>
-
-					<div class="form-group" style="width:50%;padding-left:5px;  ">
-						<label for="sexo-hijo">Sexo</label>
-			          	<select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-			          		<option value="">--SELECCIONAR--</option>
-			          		<option value="1" >MASCULINO</option>
-			          		<option value="0" >FEMENINO</option>
-			          	</select>
-					</div>
-
-					<div class="form-group" style="width:50%;padding:5px;" >
-						<label for="parentesco">Parentesco</label>
-			          	<select id="parentesco" class="form-control" type="text"  name="parentesco">
-			          		<!--<option value="">--SELECCIONAR--</option>-->
-			          		<option value="hijo" >HIJO</option>
-			          		<option value="sobrino">SOBRINO</option>
-			          		<option value="nieto">NIETO</option>
-			          		<option value="otros">OTROS</option>
-			          	</select>
-					</div>
-
-					<div class="form-group" style="width:50%;padding:5px;">
-						<label for="tipoSeguro">Tipo de Seguro</label>
-						<select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
-							<!--<option value="">--SELECCIONAR--</option>-->
-							<option value="EsSALUD" >EsSALUD</option>
-							<option value="SIS" >SIS</option>
-							<option value="PRIVADO" >PRIVADO</option>
-						</select>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-
-		<div class="container-boton-3">
-			<button class="btn btn-danger" id="boton3" >Continuar</button>
-		</div>
-	</div>
-	
-
-
-	<div class="proceso-inscripcion__horarios" id="process4">
-	
-		<div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-8">
-			
-			<p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p>
-
-			<div class="complejo">
-				
-				<div class="form-group form-group-tam">
-					<label>Departamento</label>
-		            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
-		                <option value="">--Seleccionar--</option>
-
-			            {% for departamentoCD in departamentosCD %}
-			            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
-			            {% endfor %}
-						
-		            </select>
-	        	</div>
-
-	            <div class="form-group form-group-tam">
-	            	<label>Provincia</label>
-	                <select  id="provinciaHorario" class="form-control"  name="provincia" onchange="cambiarProvinciaHorario(this)">
-	                    <option value="">--Seleccionar--</option>
-	                </select>               
-	            </div>
-
-	            <div class="form-group form-group-tam">
-	            	<label>Distrito</label>
-	                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-	                    <option value="">--Seleccionar--</option>
-	                </select> 
-	            </div>
-
-	            <div class="form-group form-group-tam">
-	        		<label>Complejo Deportivo</label>
-	            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-	                <option value="">--Seleccionar--</option>
-	            	</select>
-	        	</div>
-
-
-			</div>
-
-			<div class="mapa">
-				
-			   <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" frameborder="0" style="border:0"></iframe>
-
-			</div>
-
-			
-		</div>
-
-		<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
-
-			<p class="title-card text-center">DEPORTES Y HORARIOS</p>
-
-	        <div class="form-group container-select-deporte"  >
-	        	<label>Deportive: </label>
-	            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
-	                <option value="">--Seleccionar--</option>
-	            </select> 
-	        </div>
-
-	        <div class="form-group container-select-deporte"  >
-	        	<label>Horario: </label>
-	            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
-	                <option value="">--Seleccionar--</option>
-	            </select> 
-	        </div>
-
-	        <div class="form-group  container-edad-participante" >
-	        	<p>Tu Horario es el siguiente..</p>
-	        </div>
-
-	        <div class="form-group  container-horario-participante">
-	        	<div id="rango-edad-horario" ></div>
-	        	<div id="rango-hora-horario"></div>
-	        	<div id="turno"></div>
-	        	<div id="vacantes"></div>
-	        </div>
-
-	        <div class="form-group" >
-
-				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Ver Horario de Otra Edades</button>
-				
-				<div class="form-group pull-right container-boton-final"  >
-				<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripcion</button>
-
-				</div>		
-			</div>	
-		</div>
-
-	</div>
-
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ventana de Horarios</h4>
-      </div>
-      <div class="modal-body">
-        <p>Los siguientes horarios no pertenecen a tu edad</p>
-
-			<div class="horario-otrasEdades" >
-		
-        	</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-	<div class="pdf_inscripcion" id="process5" >
-	
-		<div class="pdf_inscripcion__1">
-
-			<div class="tituloFicha">
-				<p>FICHA DE INSCRIPCION</p>
-				<P>ACADEMIA IPD VERANO 2018</p>
-			</div>
-
-			<div class="pdf_inscripcion__ficha">
-				<div class="campos  col-md-4  col-lg-4"> 	
-					<p>Nombre</p>
-					<p>Apellido Paterno</p>
-					<p>Apellido Materno</p>
-					<p>Distrito</p>
-					<p>Domicilio</p>
-					<p>Fecha Nacimiento</p>
-					<p>Telefono</p>
-					<p>Dni</p>
-					<p>Edad</p>
-					<p>Email</p>
-					<p>Deporte</p>
-					<p>Complejo</p>
-					<p>Horario</p>
-				</div>
-
-				<div class="valores col-md-8  col-lg-8">
-					
-					<p id="nombre-ficha"></p>
-					<p id="apellidoPaterni-ficha" ></p>
-					<p id="apellidoMaterno-ficha" ></p>
-					<p id="distrito-ficha" ></p>
-					<p id="domicilio-ficha" ></p>
-					<p id="fechaNacimiento-ficha" ></p>
-					<p id="telefono-ficha" ></p>
-					<p id="dni-ficha" ></p>
-					<p id="edad-ficha" ></p>
-					<p id="email-ficha" ></p>
-					<p id="deporte-ficha" ></p>
-					<p id="complejo-ficha" ></p>
-					<p id="horario-ficha" ></p>
-
-				</div>
-
-
-
-			</div>
-		</div>
-
-		<div class="pdf_inscripcion__2">
-			
-			<div class="pdfInscripcion2__container-titulo">
-				<p>PRE-INSCRIPCION CONFIRMADA <i class="icon-checklist" style="font-size:1.6em;"></i></p>
-			</div>
-			<div class="pdfInscripcion2__container-mensaje-lugar">
-				<p>
-					Acercate al complejo que eligistes para confirmar tu preinscripcion 
-				</p>
-				<p>
-					Inscripcion Presencial no se reservan vacantes!.
-				</p>
-			</div>
-
-			<div class="lista-requisitos"> 
-				<p>*OBLIGATORIO</p>
-				<ol>
-					<li>Presentar ficha  y declaracion impresa</li>
-					<li>Dni del menor  y el apoderado(Original y Copia)</li>
-					<li>Copia de Ficha de seguro SIS, EsSalud, o privado</li>
-					<li>Foto tamaño  carnet del menor (Actualizado)</li>
-				</ol>
-			</div>
-
-			<div  class="col-md-12 col-lg-12">
-					
-				<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
-				<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Decla.Jurada</button></a>
-			</div>
-
-
-		</div>
-	</div>
-	
-
-
-</section>
-
-
-<section class="preguntas-frecuentes" id="preguntas-frecuentes" >
-	
-    <div class="container">
-        <h1>Preguntas Frecuentes</h1>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading1">
-                <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
-                        ¿Qué es el programa LA ACADEMIA?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion">
-                <div class="card-body">
-                    Es un programa promovido por el IPD donde se brindan servicios de iniciación deportiva a través de un modelo articulado  y monitoreado, que desarrolla capacidades, habilidades  y destrezas desde la base, para la detección y captación  de  talentos deportivos  y su formación con miras a participar y  competir en torneos oficiales.
-                    Este programa está dirigido a niños, niñas y adolescentes en edad escolar (de 6 a 17 años) a nivel nacional, a personas con discapacidad de edades superiores, en caso de contar con el talento necesario para llegar a un buen nivel técnico y realizar deporte adaptado. 
+    <header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/atletismo.jpg') }} ); " >
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="#">LA ACADEMIA IPD 2018</a>
                 </div>
+
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ><a href="#inicio">Inicio</a></li>
+                        <li><a href="#inscribete" >Inscribete</a></li>
+                        <li><a href="#preguntas-frecuentes">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <section  id="inscribete"  class="proceso-inscripcion">
+
+        <div class="progreso">
+            <div class="container-titulo">		
+                <p>PRE - INSCRIPCION 2018 I</p>	
+            </div>
+            <div class="progreso_container">
+                <div class="progreso__barraInscripcion">
+                    <div class="bar-inscripcion__1 active" >1</div>
+                    <div class="bar-inscripcion__2 ">2</div>
+                    <div class="bar-inscripcion__3">3</div>
+                    <div class="bar-inscripcion__4">4</div>
+                    <div class="bar-inscripcion__5">5</div>
+                </div>		
             </div>
         </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading2">
-                <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
-                        ¿Qué etapas comprende LA ACADEMIA?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="heading2" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        Este programa está dividido en tres etapas:
-                    </p>
-                    <p>
-                        <strong>1. Iniciación Deportiva:</strong> Etapa en la cual los participantes se inician en el proceso de enseñanza- aprendizaje, respecto a las disciplinas deportivas. En este periodo, se detectan los talentos a través de los juegos pre deportivos que asemejan los gestos técnicos de cada deporte. Se desarrollan las capacidades físicas básicas, coordinativas, social- afectivas, y cognoscitivas del participante.
-                    </p>
-                    <p>
-                        <strong>2. Formación Deportiva:</strong> El participante cimenta sus cualidades deportivas en una disciplina específica con el fin de iniciar su proceso deportivo. Consiste en la enseñanza de un deporte específico con una carga horaria mayor (1 1/2 horas) durante 5 días a la semana, con el objetivo de desarrollar el talento deportivo del participante.
-                    </p>
-                    <p>
-                        <strong>3. Consolidación Deportiva:</strong> Es la última etapa de este programa, en el cual el deportista desarrolla al máximo sus capacidades y cualidades físicas y tiene proyección en futuras competencias federativas.   
-                    </p>
+
+        <div id="proceso1"  class="proceso1">
+
+            <div class="container-card">
+                <div class="card">	
+                    <p class="title-card">Apoderado</p>
+                    <div class="form-group">
+                        <label for="dniApoderado">DNI Apoderado</label>
+                        <input id="dniApoderado"  class="form-control"  onblur="buscarDniApoderado(this)" type="number"  name="dni"  class="validate" placeholder="Ingresar DNI" minlength="8" maxlength="8">
+                        <span class="cargarDatosApoderado" >Actualizando....</span>
+                        <span class="mensajeEdad" ></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoPaterno">Apellido Paterno</label>
+                        <input id="apellidoPaterno"  class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar Apellido Paterno">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoMaterno">Apellido Materno</label>
+                        <input id="apellidoMaterno" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar Apellido Materno">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombres</label>
+                        <input id="nombre" class="form-control"  type="text"  id="nombre"  name="nombre"   placeholder="Ingresar Nombres">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
+
+                    </div>
+
+                    <div class="form-group col s12">
+                        <label>Sexo</label>
+                        <select id="sexo" class="form-control"  name="sexo" >
+                            <option value="0" selected>--SELECCIONAR--</option>
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
+                        </select>
+                    </div>
+
                 </div>
+            </div>
+
+            <div class="container-boton-1">
+                <button class="btn btn-danger" id="boton1" type="submit">Continuar</button>
+            </div>
+          
+        </div>
+
+        <div  id="proceso2" class="proceso2">
+
+            <div class="container-card ">
+
+                <div class="card">
+
+                    <p class="title-card">Direccion</p>
+
+                    <div class="form-group">
+                        <label>Departamento</label>
+                        <select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
+                            <option value="0">--Seleccionar--</option>
+
+                            {% for departamento in departamentos %}
+                                <option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+                            {% endfor %}
+
+                        </select> 
+                    </div>
+
+                    <div class="form-group">
+                        <label>Provincia</label>
+                        <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
+                            <option value="0">--Seleccionar--</option>
+                        </select>               
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Distrito</label>
+                        <select id="distrito" name="distrito"  class="form-control">
+                            <option value="0">--Seleccionar--</option>
+                        </select> 
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Direccion</label>
+                        <input id="direccion" class="form-control"  type="text"  id="direccion"  name="direccion"  placeholder="Ingresar la direccion" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input id="telefono" class="form-control" type="number"  id="telefono"  name="telefono"  placeholder="Ingresar Telefono">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo Electronico</label>
+                        <input id="correo" class="form-control" type="email"   id="correo"  name="correo"  placeholder="Ingresar Correo Electronico">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container-boton-2">
+                <button class="btn btn-danger" id="boton2" >Continuar</button>
+            </div>
+
+        </div>
+
+
+        <div class="proceso3" id="proceso3" >
+            <div class="container-card ">
+
+                <div class="card">
+
+                    <p class="title-card">Participante</p>
+
+                    <div class="form-group">
+                        <label for="dni-hijo">DNI</label>
+                        <input  class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo" placeholder="Ingresar DNI">
+                        <span class="cargarDatosParticipante">Actualizando....</span>
+                        <span class="mensajeEdadParticipante"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoPaternoHijo">Apellido Paterno</label>
+                        <input  class="form-control" type="text"  id="apellidoPaterno-hijo"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoMaterno-hijo">Apellido Materno</label>
+                        <input  class="form-control" type="text"  id="apellidoMaterno-hijo"  name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre-hijo">Nombre</label>
+                        <input  class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  placeholder="Ingresar Nombres"  >
+                    </div>
+
+                    <div style="display:flex; flex-wrap:wrap;">
+
+                        <div class="form-group" style="width:50%;padding-left:5px;">
+                            <label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
+                            <input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+                        </div>
+
+                        <div class="form-group" style="width:50%;padding-left:5px;  ">
+                            <label for="sexo-hijo">Sexo</label>
+                            <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+                                <option value="0">--SELECCIONAR--</option>
+                                <option value="1" >MASCULINO</option>
+                                <option value="2" >FEMENINO</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="width:50%;padding:5px;" >
+                            <label for="parentesco">Parentesco</label>
+                            <select id="parentesco" class="form-control" type="text"  name="parentesco">
+                                <!--<option value="">--SELECCIONAR--</option>-->
+                                <option value="hijo" >HIJO</option>
+                                <option value="sobrino">SOBRINO</option>
+                                <option value="nieto">NIETO</option>
+                                <option value="otros">OTROS</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="width:50%;padding:5px;">
+                            <label for="tipoSeguro">Tipo de Seguro</label>
+                            <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
+                                <!--<option value="">--SELECCIONAR--</option>-->
+                                <option value="EsSALUD" >EsSALUD</option>
+                                <option value="SIS" >SIS</option>
+                                <option value="PRIVADO" >PRIVADO</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container-boton-3">
+                <button class="btn btn-danger" id="boton3" >Continuar</button>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading3">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">
-                        ¿Cómo se realiza el proceso de INSCRIPCIÓN?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        Se realiza mediante 2 pasos.
-                    </p>
-                    <p>
-                        <strong>1. Pre-Inscripción:</strong> Para evitar demorarte en las colas de inscripción puedes inscribir a tu apoderado AQUÍ y luego presentarte al complejo mas cercano.
-                    </p>
-                    <p>
-                        <strong>2. Inscripción presencial:</strong> Luego de realizar tu pre-inscripción es OBLIGATORIO que traigas los documentos solicitados en los requisitos (copia de DNI del padre ó madre ó apoderado y del niño, foto tamaño carné y certificación de seguro médico) y descargues la declaración jurada y ficha de inscripción debidamente llenada. 
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading4">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
-                        ¿Qué documentos debo presentar durante la inscripción?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="heading4" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        • Copia y Original del DNI del menor de edad y del padre/madre de familia o apoderado.
-                    </p>
-                    <p>
-                        • Copia de la acreditación del seguro médico del menor de edad (ESSALUD, SIS, seguro privado u otro). 
-                    </p>
-                    <p>
-                        • Foto tamaño carné del menor de edad (actualizada).
-                    </p>
-                    <p>
-                        • Autorización y ficha de inscripción debidamente llenada o impresa.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading5">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse5">
-                        ¿La inscripción a LA ACADEMIA requiere algún costo?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse5" class="collapse" role="tabpanel" aria-labelledby="heading5" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        El programa LA ACADEMIA es totalmente GRATUITA y sólo necesita presentar los documentos solicitados durante la inscripción.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading6">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse6" role="button" aria-expanded="false" aria-controls="collapse6">
-                        ¿Los niños(as) o adolescentes necesitan tener conocimiento previo del deporte que desean practicar para ser admitidos?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse6" class="collapse" role="tabpanel" aria-labelledby="heading6" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        No es necesario conocimiento previo. Será durante el inicio del curso donde el (la) menor aprenderá a adquirir habilidad en el deporte que elija.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading7">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse7" role="button" aria-expanded="false" aria-controls="collapse7">
-                        ¿Necesitan estar el (los) menores de edad presentes durante la inscripción?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse7" class="collapse" role="tabpanel" aria-labelledby="heading7" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        No es necesario, sólo debes presentar los documentos solicitados en los centros de inscripción de IPD en las fechas solicitadas.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading8">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse8" role="button" aria-expanded="false" aria-controls="collapse8">
-                        ¿Si el menor no cuenta con seguro de salud (ESSALUD, SIS, seguro privado u otro), podré inscribirlo a LA ACADEMIA, cómo solicito ello?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse8" class="collapse" role="tabpanel" aria-labelledby="heading8" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        Para la inscripción dicho requisito es OBLIGATORIO, si ya lo tienes puedes descargar en la página web de tu institución de salud dicha constancia o comunicarte con la institución de salud más cercana y solicita su ficha de aseguramiento.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="heading9">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse9" role="button" aria-expanded="false" aria-controls="collapse9">
-                        ¿Por qué no encuentro más deportes en algunos complejos deportivos?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse9" class="collapse" role="tabpanel" aria-labelledby="heading9" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        La apertura de los cursos dependen de la capacidad y la estructura del complejo deportivo de la zona.
-                    </p>
-                </div>
-            </div>
-        </div>    
-        <div class="card">
-            <div class="card-header" role="tab" id="heading9">
-                <h5 class="mb-0">
-                    <a class="text-dark" data-toggle="collapse" href="#collapse10" role="button" aria-expanded="false" aria-controls="collapse10">
-                        ¿En cuántos deportes se puede inscribir el menor?
-                    </a>
-                </h5>
-            </div>
-            <div id="collapse10" class="collapse" role="tabpanel" aria-labelledby="heading10" data-parent="#accordion">
-                <div class="card-body">
-                    <p>
-                        El menor se puede inscribir sólo en un deporte, salvo que desee matricularse en natación, en el complejo elegido.
-                    </p>
-                </div>
-            </div>
-        </div> 
-    </div>
-</section>
 
 
 
+        <div class="proceso-inscripcion__horarios" id="process4">
+
+            <div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-8">
+
+                <p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p>
+
+                <div class="complejo">
+
+                    <div class="form-group form-group-tam">
+                        <label>Departamento</label>
+                        <select id="departamentoHorario" class="form-control"   name="departamentoHorario" onchange="cambiarDepartamentoHorario(this,0)" >
+                            <option value="">--Seleccionar--</option>
+
+                            {% for departamentoCD in departamentosCD %}
+                                <option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <div class="form-group form-group-tam">
+                        <label>Provincia</label>
+                        <select  id="provinciaHorario" class="form-control"  name="provinciaHorario"   onchange="cambiarProvinciaHorario(this,0)" />
+                            <option value="">--Seleccionar--</option>
+                        </select>               
+                    </div>
+
+                    <div class="form-group form-group-tam">
+                        <label>Distrito</label>
+                        <select id="distritoHorario" name="distritoHorario"  onchange="cambiarDistritoHorario(this)"  class="form-control">
+                            <option value="">--Seleccionar--</option>
+                        </select> 
+                    </div>
+
+                    <div class="form-group form-group-tam">
+                        <label>Complejo Deportivo</label>
+                        <select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
+                            <option value="">--Seleccionar--</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="mapa">
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" frameborder="0" style="border:0"></iframe>
+
+                </div>
+
+
+            </div>
+
+            <div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
+
+                <p class="title-card text-center">DEPORTES Y HORARIOS</p>
+
+                <div class="form-group container-select-deporte"  >
+                    <label>Deportive: </label>
+                    <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
+                        <option value="">--Seleccionar--</option>
+                    </select> 
+                </div>
+
+                <div class="form-group container-select-deporte"  >
+                    <label>Horario: </label>
+                    <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
+                        <option value="">--Seleccionar--</option>
+                    </select> 
+                </div>
+
+                <div class="form-group  container-edad-participante" >
+                    <p>Tu Horario es el siguiente..</p>
+                </div>
+
+                <div class="form-group  container-horario-participante">
+                    <div id="rango-edad-horario" ></div>
+                    <div id="rango-hora-horario"></div>
+                    <div id="turno"></div>
+                    <div id="vacantes"></div>
+                </div>
+
+                <div class="form-group" >
+
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Ver Horario de Otra Edades</button>
+
+                    <div class="form-group pull-right container-boton-final"  >
+                        <button class="btn btn-danger" id="boton-next-final">Finalizar Inscripcion</button>
+
+                    </div>		
+                </div>	
+            </div>
+
+        </div>
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ventana de Horarios</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Los siguientes horarios no pertenecen a tu edad</p>
+
+                        <div class="horario-otrasEdades" >
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="pdf_inscripcion" id="process5" >
+
+            <div class="pdf_inscripcion__1">
+
+                <div class="tituloFicha">
+                    <p>FICHA DE INSCRIPCION</p>
+                    <P>ACADEMIA IPD VERANO 2018</p>
+                </div>
+
+                <div class="pdf_inscripcion__ficha">
+                    <div class="campos  col-md-4  col-lg-4"> 	
+                        <p>Nombre</p>
+                        <p>Apellido Paterno</p>
+                        <p>Apellido Materno</p>
+                        <p>Distrito</p>
+                        <p>Domicilio</p>
+                        <p>Fecha Nacimiento</p>
+                        <p>Telefono</p>
+                        <p>Dni</p>
+                        <p>Edad</p>
+                        <p>Email</p>
+                        <p>Deporte</p>
+                        <p>Complejo</p>
+                        <p>Horario</p>
+                    </div>
+
+                    <div class="valores col-md-8  col-lg-8">
+
+                        <p id="nombre-ficha"></p>
+                        <p id="apellidoPaterni-ficha" ></p>
+                        <p id="apellidoMaterno-ficha" ></p>
+                        <p id="distrito-ficha" ></p>
+                        <p id="domicilio-ficha" ></p>
+                        <p id="fechaNacimiento-ficha" ></p>
+                        <p id="telefono-ficha" ></p>
+                        <p id="dni-ficha" ></p>
+                        <p id="edad-ficha" ></p>
+                        <p id="email-ficha" ></p>
+                        <p id="deporte-ficha" ></p>
+                        <p id="complejo-ficha" ></p>
+                        <p id="horario-ficha" ></p>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="pdf_inscripcion__2">
+
+                <div class="pdfInscripcion2__container-titulo">
+                    <p>PRE-INSCRIPCION CONFIRMADA <i class="icon-checklist" style="font-size:1.6em;"></i></p>
+                </div>
+                <div class="pdfInscripcion2__container-mensaje-lugar">
+                    <p>
+                        Acercate al complejo que eligistes para confirmar tu preinscripcion 
+                    </p>
+                    <p>
+                        Inscripcion Presencial no se reservan vacantes!.
+                    </p>
+                </div>
+
+                <div class="lista-requisitos"> 
+                    <p>*OBLIGATORIO</p>
+                    <ol>
+                        <li>Presentar ficha  y declaracion impresa</li>
+                        <li>Dni del menor  y el apoderado(Original y Copia)</li>
+                        <li>Copia de Ficha de seguro SIS, EsSalud, o privado</li>
+                        <li>Foto tamaño  carnet del menor (Actualizado)</li>
+                    </ol>
+                </div>
+
+                <div  class="col-md-12 col-lg-12">
+
+                    <a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
+                    <a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Decla.Jurada</button></a>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </section>
+
+
+    <section class="preguntas-frecuentes" id="preguntas-frecuentes" >
+
+        <div class="container">
+            <h1>Preguntas Frecuentes</h1>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading1">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                            ¿Qué es el programa LA ACADEMIA?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion">
+                    <div class="card-body">
+                        Es un programa promovido por el IPD donde se brindan servicios de iniciación deportiva a través de un modelo articulado  y monitoreado, que desarrolla capacidades, habilidades  y destrezas desde la base, para la detección y captación  de  talentos deportivos  y su formación con miras a participar y  competir en torneos oficiales.
+                        Este programa está dirigido a niños, niñas y adolescentes en edad escolar (de 6 a 17 años) a nivel nacional, a personas con discapacidad de edades superiores, en caso de contar con el talento necesario para llegar a un buen nivel técnico y realizar deporte adaptado. 
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading2">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                            ¿Qué etapas comprende LA ACADEMIA?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="heading2" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            Este programa está dividido en tres etapas:
+                        </p>
+                        <p>
+                            <strong>1. Iniciación Deportiva:</strong> Etapa en la cual los participantes se inician en el proceso de enseñanza- aprendizaje, respecto a las disciplinas deportivas. En este periodo, se detectan los talentos a través de los juegos pre deportivos que asemejan los gestos técnicos de cada deporte. Se desarrollan las capacidades físicas básicas, coordinativas, social- afectivas, y cognoscitivas del participante.
+                        </p>
+                        <p>
+                            <strong>2. Formación Deportiva:</strong> El participante cimenta sus cualidades deportivas en una disciplina específica con el fin de iniciar su proceso deportivo. Consiste en la enseñanza de un deporte específico con una carga horaria mayor (1 1/2 horas) durante 5 días a la semana, con el objetivo de desarrollar el talento deportivo del participante.
+                        </p>
+                        <p>
+                            <strong>3. Consolidación Deportiva:</strong> Es la última etapa de este programa, en el cual el deportista desarrolla al máximo sus capacidades y cualidades físicas y tiene proyección en futuras competencias federativas.   
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading3">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">
+                            ¿Cómo se realiza el proceso de INSCRIPCIÓN?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            Se realiza mediante 2 pasos.
+                        </p>
+                        <p>
+                            <strong>1. Pre-Inscripción:</strong> Para evitar demorarte en las colas de inscripción puedes inscribir a tu apoderado AQUÍ y luego presentarte al complejo mas cercano.
+                        </p>
+                        <p>
+                            <strong>2. Inscripción presencial:</strong> Luego de realizar tu pre-inscripción es OBLIGATORIO que traigas los documentos solicitados en los requisitos (copia de DNI del padre ó madre ó apoderado y del niño, foto tamaño carné y certificación de seguro médico) y descargues la declaración jurada y ficha de inscripción debidamente llenada. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading4">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+                            ¿Qué documentos debo presentar durante la inscripción?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="heading4" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            • Copia y Original del DNI del menor de edad y del padre/madre de familia o apoderado.
+                        </p>
+                        <p>
+                            • Copia de la acreditación del seguro médico del menor de edad (ESSALUD, SIS, seguro privado u otro). 
+                        </p>
+                        <p>
+                            • Foto tamaño carné del menor de edad (actualizada).
+                        </p>
+                        <p>
+                            • Autorización y ficha de inscripción debidamente llenada o impresa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading5">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse5">
+                            ¿La inscripción a LA ACADEMIA requiere algún costo?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse5" class="collapse" role="tabpanel" aria-labelledby="heading5" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            El programa LA ACADEMIA es totalmente GRATUITA y sólo necesita presentar los documentos solicitados durante la inscripción.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading6">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse6" role="button" aria-expanded="false" aria-controls="collapse6">
+                            ¿Los niños(as) o adolescentes necesitan tener conocimiento previo del deporte que desean practicar para ser admitidos?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse6" class="collapse" role="tabpanel" aria-labelledby="heading6" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            No es necesario conocimiento previo. Será durante el inicio del curso donde el (la) menor aprenderá a adquirir habilidad en el deporte que elija.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading7">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse7" role="button" aria-expanded="false" aria-controls="collapse7">
+                            ¿Necesitan estar el (los) menores de edad presentes durante la inscripción?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse7" class="collapse" role="tabpanel" aria-labelledby="heading7" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            No es necesario, sólo debes presentar los documentos solicitados en los centros de inscripción de IPD en las fechas solicitadas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading8">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse8" role="button" aria-expanded="false" aria-controls="collapse8">
+                            ¿Si el menor no cuenta con seguro de salud (ESSALUD, SIS, seguro privado u otro), podré inscribirlo a LA ACADEMIA, cómo solicito ello?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse8" class="collapse" role="tabpanel" aria-labelledby="heading8" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            Para la inscripción dicho requisito es OBLIGATORIO, si ya lo tienes puedes descargar en la página web de tu institución de salud dicha constancia o comunicarte con la institución de salud más cercana y solicita su ficha de aseguramiento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="heading9">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse9" role="button" aria-expanded="false" aria-controls="collapse9">
+                            ¿Por qué no encuentro más deportes en algunos complejos deportivos?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse9" class="collapse" role="tabpanel" aria-labelledby="heading9" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            La apertura de los cursos dependen de la capacidad y la estructura del complejo deportivo de la zona.
+                        </p>
+                    </div>
+                </div>
+            </div>    
+            <div class="card">
+                <div class="card-header" role="tab" id="heading9">
+                    <h5 class="mb-0">
+                        <a class="text-dark" data-toggle="collapse" href="#collapse10" role="button" aria-expanded="false" aria-controls="collapse10">
+                            ¿En cuántos deportes se puede inscribir el menor?
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse10" class="collapse" role="tabpanel" aria-labelledby="heading10" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>
+                            El menor se puede inscribir sólo en un deporte, salvo que desee matricularse en natación, en el complejo elegido.
+                        </p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </section>
 {% endblock %}
 
 {% block javascripts %}
@@ -648,6 +637,7 @@
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
 <!--<script src="{{asset('assets/vendor/js/scroll.js')}}"></script>-->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 <script>
 	
 	function cambiarDepartamento(departamento){
@@ -662,7 +652,6 @@
 		{% for provincia in provincias  %}
 
 			if("{{provincia['idDepartamento']}}" == idDepartamento){
-
 				console.log("{{provincia['nombreProvincia']}}");
 				console.log("{{provincia['idProvincia']}}");
 				
@@ -694,11 +683,13 @@
 
 // HORARIO
 
-	function cambiarDepartamentoHorario(departamentoHorario){
-
-		var idDepartamentoHorario = departamentoHorario.value;
-		console.log(idDepartamentoHorario);
-
+	function cambiarDepartamentoHorario(departamentoHorario,cod){
+                if (cod==0){
+                    var idDepartamentoHorario = departamentoHorario.value;
+                }else{
+                    var idDepartamentoHorario = departamentoHorario;
+                }
+                
 		$("#provinciaHorario").empty();
 		$("#distritoHorario").empty();
 		$("#provinciaHorario").append("<option value='' >--Seleccionar--</option>");
@@ -720,11 +711,15 @@
 		{% endfor %}
 	}
 
-	function cambiarProvinciaHorario(provinciaHorario){
-
-		idProvinciaHorario = provinciaHorario.value;
-		idDepartamentoHorario = $(provinciaHorario[1]).attr('data-departamento');
-
+	function cambiarProvinciaHorario(provinciaHorario,cod){
+                if (cod==0){
+                    var idProvinciaHorario = provinciaHorario.value;
+                    idDepartamentoHorario = $(provinciaHorario[1]).attr('data-departamento');
+                }else{
+                    var idProvinciaHorario = provinciaHorario;
+                    idDepartamentoHorario = cod;
+                }
+		
 		$("#distritoHorario").empty();
 		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
 		$("#complejosDeportivo").empty();
@@ -733,8 +728,10 @@
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 
 		{% for ditritoCD in ditritosCD  %}
+                     
 			if("{{ditritoCD['idProvincia']}}" == idProvinciaHorario  && {{ditritoCD['idDepartamento']}} == idDepartamentoHorario ){
-				$("#distritoHorario").append("<option value={{ditritoCD['idDistrito']}} >{{ditritoCD['nombreDistrito']}}</option>");				
+				$("#distritoHorario").append("<option value={{ditritoCD['idDistrito']}} >{{ditritoCD['nombreDistrito']}}</option>");	
+                               
 			}
 		{% endfor %}
 
@@ -785,7 +782,6 @@
 	function cambiarDisciplinaDeportiva(complejoDisciplina){
 
 		var idComplejoDisciplina = complejoDisciplina.value;
-		console.log(idComplejoDisciplina);
 		$("#horario").empty();
 		$(".horario-otrasEdades").empty();
 		$("#horario").append("<option value='' >--Seleccionar--</option>");
@@ -867,86 +863,133 @@
 
 
 	$("#boton1").on('click',function(){
+                if($("#dniApoderado").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo DNI</p>'); 
+                }else if($("#apellidoPaterno").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo apellido paterno</p>'); 
+                }else if($("#apellidoMaterno").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo apellido materno</p>'); 
+                }else if($("#nombre").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo nombres</p>'); 
+                }else if($("#fechaNacimiento").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo fecha de nacimiento</p>'); 
+                }else if($("#sexo").val()==0){
+                   alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
+                }else{
+                    sessionStorage.clear()
+                    //DATOS APODERADO
+                    sessionStorage.removeItem("dni-apoderado");
+                    sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
 
-		sessionStorage.clear()
-		//DATOS APODERADO
-		sessionStorage.removeItem("dni-apoderado");
-		sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
+                    sessionStorage.removeItem("apellidoPaterno-apoderado");
+                    sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
 
-		sessionStorage.removeItem("apellidoPaterno-apoderado");
-		sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
+                    sessionStorage.removeItem("apellidoMaterno-apoderado");
+                    sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
 
-		sessionStorage.removeItem("apellidoMaterno-apoderado");
-		sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
+                    sessionStorage.removeItem("nombre-apoderado");
+                    sessionStorage.setItem("nombre-apoderado", $("#nombre").val());
 
-		sessionStorage.removeItem("nombre-apoderado");
-		sessionStorage.setItem("nombre-apoderado", $("#nombre").val());
+                    sessionStorage.removeItem("fechaNacimiento-apoderado");
+                    sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
 
-		sessionStorage.removeItem("fechaNacimiento-apoderado");
-		sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
+                    sessionStorage.removeItem("sexo-apoderado");
+                    sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
 
-		sessionStorage.removeItem("sexo-apoderado");
-		sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
-
-		$("#proceso1").hide();
-		$("#proceso2").show();
+                    $("#proceso1").hide();
+                    $("#proceso2").show();
 
 
-		$(".bar-inscripcion__1").removeClass('active');
-		$(".bar-inscripcion__2").addClass('active');	
+                    $(".bar-inscripcion__1").removeClass('active');
+                    $(".bar-inscripcion__2").addClass('active');	
+                }
 	});
 
 
 	$("#boton2").on('click',function(){
 		//DATOS APODERADO
-		sessionStorage.removeItem("distrito-apoderado");
-		sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
+                
+                
+                if($("#distrito").val()==0){
+                   alertify.error('<p style="color:white">Debe seleccionar el campo distrito</p>'); 
+                }else if($("#direccion").val()==0){
+                   alertify.error('<p style="color:white">Debe seleccionar el campo dirección</p>'); 
+                }else if($("#telefono").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo telefono</p>'); 
+                }else if($("#correo").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo correo electronico</p>'); 
+                }else{
+                    sessionStorage.removeItem("distrito-apoderado");
+                    sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
 
-		sessionStorage.removeItem("direccion-apoderado");
-		sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
+                    sessionStorage.removeItem("direccion-apoderado");
+                    sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
 
-		sessionStorage.removeItem("telefono-apoderado");
-		sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
+                    sessionStorage.removeItem("telefono-apoderado");
+                    sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
 
-		sessionStorage.removeItem("correo-apoderado");
-		sessionStorage.setItem("correo-apoderado", $("#correo").val());
+                    sessionStorage.removeItem("correo-apoderado");
+                    sessionStorage.setItem("correo-apoderado", $("#correo").val());
 
-		$("#proceso2").hide();
-		$("#proceso3").show();
+                    $("#departamentoHorario").val($("#departamento").val());
+                    cambiarDepartamentoHorario($("#departamento").val(),1);
+                    $("#provinciaHorario").val($("#provincia").val());
+                    cambiarProvinciaHorario($("#provincia").val(),$("#departamento").val());
+                    {#$("#distritoHorario").val($("#distrito").val());#}
+                    
+                    $("#proceso2").hide();
+                    $("#proceso3").show();
 
-		$(".bar-inscripcion__2").removeClass('active');
-		$(".bar-inscripcion__3").addClass('active');
+                    $(".bar-inscripcion__2").removeClass('active');
+                    $(".bar-inscripcion__3").addClass('active');
 
+                }
+                
+		
 	});
 
 $("#boton3").on('click',function(){
+                 if($("#dni-hijo").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo DNI</p>'); 
+                }else if($("#apellidoPaterno-hijo").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo apellido paterno</p>'); 
+                }else if($("#apellidoMaterno-hijo").val()==""){
+                   alertify.error('<p style="color:white">Se requiere el campo apellido materno</p>'); 
+                }else if($("#nombre-hijo").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo nombres</p>'); 
+                }else if($("#fechaNacimiento-hijo").val()==""){
+                  alertify.error('<p style="color:white">Se requiere el campo fecha de nacimiento</p>'); 
+                }else if($("#sexo-hijo").val()==0){
+                   alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
+                }else{
+                    //DATOS APODERADO
+                    sessionStorage.removeItem("dni-participante");
+                    sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
 
-		//DATOS APODERADO
-		sessionStorage.removeItem("dni-participante");
-		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+                    sessionStorage.removeItem("apellidoPaterno-participante");
+                    sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
 
-		sessionStorage.removeItem("apellidoPaterno-participante");
-		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+                    sessionStorage.removeItem("apellidoMaterno-partcipante");
+                    sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
 
-		sessionStorage.removeItem("apellidoMaterno-partcipante");
-		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+                    sessionStorage.removeItem("nombre-partcipante");
+                    sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
 
-		sessionStorage.removeItem("nombre-partcipante");
-		sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+                    sessionStorage.removeItem("fechaNacimiento-partcipante");
+                    sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
 
-		sessionStorage.removeItem("fechaNacimiento-partcipante");
-		sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+                    sessionStorage.removeItem("sexo-partcipante");
+                    sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
 
-		sessionStorage.removeItem("sexo-partcipante");
-		sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+                    sessionStorage.removeItem("parentesco-partcipante");
+                    sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
 
-		sessionStorage.removeItem("parentesco-partcipante");
-		sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+                    sessionStorage.removeItem("tipoSeguro-partcipante");
+                    sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
 
-		sessionStorage.removeItem("tipoSeguro-partcipante");
-		sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
-
-		console.log("EDAD SESION"+sessionStorage.getItem("edad"));
+                    console.log("EDAD SESION"+sessionStorage.getItem("edad"));
+                }
+		
 
 
 
@@ -1147,12 +1190,9 @@ function calcularEdad(fecha)
 	$('.cargarDatosApoderado').hide();	
 
 $(".mensajeEdad").empty();
+
 	function buscarDniApoderado(refDni){
-
-
-
 		datoDniPersona = {
-
 			'dni' : refDni.value,
 			"persona": 'apoderado'
 		};
@@ -1170,40 +1210,63 @@ $(".mensajeEdad").empty();
 			},
 
 			success: function(data){
-				
-				console.log(data)
-				
-
+	
 			if(data !== ""){
 				var dataParticiapnte = JSON.parse(data);
-
 				console.log("Busqueda DNI ==> ",dataParticiapnte);
-
-					
 					$(dataParticiapnte).each(function(index,valor){
-
 						if(valor.edad >=18){
-
+                                                        $("#apellidoPaterno").attr('readonly', true);
+							$("#apellidoMaterno").attr('readonly', true);
+							$("#nombre").attr('readonly', true);
+							$("#fechaNacimiento").attr('readonly', true);
+                                                        $("#sexo").attr('readonly', true);
+                                                        
 							$("#apellidoPaterno").val(valor.apellidoPaterno);
 							$("#apellidoMaterno").val(valor.apellidoMaterno);
 							$("#nombre").val(valor.nombre);
 							$("#fechaNacimiento").val(valor.fechaNacimiento);
-
 							if(valor.sexo == 1){
 								$("#sexo").val('1');	
 							}else{
-								$("#sexo").val('femenino');
+								$("#sexo").val('0');
 							}
+                                                        
+                                                        
 						}
 
 						else{
 
 							$(".mensajeEdad").empty();
 							$(".mensajeEdad").append("Usted Es menor de edad");
+                                                        
+                                                        {#SE AUMENTO: LIMPIAR LAS CAJAS DE TEXTO EN EL MOMENTO  SEA MENOR DE EDAD#}
+                                                        $("#apellidoPaterno").val('');
+							$("#apellidoMaterno").val('');
+							$("#nombre").val('');
+							$("#fechaNacimiento").val('');
+							$("#sexo").val(0);
+                                                         $("#apellidoPaterno").attr('readonly', false);
+							$("#apellidoMaterno").attr('readonly', false);
+							$("#nombre").attr('readonly', false);
+							$("#fechaNacimiento").attr('readonly', false);
+                                                        $("#sexo").attr('readonly', false);
 						}
 					});	
 
-				}
+				}else{
+                                
+                                                        $("#apellidoPaterno").val('');
+							$("#apellidoMaterno").val('');
+							$("#nombre").val('');
+							$("#fechaNacimiento").val('');
+							$("#sexo").val(0);
+                                                        $("#apellidoPaterno").attr('readonly', false);
+							$("#apellidoMaterno").attr('readonly', false);
+							$("#nombre").attr('readonly', false);
+							$("#fechaNacimiento").attr('readonly', false);
+                                                        $("#sexo").attr('readonly', false);
+                                }
 				$('.cargarDatosApoderado').hide();
 				
 			},
@@ -1217,7 +1280,7 @@ $(".mensajeEdad").empty();
 
 	$('.cargarDatosParticipante').hide();
 	function buscarDniHijo(refDni){
-
+                $(".mensajeEdadParticipante").empty();
 		var datoDniPersona = {
 
 			'dni' : refDni.value,
@@ -1232,12 +1295,21 @@ $(".mensajeEdad").empty();
 			data: datoDniPersona,
 
 			beforeSend: function(){
-
+                                $(".mensajeEdad").empty();
 				$('.cargarDatosParticipante').show();
 			},
 
 			success: function(data){
-				
+				$("#apellidoPaterno-hijo").attr('readonly', false);
+                                $("#apellidoMaterno-hijo").attr('readonly', false);
+                                $("#nombre-hijo").attr('readonly', false);
+                                $("#fechaNacimiento-hijo").attr('readonly', false);
+                                $("#sexo-hijo").attr('readonly', false);
+                                $("#apellidoPaterno-hijo").val("");
+                                $("#apellidoMaterno-hijo").val("");
+                                $("#nombre-hijo").val("");
+                                $("#fechaNacimiento-hijo").val("");
+                                $("#sexo-hijo").val(0);
 				if(data != ""){
 					var dataHijo = JSON.parse(data);
 
@@ -1246,7 +1318,12 @@ $(".mensajeEdad").empty();
 						$(dataHijo).each(function(index,valor){
 
 							if(valor.edad <18){
-
+                                                                $("#apellidoPaterno-hijo").attr('readonly', true);
+                                                                $("#apellidoMaterno-hijo").attr('readonly', true);
+                                                                $("#nombre-hijo").attr('readonly', true);
+                                                                $("#fechaNacimiento-hijo").attr('readonly', true);
+                                                                $("#sexo-hijo").attr('readonly', true);
+                                                                
 								$("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
 								$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
 								$("#nombre-hijo").val(valor.nombre);
@@ -1254,14 +1331,21 @@ $(".mensajeEdad").empty();
 								$("#sexo-hijo").val(valor.sexo);
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
-							}
-
-							else{
+							}else{
 								console.log("Se ha removido edad");
 								sessionStorage.removeItem("edad");
 								$(".mensajeEdadParticpante").empty();
 								$(".mensajeEdadParticipante").append("Usted Es mayor de edad");
-
+                                                                $("#apellidoPaterno-hijo").attr('readonly', false);
+                                                                $("#apellidoMaterno-hijo").attr('readonly', false);
+                                                                $("#nombre-hijo").attr('readonly', false);
+                                                                $("#fechaNacimiento-hijo").attr('readonly', false);
+                                                                $("#sexo-hijo").attr('readonly', false);
+                                                                $("#apellidoPaterno-hijo").val("");
+                                                                $("#apellidoMaterno-hijo").val("");
+                                                                $("#nombre-hijo").val("");
+                                                                $("#fechaNacimiento-hijo").val("");
+                                                                $("#sexo-hijo").val(0);
 							}
 						});					
 					
@@ -1272,6 +1356,7 @@ $(".mensajeEdad").empty();
 						$(".mensajeEdadParticpante").empty();
 						$('.cargarDatosParticipante').hide();
 						$(".mensajeEdadParticipante").append("Usted ya esta registrado!..");
+                                                
 				}
 				
 			},
