@@ -1,7 +1,7 @@
 akademia:
     resource: "@AkademiaBundle/Resources/config/routing.yml"
-    prefix:   /academia/
+    prefix:   /
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+#app:
+#    resource: '@AppBundle/Controller/'
+ #   type: annotation

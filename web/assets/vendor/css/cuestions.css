@@ -1,0 +1,42 @@
+.footer{
+	background: #CB2F1D;
+	color: #FFFFFF;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
+
+.footer a {
+	color: #FFFFFF;
+}
+
+.card{
+	padding: 10px 10px 10px 10px;
+	width: 97%;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.preguntas {
+	margin-top: 10vh;
+}
+
+.title-card{
+	font-size: 1.7em;
+	font-weight: bold;
+	color: #ffab40;
+}
+
+body {
+	font-family: Arial;
+}
+
+#carousel-1{
+	margin-top: 5vh;
+}
+
+.text-dark{
+	color: #333333;
+	text-decoration: none;
+}

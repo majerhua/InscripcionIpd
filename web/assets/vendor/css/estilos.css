@@ -20,14 +20,11 @@ body{
 }
 
 .proceso-inscripcion{
-	
 	padding-top: 8vh;
-
-
 }
 
 	.progreso{
-		height: 80px;
+		height: 100px;
 	}
 
 		.progreso_container{
@@ -49,7 +46,7 @@ body{
 	}
 
 		.container-card{
-			width: 50%;
+			width: 60%;
 			background-color: white;
 		}
 /*FIN*/
@@ -86,8 +83,8 @@ body{
 
 			width: 100%;
 			line-height: 40px;
-			color:#cb2f1d;
-			font-family: 'Marcellus SC', serif;
+			color:#3B3E5B;
+			/*font-family: 'Marcellus SC', serif;*/
 			text-align: center;
 			font-weight: bold;
 		}
@@ -103,8 +100,8 @@ body{
 
 
 			.progreso__barraInscripcion{
-				width:25em;
-				height:15px;
+				width:15em;
+				height:10px;
 				border-radius:30px;
 				background-color:#e7edef;
 				display:flex; 
@@ -236,7 +233,7 @@ body{
 
 	.proceso-inscripcion__horarios__horario{
 		
-
+		/*background-color: red;*/
 
 	}
 		.container-select-deporte{
@@ -262,7 +259,6 @@ body{
 			padding-top: 10px;
 			width: 70%;
 			margin:0 auto;
-			color:green;
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
@@ -275,15 +271,19 @@ body{
 				justify-content: center;
 			}
 
-	.mapa{
-		height: 55vh;
-
+	#rango-edad-horario,#vacantes{
+		font-size: 20px;
+		color: #363D80;
 	}
-
-
-		.mapa>iframe{
-			height: 50vh;
-		}
+	#turno,#rango-hora-horario{
+		font-size: 14px;
+	}
+	.mapa{
+		height: 45vh;
+	}
+   .mapa>iframe{
+		height: 45vh;
+	}
 /*FIN PROCESO DE INSCRIPCION */
 
 .card{
@@ -296,9 +296,10 @@ body{
 }
 
 .title-card{
-	font-size: 1.7em;
-	font-weight: bold;
-	color: #ffab40;
+	font-size: 1.1em;
+	/*color: #C1482E;
+	font-weight: bold;*/
+	color: #3B3E5B;
 }
 
 .inscripcion{
@@ -322,19 +323,14 @@ body{
 		width: 100%
 		background-color:white;
 		color:#cb2f1d;
-		font-weight: bold;
-
 	}	
 
 		.tituloFicha>p:first-child{
-			font-size: 1.5em;
+			font-size: 1.3em;
 			font-weight:bold;
-
-			
 		}
 
 		.tituloFicha>p{
-			font-family: 'Marcellus SC', serif;
 			color:#cb2f1d;
 			text-align: center;
 		}
@@ -400,25 +396,21 @@ body{
 		}
 
 			.pdfInscripcion2__container-titulo>p{
-				color:green;
+				color:#479B44;
 				font-size: 1.7em;
-				font-weight: bold;
-				font-family: 'Open Sans', sans-serif;
-
-
+				text-align: center;
 			}
 
 			.pdfInscripcion2__container-mensaje-lugar{
-
-				padding: 20px;
+				text-align: center;
 				margin:0 auto;				
 			}
 
 				.pdfInscripcion2__container-mensaje-lugar>p{
-					color:gray;
+					
 					font-size: 1em;
 					font-weight: bold;
-					font-family: 'Open Sans', sans-serif;
+					
 				}
 			.lista-requisitos{
 
@@ -428,6 +420,10 @@ body{
 				.lista-requisitos>ol>li {
 					font-size: 0.9em;
 				}
+
+.btn-center{
+	float: center;
+}
 
 .table-cuerpo  p, li{
 	font-size: 0.6em;
@@ -452,19 +448,6 @@ body{
 
 	height: 90vh;
 }
-
-
-.footer{
-	background: #CB2F1D;
-	color: #FFFFFF;
-	padding-top: 20px;
-	padding-bottom: 30px;
-}
-
-.footer a {
-	color: #FFFFFF;
-}
-
 .container-sugerencias{
 	
 }
@@ -483,4 +466,45 @@ body{
 
 .btn-sugerencias{
 	margin-top: 20px;
+}
+
+.footer{
+	background: #CB2F1D;
+	color: #FFFFFF;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
+
+.footer a {
+	color: #FFFFFF;
+}
+
+.card{
+	padding: 10px 10px 10px 10px;
+	width: 97%;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.preguntas {
+	margin-top: 10vh;
+}
+
+.title-card{
+	font-size: 1.7em;
+	font-weight: bold;
+	color: #ffab40;
+}
+
+.copyright{
+	background: #c4200d;
+}
+
+.copyright p {
+	color: #FFFFFF;
+	margin: 0;
+	padding-top: 5px;	
+	padding-bottom: 5px;
 }

@@ -14,7 +14,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getFicha($idInscripcion){
 
-   	$query = "select inscribete.id as id, apoderado.apellidoMaterno as apellidoMaternoApoderado ,
+   	$query = "  select inscribete.id as id, apoderado.apellidoMaterno as apellidoMaternoApoderado ,
   apoderado.dni as dniApoderado,
   apoderado.apellidoPaterno as apellidoPaternoApoderado ,
    (cast(datediff(dd,participante.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad , 

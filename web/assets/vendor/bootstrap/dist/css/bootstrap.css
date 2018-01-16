@@ -1313,7 +1313,7 @@ mark,
   text-align: left;
 }
 .text-right {
-  text-align: right;
+  float: right;
 }
 .text-center {
   text-align: center;
@@ -3341,7 +3341,7 @@ fieldset[disabled] .btn-warning.focus {
   color: #f0ad4e;
   background-color: #fff;
 }
-.btn-danger {
+.{
   color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;

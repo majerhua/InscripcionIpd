@@ -3,8 +3,8 @@
 <head>
 	<title></title>
 	
-	{#<style type="text/css">
-
+	<style type="text/css">
+{#
 
 
 			.pdfFichaInscripcion__header> div > p{
@@ -82,137 +82,129 @@
 	.container__logo>img{
 		border:1px solid black;
 	}
-
-	</style>#}
+#}
+	</style>
 
 </head>
 <body>
 
 
-	<div style=" margin:0 auto; height: 100vh;">
+	<div style="width: 85%; margin:0 auto; height: 100vh; font-family: 'Open Sans'; sans-serif;">
 		<div  class="pdfFichaInscripcion__header">
 			
 			<div class="container__logo" style=" border-radius: 10px;overflow: hidden; text-align:center; " >
 				<img  height="70"  width="100" src="http://www.deportesperu.pe/wp-content/uploads/2014/01/logosipd-011.jpg" >
 			</div>
-			<p style="font-weight: bold;font-size:1.3em;font-family: 'Marcellus SC', serif;font-weight: bold; text-align: center; padding-bottom:-20px;" >DIRECCIÓN NACIONAL DE RECREACIÓN Y PROMOCIÓN DEL DEPORTE</p>
+			<p style="font-weight: bold;font-size:1.3em;font-family: 'Marcellus SC', serif;font-weight: bold; text-align: center; padding-bottom:-20px;" >DIRECCION NACIONAL DE RECREACION Y PROMOCION DEL DEPORTE</p>
 			<p style="text-align:center;">ACADEMIA IPD</p>
 			<p style="text-align:center;">VERANO 2018</p>
-			<p style="text-align: center;font-size:1.4em;font-family: 'Marcellus SC', serif;font-weight: bold; ">FICHA DE INSCRIPCIÓN</p>
-                        
-                        <div style="width: 100%">
-            <div style="width: 50%;">
-                 <table >
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                       <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:60%;    padding-bottom: 8px;">DATOS PERSONALES</td>
-                        <td style="width:40%;    padding-bottom: 8px;"></td>
-                      </tr>
-                        <tr>
-                       <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:60%;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"></td>
-                      </tr>
-                        <br> 
-                      <tr>
-                         <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"> Nombre:</td>
-                        <td style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['nombre']}}</td>
-                      </tr>
-                      <tr>
-                           <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"> Apellido Paterno:</td>
-                        <td style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['apellidoPaterno']}}</td>
-                      </tr>
-                      <tr>
-                           <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"> Apellido Materno:</td>
-                        <td style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['apellidoMaterno']}}</td>
-                      </tr>
-
-                      <tr>
-                           <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"> Apellido Paterno:</td>
-                        <td style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['apellidoPaterno']}}</td>
-                      </tr>
-                      <tr>
-                           <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"> Distrito:</td>
-                        <td style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['distrito']}}</td>
-                      </tr>
-                      <tr>
-                           <td style="width:100px;    padding-bottom: 8px;"></td>
-                        <td style="width:40%;    padding-bottom: 8px;"> Domicilio:</td>
-                        <td style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['nombre']}}</td>
-                      </tr>
-                      <tr>
-                           <td style="width:100px;    padding-bottom: 8px;"></td>
-			<td  style="width:40%;    padding-bottom: 8px;"> Fecha Nacimiento: </td>
-			<td  style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['fechaNacimiento']}}</td>
-                      </tr>
-
-				<tr>
-                                     <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> Teléfono: </td>
-					<td   style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['telefono']}}</td>
-				</tr>
-
-				<tr>
-                                     <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> DNI: </td>
-					<td  style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['dni']}}</td>
-				</tr>
-
-				<tr>
-                                     <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> Edad: </td>
-					<td  style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['edad']}}</td>
-				</tr>
-
-				<tr>
-                                     <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> Email:</td>
-					<td  style="width:40%;    padding-bottom: 8px;"> {{inscripcion[0]['correo']}}</td>
-				</tr>
-				<tr>
-                                         <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> COMPLEJO DEPORTIVO: </td>
-					<td  style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['nombreComplejo']}}</td>
-				</tr>
-
-				<tr>
-                                         <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> DISCIPLINA DEPORIVA:</td>
-					<td  style="width:40%;    padding-bottom: 8px;"> {{inscripcion[0]['nombreDisciplina']}}</td>
-				</tr>
-
-				<tr>
-                                         <td style="width:100px;    padding-bottom: 8px;"></td>
-					<td  style="width:40%;    padding-bottom: 8px;"> HORARIOS : </td>
-					<td  style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['horaInicio']}} a {{inscripcion[0]['horaFin']}} martes a viernes.</td>
-				</tr>
-                    </tbody>
-                  </table>   
-                
-            </div>   
-            </div>
+			<p style="text-align: center;font-size:1.4em;font-family: 'Marcellus SC', serif;font-weight: bold; ">FICHA DE INSCRIPCION</p>
 		</div>
-            
+
+		<table>
+			<tbody>
+					<tr style="margin:4px;">
+					<td colspan="1" ></td>
+					<td colspan="1">DATOS PERSONALES:</td>
+					<td colspan="1"></td>
+				</tr>
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Nombre: {{inscripcion[0]['nombre']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Apellido Paterno: {{inscripcion[0]['apellidoPaterno']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Apellido Materno: {{inscripcion[0]['apellidoMaterno']}}</td>
+					<td colspan="1"></td>
+				</tr>
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Distrito: {{inscripcion[0]['distrito']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Domicilio: {{inscripcion[0]['nombre']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Fecha Nacimiento: {{inscripcion[0]['fechaNacimiento']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Telefono: {{inscripcion[0]['telefono']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Dni: {{inscripcion[0]['dni']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Edad: {{inscripcion[0]['edad']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">Email: {{inscripcion[0]['correo']}}</td>
+					<td colspan="1"></td>
+				</tr>
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">COMPLEJO DEPORTIVO: {{inscripcion[0]['nombreComplejo']}}</td>
+					<td colspan="1"></td>
+				</tr>
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">DISCIPLINA DEPORIVA: {{inscripcion[0]['nombreDisciplina']}}</td>
+					<td colspan="1"></td>
+				</tr style="margin:4px;">
+
+				<tr style="margin:4px;">
+
+					<td colspan="1" ></td>
+					<td colspan="1">HORARIOS: De {{inscripcion[0]['horaInicio']}} a {{inscripcion[0]['horaFin']}} martes a viernes.</td>
+					<td colspan="1"></td>
+				</tr>
+
+			</tbody>
+		</table>
+
 	</div>
-                
-                                        
-       
 </body>
 </html>
 
 	
+
 
 
