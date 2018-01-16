@@ -315,6 +315,7 @@ body{
 	display: flex;
 	flex-wrap: wrap;
 	height: 100vh;
+	border: 3px;
 
 }
 
@@ -322,7 +323,10 @@ body{
 	.tituloFicha{
 		width: 100%
 		background-color:white;
-		color:#cb2f1d;
+		color:#596080;
+		font-weight: bold;
+
+
 	}	
 
 		.tituloFicha>p:first-child{
@@ -331,26 +335,27 @@ body{
 		}
 
 		.tituloFicha>p{
-			color:#cb2f1d;
-			text-align: center;
+			color:#596080;
+			
 		}
 
 	.pdf_inscripcion__1{
 		
 		width: 50%;
-		
 		display: flex;
 		padding-top: 1em;
 		flex-direction: column;
 		flex-wrap: wrap;
+		float: center;
 	}
 
-		.pdf_inscripcion__ficha{
-			
-			
-			width: 90%;
+		
+
+		.pdf_inscripcion__ficha{			
+			width: 70%;
 			display: flex;
 			flex-wrap: wrap;
+			margin-left: 30px;
 
 		}
 			.valores{
@@ -382,6 +387,7 @@ body{
 
 		width: 50%;
 		padding-top: 1em;
+		margin-left: 50px;
 	}
 
 	.pdf_inscripcion__declaracion-jurada{
@@ -396,9 +402,10 @@ body{
 		}
 
 			.pdfInscripcion2__container-titulo>p{
-				color:#479B44;
-				font-size: 1.7em;
+				color:#5e5d94;
+				font-size: 1.5em;
 				text-align: center;
+				font-weight: bold;
 			}
 
 			.pdfInscripcion2__container-mensaje-lugar{
@@ -407,10 +414,7 @@ body{
 			}
 
 				.pdfInscripcion2__container-mensaje-lugar>p{
-					
-					font-size: 1em;
-					font-weight: bold;
-					
+					font-size: 1em;				
 				}
 			.lista-requisitos{
 
@@ -436,9 +440,7 @@ body{
 	}
 
 .preguntas-frecuentes{
-	
-	margin-top: 10vh;
-	overflow-y: scroll;
+	margin-top: 5vh;
 	height: 90vh;
 }
 
@@ -469,11 +471,14 @@ body{
 }
 
 .footer{
-	background: #CB2F1D;
+	background: #292726;
 	color: #FFFFFF;
 	padding-top: 20px;
 	padding-bottom: 30px;
+	position:fixed;
 }
+
+
 
 .footer a {
 	color: #FFFFFF;
@@ -487,19 +492,28 @@ body{
 	border-radius: 2px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+.cardFicha{
+	padding: 20px;
+	width: 40%;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	border-radius: 2px;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
 
 .preguntas {
-	margin-top: 10vh;
+	margin-top: 3vh;
 }
 
 .title-card{
-	font-size: 1.7em;
+	font-size: 1.2em;
 	font-weight: bold;
-	color: #ffab40;
+	color: #4D4F7A;
 }
 
 .copyright{
-	background: #c4200d;
+	text-align: center;
+	font-size: 12px;
 }
 
 .copyright p {
@@ -507,4 +521,40 @@ body{
 	margin: 0;
 	padding-top: 5px;	
 	padding-bottom: 5px;
+}
+.mensajeEdad{
+	font-size: 12px;
+	color: green;
+}
+.mensajeEdadParticipante{
+	font-size: 12px;
+	color: green;	
+}
+.cargarDatosApoderado{
+	font-size: 12px;
+	color: green;	
+}
+.cargarDatosParticipante{
+	font-size: 12px;
+	color: green;	
+}
+.text-left{
+	text-align: left;
+	font-size: 15px;
+}
+.text-dark{
+	color: #53535D;
+
+}
+a:hover{
+	text-decoration: none;
+}
+
+.preg{
+	font-size: 24px;
+	font-weight: bold;
+}
+.text-center{
+	margin: 10px;
+
 }
