@@ -251,9 +251,13 @@ class DefaultController extends Controller
             $serializer = new Serializer($normalizers, $encoders);
             $jsonContent = $serializer->serialize($mdlFicha,'json');
 
-            return new JsonResponse($jsonContent); 
+            return new JsonResponse($jsonContent);
+
+            
         }
+
         return new JsonResponse("No es ajax");
+
     }
 
 
@@ -263,11 +267,12 @@ public function generarPdfInscripcionAction(Request $request , $id)
       
     $em2 = $this->getDoctrine()->getManager();
     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
-
+//    var_dump($mdlFicha);exit;
     $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
- 
+//    return $this->render('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
     $pdf = $this->container->get("white_october.tcpdf")->create();
     $pdf->SetAuthor('IPD');
+    $pdf->setPrintHeader(false);
     $pdf->SetTitle('Ficha de Inscripcion');
     $pdf->SetSubject('Mecenazgo Deportivo');
     $pdf->SetKeywords('TCPDF, PDF, Mecenazgo Deportivo, IPD, Sistemas IPD, Deportistas');       
@@ -344,6 +349,7 @@ public function generarPdfInscripcionAction(Request $request , $id)
      
         $pdf = $this->container->get("white_october.tcpdf")->create();
         $pdf->SetAuthor('IPD');
+		$pdf->setPrintHeader(false);
         $pdf->SetTitle('Declaracion Jurada');
         $pdf->SetSubject('Mecenazgo Deportivo');
         $pdf->SetKeywords('TCPDF, PDF, Mecenazgo Deportivo, IPD, Sistemas IPD, Deportistas');       
