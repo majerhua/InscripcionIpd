@@ -29,3 +29,8 @@ akademia_generarPdfDeclaracionJurada:
     path:     /pdf/declaracion-jurada/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfDeclaracionJurada}
     methods:  [GET,POST]
+
+akademia_sendemail:
+    path:     /sendemail
+    defaults: { _controller: AkademiaBundle:Default:sendemail}
+    methods:  [GET,POST]

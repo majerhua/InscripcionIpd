@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             //new AppBundle\AppBundle(),
             new AkademiaBundle\AkademiaBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
-            new Realestate\MssqlBundle\RealestateMssqlBundle(),
+            //new Realestate\MssqlBundle\RealestateMssqlBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

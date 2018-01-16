@@ -267,9 +267,8 @@ public function generarPdfInscripcionAction(Request $request , $id)
       
     $em2 = $this->getDoctrine()->getManager();
     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
-//    var_dump($mdlFicha);exit;
     $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
-//    return $this->render('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
+//  return $this->render('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
     $pdf = $this->container->get("white_october.tcpdf")->create();
     $pdf->SetAuthor('IPD');
     $pdf->setPrintHeader(false);
@@ -459,8 +458,16 @@ public function generarPdfInscripcionAction(Request $request , $id)
 
             return new JsonResponse($jsonContent);  
         }
-
-
     }
+
+    public function sendemailAction(){
+        $correo = 'isabel1625.luna@gmail.com';
+        $subject = 'La Academia';
+        $message = 'test';
+        $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+        mail($correo, $subject, $message, $headers);
+    }
+
 
 }
