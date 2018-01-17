@@ -34,3 +34,8 @@ akademia_sendemail:
     path:     /sendemail
     defaults: { _controller: AkademiaBundle:Default:sendemail}
     methods:  [GET,POST]
+
+akademia_consultas:
+    path:     /consultas
+    defaults: { _controller: AkademiaBundle:Default:consulta}
+    methods:  [GET,POS]

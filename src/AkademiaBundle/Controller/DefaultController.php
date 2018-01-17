@@ -134,6 +134,11 @@ class DefaultController extends Controller
             "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD ));
     }
 
+
+    public function consultaAction(Request $request){
+         return $this->render('AkademiaBundle:Default:cuestions.html.twig');
+    }
+
     public function registrarAction(Request $request){
 
         if($request->isXmlHttpRequest()){

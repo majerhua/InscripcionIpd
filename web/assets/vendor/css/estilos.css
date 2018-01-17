@@ -441,7 +441,6 @@ body{
 
 .preguntas-frecuentes{
 	margin-top: 5vh;
-	height: 90vh;
 }
 
 .sugerencias{
@@ -473,9 +472,6 @@ body{
 .footer{
 	background: #292726;
 	color: #FFFFFF;
-	padding-top: 20px;
-	padding-bottom: 30px;
-	position:fixed;
 }
 
 

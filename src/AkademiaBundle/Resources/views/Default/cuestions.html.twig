@@ -1,36 +1,43 @@
+
 {% extends '::base.html.twig' %}
-
-{% block title %}Preguntas Frecuentes{% endblock %}
-
+{% block title %}Akademia{% endblock %}
 {% block body  %}
 
 
-<header  class="header"  id="inicio" style=" background-image: url( {{ asset('assets/images/fisica.jpg') }} ); " >
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
+
+
+<header>
+
+<nav class="navbar navbar-inverse" role="navigation">
+
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
-            <span class="icon-bar"></span>                        
-          </button>
-          <a class="navbar-brand" href="#">LA ACADEMIA IPD 2018</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>                       
+            <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-              <li ><a href="#inicio">Inicio</a></li>
-              <li><a href="#inscribete" >Inscipciones</a></li>
-              <li><a href="#preguntas-frecuentes">Consultas</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <br>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
+                <li><a href="#preguntas-frecuentes" onclick="click();">Consultas</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 </header>
+
+
+
+
+<section class="preguntas-frecuentes" id="preguntas-frecuentes">
+    <div ></div> 
     <div class="container preguntas">
-        <h1>Preguntas Frecuentes</h1>
+        <h1 class="preg">PREGUNTAS FRECUENTES</h1><br>
 
         <div class="card">
             <div class="card-header" role="tab" id="heading1">
@@ -151,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+      <div class="card">
             <div class="card-header" role="tab" id="heading7">
                 <h5 class="mb-0">
                     <a class="text-dark" class="text-dark" data-toggle="collapse" href="#collapse7" role="button" aria-expanded="false" aria-controls="collapse7">
@@ -167,7 +174,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+         <div class="card">
             <div class="card-header" role="tab" id="heading8">
                 <h5 class="mb-0">
                     <a class="text-dark" class="text-dark" data-toggle="collapse" href="#collapse8" role="button" aria-expanded="false" aria-controls="collapse8">
@@ -183,7 +190,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+      <!--          <div class="card">
             <div class="card-header" role="tab" id="heading9">
                 <h5 class="mb-0">
                     <a class="text-dark" class="text-dark" data-toggle="collapse" href="#collapse9" role="button" aria-expanded="false" aria-controls="collapse9">
@@ -200,7 +207,7 @@
             </div>
         </div>    
 
-        <div class="card">
+ <div class="card">
             <div class="card-header" role="tab" id="heading9">
                 <h5 class="mb-0">
                     <a class="text-dark" data-toggle="collapse" href="#collapse10" role="button" aria-expanded="false" aria-controls="collapse10">
@@ -216,24 +223,24 @@
                 </div>
             </div>
         </div> 
-    </div>
+    </div>-->
 
-    <div class="container sugerencias">
+    
+     <!--<div class="container sugerencias">
 
-        <h2>Ayudanos a mejorar</h2>
+        <h2 class="preg" >AYUDANOS A MEJORAR</h2>
 
         <div class="card">
-            <form id="gform" method="POST" class="pure-form pure-form-stacked" data-email="isabel1625.luna@gmail.com" action="https://script.google.com/macros/s/AKfycbxTHEjv_hb6z-4Ef7W-qbTHOPLE1qXwEq8JyzUZFi-xd7bYBa0/exec">
-
             <div class="row">
                 <div class="col-sm-6">
                     <div class="row">
                         <fieldset class="pure-group">
-                            <div class="col-sm-4">                           
-                                <label for="name">Nombre Completo</label>
-                            </div>
+                            <div class="col-sm-4">
+                            <br>                           
+                                <label for="name">Nombre Completo: </label>
+                            </div><br>
                             <div class="col-sm-8">
-                                <input id="name" name="name" placeholder="nombre completo" style="width: 100%; height: 40px" />
+                                <input id="name" name="name" placeholder=" nombre completo" style="width: 100%; height: 40px" />
                             </div>
                         </fieldset>                        
                     </div>
@@ -241,7 +248,7 @@
                     <div class="row" style="margin-top: 20px;">                    
                         <fieldset class="pure-group">
                             <div class="col-sm-4">
-                                <label for="email"><em>Tu</em> Email </label>
+                                <label for="email">Email: </label>
                             </div>
                             <div class="col-sm-8">
                                 <input id="email" name="email" type="email" value="" required placeholder="usuario@email.com"  style="width: 100%; height: 40px"/>
@@ -252,62 +259,46 @@
                 </div>
                 <div class="col-sm-6">
                     <fieldset class="pure-group">
-                        <label for="message">Mensaje: </label>
-                        <textarea id="message" name="message" rows="5" placeholder="Escribe aquí tus sugerencias o quejas" style="width: 100%; height: 100px"></textarea>
+                        <label for="message"> Mensaje: </label>
+                        <textarea id="message" name="message" rows="5" placeholder="Escribe aquí tus sugerencias o quejas" style="width: 100%; height: 100px; padding: 2px"></textarea>
                     </fieldset>
                 </div>
-
             </div>
-    
-            <div class="row text-right">            
-                <button class="btn btn-success">Enviar</button>
+             <br><br>
+            <div class="row text-center">            
+                <button class="btn btn-danger">Enviar</button>
             </div>
-
-
-            </form>
         </div>
-    </div>
+    </div>-->
+</section>
+
 
     <footer class="footer">
-        <div class="container">
+         <div>
             <div class="row">
-
                 <div class="col-sm-4">
-                    <img class="align-self-center" src="images/ipd/logo_ipd_blanco.png">
+                    <img class="align-self-center" src="{{ asset('assets/images/logo_ipd_blanco.png') }}">
                 </div>
-
                 <div class="col-sm-4">
                     <h3>La Academia</h3>
                     <p>
-                        <strong>Direccion:</strong> Calle Madre de Dios Nº 434
+                        <strong>Direccion:</strong> Calle Madre de Dios N° 463
                     </p>
                     <p>
                         <strong>Teléfono:</strong> 204-8420 /anexo 1302
                     </p>
                 </div>
-
                 <div class="col-sm-4">
                     <h3>Enlaces de Interés</h3>
-                    <p><a href="#">Instituto Peruano del Deporte</a></p>
-                    <p><a href="#">Facebook La Academia</a></p>
-                    <p><a href="#">Noticias La Academia</a></p>
+                    <p><a href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+                    <p><a href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+                    <p><a href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
                 </div>
-
-            </div>
-            <div class="row">
-
-            </div>
+            </div><br><br>
+            <p class="copyright">&copy; 2018 Todos los derechos reservados</p>
         </div>
     </footer>
+    
 
-<script src="jquery/dist/jquery.js"></script>
-<script src="bootstrap/dist/js/bootstrap.js"></script>
-<script data-cfasync="false" type="text/javascript" src="validacion.js"></script>
+{% endblock %}
 
-<script>
-    $(document).ready(function() {
-        $('.collapse').collapse()
-    }    
-</script>
-</body>
-</html>
