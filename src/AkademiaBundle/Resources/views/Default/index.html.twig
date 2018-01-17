@@ -1030,16 +1030,20 @@ $("#boton3").on('click',function(){
 
 	$("#boton-next-final").on('click',function(){
 
-		$("#process4").hide();
-		$("#process5").show();
-		$("#preguntas-frecuentes").show();
-
-		$(".bar-inscripcion__4").removeClass('active');
-		$(".bar-inscripcion__5").addClass('active');
-		registrar();
-
+		var disciplinaDeportiva = document.getElementById('disciplinaDeportiva').value;
+		var horario =document.getElementById('horario').value;
 		
-		
+		if( disciplinaDeportiva=="" && horario==""){
+				alertify.error('<p style="color:white">Debe seleccionar Disciplina y/o Horario </p>'); 
+		}else{
+
+			$(".bar-inscripcion__4").removeClass('active');
+			$(".bar-inscripcion__5").addClass('active');
+			$("#process4").hide();
+			$("#process5").show();
+			
+			registrar();
+		}
 
 	});
 
