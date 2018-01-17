@@ -18,7 +18,7 @@
 			<br>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#inscribete">Inscripciones</a></li>
-				<li><a href="/consultas">Consultas</a></li>
+				<li><a href="/academia/web/consultas">Consultas</a></li>
 			</ul>
 		</div>
 	</div>
@@ -154,7 +154,7 @@
 				</div>
 
 	        </div>
-		    <div class="container-boton-1 text-right">
+		    <div class="container-boton-1 text-center">
 				<button class="btn btn-danger" id="boton1">Continuar</button>
 			</div>
 		</div>
@@ -199,17 +199,17 @@
 		        </div>
 
 				<div class="form-group">
-                        <label for="direccion">Direccion</label>
+                        <label for="direccion">Dirección</label>
                         <input id="direccion" class="form-control"  type="text" name="direccion"  placeholder="Ingresar la dirección" >
                     </div>
 
 				<div class="form-group">
-					<label for="telefono">Telefono</label>
+					<label for="telefono">Teléfono</label>
 		          	<input id="telefono" class="form-control" type="text"  id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
 				</div>
 
 				<div class="form-group">
-                        <label for="correo">Correo Electronico</label>
+                        <label for="correo">Correo Electrónico</label>
                         <input id="correo" class="form-control" type="email" name="correo"  placeholder="Ingresar Correo Electrónico">
                     </div>
 
@@ -231,7 +231,7 @@
 
 				<div class="form-group">
 					<label for="dni-hijo">DNI</label>
-	          		<input class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo" placeholder="Ingresar DNI">
+	          		<input class="form-control" maxlength="8" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo" placeholder="Ingresar DNI">
 		        	<span class="cargarDatosParticipante">Actualizando....</span>
 	          		<span class="mensajeEdadParticipante"></span>
 				</div>
@@ -1088,9 +1088,9 @@ $("#boton3").on('click',function(){
 				sessionStorage.removeItem("idInscripcion");
 				sessionStorage.setItem("idInscripcion",valor.id);
 
-				$("#ancla-imprimir-fichaInscripcion").attr('href',"/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+				$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
 
-				$("#ancla-imprimir-declaracion-jurada").attr('href',"/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
 
 				$("#nombre-ficha").append(valor.nombre);
 				$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
