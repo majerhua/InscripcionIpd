@@ -465,7 +465,7 @@ public function generarPdfInscripcionAction(Request $request , $id)
         }
     }
 
-    public function sendemailAction(){
+    public function sendemailAction(Request $request){
 
         if($request->isXmlHttpRequest()){
 
@@ -474,8 +474,8 @@ public function generarPdfInscripcionAction(Request $request , $id)
             $mensaje=$request->request->get('message');
 
             $correo = 'coordinaciondpt@gmail.com';
-            $subject = 'La Academia';
-            $message = $nombre + $email + $mensaje;
+            $subject = 'La Academia - Comentarios';
+            $message = 'Hemos recibido un nuevo comentario y/o sugerencia de la web La Academia' + "\n" + 'Usuario: ' + $nombre + "\n" + 'Correo: ' + $email + "\n" + 'Mensaje: ' + $mensaje;
             $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
             mail($correo, $subject, $message, $headers);
