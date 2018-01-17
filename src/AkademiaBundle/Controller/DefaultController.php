@@ -479,6 +479,8 @@ public function generarPdfInscripcionAction(Request $request , $id)
             $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
             mail($correo, $subject, $message, $headers);
+            
+            return new JsonResponse("enviado");
         }
     }
 
