@@ -4,9 +4,7 @@
 {% block body  %}
 
 <header>
-
 <nav class="navbar navbar-inverse" role="navigation">
-
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -20,7 +18,7 @@
 			<br>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#inscribete">Inscripciones</a></li>
-				<li><a href="/consultas" onclick="click();">Consultas</a></li>
+				<li><a href="/consultas">Consultas</a></li>
 			</ul>
 		</div>
 	</div>
@@ -94,9 +92,7 @@
 </header>
 
 <section  id="inscribete"  class="proceso-inscripcion">
-	
 	<div class="progreso">
-		
 		<div class="container-titulo">		
 			<p>PRE - INSCRIPCIÓN 2018 I</p>
 		</div>
@@ -158,11 +154,12 @@
 				</div>
 
 	        </div>
+		    <div class="container-boton-1 text-right">
+				<button class="btn btn-danger" id="boton1">Continuar</button>
+			</div>
 		</div>
 
-		<div class="container-boton-1">
-			<button class="btn btn-danger" id="boton1">Continuar</button>
-		</div>
+		
 
 	</div>
 
@@ -422,7 +419,7 @@
 			</div><hr>
 
 			<div class="pdf_inscripcion__ficha">
-				<div class="campos  col-md-4  col-lg-4"> 	
+				<div class="campos  col-md-5  col-lg-5"> 	
 					<p>Nombre</p>
 					<p>Apellido Paterno</p>
 					<p>Apellido Materno</p>
@@ -438,14 +435,14 @@
 					<p>Horario</p>
 				</div>
 
-				<div class="valores col-md-8  col-lg-8">
+				<div class="valores col-md-8 col-lg-8">
 					
 					<p id="nombre-ficha"></p>
-					<p id="apellidoPaterni-ficha" ></p>
-					<p id="apellidoMaterno-ficha" ></p>
+					<p id="apellidoPaterni-ficha" ></p><br>
+					<p id="apellidoMaterno-ficha" ></p><br>
 					<p id="distrito-ficha" ></p>
 					<p id="domicilio-ficha" ></p>
-					<p id="fechaNacimiento-ficha" ></p>
+					<p id="fechaNacimiento-ficha" ></p><br>
 					<p id="telefono-ficha" ></p>
 					<p id="dni-ficha" ></p>
 					<p id="edad-ficha" ></p>
@@ -488,8 +485,6 @@
 				<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Declaración Jurada</button></a>
 
 			</div>
-
-
 		</div>
 	</div>
 </section>
@@ -1033,7 +1028,7 @@ $("#boton3").on('click',function(){
 		var disciplinaDeportiva = document.getElementById('disciplinaDeportiva').value;
 		var horario =document.getElementById('horario').value;
 		
-		if( disciplinaDeportiva=="" && horario==""){
+		if( disciplinaDeportiva=="" || horario==""){
 				alertify.error('<p style="color:white">Debe seleccionar Disciplina y/o Horario </p>'); 
 		}else{
 

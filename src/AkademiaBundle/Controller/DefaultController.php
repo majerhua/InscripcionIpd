@@ -466,12 +466,20 @@ public function generarPdfInscripcionAction(Request $request , $id)
     }
 
     public function sendemailAction(){
-        $correo = 'isabel1625.luna@gmail.com';
-        $subject = 'La Academia';
-        $message = 'test';
-        $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-        mail($correo, $subject, $message, $headers);
+
+        if($request->isXmlHttpRequest()){
+
+            $nombre = $request->request->get('nombre');
+            $email= $request->request->get('email');
+            $mensaje=$request->request->get('message');
+
+            $correo = 'coordinaciondpt@gmail.com';
+            $subject = 'La Academia';
+            $message = $nombre + $email + $mensaje;
+            $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+            mail($correo, $subject, $message, $headers);
+        }
     }
 
 

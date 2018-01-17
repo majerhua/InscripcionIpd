@@ -3,10 +3,6 @@
 {% block title %}Akademia{% endblock %}
 {% block body  %}
 
-
-
-
-
 <header>
 
 <nav class="navbar navbar-inverse" role="navigation">
@@ -24,18 +20,15 @@
             <br>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
-                <li><a href="#preguntas-frecuentes" onclick="click();">Consultas</a></li>
+                <li><a href="#preguntas-frecuentes">Consultas</a></li>
             </ul>
         </div>
     </div>
 </nav>
 </header>
 
-
-
-
 <section class="preguntas-frecuentes" id="preguntas-frecuentes">
-    <div ></div> 
+
     <div class="container preguntas">
         <h1 class="preg">PREGUNTAS FRECUENTES</h1><br>
 
@@ -64,6 +57,7 @@
             </div>
             <div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="heading2" data-parent="#accordion">
                 <div class="card-body">
+                    <br>
                     <p>
                         Este programa está dividido en tres etapas:
                     </p>
@@ -190,7 +184,7 @@
                 </div>
             </div>
         </div>
-      <!--          <div class="card">
+        <div class="card">
             <div class="card-header" role="tab" id="heading9">
                 <h5 class="mb-0">
                     <a class="text-dark" class="text-dark" data-toggle="collapse" href="#collapse9" role="button" aria-expanded="false" aria-controls="collapse9">
@@ -207,7 +201,7 @@
             </div>
         </div>    
 
- <div class="card">
+        <div class="card">
             <div class="card-header" role="tab" id="heading9">
                 <h5 class="mb-0">
                     <a class="text-dark" data-toggle="collapse" href="#collapse10" role="button" aria-expanded="false" aria-controls="collapse10">
@@ -223,14 +217,14 @@
                 </div>
             </div>
         </div> 
-    </div>-->
-
+    </div>
+    <hr>
     
-     <!--<div class="container sugerencias">
+     <div class="container sugerencias">
 
         <h2 class="preg" >AYUDANOS A MEJORAR</h2>
-
-        <div class="card">
+        
+        <div class="card cardColor">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="row">
@@ -240,7 +234,7 @@
                                 <label for="name">Nombre Completo: </label>
                             </div><br>
                             <div class="col-sm-8">
-                                <input id="name" name="name" placeholder=" nombre completo" style="width: 100%; height: 40px" />
+                                <input class="formEmail" id="name" name="name" placeholder=" nombre completo"/>
                             </div>
                         </fieldset>                        
                     </div>
@@ -251,7 +245,7 @@
                                 <label for="email">Email: </label>
                             </div>
                             <div class="col-sm-8">
-                                <input id="email" name="email" type="email" value="" required placeholder="usuario@email.com"  style="width: 100%; height: 40px"/>
+                                <input class="formEmail" id="email" name="email" type="email" value="" required placeholder="usuario@email.com"/>
                             </div>
                             <span id="email-invalid" style="display:none">Dirección no válida</span>
                         </fieldset>
@@ -260,16 +254,16 @@
                 <div class="col-sm-6">
                     <fieldset class="pure-group">
                         <label for="message"> Mensaje: </label>
-                        <textarea id="message" name="message" rows="5" placeholder="Escribe aquí tus sugerencias o quejas" style="width: 100%; height: 100px; padding: 2px"></textarea>
+                        <textarea class="textEmail" id="message" name="message" rows="5" placeholder=" Escribe aquí tus sugerencias o comentarios."></textarea>
                     </fieldset>
                 </div>
             </div>
-             <br><br>
-            <div class="row text-center">            
-                <button class="btn btn-danger">Enviar</button>
+             <br>
+            <div class="row text-right">            
+                <button class="btn btn-danger" onclick="EnviarEmail();"><i class="icon-envelope-o" style="font-size:1.3em;" ></i>Enviar</button>
             </div>
         </div>
-    </div>-->
+    </div>
 </section>
 
 
@@ -302,3 +296,42 @@
 
 {% endblock %}
 
+{% block javascripts %}
+    <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+    <script type="text/javascript">
+
+        function EnviarEmail(){
+            var nombreUsuario = document.getElementById("name").value;
+            var correoUsuario = document.getElementById("email").value;
+            var mensajeUsuario = document.getElementById("message").value;
+
+            var enviosugerencia={
+                "nombre" : sessionStorage.getItem('nombreUsuario'),
+                "email" : sessionStorage.getItem('correoUsuario'),
+                "message" : sessionStorage.getItem('mensajeUsuario'),
+            }
+
+           $.ajax({
+                type:'POST',
+                dataType: 'json',
+                url: "{{url('akademia_sendemail')}}",
+                data: enviosugerencia,
+                beforeSend: function(){
+                },success: function(data){
+
+                    console.log(data);
+                    console.log("mensaje enviado");
+                
+                }, error: function(error){
+                    console.log(error);
+                }
+            })
+        }
+
+
+    </script>
+
+
+{% endblock %}
