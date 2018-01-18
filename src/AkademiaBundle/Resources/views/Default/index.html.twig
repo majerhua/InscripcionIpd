@@ -107,38 +107,38 @@
 		</div>
 	</div>
 		
-	<div id="proceso1"  class="proceso1">
+	<div id="proceso1"  class="proceso">
 		
-        <div class="container-card">
+        <div class="container-card col-xs-12 col-sm-8 col-md-6 col-ld-6">
 	        <div class="card">	
 
           		<p class="title-card">DATOS DEL PADRE Y/O APODERADO(A) </p>
 				<hr>
 
-				<div class="form-group">
+				<div class="form-group col s12">
 					<label for="dniApoderado">DNI Apoderado(a)</label>
-		          	<input id="dniApoderado" maxlength="8" class="form-control"  onblur="buscarDniApoderado(this)" name="dni"  class="validate" autofocus>
+		          	<input id="dniApoderado" maxlength="8" class="form-control" onblur="buscarDniApoderado(this)" name="dni"  class="validate" autofocus>
 		          	<span class="cargarDatosApoderado" >Actualizando....</span>
 		          	<span class="mensajeEdad" ></span>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group col s12">
 				  <label for="apellidoPaterno">Apellido Paterno</label>
-		          <input id="apellidoPaterno" maxlength="50" class="form-control" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
 
 				</div>
 				
-				<div class="form-group">
+				<div class="form-group col s12">
 				    <label for="apellidoMaterno" >Apellido Materno</label>
-		            <input id="apellidoMaterno" maxlength="50" class="form-control" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+		            <input id="apellidoMaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
 				</div>
 	      						      						
-	    		<div class="form-group">
+	    		<div class="form-group col s12">
 	    			<label for="nombre">Nombres</label>
-	          		<input id="nombre" maxlength="50" class="form-control"  type="text"  id="nombre"  name="nombre"  >
+	          		<input id="nombre" maxlength="50" class="form-control"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  >
 				</div>
 
-				<div class="form-group">
+				<div class="form-group col s12">
 					<label for="fechaNacimiento">Fecha de Nacimiento</label>
 		          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
 		          					
@@ -163,15 +163,15 @@
 
 	</div>
 
-	<div  id="proceso2" class="proceso2">
+	<div  id="proceso2" class="proceso">
 		
-	  	<div class="container-card ">
+	  	<div class="container-card col-xs-12 col-sm-8 col-md-6 col-ld-6">
 		    	
 		    <div class="card">
 
 		  		<p class="title-card">DIRECCIÓN </p><hr>
 
-		        <div class="form-group">
+		        <div class="form-group col s12">
 					<label>Departamento</label>
 		        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
 		            	<option value="0">--Seleccionar--</option>
@@ -183,7 +183,7 @@
 		        	</select> 
 		    	</div>
 
-		        <div class="form-group">
+		        <div class="form-group col s12">
 		        	<label>Provincia</label>
 		            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
 		                <option value="0">--Seleccionar--</option>
@@ -191,39 +191,41 @@
 		        </div>
 
 
-		        <div class="form-group">
+		        <div class="form-group col s12">
 		        	<label>Distrito</label>
 		            <select id="distrito" name="distrito"  class="form-control">
 		                <option value="0">--Seleccionar--</option>
 		            </select> 
 		        </div>
 
-				<div class="form-group">
+				<div class="form-group col s12">
                         <label for="direccion">Dirección</label>
-                        <input id="direccion" class="form-control"  type="text" name="direccion"  placeholder="Ingresar la dirección" >
+                        <input id="direccion" class="form-control"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
                     </div>
 
-				<div class="form-group">
+				<div class="form-group col s12">
 					<label for="telefono">Teléfono</label>
-		          	<input id="telefono" class="form-control" maxlength="9" type="text"  id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+		          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
 				</div>
 
-				<div class="form-group">
+				<div class="form-group col s12">
                         <label for="correo">Correo Electrónico</label>
-                        <input id="correo" class="form-control" type="email" name="correo"  placeholder="Ingresar Correo Electrónico">
-                    </div>
+                        <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+                </div>
 
 	    	</div>
+	    	<hr>
+		    <div class="container-boton-2 text-center">
+				<button class="btn btn-danger" id="boton2" >Continuar</button>
+			</div>
 		</div>
 
-		<div class="container-boton-2">
-			<button class="btn btn-danger" id="boton2" >Continuar</button>
-		</div>
+		
 	</div>
 
 
-	<div class="proceso3" id="proceso3" >
-	  	<div class="container-card ">
+	<div class="proceso" id="proceso3" >
+	  	<div class="container-card col-xs-12 col-sm-8 col-md-6 col-ld-6">
 
 			<div class="card">
 
@@ -238,28 +240,30 @@
 
 				<div class="form-group">
 					<label for="apellidoPaternoHijo">Apellido Paterno</label>
-	          		 <input  class="form-control" type="text"  id="apellidoPaterno-hijo"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+	          		 <input  class="form-control" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
 				</div>
 
 				 <div class="form-group">
                         <label for="apellidoMaterno-hijo">Apellido Materno</label>
-                        <input  class="form-control" type="text"  id="apellidoMaterno-hijo"  name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
+                        <input  class="form-control" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
                     </div>
 
                     <div class="form-group">
                         <label for="nombre-hijo">Nombre</label>
-                        <input  class="form-control" type="text"  id="nombre-hijo"  name="nombre-hijo"  placeholder="Ingresar Nombres"  >
+                        <input  class="form-control" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres"  >
                     </div>
 
-				<div style="display:flex; flex-wrap:wrap;">
+				<div class="row">
 
-					 <div class="form-group" style="width:50%;padding-left:5px;">
+					 <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                             <label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
                             <input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
                         </div>
 
-                        <div class="form-group" style="width:50%;padding-left:5px;  ">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
+
                             <label for="sexo-hijo">Sexo</label>
+                            
                             <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
                                 <option value="2">--SELECCIONAR--</option>
                                 <option value="1" >MASCULINO</option>
@@ -278,10 +282,9 @@
                             </select>
                         </div>
 
-                        <div class="form-group" style="width:50%;padding:5px;">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                             <label for="tipoSeguro">Tipo de Seguro</label>
                             <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
-                                <!--<option value="">--SELECCIONAR--</option>-->
                                 <option value="EsSALUD" >EsSALUD</option>
                                 <option value="SIS" >SIS</option>
                                 <option value="PRIVADO" >PRIVADO</option>
@@ -289,240 +292,305 @@
                         </div>
 
 				</div>
+				<hr>
 
+				<div class="container-boton-3 text-center">
+					<button class="btn btn-danger" id="boton3" >Continuar</button>
+				</div>
 			</div>
-		</div>
-
-		<div class="container-boton-3">
-			<button class="btn btn-danger" id="boton3" >Continuar</button>
-		</div>
+		</div>		
 	</div>
 	
+<div class="proceso">
 
-<center>
 	<div class="proceso-inscripcion__horarios" id="process4">
-		<br>
-		<div class="proceso-inscripcion__horarios__complejo-mapa  col-xs-12 col-sm-12  col-md-8 col-lg-7">
-			
-			<p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p><br>
+	
+		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
+		
+			<div class="card">
+		
+				<p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p>
 
-			<div class="complejo">
-				
-				<div class="form-group form-group-tam">
-					<label class="text-left">Departamento</label>
-		            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this,0)">
+				<hr>
+
+				<div class="complejo row">
+					
+					<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<label class="text-left">Departamento</label>
+			            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this,0)">
+			                <option value="">--Seleccionar--</option>
+
+				            {% for departamentoCD in departamentosCD %}
+				            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
+				            {% endfor %}
+							
+			            </select>
+		        	</div>
+
+		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+		            	<label class="text-left">Provincia</label>
+		                <select  id="provinciaHorario" class="form-control"  name="provinciaHorario" onchange="cambiarProvinciaHorario(this,0)">
+		                    <option value="">--Seleccionar--</option>
+		                </select>               
+		            </div>
+
+		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+		            	<label class="text-left">Distrito</label>
+		                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
+		                    <option value="">--Seleccionar--</option>
+		                </select> 
+		            </div>
+
+		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+		        		<label class="text-left">Complejo Deportivo</label>
+		            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
 		                <option value="">--Seleccionar--</option>
+		            	</select>
+		        	</div>
+				</div>
 
-			            {% for departamentoCD in departamentosCD %}
-			            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
-			            {% endfor %}
-						
-		            </select>
-	        	</div>
+				<div class="mapa row">
+					<iframe  id="iframe_lugar" class= "well well-sm col-xs-12 col-sm-12" width="800" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q='Peru%20lima'&key=AIzaSyDv9gTXqhO_IlpmDDEpVyE2DHpYcsVKp80" allowfullscreen></iframe>
+				</div>
+		   </div>
+		</div>
 
-	            <div class="form-group form-group-tam">
-	            	<label class="text-left">Provincia</label>
-	                <select  id="provinciaHorario" class="form-control"  name="provinciaHorario" onchange="cambiarProvinciaHorario(this,0)">
-	                    <option value="">--Seleccionar--</option>
-	                </select>               
-	            </div>
 
-	            <div class="form-group form-group-tam">
-	            	<label class="text-left">Distrito</label>
-	                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-	                    <option value="">--Seleccionar--</option>
-	                </select> 
-	            </div>
+		<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
+			<div class="card">
+				<p class="title-card">DEPORTES Y HORARIOS</p><br>
 
-	            <div class="form-group form-group-tam">
-	        		<label class="text-left">Complejo Deportivo</label>
-	            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-	                <option value="">--Seleccionar--</option>
-	            	</select>
-	        	</div>
-			</div>
+		        <div class="form-group container-select-deporte"  >
+		        	<label>Deporte: </label>
+		            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
+		                <option value="">--Seleccionar--</option>
+		            </select> 
+		        </div>
 
-			<div class="mapa">
-				<iframe  id="iframe_lugar" class= "well well-sm col-xs-12 col-sm-12" width="800" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q='Peru%20lima'&key=AIzaSyDv9gTXqhO_IlpmDDEpVyE2DHpYcsVKp80" allowfullscreen></iframe>
-			</div>
+		        <div class="form-group container-select-deporte"  >
+		        	<label>Horario: </label>
+		            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
+		                <option value="">--Seleccionar--</option>
+		            </select> 
+		        </div><br>
 
+		        <div class="form-group  container-horario-participante">
+		        	<div id="rango-edad-horario" ></div>
+		        	<div>
+		        		<div id="turno"></div>
+		        		<div id="rango-hora-horario"></div>
+		        	</div>
+		        	<div id="vacantes"></div>
+		        </div>
+		        <br>
+		        <hr>
+
+		        <div class="form-group row" >
+		        	<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+		        		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Otras Edades</button>
+		        	</div>
+					<div class="form-group container-boton-final col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+						<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripción</button>
+					</div>	
+				</div>	
 			
+			</div>
+		
 		</div>
-
-		<div class="proceso-inscripcion__horarios__horario col-xs-12 col-sm-12  col-md-4 col-lg-4">
-
-			<p class="title-card">DEPORTES Y HORARIOS</p><br>
-
-	        <div class="form-group container-select-deporte"  >
-	        	<label>Deporte: </label>
-	            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
-	                <option value="">--Seleccionar--</option>
-	            </select> 
-	        </div>
-
-	        <div class="form-group container-select-deporte"  >
-	        	<label>Horario: </label>
-	            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
-	                <option value="">--Seleccionar--</option>
-	            </select> 
-	        </div><br>
-
-	        <div class="form-group  container-horario-participante">
-	        	<div id="rango-edad-horario" ></div>
-	        	<div>
-	        		<div id="turno"></div>
-	        		<div id="rango-hora-horario"></div>
-	        	</div>
-	        	<div id="vacantes"></div>
-	        </div><br>
-
-	        <div class="form-group" >
-
-				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Otras Edades</button>
-				<div class="form-group pull-right container-boton-final"  >
-				<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripción</button>
-
-				</div>		
-			</div>	
-		</div>
+	
 	</div>
-</center>
 
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">OTRAS EDADES</h4>
-      </div>
-      <div class="modal-body">
-			<table class="table">
-				<tr>
-					<td>EDAD</td>
-					<td>HORARIO</td>
-					<td>DIAS</td>
-				</tr>
-			</table>
-			<div class="horario-otrasEdades" >
-		    </div>
-        	
-      </div>
-      <div class="modal-footer">
-      	<br>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-
-  </div>
 </div>
 
-	<div class="pdf_inscripcion" id="process5" >
-	
-		<div class="pdf_inscripcion__1 cardFicha">
-			<div class="tituloFicha">
-				<p style="text-align: center;">FICHA DE INSCRIPCIÓN</p>
-				<P style="text-align: center;">ACADEMIA IPD VERANO 2018</p>
-			</div><hr>
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
 
-			<div class="pdf_inscripcion__ficha">
-				<div class="campos  col-md-6  col-lg-6"> 	
-					<p>Nombre</p>
-					<p>Apellido Paterno</p>
-					<p>Apellido Materno</p>
-					<p>Distrito</p>
-					<p>Domicilio</p>
-					<p>Fecha Nacimiento</p>
-					<p>Teléfono</p>
-					<p>DNI</p>
-					<p>Edad</p>
-					<p>Email</p>
-					<p>Deporte</p>
-					<p>Complejo</p>
-					<p>Horario</p>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">OTRAS EDADES</h4>
+			</div>
+			<div class="modal-body">
+				<div class="horario-otrasEdades" >
 				</div>
-
-				<div class="valores col-md-6 col-lg-6">
-					
-					<p id="nombre-ficha"></p>
-					<p id="apellidoPaterni-ficha" ></p>
-					<p id="apellidoMaterno-ficha" ></p>
-					<p id="distrito-ficha" ></p>
-					<p id="domicilio-ficha" ></p>
-					<p id="fechaNacimiento-ficha" ></p>
-					<p id="telefono-ficha" ></p>
-					<p id="dni-ficha" ></p>
-					<p id="edad-ficha" ></p>
-					<p id="email-ficha" ></p>
-					<p id="deporte-ficha" ></p>
-					<p id="complejo-ficha" ></p>
-					<p id="horario-ficha" ></p>
-
-				</div>
+			</div>
+			<div class="modal-footer">
+				<br>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 
-		<div class="pdf_inscripcion__2">
-			
-			<div class="pdfInscripcion2__container-titulo">
-				<p>PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
-			</div><br>
-			<div class="pdfInscripcion2__container-mensaje-lugar">
-				<p>
-				Acércate dentro de 7 días hábiles al complejo que elegiste para confirmar tu inscripción.
-				</p><br>
-				<p class="cajaVacante">
-				 <strong>NO SE RESERVAN VACANTES.</strong>
-				</p>
-			</div>
-
-			<div class="lista-requisitos"> 
-				<p><strong>OBLIGATORIO</strong></p>
-				<ol>
-					<li>Presentar ficha de inscripción  y declaración jurada firmada y con la huella dactilar del apoderado.</li>
-					<li>DNI del menor de edad y el apoderado (Original y Copia).</li>
-					<li>Copia de acreditación a un seguro médico (SIS, EsSalud, o privado).</li>
-					<li>Foto tamaño carnet del menor de edad (Actualizado). </li>
-				</ol>
-			</div>
-
-			<div  class="col-md-12 col-lg-12 btn-center">
-				
-				<a href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
-				<a href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" ><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Declaración Jurada</button></a>
-
-			</div>
-		</div>
 	</div>
+	
+</div>
+
+<div class="proceso">
+
+			<div class="proceso-inscripcion__horarios row" id="process5">
+
+				<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
+
+					<div class="card">
+						<p class="title-card text-center">PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
+
+						<hr>
+
+						<p class="text-center">
+							Acércate dentro de estos 7 días al complejo que eligiste para confirmar tu inscripción.
+						</p>
+
+						<p class="text-center">
+							<strong>NO SE RESERVAN VACANTES.</strong>
+						</p>
+
+						<div class="lista-requisitos"> 
+
+							<p><strong>OBLIGATORIO</strong></p>
+
+							<ol>
+
+								<li>Presentar ficha  y declaración impresa.</li>
+								<li>DNI del menor  y el apoderado (Original y Copia).</li>
+								<li>Copia de Ficha de seguro SIS, EsSalud, o privado.</li>
+								<li>Foto tamaño  Carnet del menor (Actualizado). </li>
+
+							</ol>
+
+						</div>
+
+						<hr>
+
+						<div class="row">
+
+							<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
+
+							<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Declaración Jurada</button></a>
+
+						</div>
+						
+					</div>
+
+				</div>
+
+				<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
+					
+					<div class="card">
+						
+						<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
+						<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
+
+						<hr>
+
+						<div class="pdf_inscripcion__ficha row">
+							
+							<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
+
+								<p>Nombre</p>
+								<p>Apellido Paterno</p>
+								<p>Apellido Materno</p>
+								<p>Distrito</p>
+								<p>Domicilio</p>
+								<p>Fecha Nacimiento</p>
+								<p>Teléfono</p>
+								<p>DNI</p>
+								<p>Edad</p>
+								<p>Email</p>
+								<p>Deporte</p>
+								<p>Complejo</p>
+								<p>Horario</p>
+
+							</div>
+
+							<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
+
+								<p id="nombre-ficha"></p>
+								<p id="apellidoPaterni-ficha"></p><br>
+								<p id="apellidoMaterno-ficha"></p><br>
+								<p id="distrito-ficha"></p>
+								<p id="domicilio-ficha"></p>
+								<p id="fechaNacimiento-ficha"></p><br>
+								<p id="telefono-ficha"></p>
+								<p id="dni-ficha"></p>
+								<p id="edad-ficha"></p>
+								<p id="email-ficha"></p>
+								<p id="deporte-ficha"></p>
+								<p id="complejo-ficha"></p>
+								<p id="horario-ficha"></p>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				
+			</div>
+
+		</div>
+
 </section>
 
 
 <footer class="footer">
+		
 		<div class="container">
+
 			<div class="row">
-				<div class="col-sm-4">
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+
+					<br>
+					<br>
+					<br>
+
 					<img class="align-self-center" src="{{ asset('assets/images/logo_ipd_blanco.png') }}">
+
 				</div>
-				<div class="col-sm-4">
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+					<br>
+
 					<h3>La Academia</h3>
+
 					<p>
-						<strong>Dirección:</strong> Calle Madre de Dios N° 463
+
+						<strong>Direccion:</strong> Calle Madre de Dios N° 463
+
 					</p>
+
 					<p>
+
 						<strong>Teléfono:</strong> 204-8420 /anexo 1302
+
 					</p>
+
 				</div>
-				<div class="col-sm-4">
-                    <h3>Enlaces de Interés</h3>
-                    <p><a href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
-                    <p><a href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
-                    <p><a href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+					<br>
+
+					<h3>Enlaces de Interés</h3>
+
+					<p><a href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+
+					<p><a href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+
+					<p><a href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+
 				</div>
-			</div><br><br>
-			<p class="copyright">&copy; 2018 Todos los derechos reservados</p>
+
+			</div>
+
+			<br>
+			
+			<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+
 		</div>
-</footer>
+		
+	</footer>
 
 
 
@@ -537,9 +605,12 @@
 
 
 <script>
+
+	function mayus(e) {
+	    e.value = e.value.toUpperCase();
+	}
 	
 	var complejo = document.getElementById('complejosDeportivo');
-
 	complejo.addEventListener('change',
 	function(){
 		var selectedOption = this.options[complejo.selectedIndex];

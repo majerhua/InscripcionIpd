@@ -117,7 +117,7 @@ class DefaultController extends Controller
             }      
 		}
 
-        $em2 = $this->getDoctrine()->getManager();
+       $em2 = $this->getDoctrine()->getManager();
 
         $mdlDitritoCD = $em2->getRepository('AkademiaBundle:Distrito')->getDitritosCD();
         $mdlProvinciasCD = $em2->getRepository('AkademiaBundle:Distrito')->getProvinciasCD();
