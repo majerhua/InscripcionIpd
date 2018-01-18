@@ -398,8 +398,16 @@
         <h4 class="modal-title">OTRAS EDADES</h4>
       </div>
       <div class="modal-body">
+			<table class="table">
+				<tr>
+					<td>EDAD</td>
+					<td>HORARIO</td>
+					<td>DIAS</td>
+				</tr>
+			</table>
 			<div class="horario-otrasEdades" >
-        	</div>
+		    </div>
+        	
       </div>
       <div class="modal-footer">
       	<br>
@@ -717,7 +725,7 @@
 				}else{
 				
 
-				$(".horario-otrasEdades").append("<div><p><strong> De {{horario['edadMinima']}} a {{horario['edadMaxima']}} años  </strong></p><p>     -  "+horaInicio+"  a  "+horaFin+" am. </p></div>");
+				$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
 				}		
 			}
 
