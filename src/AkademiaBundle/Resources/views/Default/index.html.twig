@@ -42,37 +42,37 @@
 		<div class="carousel-inner" role="listbox">
 			<!-- #1 -->
 			<div class="item active">
-				<img src="{{ asset('assets/images/slider1.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider1.png') }}" class="img-responsive" alt="" style="width:100%;" />
 			</div>
 			<!-- #2 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider2.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider2.png') }}" class="img-responsive" alt="" style="width:100%;" />
 			</div>
 			<!-- #3 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider3.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider3.png') }}" class="img-responsive" alt="" style="width:100%;" />
 			</div>
 			<!-- #4 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider4.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider4.png') }}" class="img-responsive" alt="" style="width:100%;" />
 			</div>
 			<!-- #5 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider5.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider5.png') }}" class="img-responsive" alt="" style="width:100%;" />
 			</div>
 			<!-- #6 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider6.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider6.png') }}" class="img-responsive" alt="" style="width:100%;" />
 				
 			</div>
 			<!-- #7 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider7.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider7.png') }}" class="img-responsive" alt="" style="width:100%;" />
 				
 			</div>
 			<!-- #8 -->
 			<div class="item">
-				<img src="{{ asset('assets/images/slider8.png') }}" class="img-responsive" alt="" style="width:100%;height:500px;" />
+				<img src="{{ asset('assets/images/slider8.png') }}" class="img-responsive" alt="" style="width:100%;" />
 				
 			</div>
 		</div>
@@ -112,11 +112,11 @@
         <div class="container-card">
 	        <div class="card">	
 
-          		<p class="title-card">DATOS DEL PADRE Y/O APODERADO </p>
+          		<p class="title-card">DATOS DEL PADRE Y/O APODERADO(A) </p>
 				<hr>
 
 				<div class="form-group">
-					<label for="dniApoderado">DNI Apoderado</label>
+					<label for="dniApoderado">DNI Apoderado(a)</label>
 		          	<input id="dniApoderado" maxlength="8" class="form-control"  onblur="buscarDniApoderado(this)" name="dni"  class="validate" autofocus>
 		          	<span class="cargarDatosApoderado" >Actualizando....</span>
 		          	<span class="mensajeEdad" ></span>
@@ -205,7 +205,7 @@
 
 				<div class="form-group">
 					<label for="telefono">Teléfono</label>
-		          	<input id="telefono" class="form-control" type="text"  id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+		          	<input id="telefono" class="form-control" maxlength="9" type="text"  id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
 				</div>
 
 				<div class="form-group">
@@ -271,9 +271,9 @@
                             <label for="parentesco">Parentesco</label>
                             <select id="parentesco" class="form-control" type="text"  name="parentesco">
                                 <!--<option value="">--SELECCIONAR--</option>-->
-                                <option value="hijo" >HIJO</option>
-                                <option value="sobrino">SOBRINO</option>
-                                <option value="nieto">NIETO</option>
+                                <option value="hijo" >HIJA(O)</option>
+                                <option value="sobrino">SOBRINA(O)</option>
+                                <option value="nieto">NIETA(O)</option>
                                 <option value="otros">OTROS</option>
                             </select>
                         </div>
@@ -419,7 +419,7 @@
 			</div><hr>
 
 			<div class="pdf_inscripcion__ficha">
-				<div class="campos  col-md-5  col-lg-5"> 	
+				<div class="campos  col-md-6  col-lg-6"> 	
 					<p>Nombre</p>
 					<p>Apellido Paterno</p>
 					<p>Apellido Materno</p>
@@ -435,14 +435,14 @@
 					<p>Horario</p>
 				</div>
 
-				<div class="valores col-md-8 col-lg-8">
+				<div class="valores col-md-6 col-lg-6">
 					
 					<p id="nombre-ficha"></p>
-					<p id="apellidoPaterni-ficha" ></p><br>
-					<p id="apellidoMaterno-ficha" ></p><br>
+					<p id="apellidoPaterni-ficha" ></p>
+					<p id="apellidoMaterno-ficha" ></p>
 					<p id="distrito-ficha" ></p>
 					<p id="domicilio-ficha" ></p>
-					<p id="fechaNacimiento-ficha" ></p><br>
+					<p id="fechaNacimiento-ficha" ></p>
 					<p id="telefono-ficha" ></p>
 					<p id="dni-ficha" ></p>
 					<p id="edad-ficha" ></p>
@@ -462,8 +462,8 @@
 			</div><br>
 			<div class="pdfInscripcion2__container-mensaje-lugar">
 				<p>
-				Acércate dentro de estos 7 días al complejo que eligiste para confirmar tu inscripción.
-				</p>
+				Acércate dentro de 7 días hábiles al complejo que elegiste para confirmar tu inscripción.
+				</p><br>
 				<p class="cajaVacante">
 				 <strong>NO SE RESERVAN VACANTES.</strong>
 				</p>
@@ -472,10 +472,10 @@
 			<div class="lista-requisitos"> 
 				<p><strong>OBLIGATORIO</strong></p>
 				<ol>
-					<li>Presentar ficha  y declaración impresa.</li>
-					<li>DNI del menor  y el apoderado (Original y Copia).</li>
-					<li>Copia de Ficha de seguro SIS, EsSalud, o privado.</li>
-					<li>Foto tamaño  Carnet del menor (Actualizado). </li>
+					<li>Presentar ficha de inscripción  y declaración jurada firmada y con la huella dactilar del apoderado.</li>
+					<li>DNI del menor de edad y el apoderado (Original y Copia).</li>
+					<li>Copia de acreditación a un seguro médico (SIS, EsSalud, o privado).</li>
+					<li>Foto tamaño carnet del menor de edad (Actualizado). </li>
 				</ol>
 			</div>
 
@@ -499,7 +499,7 @@
 				<div class="col-sm-4">
 					<h3>La Academia</h3>
 					<p>
-						<strong>Direccion:</strong> Calle Madre de Dios N° 463
+						<strong>Dirección:</strong> Calle Madre de Dios N° 463
 					</p>
 					<p>
 						<strong>Teléfono:</strong> 204-8420 /anexo 1302
@@ -710,7 +710,7 @@
 
 			if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
 				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-					console.log(" Horario  ==> {{horario['id']}}");
+					//console.log(" Horario  ==> {{horario['id']}}");
 					localStorage.removeItem('idHorario');
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
 					$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
@@ -1084,7 +1084,9 @@ $("#boton3").on('click',function(){
 			},
 			success: function(data){
 
+
 				var valor =JSON.parse(data)[0];
+				console.log("datos de la ficha" + valor);
 				sessionStorage.removeItem("idInscripcion");
 				sessionStorage.setItem("idInscripcion",valor.id);
 
@@ -1104,7 +1106,7 @@ $("#boton3").on('click',function(){
 				$("#email-ficha").append(valor.correo);
 				$("#deporte-ficha").append(valor.nombreDisciplina);
 				$("#complejo-ficha").append(valor.nombreComplejo);
-				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
+				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin + valor.turno);
 				$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 
 			},

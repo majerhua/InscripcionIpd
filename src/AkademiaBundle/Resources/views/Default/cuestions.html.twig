@@ -256,6 +256,7 @@
                         <label for="message"> Mensaje: </label>
                         <textarea class="textEmail" id="message"  maxlength="250" name="message" rows="5" placeholder=" Escribe aquí tus sugerencias o comentarios."></textarea>
                     </fieldset>
+                    <div id="alertaEnvio" name="alertaEnvio"></div>
                 </div>
             </div>
              <br>
@@ -320,15 +321,18 @@
                 data: enviosugerencia,
                 beforeSend: function(){
                 },success: function(data){
+                    var div='';
+                    div +='<div class="alert alert-success">El mensaje se ha enviado exitosamente! </div>'
+                    $('#alertaEnvio').html(div); 
+                    console.log(data); 
 
-                    console.log(data);
-                    
-                
                 }, error: function(error){
                     console.log(error);
                 }
             })
         }
+
+      
 
 
     </script>

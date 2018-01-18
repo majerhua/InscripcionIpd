@@ -18,7 +18,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
   apoderado.dni as dniApoderado,
   apoderado.apellidoPaterno as apellidoPaternoApoderado ,
    (cast(datediff(dd,participante.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad , 
-   apoderado.nombre as nombrePadre,horario.horaInicio, horario.horaFin, participante.nombre
+   apoderado.nombre as nombrePadre,horario.horaInicio, horario.horaFin, horario.turno, participante.nombre
    , participante.apellidoPaterno, participante.apellidoMaterno, participante.dni, apoderado.direccion,
    apoderado.correo, apoderado.telefono, grubigeo.ubinombre as distrito, participante.fechaNacimiento,
    disciplina.dis_descripcion as nombreDisciplina, edificacionDeportiva.ede_nombre as nombreComplejo
