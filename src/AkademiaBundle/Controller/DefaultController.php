@@ -222,7 +222,7 @@ class DefaultController extends Controller
 
             $inscripcion = new Inscribete();
 
-            $estado="activo";
+            $estado=1;
             $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
 
 
@@ -321,7 +321,7 @@ public function generarPdfInscripcionAction(Request $request , $id)
             $idParticipante = $request->request->get('idParticipante');
             $idHorario = $request->request->get('idHorario');
             $fechaInscripcion = $hoy = date("Y-m-d");
-            $estado ="activo";
+            $estado =1;
 
             $inscripcion = new Inscribete();
 

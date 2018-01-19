@@ -42,9 +42,9 @@ class Inscribete
     private $fechaInscripcion;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="estado", type="string", length=255)
+     * @ORM\Column(name="estado", type="integer")
      */
     private $estado;
 
@@ -86,7 +86,7 @@ class Inscribete
     /**
      * Set estado
      *
-     * @param string $estado
+     * @param int $estado
      *
      * @return Inscribete
      */
