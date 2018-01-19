@@ -19,15 +19,16 @@
         </div>
 
         <table>
-             <thead>
+            <thead>
                                 <tr>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
-                            </thead>
+            </thead>
             <tbody>
-                 <tr>
+                    
+                   <tr>
                                     <td style="width:100px;    padding-bottom: 8px;"></td>
                                     <td style="width:60%;    padding-bottom: 8px; font-weight:bold;">DATOS PERSONALES</td>
                                     <td style="width:40%;    padding-bottom: 8px;"></td>
@@ -37,7 +38,8 @@
                                     <td style="width:60%;    padding-bottom: 8px;"></td>
                                     <td style="width:40%;    padding-bottom: 8px;"></td>
                    </tr>
-                                <br> 
+                                <br>
+                                
                                 <tr>
                                     <td style="width:100px;    padding-bottom: 8px;"></td>
                                     <td style="width:40%;    padding-bottom: 8px; font-weight:bold;"> Nombre:</td>
@@ -111,7 +113,14 @@
                                     <td style="width:100px;    padding-bottom: 8px;"></td>
                                     <td  style="width:40%;    padding-bottom: 8px; font-weight:bold;"> Horarios : </td>
                                     <td  style="width:40%;    padding-bottom: 8px;">{{inscripcion[0]['horaInicio']}} a {{inscripcion[0]['horaFin']}} - {{inscripcion[0]['turno']}}.</td>
+                                </tr> <br><br><br>
+                                <tr>
+                                    <td style="width:100px;"></td>
+                                    <td style="width:40%;    padding-bottom: 2px;"></td>
+                                    <td style="width:40%;    padding-bottom: 2px; color:#AF1313; font-weight:bold;">Código de Registro: {{inscripcion[0]['id']}}</td>
+                                    
                                 </tr>
+
             </tbody>
         </table>
 
