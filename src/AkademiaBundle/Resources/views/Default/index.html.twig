@@ -1095,7 +1095,9 @@ $("#boton3").on('click',function(){
 						$("#process4").show();	
 						$(".bar-inscripcion__3").removeClass('active');
 						$(".bar-inscripcion__4").addClass('active');		
-					}
+					}else{
+						alertify.error('<p style="color:white">Sólo de 6 a 17 años. </p>'); 
+				    }
 				}
 
 });
