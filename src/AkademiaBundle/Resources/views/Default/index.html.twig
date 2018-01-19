@@ -152,14 +152,13 @@
 				      	<option value="0">Femenino</option>
 				    </select>
 				</div>
-
+				<hr>
 	        </div>
+
 		    <div class="container-boton-1 text-center">
-				<button class="btn btn-danger" id="boton1">Continuar</button>
+				<button class="btn btn-danger" id="boton1"> Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
 			</div>
 		</div>
-
-		
 
 	</div>
 
@@ -212,11 +211,11 @@
                         <label for="correo">Correo Electrónico</label>
                         <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
                 </div>
-
+                <hr>
 	    	</div>
-	    	<hr>
+	    	
 		    <div class="container-boton-2 text-center">
-				<button class="btn btn-danger" id="boton2" >Continuar</button>
+				<button class="btn btn-danger" id="boton2" >Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
 			</div>
 		</div>
 
@@ -271,7 +270,7 @@
                             </select>
                         </div>
 
-					    <div class="form-group" style="width:50%;padding:5px;" >
+					    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
                             <label for="parentesco">Parentesco</label>
                             <select id="parentesco" class="form-control" type="text"  name="parentesco">
                                 <!--<option value="">--SELECCIONAR--</option>-->
@@ -295,7 +294,7 @@
 				<hr>
 
 				<div class="container-boton-3 text-center">
-					<button class="btn btn-danger" id="boton3" >Continuar</button>
+					<button class="btn btn-danger" id="boton3" >Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
 				</div>
 			</div>
 		</div>		
@@ -358,7 +357,8 @@
 
 		<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
 			<div class="card">
-				<p class="title-card">DEPORTES Y HORARIOS</p><br>
+				<p class="title-card text-center">DEPORTES Y HORARIOS</p>
+				<hr>
 
 		        <div class="form-group container-select-deporte"  >
 		        	<label>Deporte: </label>
@@ -437,10 +437,10 @@
 						<hr>
 
 						<p class="text-center">
-							Acércate dentro de estos 7 días al complejo que eligiste para confirmar tu inscripción.
-						</p>
+							Acércate dentro de 7 días hábiles al complejo que eligiste para confirmar tu inscripción.
+						</p><br>
 
-						<p class="text-center">
+						<p class="text-center" style="color: #BB2626">
 							<strong>NO SE RESERVAN VACANTES.</strong>
 						</p>
 
@@ -450,10 +450,10 @@
 
 							<ol>
 
-								<li>Presentar ficha  y declaración impresa.</li>
-								<li>DNI del menor  y el apoderado (Original y Copia).</li>
-								<li>Copia de Ficha de seguro SIS, EsSalud, o privado.</li>
-								<li>Foto tamaño  Carnet del menor (Actualizado). </li>
+								<li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado.</li>
+								<li>DNI del menor de edad y del apoderado (original y copia).</li>
+								<li>Copia de acreditación a un seguro médico (SIS, EsSalud, o privado).</li>
+								<li>Foto tamaño carnet del menor de edad (actual). </li>
 
 							</ol>
 
@@ -505,11 +505,11 @@
 							<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
 
 								<p id="nombre-ficha"></p>
-								<p id="apellidoPaterni-ficha"></p><br>
-								<p id="apellidoMaterno-ficha"></p><br>
+								<p id="apellidoPaterni-ficha"></p>
+								<p id="apellidoMaterno-ficha"></p>
 								<p id="distrito-ficha"></p>
 								<p id="domicilio-ficha"></p>
-								<p id="fechaNacimiento-ficha"></p><br>
+								<p id="fechaNacimiento-ficha"></p>
 								<p id="telefono-ficha"></p>
 								<p id="dni-ficha"></p>
 								<p id="edad-ficha"></p>
@@ -520,7 +520,7 @@
 
 							</div>
 						</div>
-
+						<hr>
 					</div>
 
 				</div>
@@ -530,7 +530,7 @@
 		</div>
 
 </section>
-
+<br><br>
 
 <footer class="footer">
 		
@@ -544,25 +544,25 @@
 					<br>
 					<br>
 
-					<img class="align-self-center" src="{{ asset('assets/images/logo_ipd_blanco.png') }}">
+					<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
 
 				</div>
 
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
-					<br>
+					<br><br>
 
-					<h3>La Academia</h3>
+					<h4>La Academia</h4>
 
-					<p>
+					<p class="footerTex">
 
-						<strong>Direccion:</strong> Calle Madre de Dios N° 463
+						Dirección:Calle Madre de Dios N° 463
 
 					</p>
 
-					<p>
+					<p class="footerTex">
 
-						<strong>Teléfono:</strong> 204-8420 /anexo 1302
+						Teléfono: 204-8420 /anexo 1302
 
 					</p>
 
@@ -570,15 +570,15 @@
 
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
-					<br>
+					<br><br>
 
-					<h3>Enlaces de Interés</h3>
+					<h4>Enlaces de Interés</h4>
 
-					<p><a href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+					<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
 
-					<p><a href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+					<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
 
-					<p><a href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+					<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
 
 				</div>
 

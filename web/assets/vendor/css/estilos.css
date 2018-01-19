@@ -65,8 +65,8 @@ body{
 .container-titulo{
 
 	width: 100%;
-	line-height: 40px;
-	color:#3B3E5B;
+	line-height: 50px;
+	color:#4A4A4D;
 	/*font-family: 'Marcellus SC', serif;*/
 	text-align: center;
 	font-weight: bold;
@@ -290,7 +290,7 @@ body{
 	font-size: 1.2em;
 	/*color: #C1482E;
 	font-weight: bold;*/
-	color: #3B3E5B;
+	color: #4A4A4D;
 	margin-top: 2vh;
 
 }
@@ -478,7 +478,7 @@ body{
 
 .footer{
 
-	background: #292726;
+	background: #000000;
 	color: #FFFFFF;
 
 }
@@ -487,6 +487,13 @@ body{
 
 	color: #FFFFFF;
 
+}
+.foot{
+	width: 70%;
+	margin-top: -50px;
+}
+.footerTex{
+	font-size: 14px;
 }
 
 .formEmail{
@@ -523,7 +530,12 @@ body{
 	margin-top: 20px;
 	border-radius: 2px;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+	background: #fbfbfb;
 
+}
+.btn{
+
+	
 }
 
 .cardFicha{
@@ -559,7 +571,7 @@ body{
 
 	font-size: 1.2em;
 	font-weight: bold;
-	color: #4D4F7A;
+	color: #4A4A4D;
 
 }
 
