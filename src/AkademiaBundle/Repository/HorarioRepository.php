@@ -13,7 +13,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getHorarios(){
 
-       $query = "  select *from ACADEMIA.horario;";
+       $query = "select * from ACADEMIA.horario where convocatoria='1'";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $horarios = $stmt->fetchAll();
