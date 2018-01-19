@@ -740,12 +740,14 @@
 		{% for complejoDeportivo in complejosDeportivo  %}
 
 			if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1  ){
-
-				//console.log("{{complejoDeportivo['nombre']}}");
-				//console.log("{{complejoDeportivo['id']}}");
-				
 				$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
-				
+			}else {
+				$("#disciplinaDeportiva").empty();
+				$("#horario").empty();
+				$("#vacantes").empty();
+				$("#turno").empty();
+				$("#rango-edad-horario").empty();
+				$("#rango-hora-horario").empty();
 			}
 		{% endfor %}
 	}
@@ -754,6 +756,14 @@
 	function cambiarComplejoDeportivo(complejoDeportivo){
 
 		var idComplejoDeportivo = complejoDeportivo.value;
+
+				$("#disciplinaDeportiva").empty();
+				$("#horario").empty();
+				$("#vacantes").empty();
+				$("#turno").empty();
+				$("#rango-edad-horario").empty();
+				$("#rango-hora-horario").empty();
+		
 		console.log(idComplejoDeportivo);
 		
 		$("#disciplinaDeportiva").empty();
@@ -794,14 +804,14 @@
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
 					$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
 				}else{
-				
 
 				$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
-				}		
+				}
+
 			}
 
 		{% endfor %}
-	
+			
 	}
 
 	function cambiarHorario(horario){
