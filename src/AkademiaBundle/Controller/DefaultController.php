@@ -388,13 +388,14 @@ public function generarPdfInscripcionAction(Request $request , $id)
             $email= $request->request->get('email');
             $mensaje=$request->request->get('message');
 
-            $correo = 'coordinaciondpt@gmail.com';
+            $correo = 'isabel1625.luna@gmail.com';
             $subject = 'La Academia - Comentarios';
-            $message = 'Hemos recibido un nuevo comentario y/o sugerencia de la web La Academia' + "\n" + 'Usuario: ' + $nombre + "\n" + 'Correo: ' + $email + "\n" + 'Mensaje: ' + $mensaje;
+            $message = 'Holaaa'. "\r\n" .$nombre. "\r\n" .$email ."\r\n". $mensaje ;
             $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
+            //echo 'holaaaaaaaaaaaaaaaaaaa'.$message;
+            //exit();
             mail($correo, $subject, $message, $headers);
-            
             return new JsonResponse("enviado");
         }
     }
