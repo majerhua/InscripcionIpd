@@ -273,7 +273,7 @@
 					    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
                             <label for="parentesco">Parentesco</label>
                             <select id="parentesco" class="form-control" type="text"  name="parentesco">
-                                <!--<option value="">--SELECCIONAR--</option>-->
+                                <option value="">--SELECCIONAR--</option>
                                 <option value="hijo" >HIJA(O)</option>
                                 <option value="sobrino">SOBRINA(O)</option>
                                 <option value="nieto">NIETA(O)</option>
@@ -284,6 +284,7 @@
                         <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                             <label for="tipoSeguro">Tipo de Seguro</label>
                             <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
+                            	<option value="">--SELECCIONAR--</option>
                                 <option value="EsSALUD" >EsSALUD</option>
                                 <option value="SIS" >SIS</option>
                                 <option value="PRIVADO" >PRIVADO</option>
@@ -294,7 +295,7 @@
 				<hr>
 
 				<div class="container-boton-3 text-center">
-					<button class="btn btn-danger" id="boton3" >Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
+					<button class="btn btn-danger" id="boton3">Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
 				</div>
 			</div>
 		</div>		
@@ -437,7 +438,7 @@
 						<hr>
 
 						<p class="text-center">
-							Acércate dentro de 7 días hábiles al complejo que eligiste para confirmar tu inscripción.
+							Acércate al complejo que eligiste para finalizar tu inscripción.
 						</p><br>
 
 						<p class="text-center" style="color: #BB2626">
@@ -452,7 +453,7 @@
 
 								<li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado.</li>
 								<li>DNI del menor de edad y del apoderado (original y copia).</li>
-								<li>Copia de acreditación a un seguro médico (SIS, EsSalud, o privado).</li>
+								<li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li>
 								<li>Foto tamaño carnet del menor de edad (actual). </li>
 
 							</ol>
@@ -764,7 +765,7 @@
 				$("#rango-edad-horario").empty();
 				$("#rango-hora-horario").empty();
 		
-		console.log(idComplejoDeportivo);
+		//console.log(idComplejoDeportivo);
 		
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
@@ -781,16 +782,17 @@
 
 
 	function cambiarDisciplinaDeportiva(complejoDisciplina){
-
+	
 		var idComplejoDisciplina = complejoDisciplina.value;
 		$("#horario").empty();
 		$(".horario-otrasEdades").empty();
 		$("#horario").append("<option value='' >--Seleccionar--</option>");
-		$("#vacantes").empty();
 		$("#horaInicio").empty();
 		$("#horaFin").empty();
 		$("#edadMinima").empty();
 		$("#edadMaxima").empty();
+		$("#vacantes").empty();
+				
 
 		{% for horario in horarios  %}
 
@@ -805,7 +807,7 @@
 					$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
 				}else{
 
-				$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
+					$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
 				}
 
 			}
@@ -816,6 +818,11 @@
 
 	function cambiarHorario(horario){
 
+		$("#horaInicio").empty();
+		$("#horaFin").empty();
+		$("#edadMinima").empty();
+		$("#edadMaxima").empty();
+		$("#vacantes").empty();
 		var idHorario = horario.value;
 		//console.log(idHorario);
 
@@ -834,7 +841,7 @@
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
 
 					$("#vacantes").empty();
-					$("#vacantes").append("<strong>{{horario['vacantes']}} vacantes.</strong>");
+					//$("#vacantes").append("<strong>{{horario['vacantes']}} vacantes.</strong>");
 
 					$("#turno").empty();
 					$("#turno").append(" {{horario['turno']}} ");
@@ -1170,11 +1177,10 @@ $("#boton3").on('click',function(){
 			dataType: 'json',
 			url: "{{url('akademia_registrar')}}",
 			data: dataRegisterApoderado,
-			beforeSend: function(){
-				
+			beforeSend: function(){				
 			},
-			success: function(data){
 
+			success: function(data){
 
 				var valor =JSON.parse(data)[0];
 				console.log("datos de la ficha" + valor);
@@ -1202,6 +1208,7 @@ $("#boton3").on('click',function(){
 
 			},
 			error: function(error){
+				console.log("Error en la captura de datos");
 				console.log(error);
 			}
 				
@@ -1213,7 +1220,8 @@ $("#boton3").on('click',function(){
 $(".mensajeEdad").empty();
 	function buscarDniApoderado(refDni){
 
-     		datoDniPersona = {
+		if(refDni.value !=''){
+			datoDniPersona = {
 
 			'dni' : refDni.value,
 			"persona": 'apoderado'
@@ -1233,7 +1241,7 @@ $(".mensajeEdad").empty();
 
 			success: function(data){
 				
-				console.log(data)
+			console.log(data)
 				
 
 			if(data !== ""){
@@ -1304,16 +1312,19 @@ $(".mensajeEdad").empty();
 			}
 
 		});
+		}
+     		
 	}
 
 	$('.cargarDatosParticipante').hide();
 	function buscarDniHijo(refDni){
-                $(".mensajeEdadParticipante").empty();
-		var datoDniPersona = {
+		if(refDni.value != ''){
+			$(".mensajeEdadParticipante").empty();
+			var datoDniPersona = {
 
-			'dni' : refDni.value,
-			"persona": 'hijo'
-		};
+				'dni' : refDni.value,
+				"persona": 'hijo'
+			};
 
 		$.ajax({
 
@@ -1394,6 +1405,8 @@ $(".mensajeEdad").empty();
 			}
 
 		});
+		}
+
 	}
 
 </script>

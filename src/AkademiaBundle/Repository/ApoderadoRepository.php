@@ -10,5 +10,26 @@ namespace AkademiaBundle\Repository;
  */
 class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getbuscarApoderado($dni){
+
+        $query ="select id from ACADEMIA.apoderado where dni='$dni'";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $dni = $stmt->fetchAll();
+
+    	return $dni;
+	}
+
+
+	public function getCantidadRegistros($dni){
+
+		$query = "select count(*) as registros from ACADEMIA.apoderado where dni='$dni';";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $CantRegistros = $stmt->fetchAll();
+
+        return $CantRegistros;
+
+	}
 
 }
