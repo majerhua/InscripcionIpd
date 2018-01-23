@@ -261,7 +261,7 @@
             </div>
              <br>
             <div class="row text-right">            
-                <button class="btn btn-danger" onclick="EnviarEmail();"><i class="icon-envelope-o" style="font-size:1.3em;" ></i>Enviar</button>
+                <button class="btn btn-danger" id="btnEnviar" name="btnEnviar" onclick="EnviarEmail();"><i class="icon-envelope-o" style="font-size:1.3em;" ></i>Enviar</button>
             </div>
         </div>
     </div>
@@ -367,6 +367,18 @@
             })
         }
 
+        $("#btnEnviar").on('click',function(){
+
+            if($("#name").val()==""){
+                alertify.error('<p style="color:white">Se requiere el nombre.</p>'); 
+            }else if($("#email").val()==""){
+                 alertify.error('<p style="color:white">Se requiere el correo electrónico.</p>'); 
+            }else if($("#message").val()==""){
+                 alertify.error('<p style="color:white">Se requiere el contenido del mensaje</p>'); 
+
+            }
+
+        });
       
 
 

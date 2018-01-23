@@ -294,19 +294,20 @@ class DefaultController extends Controller
 
             //validación en la tabla academia.apoderado
             $idApod=null;
-            $em2 = $this->getDoctrine()->getManager();
-            $CantRegistrosApoderado[0]['registros'] = $em2->getRepository('AkademiaBundle:Apoderado')->getCantidadRegistros($dni);
+            $em4 = $this->getDoctrine()->getManager();
+            $CantRegistrosApoderado[0]['registros'] = $em4->getRepository('AkademiaBundle:Apoderado')->getCantidadRegistros($dni);
           
 
                 if($CantRegistrosApoderado[0]['registros']>1){
                 
                     echo "el Apoderado ya se encuentra registrado en la base de datos";
 
-                    $idApoderados = $em2->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+                    $idApoderados = $em4->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
 
                     $idApod = $idApoderados[0]['id'];
                 
                 }else{
+
                     $apoderado = new Apoderado();
                     $apoderado->setDni($dni);
                     $apoderado->setApellidoPaterno($apellidoPaterno);
@@ -387,7 +388,12 @@ class DefaultController extends Controller
                     $buscarParticipante = $em->find($idParticipanteN);
                     $inscripcion->setParticipante($buscarParticipante);
 
-                    $em = $this->getDoctrine()->getRepository(Horario::class);
+                    /*$em = $this->getDoctrine()->getRepository(Apoderado::class);
+                    $buscarApoderado = $em->find($idApod);
+                    $inscripcion->setApoderado($buscarApoderado);*/
+
+
+                   /* $em = $this->getDoctrine()->getRepository(Horario::class);
                     $buscarHorario = $em->find($idHorario);
                     $inscripcion->setHorario($buscarHorario);            
 

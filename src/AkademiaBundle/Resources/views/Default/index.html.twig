@@ -787,13 +787,12 @@
 		$("#horario").empty();
 		$(".horario-otrasEdades").empty();
 		$("#horario").append("<option value='' >--Seleccionar--</option>");
-		$("#horaInicio").empty();
-		$("#horaFin").empty();
-		$("#edadMinima").empty();
-		$("#edadMaxima").empty();
+		$("#rango-hora-horario").empty();
+		$("#rango-edad-horario").empty();
+		$("#turno").empty();
 		$("#vacantes").empty();
 				
-
+		var cantHorarios = 0;
 		{% for horario in horarios  %}
 
 			var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
@@ -805,14 +804,28 @@
 					localStorage.removeItem('idHorario');
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
 					$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
+					cantHorarios = cantHorarios + $('#horario').length;
+
 				}else{
 
 					$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
+					
 				}
-
 			}
 
 		{% endfor %}
+
+		console.log("cantidad "+cantHorarios);
+
+		if(cantHorarios <= 1){
+
+				$("#rango-hora-horario").empty();
+				$("#rango-edad-horario").empty();
+				$("#turno").empty();
+				
+				$("#vacantes").append("<strong> No hay vacantes disponibles. </strong>");
+		}
+	///	console.log($('#horario').length);
 			
 	}
 
