@@ -96,6 +96,13 @@ class Participante
      */
     private $tipoDeSeguro;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="estado", type="integer")
+     */
+    private $estado;
+
 
     /**
      * Get id
@@ -386,5 +393,32 @@ class Participante
     public function getPercodigo()
     {
         return $this->percodigo;
+    }
+
+   
+    
+
+    /**
+     * Set estado
+     *
+     * @param integer $estado
+     *
+     * @return Participante
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }

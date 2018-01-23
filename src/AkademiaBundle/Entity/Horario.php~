@@ -34,9 +34,9 @@ class Horario
     private $id;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="vacantes", type="string", length=255)
+     * @ORM\Column(name="vacantes", type="integer")
      */
     private $vacantes;
 
@@ -99,29 +99,6 @@ class Horario
         return $this->id;
     }
 
-    /**
-     * Set vacantes
-     *
-     * @param string $vacantes
-     *
-     * @return Horario
-     */
-    public function setVacantes($vacantes)
-    {
-        $this->vacantes = $vacantes;
-
-        return $this;
-    }
-
-    /**
-     * Get vacantes
-     *
-     * @return string
-     */
-    public function getVacantes()
-    {
-        return $this->vacantes;
-    }
 
     /**
      * Set horaInicio

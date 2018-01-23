@@ -165,6 +165,7 @@ class DefaultController extends Controller
             $sexoParticipante = $request->request->get('sexoParticipante');
             $parentesco = $request->request->get('parentesco');
             $tipoSeguro = $request->request->get('tipoSeguro');
+            $estado = 1;
 
 
             $apoderado = new Apoderado();
@@ -199,6 +200,7 @@ class DefaultController extends Controller
             $participante->setSexo($sexoParticipante);
             $participante->setParentesco($parentesco);
             $participante->setTipoDeSeguro($tipoSeguro);
+            $participante->setEstado($estado);
 
             $em = $this->getDoctrine()->getRepository(Apoderado::class);
             $buscarApoderadoInscripcion = $em->find($idApoderado);
