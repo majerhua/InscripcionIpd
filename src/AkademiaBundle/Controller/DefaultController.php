@@ -40,21 +40,21 @@ class DefaultController extends Controller
                     $params = array();
                     $stmt->execute($params);
                     $po = $stmt->fetchAll();
-                    $encoders = array(new JsonEncoder());
-                    $normalizer = new ObjectNormalizer();
-                    $normalizers = array($normalizer);
-                    $serializer = new Serializer($normalizers, $encoders);
-                    $jsonContent = $serializer->serialize($po,'json');
+                    
+                    if($po){
 
-                    if(!empty($jsonContent)){
+                        $encoders = array(new JsonEncoder());
+                        $normalizer = new ObjectNormalizer();
+                        $normalizers = array($normalizer);
+                        $serializer = new Serializer($normalizers, $encoders);
+                        $jsonContent = $serializer->serialize($po,'json');
+                        return new JsonResponse($jsonContent);
 
-                         return new JsonResponse($jsonContent);
-                   
                     }else{
 
                         $em = $this->getDoctrine()->getEntityManager();
                         $db = $em->getConnection();
-                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
+                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from dbo.grpersona where perdni='$dni';";
                         $stmt = $db->prepare($query);
                         $params = array();
                         $stmt->execute($params);
@@ -66,7 +66,7 @@ class DefaultController extends Controller
                         $jsonContent = $serializer->serialize($po,'json');
 
                         return new JsonResponse($jsonContent);  
-                    }                 
+                    }  
 
             }
              
@@ -74,10 +74,10 @@ class DefaultController extends Controller
 
                 $dni = $request->request->get('dni');
 
-        
+                
                 $em = $this->getDoctrine()->getEntityManager();
                 $db = $em->getConnection();
-                $query = "select dni,apellidoPaterno,apellidoMaterno,nombre,sexo,fechaNacimiento,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from ACADEMIA.participante where dni='$dni';";
+                $query = "select dni,apellidoPaterno,apellidoMaterno,nombre,sexo,fechaNacimiento,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from ACADEMIA.participante where dni='$dni'";
                 $stmt = $db->prepare($query);
                 $params = array();
                 $stmt->execute($params);
@@ -87,15 +87,17 @@ class DefaultController extends Controller
                 $normalizers = array($normalizer);
                 $serializer = new Serializer($normalizers, $encoders);
                 $jsonContent = $serializer->serialize($po,'json');
+                
 
-                    if(!empty($jsonContent)){
+                 if(!empty($jsonContent)){
+                        
+                        return new JsonResponse($jsonContent);
 
-                         return new JsonResponse($jsonContent);
                     }else{
 
                         $em = $this->getDoctrine()->getEntityManager();
                         $db = $em->getConnection();
-                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni';";
+                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni'";
                         $stmt = $db->prepare($query);
                         $params = array();
                         $stmt->execute($params);
@@ -107,7 +109,7 @@ class DefaultController extends Controller
                         $jsonContent = $serializer->serialize($po,'json');
 
                         return new JsonResponse($jsonContent);  
-                    }                 
+                    }           
             }
 
         }      
@@ -136,13 +138,11 @@ class DefaultController extends Controller
     }
 
 
-    public function registrarAction(Request $request){
+   public function registrarAction(Request $request){
 
         if($request->isXmlHttpRequest()){
 
-
             //DATOS APODERADO
-
             $dni = $request->request->get('dni');
             $apellidoPaterno = $request->request->get('apellidoPaterno');
             $apellidoMaterno = $request->request->get('apellidoMaterno');
@@ -156,7 +156,6 @@ class DefaultController extends Controller
 
 
             //DATOS PARTICIPANTE
-
             $dniParticipante = $request->request->get('dniParticipante');
             $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
             $apellidoMaternoParticipante = $request->request->get('apellidoMaternoParticipante');
@@ -168,145 +167,15 @@ class DefaultController extends Controller
             $estado = 1;
 
 
-            $apoderado = new Apoderado();
-            $apoderado->setDni($dni);
-            $apoderado->setApellidoPaterno($apellidoPaterno);
-            $apoderado->setApellidoMaterno($apellidoMaterno);
-            $apoderado->setNombre($nombre);
-            $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
-            $apoderado->setSexo($sexo);
-
-            $em = $this->getDoctrine()->getRepository(Distrito::class);
-            $buscarDistrito = $em->find($distrito);
-            $apoderado->setDistrito($buscarDistrito);
-
-            $apoderado->setDireccion($direccion);
-            $apoderado->setTelefono($telefono);
-            $apoderado->setCorreo($correo);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($apoderado);
-            $em->flush();
-
-            $idApoderado = $apoderado->getId();
-
-            $participante = new Participante();
-
-            $participante->setDni($dniParticipante);
-            $participante->setApellidoPaterno($apellidoPaternoParticipante);
-            $participante->setApellidoMaterno($apellidoMaternoParticipante);
-            $participante->setNombre($nombreParticipante);
-            $participante->setFechaNacimiento(new \DateTime($fechaNacimientoParticipante));
-            $participante->setSexo($sexoParticipante);
-            $participante->setParentesco($parentesco);
-            $participante->setTipoDeSeguro($tipoSeguro);
-            $participante->setEstado($estado);
-
-            $em = $this->getDoctrine()->getRepository(Apoderado::class);
-            $buscarApoderadoInscripcion = $em->find($idApoderado);
-            $participante->setApoderado($buscarApoderadoInscripcion);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($participante);
-            $em->flush();
-
-            $idParticipante  = $participante->getId();
-
-
-            //REGISTRO FINAL
-
-            $idHorario = $request->request->get('idHorario');
-            $fechaInscripcion = $hoy = date("Y-m-d");
-
-
-            $inscripcion = new Inscribete();
-
-            $estado=1;
-            $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
-
-
-            $inscripcion->setEstado($estado);
-            $em = $this->getDoctrine()->getRepository(Participante::class);
-            $buscarParticipante = $em->find($idParticipante);
-            $inscripcion->setParticipante($buscarParticipante);
-
-            $em = $this->getDoctrine()->getRepository(Horario::class);
-            $buscarHorario = $em->find($idHorario);
-            $inscripcion->setHorario($buscarHorario);            
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($inscripcion);
-            $em->flush();
-
-
-            $em2 = $this->getDoctrine()->getManager();
-            $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
-
-            
-            $encoders = array(new JsonEncoder());
-            $normalizer = new ObjectNormalizer();
-
-            $normalizer->setCircularReferenceLimit(1);
-                //Add Circular reference handler
-            $normalizer->setCircularReferenceHandler(function ($object) {
-                return $object->getId();
-            });
-            $normalizers = array($normalizer);
-            $serializer = new Serializer($normalizers, $encoders);
-            $jsonContent = $serializer->serialize($mdlFicha,'json');
-
-            return new JsonResponse($jsonContent);
-
-            
-        }
-
-        return new JsonResponse("No es ajax");
-
-    }
-
-
-   /*public function registrarAction(Request $request){
-
-        if($request->isXmlHttpRequest()){
-
-            //DATOS APODERADO
-            $dni = $request->request->get('dni');
-            $apellidoPaterno = $request->request->get('apellidoPaterno');
-            $apellidoMaterno = $request->request->get('apellidoMaterno');
-            $nombre = $request->request->get('nombre'); 
-            $fechaNacimiento = $request->request->get('fechaNacimiento');
-            $sexo = $request->request->get('sexo');
-            $distrito = $request->request->get('distrito');
-            $direccion = $request->request->get('direccion');
-            $telefono = $request->request->get('telefono');
-            $correo = $request->request->get('correo');
-
-
-            //DATOS PARTICIPANTE
-            $dniParticipante = $request->request->get('dniParticipante');
-            $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
-            $apellidoMaternoParticipante = $request->request->get('apellidoMaternoParticipante');
-            $nombreParticipante = $request->request->get('nombreParticipante'); 
-            $fechaNacimientoParticipante = $request->request->get('fechaNacimientoParticipante');
-            $sexoParticipante = $request->request->get('sexoParticipante');
-            $parentesco = $request->request->get('parentesco');
-            $tipoSeguro = $request->request->get('tipoSeguro');
 
             //REGISTRAR APODERADO
 
-            //validación en la tabla academia.apoderado
-            $idApod=null;
-            $em4 = $this->getDoctrine()->getManager();
-            $CantRegistrosApoderado[0]['registros'] = $em4->getRepository('AkademiaBundle:Apoderado')->getCantidadRegistros($dni);
-          
+            $em = $this->getDoctrine()->getManager();
+            $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
 
-                if($CantRegistrosApoderado[0]['registros']>1){
-                
-                    echo "el Apoderado ya se encuentra registrado en la base de datos";
-
-                    $idApoderados = $em4->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
-
-                    $idApod = $idApoderados[0]['id'];
+                if(!empty($IDApoderado)){
+                   
+                    $idApod = $IDApoderado[0]['id'];
                 
                 }else{
 
@@ -317,7 +186,7 @@ class DefaultController extends Controller
                     $apoderado->setNombre($nombre);
                     $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
                     $apoderado->setSexo($sexo);
-
+                
                     $em = $this->getDoctrine()->getRepository(Distrito::class);
                     $buscarDistrito = $em->find($distrito);
                     $apoderado->setDistrito($buscarDistrito);
@@ -333,25 +202,24 @@ class DefaultController extends Controller
                 }
 
 
-            $idParticipanteN=null;
-
-            $em3 = $this->getDoctrine()->getManager();
-            $CantRegistrosHijo[0]['registros'] = $em3->getRepository('AkademiaBundle:Participante')->getCantidadRegistros($dniParticipante);
             
-                if($CantRegistrosHijo[0]['registros']>1){
+           // REGISTRAR PARTICIPANTE
+
+            $em = $this->getDoctrine()->getManager();
+            $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
+            
+                if(!empty($IDParticipante)){
                 
-                    echo "el participante ya se encuentra registrado en la base de datos";
+                    $idParticipanteN = $IDParticipante[0]['id'];
 
-                     $idParticipante  = $em3->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
+                    $em->flush();
 
-                     $idParticipanteN = $idParticipante[0]['id'];
     
                 }else{
 
-                    $idApoderado = $apoderado->getId();
-
                     $participante = new Participante();
-
                     $participante->setDni($dniParticipante);
                     $participante->setApellidoPaterno($apellidoPaternoParticipante);
                     $participante->setApellidoMaterno($apellidoMaternoParticipante);
@@ -360,9 +228,10 @@ class DefaultController extends Controller
                     $participante->setSexo($sexoParticipante);
                     $participante->setParentesco($parentesco);
                     $participante->setTipoDeSeguro($tipoSeguro);
+                    $participante->setEstado($estado);
 
                     $em = $this->getDoctrine()->getRepository(Apoderado::class);
-                    $buscarApoderadoInscripcion = $em->find($idApoderado);
+                    $buscarApoderadoInscripcion = $em->find($idApod);
                     $participante->setApoderado($buscarApoderadoInscripcion);
 
                     $em = $this->getDoctrine()->getManager();
@@ -370,8 +239,6 @@ class DefaultController extends Controller
                     $em->flush();
 
                     $idParticipanteN= $participante->getId();
-
-                   
                 } 
 
                     //REGISTRO FINAL
@@ -384,18 +251,12 @@ class DefaultController extends Controller
                     $estado=1;
                     $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
 
-
                     $inscripcion->setEstado($estado);
                     $em = $this->getDoctrine()->getRepository(Participante::class);
                     $buscarParticipante = $em->find($idParticipanteN);
                     $inscripcion->setParticipante($buscarParticipante);
 
-                    /*$em = $this->getDoctrine()->getRepository(Apoderado::class);
-                    $buscarApoderado = $em->find($idApod);
-                    $inscripcion->setApoderado($buscarApoderado);*/
-
-
-                   /* $em = $this->getDoctrine()->getRepository(Horario::class);
+                    $em = $this->getDoctrine()->getRepository(Horario::class);
                     $buscarHorario = $em->find($idHorario);
                     $inscripcion->setHorario($buscarHorario);            
 
@@ -412,7 +273,7 @@ class DefaultController extends Controller
                     $normalizer = new ObjectNormalizer();
 
                     $normalizer->setCircularReferenceLimit(1);
-                        //Add Circular reference handler
+                       
                     $normalizer->setCircularReferenceHandler(function ($object) {
                         return $object->getId();
                     });
@@ -424,7 +285,7 @@ class DefaultController extends Controller
         }else{
             return new JsonResponse("No es ajax");
         }
-    }*/
+    }
 
 
 public function generarPdfInscripcionAction(Request $request , $id)
@@ -433,7 +294,6 @@ public function generarPdfInscripcionAction(Request $request , $id)
     $em2 = $this->getDoctrine()->getManager();
     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
     $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
-//  return $this->render('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
     $pdf = $this->container->get("white_october.tcpdf")->create();
     $pdf->SetAuthor('IPD');
     $pdf->setPrintHeader(false);
@@ -474,55 +334,6 @@ public function generarPdfInscripcionAction(Request $request , $id)
         
     }
 
-/*
-    public function registerFinalAction(Request $request){
-
-        if($request->isXmlHttpRequest()){
-
-            $idParticipante = $request->request->get('idParticipante');
-            $idHorario = $request->request->get('idHorario');
-            $fechaInscripcion = $hoy = date("Y-m-d");
-            $estado =1;
-
-            $inscripcion = new Inscribete();
-
-            $inscripcion->setEstado($estado);
-            $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
-
-            $em = $this->getDoctrine()->getRepository(Participante::class);
-            $buscarParticipante = $em->find($idParticipante);
-            $inscripcion->setParticipante($buscarParticipante);
-
-            $em = $this->getDoctrine()->getRepository(Horario::class);
-            $buscarHorario = $em->find($idHorario);
-            $inscripcion->setHorario($buscarHorario);            
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($inscripcion);
-            $em->flush();
-
-            $em = $this->getDoctrine()->getRepository(Inscribete::class);
-            $buscarInscripcion = $em->find($inscripcion->getId());
-
-
-            $encoders = array(new JsonEncoder());
-            $normalizer = new ObjectNormalizer();
-
-            $normalizer->setCircularReferenceLimit(1);
-                //Add Circular reference handler
-            $normalizer->setCircularReferenceHandler(function ($object) {
-                return $object->getId();
-            });
-            $normalizers = array($normalizer);
-            $serializer = new Serializer($normalizers, $encoders);
-            $jsonContent = $serializer->serialize($buscarInscripcion,'json');
-
-            return new JsonResponse($jsonContent);
-
-        }
-
-    }
-*/
 
     public function postAction(Request $request){
 

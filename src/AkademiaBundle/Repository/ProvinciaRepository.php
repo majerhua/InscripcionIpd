@@ -10,4 +10,6 @@ namespace AkademiaBundle\Repository;
  */
 class ProvinciaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	
 }

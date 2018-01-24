@@ -31,5 +31,12 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         return $CantRegistros;
 
 	}
+    public function getActualizarApoderado($idApod, $dni){
+        $query = "UPDATE ACADEMIA.participante SET apoderado_id ='$idApod'  WHERE dni='$dni'; ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+    }
+
+
 }
 
