@@ -29,7 +29,8 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-		if($request->isXmlHttpRequest()){
+		if($request->isXmlHttpRequest())
+        {
             if($request->request->get('persona') == "apoderado"){
                 $dni = $request->request->get('dni');
 
@@ -89,33 +90,33 @@ class DefaultController extends Controller
                 $jsonContent = $serializer->serialize($po,'json');
                 
 
-                 if(!empty($jsonContent)){
-                        
-                        return new JsonResponse($jsonContent);
+                if(!empty($jsonContent)){
+                    
+                    return new JsonResponse($jsonContent);
 
-                    }else{
+                }else{
 
-                        $em = $this->getDoctrine()->getEntityManager();
-                        $db = $em->getConnection();
-                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni'";
-                        $stmt = $db->prepare($query);
-                        $params = array();
-                        $stmt->execute($params);
-                        $po = $stmt->fetchAll();
-                        $encoders = array(new JsonEncoder());
-                        $normalizer = new ObjectNormalizer();
-                        $normalizers = array($normalizer);
-                        $serializer = new Serializer($normalizers, $encoders);
-                        $jsonContent = $serializer->serialize($po,'json');
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $db = $em->getConnection();
+                    $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni'";
+                    $stmt = $db->prepare($query);
+                    $params = array();
+                    $stmt->execute($params);
+                    $po = $stmt->fetchAll();
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($po,'json');
 
-                        return new JsonResponse($jsonContent);  
-                    }           
+                    return new JsonResponse($jsonContent);  
+                }           
             }
 
-        }      
-		
 
-       $em2 = $this->getDoctrine()->getManager();
+        }     
+
+        $em2 = $this->getDoctrine()->getManager();
 
         $mdlDitritoCD = $em2->getRepository('AkademiaBundle:Distrito')->getDitritosCD();
         $mdlProvinciasCD = $em2->getRepository('AkademiaBundle:Distrito')->getProvinciasCD();
@@ -128,10 +129,42 @@ class DefaultController extends Controller
         $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
 
 
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD ,
-            "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD ));
+
+         return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario,"departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 
+		
     }
 
+    public function mostrarcomplejosAction(Request $request){
+
+        if($request->isXmlHttpRequest()){
+
+            $resp = $request->request->get('respuesta');
+            //cho $resp;
+            //exit;
+            if($resp == 'si'){
+
+                var_dump($resp);
+
+                $em2 = $this->getDoctrine()->getManager();
+                $mdlDitritoCD = $em2->getRepository('AkademiaBundle:Distrito')->getDitritosCD();
+                $mdlProvinciasCD = $em2->getRepository('AkademiaBundle:Distrito')->getProvinciasCD();
+                $mdlDepartamentosCD = $em2->getRepository('AkademiaBundle:Distrito')->getDepartamentosCD();
+                $mdlDepartamento = $em2->getRepository('AkademiaBundle:Distrito')->getDepartamentos();
+                $mdlProvincia = $em2->getRepository('AkademiaBundle:Distrito')->getProvincias();
+                $mdlDistrito = $em2->getRepository('AkademiaBundle:Distrito')->getDistritos();
+                $mdlComplejoDeportivo = $em2->getRepository('AkademiaBundle:ComplejoDeportivo')->getComplejosDeportivosDiscapacitados();
+                $mdlComplejoDisciplina = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasDiscaspacitados();
+                $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorariosDiscapacitados();
+
+                var_dump($mdlComplejoDeportivo);
+                exit;
+                return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 
+
+            }
+        
+        }
+         
+    }
 
     public function consultaAction(Request $request){
          return $this->render('AkademiaBundle:Default:cuestions.html.twig');
@@ -369,6 +402,8 @@ public function generarPdfInscripcionAction(Request $request , $id)
             return new JsonResponse("enviado");
         }
     }
+
+   
 
 
 }

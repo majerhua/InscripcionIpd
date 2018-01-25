@@ -114,14 +114,32 @@
 
           		<p class="title-card">DATOS DEL PADRE Y/O APODERADO(A) </p>
 				<hr>
+				
 
-				<div class="form-group col s12">
-					<label for="dniApoderado">DNI Apoderado(a)</label>
-		          	<input id="dniApoderado" maxlength="8" class="form-control" onblur="buscarDniApoderado(this)" name="dni"  class="validate" autofocus>
-		          	<span class="cargarDatosApoderado" >Actualizando....</span>
-		          	<span class="mensajeEdad" ></span>
-				</div>
+					<div class="row">
+						<div class="form-group col-xs-12 col-sm- col-md-12 col-ld-12">
+							<label for="">Tipo de Documento</label>
+						</div>
+					</div>
 
+					<div class="row">
+						<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
+	                        <select  class="form-control" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
+	                            <option value="">--SELECCIONAR--</option>
+	                            <option value="dni" >DNI</option>
+	                            <option value="carnet" >CARNET DE EXTRANJERÍA</option>
+	                        </select>
+	                    </div>
+
+						<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
+	                        <input id="dniApoderado" class="form-control" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate">
+	                        <span class="cargarDatosApoderado" >Actualizando....</span>
+	                        <span class="mensajeEdad" ></span>
+	                    </div>
+					</div>
+			
+
+				<br>      
 				<div class="form-group col s12">
 				  <label for="apellidoPaterno">Apellido Paterno</label>
 		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
@@ -137,29 +155,28 @@
 	    			<label for="nombre">Nombres</label>
 	          		<input id="nombre" maxlength="50" class="form-control"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  >
 				</div>
-
-				<div class="form-group col s12">
-					<label for="fechaNacimiento">Fecha de Nacimiento</label>
-		          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
-		          					
-				</div>
-
-				<div class="form-group col s12">
-					<label>Sexo</label>
-				    <select id="sexo" class="form-control"  name="sexo" >
-				    	<option value="2"selected>--SELECCIONAR--</option>
-				      	<option value="1">Masculino</option>
-				      	<option value="0">Femenino</option>
-				    </select>
+				<br>
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
+						<label for="fechaNacimiento">Fecha de Nacimiento</label>
+			          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
+			          					
+					</div>
+					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
+						<label>Sexo</label>
+					    <select id="sexo" class="form-control"  name="sexo" >
+					    	<option value="2"selected>--SELECCIONAR--</option>
+					      	<option value="1">Masculino</option>
+					      	<option value="0">Femenino</option>
+					    </select>
+					</div>
 				</div>
 				<hr>
-	        </div>
-
-		    <div class="container-boton-1 text-center">
-				<button class="btn btn-danger" id="boton1"> Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
-			</div>
+				<div class="container-boton-1 text-center">
+					<button class="btn btn-danger" id="boton1"> Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
+				</div>
+	        </div>		   
 		</div>
-
 	</div>
 
 	<div  id="proceso2" class="proceso">
@@ -181,37 +198,41 @@
 
 		        	</select> 
 		    	</div>
+		    	<br>
+		    	<div class="row">
+			    	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
+			        	<label>Provincia</label>
+			            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
+			                <option value="0">--Seleccionar--</option>
+			            </select>               
+			        </div>
 
-		        <div class="form-group col s12">
-		        	<label>Provincia</label>
-		            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
-		                <option value="0">--Seleccionar--</option>
-		            </select>               
-		        </div>
 
-
-		        <div class="form-group col s12">
-		        	<label>Distrito</label>
-		            <select id="distrito" name="distrito"  class="form-control">
-		                <option value="0">--Seleccionar--</option>
-		            </select> 
-		        </div>
-
+			        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
+			        	<label>Distrito</label>
+			            <select id="distrito" name="distrito"  class="form-control">
+			                <option value="0">--Seleccionar--</option>
+			            </select> 
+			        </div>
+		    	</div>
+		        <br>
 				<div class="form-group col s12">
-                        <label for="direccion">Dirección</label>
-                        <input id="direccion" class="form-control"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
-                    </div>
-
-				<div class="form-group col s12">
-					<label for="telefono">Teléfono</label>
-		          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
-				</div>
-
-				<div class="form-group col s12">
-                        <label for="correo">Correo Electrónico</label>
-                        <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+                    <label for="direccion">Dirección</label>
+                    <input id="direccion" class="form-control"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
                 </div>
-                <hr>
+                <br>
+                <div class="row">
+	                <div class="form-group col-xs-12 col-sm-12 col-md-4 col-ld-4">
+						<label for="telefono">Teléfono</label>
+			          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+					</div>
+
+					<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
+	                    <label for="correo">Correo Electrónico</label>
+	                    <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+	                </div>
+                 </div>
+				<hr>
 	    	</div>
 	    	
 		    <div class="container-boton-2 text-center">
@@ -254,50 +275,68 @@
 
 				<div class="row">
 
-					 <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
-                            <label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
-                            <input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
-                        </div>
+				 	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
+                        <label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
+                        <input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+                    </div>
 
-                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
 
-                            <label for="sexo-hijo">Sexo</label>
-                            
-                            <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-                                <option value="2">--SELECCIONAR--</option>
-                                <option value="1" >MASCULINO</option>
-                                <option value="0" >FEMENINO</option>
-                            </select>
-                        </div>
+                        <label for="sexo-hijo">Sexo</label>
+                        
+                        <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+                            <option value="2">--SELECCIONAR--</option>
+                            <option value="1" >MASCULINO</option>
+                            <option value="0" >FEMENINO</option>
+                        </select>
+                    </div>
 
-					    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
-                            <label for="parentesco">Parentesco</label>
-                            <select id="parentesco" class="form-control" type="text"  name="parentesco">
-                                <option value="">--SELECCIONAR--</option>
-                                <option value="hijo" >HIJA(O)</option>
-                                <option value="sobrino">SOBRINA(O)</option>
-                                <option value="nieto">NIETA(O)</option>
-                                <option value="otros">OTROS</option>
-                            </select>
-                        </div>
+				    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
+                        <label for="parentesco">Parentesco</label>
+                        <select id="parentesco" class="form-control" type="text"  name="parentesco">
+                            <option value="">--SELECCIONAR--</option>
+                            <option value="hijo" >HIJA(O)</option>
+                            <option value="sobrino">SOBRINA(O)</option>
+                            <option value="nieto">NIETA(O)</option>
+                            <option value="otros">OTROS</option>
+                        </select>
+                    </div>
 
-                        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
-                            <label for="tipoSeguro">Tipo de Seguro</label>
-                            <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
-                            	<option value="">--SELECCIONAR--</option>
-                                <option value="EsSALUD" >EsSALUD</option>
-                                <option value="SIS" >SIS</option>
-                                <option value="PRIVADO" >PRIVADO</option>
-                                <option value="OTROS" >OTROS</option>
-                            </select>
-                        </div>
-
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
+                        <label for="tipoSeguro">Tipo de Seguro</label>
+                        <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
+                        	<option value="">--SELECCIONAR--</option>
+                            <option value="EsSALUD" >EsSALUD</option>
+                            <option value="SIS" >SIS</option>
+                            <option value="PRIVADO" >PRIVADO</option>
+                            <option value="OTROS" >OTROS</option>
+                        </select>
+                    </div>
+					
 				</div>
-				<hr>
+				<br>
+            	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+					<div class="row">
 
+						<div class="form-group col-xs-9 col-sm-9 col-md-9 col-ld-9">
+							<label>¿El participante presenta alguna condición especial?</label>
+						</div>
+
+						<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3">  
+							<div class="input-group">
+  								<span class="input-group-addon">
+    								<input type="checkbox" name="cbx-discapacidad" id="cbx-discapacidad" value="1">
+  								</span>
+  								<p type="text" class="form-control">Si</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
 				<div class="container-boton-3 text-center">
 					<button class="btn btn-danger" id="boton3">Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
 				</div>
+			
 			</div>
 		</div>		
 	</div>
@@ -607,7 +646,57 @@
 
 
 <script>
+	
+	$( "#tipo_documento" ).focus();
+	
+	function modificarTexbox(){
+	    document.getElementById("dniApoderado").value="";
 
+	    switch(document.getElementById("tipo_documento").value) {
+	        case "dni":         
+	            document.getElementById("dniApoderado").setAttribute("maxlength", "8");
+	             $( "#dniApoderado" ).focus();
+	        break;
+	        case "carnet":
+	            document.getElementById("dniApoderado").setAttribute("maxlength", "12");
+	            $( "#dniApoderado" ).focus();
+	        break;
+	        default:
+	        	alertify.error('<p style="color:white">Seleccione el tipo de documento</p>'); 
+    
+	    }
+	}	
+	
+
+	$( '#cbx-discapacidad' ).on( 'click', function() {
+	    if( $(this).is(':checked') ){
+	        //discapacidad($(this).val());
+	        sessionStorage.removeItem('flagDiscapacitado');
+	        sessionStorage.setItem('flagDiscapacitado',$(this).val());
+	    }
+	});
+	/*
+	function discapacidad(respuesta){
+		var resp = {
+			"respuesta" : respuesta
+		};
+
+		$.ajax({
+
+			type:'POST',
+			dataType: 'json',
+			url: "{{url('akademia_mostrarcomplejos')}}",
+			data: resp,
+			beforeSend: function(){				
+			},
+
+			success: function(data){
+				console.log(data);
+				console.log("Respuesta enviada");
+			}
+		});
+	}
+*/
 	function mayus(e) {
 	    e.value = e.value.toUpperCase();
 	}
@@ -739,19 +828,48 @@
 		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		{% for complejoDeportivo in complejosDeportivo  %}
 
-			if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1  ){
-				$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
-			}else {
-				$("#disciplinaDeportiva").empty();
-				$("#horario").empty();
-				$("#vacantes").empty();
-				$("#turno").empty();
-				$("#rango-edad-horario").empty();
-				$("#rango-hora-horario").empty();
-			}
-		{% endfor %}
+
+		if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
+
+			{% for complejoDeportivo in complejosDeportivo  %}
+
+				if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1 && "{{complejoDeportivo['discapacitado']}}" == sessionStorage.getItem('flagDiscapacitado')){
+					
+						$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
+
+				}else {
+					$("#disciplinaDeportiva").empty();
+					$("#horario").empty();
+					$("#vacantes").empty();
+					$("#turno").empty();
+					$("#rango-edad-horario").empty();
+					$("#rango-hora-horario").empty();
+				}
+			{% endfor %}
+
+		}
+
+		if(sessionStorage.getItem('flagDiscapacitado') != '1' ){
+
+			{% for complejoDeportivo in complejosDeportivo  %}
+
+				if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1){
+						
+						$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
+				}else {
+					$("#disciplinaDeportiva").empty();
+					$("#horario").empty();
+					$("#vacantes").empty();
+					$("#turno").empty();
+					$("#rango-edad-horario").empty();
+					$("#rango-hora-horario").empty();
+				}
+			{% endfor %}
+						
+		}
+
+
 	}
 
 
@@ -801,9 +919,10 @@
 
 			if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
 				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-					//console.log(" Horario  ==> {{horario['id']}}");
+
 					localStorage.removeItem('idHorario');
 					sessionStorage.setItem("idHorario", "{{horario['id']}}");
+					
 					$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
 					cantHorarios = cantHorarios + $('#horario').length;
 
@@ -1229,9 +1348,9 @@ $("#boton3").on('click',function(){
 		});
 	}
 
-	$('.cargarDatosApoderado').hide();	
-
+$('.cargarDatosApoderado').hide();	
 $(".mensajeEdad").empty();
+
 	function buscarDniApoderado(refDni){
 
 		if(refDni.value !=''){

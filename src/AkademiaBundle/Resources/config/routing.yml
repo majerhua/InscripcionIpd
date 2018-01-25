@@ -15,11 +15,6 @@ akademia_getPost:
     defaults: { _controller: AkademiaBundle:Default:post}
     methods:  [GET,POST]
 
-akademia_registerFinal:
-    path:     /register/final
-    defaults: { _controller: AkademiaBundle:Default:registerFinal}
-    methods:  [GET,POST]
-
 akademia_generarPdfInscripcion:
     path:     /pdf/inscripcion/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfInscripcion}
@@ -35,7 +30,17 @@ akademia_sendemail:
     defaults: { _controller: AkademiaBundle:Default:sendemail}
     methods:  [GET,POST]
 
-akademia_consultas:
-    path:     /consultas
+akademia_sendemailusuario:
+    path:     /sendemailusuario
+    defaults: { _controller: AkademiaBundle:Default:sendemailusuario}
+    methods:  [GET,POST]
+
+akademia_consulta:
+    path:     /consulta
     defaults: { _controller: AkademiaBundle:Default:consulta}
-    methods:  [GET,POS]
+    methods:  [GET,POST]
+
+akademia_mostrarcomplejos:
+    path:    /mostrarcomplejos
+    defaults: {_controller: AkademiaBundle:Default:mostrarcomplejos}
+    methods: [GET,POST]

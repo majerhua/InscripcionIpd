@@ -13,12 +13,22 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getHorarios(){
 
-       $query = "select * from ACADEMIA.horario where convocatoria='1'";
+        $query = "select * from ACADEMIA.horario where convocatoria='1'";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $horarios = $stmt->fetchAll();
 
         return $horarios;
+	}
+
+	public function getHorariosDiscapacitados(){
+		$query = "select * from ACADEMIA.horario where discapacitados = 1";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
+
+        return $horarios;
+
 	}
 
 
