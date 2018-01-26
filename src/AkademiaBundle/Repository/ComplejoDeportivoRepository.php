@@ -11,8 +11,8 @@ namespace AkademiaBundle\Repository;
 class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 {
 
-
-	public function getComplejosDeportivos(){
+	public function getComplejosDeportivos()
+	{
 
        $query = "select ede_codigo as id, ede_nombre as nombre ,ubicodigo , ede_direccion as direccion, ede_estado as estado, ede_discapacitado as discapacitado from CATASTRO.edificacionesdeportivas;";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -22,12 +22,12 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
         return $complejosDeportivos;        		
 	}
 
-	public function getComplejosDeportivosDiscapacitados(){
+	public function getComplejosDeportivosDiscapacitados()
+	{
 		$query = "select ede_codigo as id, ede_nombre as nombre ,ubicodigo, ede_direccion as direccion, ede_estado as estado,ede_discapacitado as discapacidad from CATASTRO.edificacionesdeportivas where ede_discapacitado='1'";
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
 		$stmt->execute();
 		$complejosDeportivos = $stmt->fetchAll();
-
 
 		return $complejosDeportivos;
 	}

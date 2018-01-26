@@ -103,6 +103,13 @@ class Participante
      */
     private $estado;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="discapacitado", type="integer")
+     */
+    private $discapacitado;
+
 
     /**
      * Get id

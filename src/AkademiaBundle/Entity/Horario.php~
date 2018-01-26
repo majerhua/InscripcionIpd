@@ -332,4 +332,28 @@ class Horario
     {
         return $this->turno;
     }
+
+    /**
+     * Set vacantes
+     *
+     * @param integer $vacantes
+     *
+     * @return Horario
+     */
+    public function setVacantes($vacantes)
+    {
+        $this->vacantes = $vacantes;
+
+        return $this;
+    }
+
+    /**
+     * Get vacantes
+     *
+     * @return integer
+     */
+    public function getVacantes()
+    {
+        return $this->vacantes;
+    }
 }

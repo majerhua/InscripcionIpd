@@ -3,7 +3,6 @@ akademia_homepage:
     defaults: { _controller: AkademiaBundle:Default:index }
     methods:  [GET,POST]
 
-
 akademia_registrar:
     path:     /registrar
     defaults: { _controller: AkademiaBundle:Default:registrar }

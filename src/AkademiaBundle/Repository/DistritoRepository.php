@@ -47,7 +47,7 @@ class DistritoRepository extends \Doctrine\ORM\EntityRepository
 
     public function getDitritosCD(){
 
-       $query = " select  DISTINCT grubigeo.ubidpto as idDepartamento, grubigeo.ubiprovincia as idProvincia,grubigeo.ubicodigo as idDistrito,grubigeo.ubinombre as nombreDistrito from CATASTRO.edificacionesdeportivas as edificacionesdeportivas,grubigeo where edificacionesdeportivas.ubicodigo = grubigeo.ubicodigo and   edificacionesdeportivas.ede_estado = 1;";
+       $query = "select  DISTINCT grubigeo.ubidpto as idDepartamento, grubigeo.ubiprovincia as idProvincia,grubigeo.ubicodigo as idDistrito,grubigeo.ubinombre as nombreDistrito from CATASTRO.edificacionesdeportivas as edificacionesdeportivas,grubigeo where edificacionesdeportivas.ubicodigo = grubigeo.ubicodigo and   edificacionesdeportivas.ede_estado = 1;";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $distritosCD = $stmt->fetchAll();

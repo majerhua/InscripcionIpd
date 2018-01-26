@@ -103,6 +103,13 @@ class Participante
      */
     private $estado;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="discapacitado", type="integer")
+     */
+    private $discapacitado;
+
 
     /**
      * Get id
@@ -420,5 +427,29 @@ class Participante
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    /**
+     * Set discapacitado
+     *
+     * @param integer $discapacitado
+     *
+     * @return Participante
+     */
+    public function setDiscapacitado($discapacitado)
+    {
+        $this->discapacitado = $discapacitado;
+
+        return $this;
+    }
+
+    /**
+     * Get discapacitado
+     *
+     * @return integer
+     */
+    public function getDiscapacitado()
+    {
+        return $this->discapacitado;
     }
 }

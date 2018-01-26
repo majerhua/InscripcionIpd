@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Apoderado
 {
-
+    
 
     /**
      * @ORM\OneToMany(targetEntity="Participante", mappedBy="apoderado")

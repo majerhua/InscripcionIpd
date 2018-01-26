@@ -112,8 +112,6 @@ class DefaultController extends Controller
                     return new JsonResponse($jsonContent);  
                 }           
             }
-
-
         }     
 
         $em2 = $this->getDoctrine()->getManager();
@@ -134,7 +132,7 @@ class DefaultController extends Controller
 		
     }
 
-    public function mostrarcomplejosAction(Request $request){
+  /*  public function mostrarcomplejosAction(Request $request){
 
         if($request->isXmlHttpRequest()){
 
@@ -143,7 +141,7 @@ class DefaultController extends Controller
             //exit;
             if($resp == 'si'){
 
-                var_dump($resp);
+                //var_dump($resp);
 
                 $em2 = $this->getDoctrine()->getManager();
                 $mdlDitritoCD = $em2->getRepository('AkademiaBundle:Distrito')->getDitritosCD();
@@ -156,22 +154,24 @@ class DefaultController extends Controller
                 $mdlComplejoDisciplina = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasDiscaspacitados();
                 $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorariosDiscapacitados();
 
-                var_dump($mdlComplejoDeportivo);
-                exit;
+                //var_dump($mdlComplejoDeportivo);
+                //exit;
                 return $this->render('AkademiaBundle:Default:index.html.twig' , array( "complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario, "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 
 
             }
         
         }
          
+    }*/
+
+    public function consultaAction(Request $request)
+    {
+        return $this->render('AkademiaBundle:Default:cuestions.html.twig');
     }
 
-    public function consultaAction(Request $request){
-         return $this->render('AkademiaBundle:Default:cuestions.html.twig');
-    }
 
-
-   public function registrarAction(Request $request){
+   public function registrarAction(Request $request)
+   {
 
         if($request->isXmlHttpRequest()){
 
@@ -198,6 +198,7 @@ class DefaultController extends Controller
             $parentesco = $request->request->get('parentesco');
             $tipoSeguro = $request->request->get('tipoSeguro');
             $estado = 1;
+            $discapacidad = $request->request->get('discapacidad');
 
 
 
@@ -206,38 +207,35 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
 
-                if(!empty($IDApoderado)){
-                   
-                    $idApod = $IDApoderado[0]['id'];
-                
-                }else{
-
-                    $apoderado = new Apoderado();
-                    $apoderado->setDni($dni);
-                    $apoderado->setApellidoPaterno($apellidoPaterno);
-                    $apoderado->setApellidoMaterno($apellidoMaterno);
-                    $apoderado->setNombre($nombre);
-                    $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
-                    $apoderado->setSexo($sexo);
-                
-                    $em = $this->getDoctrine()->getRepository(Distrito::class);
-                    $buscarDistrito = $em->find($distrito);
-                    $apoderado->setDistrito($buscarDistrito);
-                    $apoderado->setDireccion($direccion);
-                    $apoderado->setTelefono($telefono);
-                    $apoderado->setCorreo($correo);         
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($apoderado);
-                    $em->flush();
-
-                    $idApod = $apoderado->getId();
-
-                }
-
-
+            if(!empty($IDApoderado)){
+               
+                $idApod = $IDApoderado[0]['id'];
             
-           // REGISTRAR PARTICIPANTE
+            }else{
 
+                $apoderado = new Apoderado();
+                $apoderado->setDni($dni);
+                $apoderado->setApellidoPaterno($apellidoPaterno);
+                $apoderado->setApellidoMaterno($apellidoMaterno);
+                $apoderado->setNombre($nombre);
+                $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
+                $apoderado->setSexo($sexo);
+            
+                $em = $this->getDoctrine()->getRepository(Distrito::class);
+                $buscarDistrito = $em->find($distrito);
+                $apoderado->setDistrito($buscarDistrito);
+                $apoderado->setDireccion($direccion);
+                $apoderado->setTelefono($telefono);
+                $apoderado->setCorreo($correo);         
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($apoderado);
+                $em->flush();
+
+                $idApod = $apoderado->getId();
+
+            }
+
+           // REGISTRAR PARTICIPANTE
             $em = $this->getDoctrine()->getManager();
             $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
             
@@ -247,9 +245,7 @@ class DefaultController extends Controller
 
                     $em = $this->getDoctrine()->getManager();
                     $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
-                    $em->flush();
-
-    
+                    $em->flush();    
                 }else{
 
                     $participante = new Participante();
@@ -262,6 +258,7 @@ class DefaultController extends Controller
                     $participante->setParentesco($parentesco);
                     $participante->setTipoDeSeguro($tipoSeguro);
                     $participante->setEstado($estado);
+                    $participante->setDiscapacitado($discapacidad);
 
                     $em = $this->getDoctrine()->getRepository(Apoderado::class);
                     $buscarApoderadoInscripcion = $em->find($idApod);
@@ -316,35 +313,35 @@ class DefaultController extends Controller
 
                     return new JsonResponse($jsonContent);
         }else{
+
             return new JsonResponse("No es ajax");
         }
     }
 
 
-public function generarPdfInscripcionAction(Request $request , $id)
+    public function generarPdfInscripcionAction(Request $request , $id)
     {   
       
-    $em2 = $this->getDoctrine()->getManager();
-    $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
-    $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
-    $pdf = $this->container->get("white_october.tcpdf")->create();
-    $pdf->SetAuthor('IPD');
-    $pdf->setPrintHeader(false);
-    $pdf->SetTitle('Ficha de Inscripcion');
-    $pdf->SetSubject('Mecenazgo Deportivo');
-    $pdf->SetKeywords('TCPDF, PDF, Mecenazgo Deportivo, IPD, Sistemas IPD, Deportistas');       
-    $pdf->AddPage();
-    $pdf->setCellPaddings(0, 0, 0, 0);                
-    $pdf->writeHTMLCell(
-                $w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true
-        );         
-    $pdf->writeHTML($html);
-    $pdf->Output("compromisoIPD.pdf", 'I');
+        $em2 = $this->getDoctrine()->getManager();
+        $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
+        $html = $this->renderView('AkademiaBundle:Pdf:inscripcionPdf.html.twig', ["inscripcion" => $mdlFicha]);
+        $pdf = $this->container->get("white_october.tcpdf")->create();
+        $pdf->SetAuthor('IPD');
+        $pdf->setPrintHeader(false);
+        $pdf->SetTitle('Ficha de Inscripcion');
+        $pdf->SetSubject('Mecenazgo Deportivo');
+        $pdf->SetKeywords('TCPDF, PDF, Mecenazgo Deportivo, IPD, Sistemas IPD, Deportistas');       
+        $pdf->AddPage();
+        $pdf->setCellPaddings(0, 0, 0, 0);                
+        $pdf->writeHTMLCell(
+                    $w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true
+            );         
+        $pdf->writeHTML($html);
+        $pdf->Output("compromisoIPD.pdf", 'I');
     }
 
-    public function generarPdfDeclaracionJuradaAction(Request $request , $id){
-
-
+    public function generarPdfDeclaracionJuradaAction(Request $request , $id)
+    {
 
         $em2 = $this->getDoctrine()->getManager();
         $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($id);
@@ -368,9 +365,11 @@ public function generarPdfInscripcionAction(Request $request , $id)
     }
 
 
-    public function postAction(Request $request){
+    public function postAction(Request $request)
+    {
 
-        if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest())
+        {
 
             $em = $this->getDoctrine()->getRepository(Post::class);
             $posts = $em->findAll();
@@ -385,14 +384,15 @@ public function generarPdfInscripcionAction(Request $request , $id)
         }
     }
 
-    public function sendemailAction(Request $request){
+    public function sendemailAction(Request $request)
+    {
 
-        if($request->isXmlHttpRequest()){
+        if($request->isXmlHttpRequest())
+        {
 
             $nombre = $request->request->get('nombre');
             $email= $request->request->get('email');
             $mensaje=$request->request->get('message');
-
             $correo = 'coordinaciondpt@gmail.com';
             $subject = 'La Academia - Comentarios de '.$nombre;
             $message = 'Hemos recibido un nuevo comentario y/o sugerencia de la web LA ACADEMIA'. "\r\n" ."\r\n".'NOMBRE: '.$nombre. "\r\n" ."\r\n".'CORREO ELECTRÓNICO: '.$email ."\r\n"."\r\n".'COMENTARIO: '."\r\n"."\r\n". $mensaje ;
@@ -402,8 +402,4 @@ public function generarPdfInscripcionAction(Request $request , $id)
             return new JsonResponse("enviado");
         }
     }
-
-   
-
-
 }
