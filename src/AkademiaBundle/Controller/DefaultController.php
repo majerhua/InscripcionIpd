@@ -83,17 +83,14 @@ class DefaultController extends Controller
                 $params = array();
                 $stmt->execute($params);
                 $po = $stmt->fetchAll();
-                $encoders = array(new JsonEncoder());
-                $normalizer = new ObjectNormalizer();
-                $normalizers = array($normalizer);
-                $serializer = new Serializer($normalizers, $encoders);
-                $jsonContent = $serializer->serialize($po,'json');
                 
-
-                if(!empty($jsonContent)){
-                    
-                    return new JsonResponse($jsonContent);
-
+                if($po){
+                        $encoders = array(new JsonEncoder());
+                        $normalizer = new ObjectNormalizer();
+                        $normalizers = array($normalizer);
+                        $serializer = new Serializer($normalizers, $encoders);
+                        $jsonContent = $serializer->serialize($po,'json');
+                         
                 }else{
 
                     $em = $this->getDoctrine()->getEntityManager();
@@ -110,7 +107,7 @@ class DefaultController extends Controller
                     $jsonContent = $serializer->serialize($po,'json');
 
                     return new JsonResponse($jsonContent);  
-                }           
+                }     
             }
         }     
 
