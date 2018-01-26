@@ -402,4 +402,10 @@ class DefaultController extends Controller
             return new JsonResponse("enviado");
         }
     }
+
+    public function loginAction(Request $request){
+        return $this->render('AkademiaBundle:Default:login.html.twig');
+    }
+
+
 }

@@ -8,7 +8,6 @@ akademia_registrar:
     defaults: { _controller: AkademiaBundle:Default:registrar }
     methods:  [GET,POST]
 
-
 akademia_getPost:
     path:     /post/get
     defaults: { _controller: AkademiaBundle:Default:post}
@@ -43,3 +42,14 @@ akademia_mostrarcomplejos:
     path:    /mostrarcomplejos
     defaults: {_controller: AkademiaBundle:Default:mostrarcomplejos}
     methods: [GET,POST]
+
+akademia_login:
+    path:    /login
+    defaults: {_controller: AkademiaBundle:Default:login}
+
+akademia_login_check:
+    path:    /login_check
+
+akademia_logout:
+    path:    /logout
+

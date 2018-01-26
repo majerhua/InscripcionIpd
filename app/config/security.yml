@@ -1,11 +1,16 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    encoders:
+        AkademiaBundle\Entity\Usuarios: plaintext
+
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        user_db_provider:
+            entity:
+                class: AkademiaBundle\Usuarios
+                property: usuario
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,6 +20,14 @@ security:
 
         main:
             anonymous: ~
+            provider: user_db_provider
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path: logout
+                target: /login
+
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

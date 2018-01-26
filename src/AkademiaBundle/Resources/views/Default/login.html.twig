@@ -1,0 +1,108 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+
+	<section  id="inscribete"  class="proceso-inscripcion" style="">
+		<div id="proceso1" class="proceso">
+			<div class="container-card col-xs-10 col-sm-8 col-md-5 col-ld-4" style="background-color: transparent;">
+				<div class="card" style="background-color: white; margin-top:60px; margin-bottom: 100px; padding: 20px;">	
+					<p class="title-card text-center">Iniciar sesión</p>
+					<hr>
+					<div id="alert-info" class="alert alert-warning alert-dismissible" role="alert">
+						<button id="btn-close-alert-info" class="close"><span aria-hidden="true">&times;</span></button>
+						<strong>Acceso sólo para promotores</strong>
+						<p>Ingrese con el usuario y contraseña asignado a su complejo deportivo</p>
+					</div>
+					<form action="{{path("login_check")}}" method="post">
+						<div class="row">
+							<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+								<label for="input-usuario">Usuario</label>
+								<input id="username" class="form-control" name="_username" class="validate" autofocus required>
+							</div>
+							<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+								<label for="input-contraseña">Contraseña</label>
+								<input id="password" type="password" class="form-control" name="_password" class="validate" required>
+							</div>
+						</div>
+						<hr>
+						<div id="alerta" class="alert alert-danger collapse"></div>
+						<div class="container-boton-1 text-center">
+							<button class="btn btn-danger" id="btn-login">Ingresar</button>
+							<input type="hidden" name="_target_path" value="/login">
+						</div>
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+	<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+	<script type="text/javascript">
+
+	/*	$(document).ready(function(){
+			$('#btn-login').click(function(){
+				if ($("#input-usuario").val() != '' && $("#input-contraseña").val() != '') {
+					if ($("#input-usuario").val() == $("#input-contraseña").val()) {
+						window.location.href = "inscritos.html";
+					}else{
+						showAlertMessage('#alerta', "Usuario y/o contraseña incorrectos")
+					}
+				}
+			});
+			$('#btn-close-alert-info').click(function(){
+				hideAlertMessage("#alert-info");
+			});
+		});*/
+		/*Muestra mensaje de alerta*/
+		/*function showAlertMessage(alert, mensaje){
+			$(alert).text(mensaje).show('fade');
+			setTimeout(function(){
+				hideAlertMessage(alert);	
+			}, 3000);
+		}
+		/*Oculta mensaje de alerta*/
+		/*function hideAlertMessage(alert){
+			$(alert).hide('fade');		
+		}
+	</script>
+
+{% endblock %}
