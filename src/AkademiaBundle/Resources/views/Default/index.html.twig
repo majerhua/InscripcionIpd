@@ -1435,7 +1435,7 @@ $(".mensajeEdad").empty();
 
 						$(dataHijo).each(function(index,valor){
 
-							if(valor.edad <18){
+							if(valor.edad <= 17 ){
                                 $("#apellidoPaterno-hijo").attr('readonly', true);
                                 $("#apellidoMaterno-hijo").attr('readonly', true);
                                 $("#nombre-hijo").attr('readonly', true);
@@ -1450,20 +1450,25 @@ $(".mensajeEdad").empty();
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
 							}else{
-								console.log("Se ha removido edad");
-								sessionStorage.removeItem("edad");
-								$(".mensajeEdadParticpante").empty();
-								$(".mensajeEdadParticipante").append("Usted es mayor de edad");
-                                $("#apellidoPaterno-hijo").attr('readonly', false);
+
+								$("#apellidoPaterno-hijo").attr('readonly', false);
                                 $("#apellidoMaterno-hijo").attr('readonly', false);
                                 $("#nombre-hijo").attr('readonly', false);
                                 $("#fechaNacimiento-hijo").attr('readonly', false);
                                 $("#sexo-hijo").attr('readonly', false);
-                                $("#apellidoPaterno-hijo").val("");
+								
+								console.log("Se ha removido edad");
+
+								sessionStorage.removeItem("edad");
+								$(".mensajeEdadParticpante").empty();
+								$(".mensajeEdadParticipante").append("Usted es mayor de edad");
+                               
+
+                               /* $("#apellidoPaterno-hijo").val("");
                                 $("#apellidoMaterno-hijo").val("");
                                 $("#nombre-hijo").val("");
                                 $("#fechaNacimiento-hijo").val("");
-                                $("#sexo-hijo").val(0);
+                                $("#sexo-hijo").val(0);*/
 							}
 						});					
 					

@@ -21,16 +21,6 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
     	return $dni;
 	}
 
-	public function getCantidadRegistros($dni){
-
-		$query = "select count(*) as registros from ACADEMIA.participante where dni='$dni';";
-        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-        $stmt->execute();
-        $CantRegistros = $stmt->fetchAll();
-
-        return $CantRegistros;
-
-	}
     public function getActualizarApoderado($idApod, $dni){
         $query = "UPDATE ACADEMIA.participante SET apoderado_id ='$idApod'  WHERE dni='$dni'; ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);

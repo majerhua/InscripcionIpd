@@ -251,7 +251,7 @@ class DefaultController extends Controller
                     $idParticipanteN = $IDParticipante[0]['id'];
 
                     $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$idParticipanteN);
+                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
                     $em->flush(); 
 
                 }else{
