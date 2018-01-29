@@ -83,14 +83,14 @@ class DefaultController extends Controller
                 $params = array();
                 $stmt->execute($params);
                 $po = $stmt->fetchAll();
-                $encoders = array(new JsonEncoder());
-                $normalizer = new ObjectNormalizer();
-                $normalizers = array($normalizer);
-                $serializer = new Serializer($normalizers, $encoders);
-                $jsonContent = $serializer->serialize($po,'json');
-                
 
-                if(!empty($jsonContent)){
+                if($po){
+
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($po,'json');
                     
                     return new JsonResponse($jsonContent);
 
@@ -110,7 +110,9 @@ class DefaultController extends Controller
                     $jsonContent = $serializer->serialize($po,'json');
 
                     return new JsonResponse($jsonContent);  
-                }           
+
+                }
+
             }
         }     
 
@@ -206,11 +208,16 @@ class DefaultController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+           // echo $IDApoderado[0]['id'];
+            //exit;
+
 
             if(!empty($IDApoderado)){
                
                 $idApod = $IDApoderado[0]['id'];
-            
+                //$IDApoderado;
+
+
             }else{
 
                 $apoderado = new Apoderado();
@@ -244,8 +251,9 @@ class DefaultController extends Controller
                     $idParticipanteN = $IDParticipante[0]['id'];
 
                     $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
-                    $em->flush();    
+                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$idParticipanteN);
+                    $em->flush(); 
+
                 }else{
 
                     $participante = new Participante();
@@ -289,7 +297,7 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getRepository(Horario::class);
                     $buscarHorario = $em->find($idHorario);
                     $inscripcion->setHorario($buscarHorario);            
-
+                    
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($inscripcion);
                     $em->flush();

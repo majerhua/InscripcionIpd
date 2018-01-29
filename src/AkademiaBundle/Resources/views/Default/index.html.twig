@@ -1253,6 +1253,7 @@ function registrar(){
 
 		success: function(data){
 
+			console.log(data);
 			var valor =JSON.parse(data)[0];
 			console.log("datos de la ficha" + valor);
 			sessionStorage.removeItem("idInscripcion");
@@ -1309,9 +1310,19 @@ $(".mensajeEdad").empty();
 			},
 
 			success: function(data){
-			//console.log(data)
+
+	 		$("#apellidoPaterno").val('');
+            $("#apellidoMaterno").val('');
+            $("#nombre").val('');
+            $("#fechaNacimiento").val('');
+            $("#sexo").val(0);
+            $("#apellidoPaterno").attr('readonly', false);
+            $("#apellidoMaterno").attr('readonly', false);
+            $("#nombre").attr('readonly', false);
+            $("#fechaNacimiento").attr('readonly', false);
+            $("#sexo").attr('readonly', false);
 				
-			if(data !== ""){
+			if(data != "" ){
 				var dataParticiapnte = JSON.parse(data);
 				console.log("Busqueda DNI ==> ",dataParticiapnte);
 					$(dataParticiapnte).each(function(index,valor){
@@ -1340,17 +1351,19 @@ $(".mensajeEdad").empty();
 						 $(".mensajeEdad").empty();
 			             $(".mensajeEdad").append("(*Usted es menor de edad)");
 
+		             	$("#apellidoPaterno").attr('readonly', true);
+		                $("#apellidoMaterno").attr('readonly', true);
+		                $("#nombre").attr('readonly', true);
+		                $("#fechaNacimiento").attr('readonly', true);
+		                $("#sexo").attr('readonly', true);
+
 			             {#SE AUMENTO: LIMPIAR LAS CAJAS DE TEXTO EN EL MOMENTO  SEA MENOR DE EDAD#}
 			             $("#apellidoPaterno").val('');
 			             $("#apellidoMaterno").val('');
 			             $("#nombre").val('');
 			             $("#fechaNacimiento").val('');
 			             $("#sexo").val(0);
-			             $("#apellidoPaterno").attr('readonly', false);
-			             $("#apellidoMaterno").attr('readonly', false);
-			             $("#nombre").attr('readonly', false);
-			             $("#fechaNacimiento").attr('readonly', false);
-			             $("#sexo").attr('readonly', false);
+			            
 						
 						}
 					});	
