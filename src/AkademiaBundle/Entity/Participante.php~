@@ -428,4 +428,28 @@ class Participante
     {
         return $this->estado;
     }
+
+    /**
+     * Set discapacitado
+     *
+     * @param integer $discapacitado
+     *
+     * @return Participante
+     */
+    public function setDiscapacitado($discapacitado)
+    {
+        $this->discapacitado = $discapacitado;
+
+        return $this;
+    }
+
+    /**
+     * Get discapacitado
+     *
+     * @return integer
+     */
+    public function getDiscapacitado()
+    {
+        return $this->discapacitado;
+    }
 }

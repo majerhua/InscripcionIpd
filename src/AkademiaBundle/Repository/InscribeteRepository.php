@@ -14,7 +14,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getFicha($idInscripcion){
 
-   $query = "select inscribete.id as id, apoderado.apellidoMaterno as apellidoMaternoApoderado,apoderado.dni as dniApoderado, 
+   $query = "select inscribete.id as id, inscribete.estado as estado, apoderado.apellidoMaterno as apellidoMaternoApoderado,apoderado.dni as dniApoderado, 
    apoderado.apellidoPaterno as apellidoPaternoApoderado ,
    (cast(datediff(dd,participante.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad , 
    apoderado.nombre as nombrePadre,horario.horaInicio, horario.horaFin, horario.turno, participante.nombre
@@ -37,4 +37,14 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
     return $ficha;
 	
 	}
+
+
+ /* public function CambiarEstadoFicha($idInscripcion){
+    $query = "UPDATE ACADEMIA.inscribete SET estado = 0  WHERE id='$idInscripcion'";
+    $cambioEstado = $query->execute();
+    
+    return $cambioEstado;
+
+  } */
+
 }

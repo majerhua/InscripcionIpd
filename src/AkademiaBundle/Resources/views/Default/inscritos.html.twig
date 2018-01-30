@@ -1,0 +1,359 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+	
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+	
+	
+	<section >
+		<div id="" class="proceso" style="margin-bottom: 60px;">
+			<h1 class="text-center">Confirmación de la pre-inscripción</h1>
+			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
+				<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+				<p>Confirma la inscripción de los participantes buscándolos por el número de registro que aparece en su ficha de pre-inscripción</p>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div id="buscar-participante-container" class="container-card col-xs-12 col-sm-6 col-md-5 col-lg-5">
+					<div class="card">
+						<p class="title-card text-center">Buscar al participante</p>
+						<hr>
+						<div class="row">
+							<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-4">
+								<label>Número de registro</label>
+							</div>
+
+							<div class="form-group col-xs-12 col-sm-12 col-md-9 col-ld-6 text-center">
+								<input id="input-codigo-inscripcion" class="form-control" name="input-codigo-inscripcion" class="validate" autofocus>
+							</div>
+
+							<div class="form-group col-xs-12 col-sm-12 col-md-3 col-ld-2 text-center">
+								<button type="submit" id="btn-buscar-participante" class="btn btn-danger">Buscar</button>
+							</div>
+							<br>
+							<hr>
+						</div>
+
+						<div id="alerta-error" class="alert alert-danger collapse"></div>
+					</div>
+				</div>
+
+				<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-6 col-md-7 col-lg-7">
+					<div class="card">
+						<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
+						<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
+						<hr>
+						<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
+
+						<div id="confirmar-inscripcion-container" class="row">
+							<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right"><button type="submit" id="btn-confirmar-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div id="alerta-informacion" class="alert alert-warning collapse"></div>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Estado: </p>
+											</div>
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="estado-participante"></p></strong>
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Nombre</p>
+											</div>
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="nombre-participante"></p></strong>
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Apellido Paterno</p>
+											</div>
+
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="apellido-paterno-participante"></p></strong>
+											</div>
+										</div>
+									</li>
+
+									<li class="list-group-item">
+
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Apellido Materno</p>
+											</div>
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="apellido-materno-participante"></p></strong>
+											</div>
+										</div>
+
+									</li>
+
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>DNI</p>
+											</div>
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="dni-participante"></p></strong>
+											</div>
+										</div>
+									</li>
+
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Edad</p>
+											</div>
+
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="edad-participante"></p></strong>
+											</div>
+										</div>
+
+									</li>
+
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Deporte</p>
+											</div>
+
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="deporte-participante"></p></strong>
+											</div>
+
+										</div>
+
+									</li>
+
+									<li class="list-group-item">
+
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Complejo</p>
+											</div>
+
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="complejo-participante"></p></strong>
+											</div>
+										</div>
+									</li>					
+
+									<li class="list-group-item">
+
+										<div class="row">
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+												<p>Horario</p>
+											</div>
+
+											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+												<strong><p id="horario-participante"></p></strong>
+											</div>
+
+										</div>
+
+									</li>	
+
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+
+{% endblock %}
+{% block javascripts %}
+	<!-- scripts -->
+	<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+	<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+	<script type="text/javascript">
+
+		$("#btn-salir").on('click', function(){
+			$(location).attr('href','/logout');
+		});
+
+		$("#btn-buscar-participante").on('click',function(){
+			clearFicha();
+			var id = $('#input-codigo-inscripcion').val();
+			var dataFicha = {
+				"id" : id,
+			}
+
+			$.ajax({
+
+				type:'POST',
+				dataType: 'json',
+				url: "{{url('akademia_mostrarficha')}}",
+				data: dataFicha,
+				beforeSend: function(){				
+				},
+
+				success: function(data){
+					var valor =JSON.parse(data)[0];
+					console.log(valor);
+					
+
+					if( valor.estado == 0){
+						$("#estado-participante").append("INSCRITO");
+						$('#btn-confirmar-inscripcion').attr("disabled", true);
+					}else{
+						$("#estado-participante").append("PRE INSCRITO");
+						$('#btn-confirmar-inscripcion').attr("disabled", false);
+					}
+
+					$("#nombre-participante").append(valor.nombre);
+					$("#apellido-paterno-participante").append(valor.apellidoPaterno);
+					$("#apellido-materno-participante").append(valor.apellidoMaterno);
+					$("#dni-participante").append(valor.dni);
+				  	$("#edad-participante").append(valor.edad);
+					$("#deporte-participante").append(valor.nombreDisciplina);
+					$("#complejo-participante").append(valor.nombreComplejo);
+					$("#horario-participante").append(valor.horaInicio+" a "+valor.horaFin +" - "+ valor.turno);
+					
+				},
+				error: function(error){
+					console.log("Error En la captura de dataa");
+					console.log(error);
+				}
+		    });
+		});
+
+		$("#btn-confirmar-inscripcion").on('click',function(){
+
+			var id = $('#input-codigo-inscripcion').val();
+			var dataFicha = {
+				"id" : id,
+			}
+
+			$.ajax({
+
+				type:'POST',
+				dataType: 'json',
+				url: "{{url('akademia_cambiarEstado')}}",
+				data: dataFicha,
+				beforeSend: function(){				
+				},
+				success: function(data){
+
+					clearFicha();
+					$('#input-codigo-inscripcion').focus();
+					showAlertMessage('#alerta-confirmacion', "Ficha inscrita");	
+				},
+				error: function(error){
+					clearFicha();
+					$('#input-codigo-inscripcion').focus();
+					showAlertMessage('#alerta-confirmacion', "Ficha Inscrita satisfactoriamente");	
+					
+				}
+		    });
+
+		});
+
+
+		/*Limpia todos los campos de la ficha*/
+		function clearFicha(){
+			$("#estado-participante").text('');
+			$('#input-codigo-inscripcion').text('');
+			$('#nombre-participante').text('');				
+			$('#apellido-paterno-participante').text('');				
+			$('#apellido-materno-participante').text('');				
+			$('#dni-participante').text('');				
+			$('#edad-participante').text('');			
+			$('#deporte-participante').text('');				
+			$('#complejo-participante').text('');			
+			$('#horario-participante').text('');			
+				
+		}
+
+		/*Muestra mensaje de alerta*/
+		function showAlertMessage(alert, mensaje){
+			$(alert).text(mensaje).show('fade');
+			setTimeout(function(){
+				hideAlertMessage(alert);	
+			}, 2000);
+		}
+
+		/*Oculta mensaje de alerta*/
+		function hideAlertMessage(alert){
+			$(alert).hide('fade');		
+		}
+
+		/*Limpia un caja de entrada*/
+		function clearInputText(input){
+			$(input).val('');
+		}
+
+		/*limpia un campo de texto*/
+		function clearOutputText(output){
+			$(output).text('')
+		}
+
+	</script>
+
+{% endblock %}

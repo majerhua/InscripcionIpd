@@ -79,7 +79,7 @@ class Usuarios implements UserInterface
     }
 
     public function getRoles(){
-        return $this->roles;
+        return $this->$roles;
     }
 
     public function eraseCredentials(){
@@ -209,18 +209,4 @@ class Usuarios implements UserInterface
         return $this;
     }
 
-
-    /**
-     * Set roles
-     *
-     * @param array $roles
-     *
-     * @return Usuarios
-     */
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 }

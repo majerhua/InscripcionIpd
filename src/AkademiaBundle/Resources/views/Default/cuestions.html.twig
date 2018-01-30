@@ -3,6 +3,29 @@
 {% block title %}La Academia{% endblock %}
 {% block body  %}
 
+<header>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Inscripciones</a></li>
+                    <li><a href="/consulta">Consultas</a></li>
+                    <li><a href="/login">Promotores</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
 <section class="preguntas-frecuentes" id="preguntas-frecuentes">
 
     <div class="container preguntas">

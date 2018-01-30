@@ -5,8 +5,26 @@
 
 
 <header>
+	<nav class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+	    <div class="navbar-header">
+	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>                       
+	        <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
+	    </div>
 
-
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	        <br>
+	        <ul class="nav navbar-nav navbar-right">
+	            <li><a href="/">Inscripciones</a></li>
+	            <li><a href="/consulta">Consultas</a></li>
+	            <li><a href="/login">Promotores</a></li>
+	        </ul>
+	    </div>
+	</div>
+	</nav>
 <div id="carousel-1" class="carousel slide" data-ride="carousel">
 		<!-- Indicadores -->
 		<ol class="carousel-indicators">
@@ -590,28 +608,7 @@
 	        sessionStorage.setItem('flagDiscapacitado',$(this).val());
 	    }
 	});
-	/*
-	function discapacidad(respuesta){
-		var resp = {
-			"respuesta" : respuesta
-		};
 
-		$.ajax({
-
-			type:'POST',
-			dataType: 'json',
-			url: "{{url('akademia_mostrarcomplejos')}}",
-			data: resp,
-			beforeSend: function(){				
-			},
-
-			success: function(data){
-				console.log(data);
-				console.log("Respuesta enviada");
-			}
-		});
-	}
-*/
 	function mayus(e) {
 	    e.value = e.value.toUpperCase();
 	}
@@ -1245,7 +1242,6 @@ function registrar(){
 	$.ajax({
 
 		type:'POST',
-		dataType: 'json',
 		url: "{{url('akademia_registrar')}}",
 		data: dataRegisterApoderado,
 		beforeSend: function(){				
@@ -1253,9 +1249,7 @@ function registrar(){
 
 		success: function(data){
 
-			console.log(data);
-			var valor =JSON.parse(data)[0];
-			console.log("datos de la ficha" + valor);
+			var valor = data[0];
 			sessionStorage.removeItem("idInscripcion");
 			sessionStorage.setItem("idInscripcion",valor.id);
 
@@ -1275,13 +1269,14 @@ function registrar(){
 			$("#email-ficha").append(valor.correo);
 			$("#deporte-ficha").append(valor.nombreDisciplina);
 			$("#complejo-ficha").append(valor.nombreComplejo);
-			$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin + valor.turno);
+			$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin +" - "+valor.turno);
 			$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
-
 		},
+
 		error: function(error){
-			console.log("Error en la captura de datos");
-			console.log(error);
+
+			console.log(error.responseText);			
+			console.log("Error - oh no!");
 		}
 			
 	});

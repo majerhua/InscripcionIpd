@@ -8,6 +8,11 @@ akademia_registrar:
     defaults: { _controller: AkademiaBundle:Default:registrar }
     methods:  [GET,POST]
 
+akademia_mostrarficha:
+    path:     /mostrarficha
+    defaults: { _controller: AkademiaBundle:Default:mostrarficha }
+    methods:  [GET,POST]
+
 akademia_getPost:
     path:     /post/get
     defaults: { _controller: AkademiaBundle:Default:post}
@@ -28,6 +33,12 @@ akademia_sendemail:
     defaults: { _controller: AkademiaBundle:Default:sendemail}
     methods:  [GET,POST]
 
+akademia_prueba:
+    path:     /prueba
+    defaults: { _controller: AkademiaBundle:Default:prueba}
+    methods:  [GET,POST]
+
+
 akademia_sendemailusuario:
     path:     /sendemailusuario
     defaults: { _controller: AkademiaBundle:Default:sendemailusuario}
@@ -42,6 +53,17 @@ akademia_mostrarcomplejos:
     path:    /mostrarcomplejos
     defaults: {_controller: AkademiaBundle:Default:mostrarcomplejos}
     methods: [GET,POST]
+
+akademia_inscritos:
+    path:    /inscritos
+    defaults: {_controller: AkademiaBundle:Default:inscritos}
+    methods: [GET,POST]
+
+akademia_cambiarEstado:
+    path:   /cambiarEstado
+    defaults: {_controller: AkademiaBundle:Default:cambiarEstado}
+    methods: [GET, POST]
+
 
 akademia_login:
     path:    /login

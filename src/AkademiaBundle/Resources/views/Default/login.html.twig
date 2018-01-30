@@ -1,43 +1,69 @@
 {% extends '::base.html.twig' %}
 {% block title %}La Academia{% endblock %}
-{% block body  %}
+{% block body %}
 
-	<section  id="inscribete"  class="proceso-inscripcion" style="">
-		<div id="proceso1" class="proceso">
-			<div class="container-card col-xs-10 col-sm-8 col-md-5 col-ld-4" style="background-color: transparent;">
-				<div class="card" style="background-color: white; margin-top:60px; margin-bottom: 100px; padding: 20px;">	
-					<p class="title-card text-center">Iniciar sesión</p>
-					<hr>
-					<div id="alert-info" class="alert alert-warning alert-dismissible" role="alert">
-						<button id="btn-close-alert-info" class="close"><span aria-hidden="true">&times;</span></button>
-						<strong>Acceso sólo para promotores</strong>
-						<p>Ingrese con el usuario y contraseña asignado a su complejo deportivo</p>
-					</div>
-					<form action="{{path("login_check")}}" method="post">
-						<div class="row">
-							<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
-								<label for="input-usuario">Usuario</label>
-								<input id="username" class="form-control" name="_username" class="validate" autofocus required>
-							</div>
-							<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
-								<label for="input-contraseña">Contraseña</label>
-								<input id="password" type="password" class="form-control" name="_password" class="validate" required>
-							</div>
-						</div>
-						<hr>
-						<div id="alerta" class="alert alert-danger collapse"></div>
-						<div class="container-boton-1 text-center">
-							<button class="btn btn-danger" id="btn-login">Ingresar</button>
-							<input type="hidden" name="_target_path" value="/login">
-						</div>
-					</form>
+<header>
+ 	<nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Inscripciones</a></li>
+                    <li><a href="/consulta">Consultas</a></li>
+                    <li><a href="/login">Promotores</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{% if error %}
+	<div>{{ error.messageKey|trans(error.messageData,'security') }}</div>
+{% endif %}
 					
+<section>
+	<div id="" class="proceso">
+		<div class="container-card col-xs-10 col-sm-8 col-md-5 col-ld-4" style="background-color: transparent;">
+			<div class="card" style="background-color: white; margin-top:60px; margin-bottom: 100px; padding: 20px;">	
+				<p class="title-card text-center">Iniciar sesión</p>
+				<hr>
+				<div id="alert-info" class="alert alert-warning alert-dismissible" role="alert">
+					<button id="btn-close-alert-info" class="close"><span aria-hidden="true">&times;</span></button>
+					<strong>Acceso sólo para promotores</strong>
+					<p>Ingrese con el usuario y contraseña asignado a su complejo deportivo</p>
 				</div>
+				<form action="{{path('akademia_login')}}" method="POST">
+					<div class="row">
+						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+							<label>Usuario</label>
+							<input  type="text" id="username" class="form-control" name="_username"  value="{{last_username}}" autofocus required>
+						</div>
+						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+							<label>Contraseña</label>
+							<input id="password" type="password" class="form-control" name="_password" required>
+						</div>
+					</div>
+					<hr>
+					<div id="alerta" class="alert alert-danger collapse"></div>
+					<div class="container-boton-1 text-center">
+						<button  type="submit" class="btn btn-danger" id="btn-login">Ingresar</button>
+						<!--<input type="hidden" name="_target_path" value="/login">-->
+					</div>
+				</form>
+				
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<footer class="footer">
+<footer class="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
@@ -70,39 +96,42 @@
 </footer>
 
 {% endblock %}
-
 {% block javascripts %}
-
+	<!-- scripts -->
 	<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 	<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
 
 	<script type="text/javascript">
-
-	/*	$(document).ready(function(){
+		
+		$(document).ready(function(){
 			$('#btn-login').click(function(){
-				if ($("#input-usuario").val() != '' && $("#input-contraseña").val() != '') {
-					if ($("#input-usuario").val() == $("#input-contraseña").val()) {
-						window.location.href = "inscritos.html";
-					}else{
-						showAlertMessage('#alerta', "Usuario y/o contraseña incorrectos")
-					}
+
+				if ($("#input-usuario").val() == '' && $("#input-contraseña").val() == '') {
+					showAlertMessage('#alerta', "Usuario y/o contraseña incorrectos")
 				}
 			});
+
 			$('#btn-close-alert-info').click(function(){
 				hideAlertMessage("#alert-info");
 			});
-		});*/
+
+		});
+
 		/*Muestra mensaje de alerta*/
-		/*function showAlertMessage(alert, mensaje){
+		function showAlertMessage(alert, mensaje){
 			$(alert).text(mensaje).show('fade');
 			setTimeout(function(){
 				hideAlertMessage(alert);	
 			}, 3000);
 		}
+
 		/*Oculta mensaje de alerta*/
-		/*function hideAlertMessage(alert){
+		function hideAlertMessage(alert){
 			$(alert).hide('fade');		
 		}
+
 	</script>
+
+
 
 {% endblock %}
