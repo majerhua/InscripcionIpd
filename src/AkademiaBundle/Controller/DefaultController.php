@@ -183,15 +183,10 @@ class DefaultController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
-           // echo $IDApoderado[0]['id'];
-            //exit;
-           // try {
 
                 if(!empty($IDApoderado)){
                
                         $idApod = $IDApoderado[0]['id'];
-                       // echo 'Id apoderado'.$idApod;
-
                 }else{
 
                     $apoderado = new Apoderado();
@@ -212,25 +207,17 @@ class DefaultController extends Controller
                     $em->persist($apoderado);
                     $em->flush();
 
-                    $idApod = $apoderado->getId();
-
-             //       throw new Exception("Id del nuevo existe".$idApod);
-                    
+                    $idApod = $apoderado->getId();                 
 
                 }
-            //} catch (Exception $ex){
 
-              //  echo 'Error: ' .$ex->getMessage();
-            //}
 
             
 
            // REGISTRAR PARTICIPANTE
             $em = $this->getDoctrine()->getManager();
             $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
-            
-           // try{
-
+        
                 if(!empty($IDParticipante)){
                 
                     $idParticipanteN = $IDParticipante[0]['id'];
@@ -285,26 +272,8 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($inscripcion);
                     $em->flush();
-                   
-
-
                     $em2 = $this->getDoctrine()->getManager();
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
-                    
-                    /*
-                    $encoders = array(new JsonEncoder());
-                    $normalizer = new ObjectNormalizer();
-
-                    
-                    $normalizer->setCircularReferenceLimit(1);
-                       
-                    $normalizer->setCircularReferenceHandler(function ($object) {
-                        return $object->getId();
-                    });
-                   
-                    $normalizers = array($normalizer);
-                    $serializer = new Serializer($normalizers, $encoders);
-                    $jsonContent = $serializer->serialize($mdlFicha,'json');*/
 
                     return new JsonResponse($mdlFicha);
         }else{
