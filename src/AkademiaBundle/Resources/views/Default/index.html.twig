@@ -1265,10 +1265,21 @@ function registrar(){
 
 		success: function(data){
 			
-			console.log("sucess: " + data[0]['nombre']);
+			console.log("sucuss =>", data);
+
+			$("#nombre-ficha").append(data[0]['nombre']);
+			$("#apellidoPaterni-ficha").append(data[0]['apellidoPaterno']);
+			$("#apellidoMaterno-ficha").append(data[0]['apellidoMaterno']);
+			$("#distrito-ficha").append(data[0]['distrito']);
+			$("#domicilio-ficha").append(data[0]['direccion']);
+			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
+			$("#telefono-ficha").append(data[0]['telefono']);
+			$("#dni-ficha").append(data[0]['dni']);
+
+			//console.log("sucess: " + data[0]['nombre']);
 
 			//console.log(response[0].nombre);
-
+			/*
 			var valor = data[0];
 			sessionStorage.removeItem("idInscripcion");
 			sessionStorage.setItem("idInscripcion",data[0]['id']);
@@ -1290,7 +1301,7 @@ function registrar(){
 			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
 			$("#complejo-ficha").append(data[0]['nombrecomplejo']);
 			//$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin +" - "+valor.turno);
-			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);*/
 		},
 
 		error: function(error){

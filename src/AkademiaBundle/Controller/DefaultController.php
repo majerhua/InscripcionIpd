@@ -226,6 +226,36 @@ class DefaultController extends Controller
                     $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
                     $em->flush(); 
 
+                   
+                    $idHorario = $request->request->get('idHorario');
+                    $fechaInscripcion = $hoy = date("Y-m-d");
+
+                    $inscripcion = new Inscribete();
+
+                    $estado=1;
+                    $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
+
+                    $inscripcion->setEstado($estado);
+                    $em = $this->getDoctrine()->getRepository(Participante::class);
+                    $buscarParticipante = $em->find($idParticipanteN);
+                    $inscripcion->setParticipante($buscarParticipante);
+
+                    $em = $this->getDoctrine()->getRepository(Horario::class);
+                    $buscarHorario = $em->find($idHorario);
+                    $inscripcion->setHorario($buscarHorario);            
+                    
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($inscripcion);
+                    $em->flush();
+                    $em2 = $this->getDoctrine()->getManager();
+                    $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
+
+                    
+                   // return $this->renderText(json_encode($mdlFicha));
+                    return new JsonResponse($mdlFicha);
+                   // var_dump($mdlFicha);
+                    echo "aqui luego del response"; 
+
                 }else{
 
                     $participante = new Participante();
@@ -249,10 +279,7 @@ class DefaultController extends Controller
                     $em->flush();
                     $idParticipanteN= $participante->getId();
 
-                }
-                   //REGISTRO FINAL
-
-                    $idHorario = $request->request->get('idHorario');
+                     $idHorario = $request->request->get('idHorario');
                     $fechaInscripcion = $hoy = date("Y-m-d");
 
                     $inscripcion = new Inscribete();
@@ -278,7 +305,12 @@ class DefaultController extends Controller
                    // return $this->renderText(json_encode($mdlFicha));
                     return new JsonResponse($mdlFicha);
                     var_dump($mdlFicha);
-                    
+
+                }
+                   //REGISTRO FINAL
+
+                   
+
                     
         }else{
 
