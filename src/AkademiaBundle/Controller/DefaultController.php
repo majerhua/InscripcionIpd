@@ -183,10 +183,21 @@ class DefaultController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+        
 
                 if(!empty($IDApoderado)){
-               
-                        $idApod = $IDApoderado[0]['id'];
+                    
+                    $idApod = $IDApoderado[0]['id'];
+
+                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                    $apoderado = $em->find($idApod);
+                    $apoderado->setDireccion($direccion);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+                    $idApod = $apoderado->getId();
+                    
+
                 }else{
 
                     $apoderado = new Apoderado();
@@ -211,21 +222,16 @@ class DefaultController extends Controller
 
                 }
 
-
-            
-
-           // REGISTRAR PARTICIPANTE
             $em = $this->getDoctrine()->getManager();
             $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
         
-                if(!empty($IDParticipante)){
-                
+                if(!empty($IDParticipante)){      
+                   
                     $idParticipanteN = $IDParticipante[0]['id'];
-            
+
                     $em = $this->getDoctrine()->getManager();
                     $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
                     $em->flush(); 
-
                    
                     $idHorario = $request->request->get('idHorario');
                     $fechaInscripcion = $hoy = date("Y-m-d");
@@ -249,12 +255,12 @@ class DefaultController extends Controller
                     $em->flush();
                     $em2 = $this->getDoctrine()->getManager();
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
-
                     
-                   // return $this->renderText(json_encode($mdlFicha));
+                    var_dump($mdlFicha);
+
                     return new JsonResponse($mdlFicha);
-                   // var_dump($mdlFicha);
-                    echo "aqui luego del response"; 
+                
+                   
 
                 }else{
 
@@ -303,14 +309,12 @@ class DefaultController extends Controller
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
 
                    // return $this->renderText(json_encode($mdlFicha));
-                    return new JsonResponse($mdlFicha);
                     var_dump($mdlFicha);
 
-                }
-                   //REGISTRO FINAL
+                    return new JsonResponse($mdlFicha);
+                    
 
-                   
-
+                }       
                     
         }else{
 
@@ -319,11 +323,12 @@ class DefaultController extends Controller
     }
     
     public function pruebaAction(Request $request){
-        
-         $em2 = $this->getDoctrine()->getManager();
-         $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha('207');
-            
-        return new JsonResponse($mdlFicha); 
+    
+        $em = $this->getDoctrine()->getManager();
+        $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante('48123344');
+        $idApod = $IDParticipante[0]['id'];
+
+        return new JsonResponse($idApod);
     }
 
 

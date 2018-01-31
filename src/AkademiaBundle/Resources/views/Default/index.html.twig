@@ -1267,20 +1267,6 @@ function registrar(){
 			
 			console.log("sucuss =>", data);
 
-			$("#nombre-ficha").append(data[0]['nombre']);
-			$("#apellidoPaterni-ficha").append(data[0]['apellidoPaterno']);
-			$("#apellidoMaterno-ficha").append(data[0]['apellidoMaterno']);
-			$("#distrito-ficha").append(data[0]['distrito']);
-			$("#domicilio-ficha").append(data[0]['direccion']);
-			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
-			$("#telefono-ficha").append(data[0]['telefono']);
-			$("#dni-ficha").append(data[0]['dni']);
-
-			//console.log("sucess: " + data[0]['nombre']);
-
-			//console.log(response[0].nombre);
-			/*
-			var valor = data[0];
 			sessionStorage.removeItem("idInscripcion");
 			sessionStorage.setItem("idInscripcion",data[0]['id']);
 
@@ -1296,12 +1282,20 @@ function registrar(){
 			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
 			$("#telefono-ficha").append(data[0]['telefono']);
 			$("#dni-ficha").append(data[0]['dni']);
-			//$("#edad-ficha").append(sessionStorage.getItem("edad"));
+			$("#edad-ficha").append(sessionStorage.getItem("edad"));
 			$("#email-ficha").append(data[0]['correo']);
 			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
-			$("#complejo-ficha").append(data[0]['nombrecomplejo']);
-			//$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin +" - "+valor.turno);
-			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);*/
+			$("#complejo-ficha").append(data[0]['nombreComplejo']);
+			$("#horario-ficha").append(data[0]['horaInicio']+" a "+data[0]['horaFin'] +" - "+data[0]['turno']);
+			
+			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+
+			//console.log("sucess: " + data[0]['nombre']);
+
+			//console.log(response[0].nombre);
+			/*
+			var valor = data[0];
+			*/
 		},
 
 		error: function(error){

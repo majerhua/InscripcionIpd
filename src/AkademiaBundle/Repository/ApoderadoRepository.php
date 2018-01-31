@@ -20,16 +20,4 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
     	return $dni;
 	}
 
-
-	public function getCantidadRegistros($dni){
-
-		$query = "select count(*) as registros from ACADEMIA.apoderado where dni='$dni'";
-        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-        $stmt->execute();
-        $CantRegistros = $stmt->fetchAll();
-
-        return $CantRegistros;
-
-	}
-
 }
