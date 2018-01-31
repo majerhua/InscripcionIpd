@@ -1174,16 +1174,31 @@ $("#boton3").on('click',function(){
 	}
 
 	if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
-		if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
-			$("#proceso3").hide();
-			$("#process4").show();	
-			$(".bar-inscripcion__3").removeClass('active');
-			$(".bar-inscripcion__4").addClass('active');		
-		}else{
-			alertify.error('<p style="color:white">Sólo de 6 a 17 años. </p>'); 
-	    }
-	}
 
+		if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
+			if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
+				$("#proceso3").hide();
+				$("#process4").show();	
+				$(".bar-inscripcion__3").removeClass('active');
+				$(".bar-inscripcion__4").addClass('active');	
+		    }else{
+		    	alertify.error('<p style="color:white">Sólo de 5 a 40 años. </p>'); 
+		    }
+		}
+
+		else if(sessionStorage.getItem('flagDiscapacitado') == null ){
+
+			if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
+				$("#proceso3").hide();
+				$("#process4").show();	
+				$(".bar-inscripcion__3").removeClass('active');
+				$(".bar-inscripcion__4").addClass('active');		
+			}else{
+				alertify.error('<p style="color:white">Sólo de 6 a 17 años. </p>'); 
+		    }
+		}
+		
+	}
 });
 
 
@@ -1430,7 +1445,7 @@ $(".mensajeEdad").empty();
 
 						$(dataHijo).each(function(index,valor){
 
-							if(valor.edad <= 17 ){
+							//if(valor.edad <= 17 ){
                                 $("#apellidoPaterno-hijo").attr('readonly', true);
                                 $("#apellidoMaterno-hijo").attr('readonly', true);
                                 $("#nombre-hijo").attr('readonly', true);
@@ -1444,7 +1459,7 @@ $(".mensajeEdad").empty();
 								$("#sexo-hijo").val(valor.sexo);
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
-							}else{
+							/*}else{
 
 								$("#apellidoPaterno-hijo").attr('readonly', false);
                                 $("#apellidoMaterno-hijo").attr('readonly', false);
@@ -1464,7 +1479,7 @@ $(".mensajeEdad").empty();
                                 $("#nombre-hijo").val("");
                                 $("#fechaNacimiento-hijo").val("");
                                 $("#sexo-hijo").val(0);*/
-							}
+							//}
 						});					
 					
 						$('.cargarDatosParticipante').hide();

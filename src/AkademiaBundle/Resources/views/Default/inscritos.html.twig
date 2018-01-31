@@ -43,7 +43,7 @@
 							</div>
 
 							<div class="form-group col-xs-12 col-sm-12 col-md-9 col-ld-6 text-center">
-								<input id="input-codigo-inscripcion" class="form-control" name="input-codigo-inscripcion" class="validate" autofocus>
+								<input id="input-codigo-inscripcion" maxlength="5" class="form-control" name="input-codigo-inscripcion" class="validate" autofocus>
 							</div>
 
 							<div class="form-group col-xs-12 col-sm-12 col-md-3 col-ld-2 text-center">
@@ -75,7 +75,7 @@
 									<li class="list-group-item">
 										<div class="row">
 											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-												<p>Estado: </p>
+												<p>Estado </p>
 											</div>
 											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 												<strong><p id="estado-participante"></p></strong>
@@ -271,7 +271,7 @@
 					$("#apellido-paterno-participante").append(valor.apellidoPaterno);
 					$("#apellido-materno-participante").append(valor.apellidoMaterno);
 					$("#dni-participante").append(valor.dni);
-				  	$("#edad-participante").append(valor.edad);
+				  	$("#edad-participante").append(valor.edad + " años");
 					$("#deporte-participante").append(valor.nombreDisciplina);
 					$("#complejo-participante").append(valor.nombreComplejo);
 					$("#horario-participante").append(valor.horaInicio+" a "+valor.horaFin +" - "+ valor.turno);
