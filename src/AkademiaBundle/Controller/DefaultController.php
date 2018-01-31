@@ -275,7 +275,11 @@ class DefaultController extends Controller
                     $em2 = $this->getDoctrine()->getManager();
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
 
+                   // return $this->renderText(json_encode($mdlFicha));
                     return new JsonResponse($mdlFicha);
+                    var_dump($mdlFicha);
+                    
+                    
         }else{
 
             return new JsonResponse("No es ajax");

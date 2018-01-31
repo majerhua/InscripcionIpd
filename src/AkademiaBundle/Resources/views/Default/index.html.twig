@@ -1257,35 +1257,40 @@ function registrar(){
 	$.ajax({
 
 		type:'POST',
+		dataType: "json",
 		url: "{{url('akademia_registrar')}}",
 		data: dataRegisterApoderado,
 		beforeSend: function(){				
 		},
 
 		success: function(data){
+			
+			console.log("sucess: " + data[0]['nombre']);
+
+			//console.log(response[0].nombre);
 
 			var valor = data[0];
 			sessionStorage.removeItem("idInscripcion");
-			sessionStorage.setItem("idInscripcion",valor.id);
+			sessionStorage.setItem("idInscripcion",data[0]['id']);
 
 			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
 
 			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
 
-			$("#nombre-ficha").append(valor.nombre);
-			$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
-			$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
-			$("#distrito-ficha").append(valor.distrito);
-			$("#domicilio-ficha").append(valor.direccion);
-			$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
-			$("#telefono-ficha").append(valor.telefono);
-			$("#dni-ficha").append(valor.dni);
-			$("#edad-ficha").append(sessionStorage.getItem("edad"));
-			$("#email-ficha").append(valor.correo);
-			$("#deporte-ficha").append(valor.nombreDisciplina);
-			$("#complejo-ficha").append(valor.nombreComplejo);
-			$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin +" - "+valor.turno);
-			$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+			$("#nombre-ficha").append(data[0]['nombre']);
+			$("#apellidoPaterni-ficha").append(data[0]['apellidoPaterno']);
+			$("#apellidoMaterno-ficha").append(data[0]['apellidoMaterno']);
+			$("#distrito-ficha").append(data[0]['distrito']);
+			$("#domicilio-ficha").append(data[0]['direccion']);
+			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
+			$("#telefono-ficha").append(data[0]['telefono']);
+			$("#dni-ficha").append(data[0]['dni']);
+			//$("#edad-ficha").append(sessionStorage.getItem("edad"));
+			$("#email-ficha").append(data[0]['correo']);
+			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
+			$("#complejo-ficha").append(data[0]['nombrecomplejo']);
+			//$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin +" - "+valor.turno);
+			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 		},
 
 		error: function(error){
