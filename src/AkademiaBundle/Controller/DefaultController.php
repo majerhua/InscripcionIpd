@@ -229,34 +229,8 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
                     $em->flush(); 
-                   
-                }else{
 
-                    $participante = new Participante();
-                    $participante->setDni($dniParticipante);
-                    $participante->setApellidoPaterno($apellidoPaternoParticipante);
-                    $participante->setApellidoMaterno($apellidoMaternoParticipante);
-                    $participante->setNombre($nombreParticipante);
-                    $participante->setFechaNacimiento(new \DateTime($fechaNacimientoParticipante));
-                    $participante->setSexo($sexoParticipante);
-                    $participante->setParentesco($parentesco);
-                    $participante->setTipoDeSeguro($tipoSeguro);
-                    $participante->setEstado($estado);
-                    $participante->setDiscapacitado($discapacidad);
-
-                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
-                    $buscarApoderadoInscripcion = $em->find($idApod);
-                    $participante->setApoderado($buscarApoderadoInscripcion);
-
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($participante);
-                    $em->flush();
-                    $idParticipanteN= $participante->getId();                   
-
-                } 
-
-
-                    $idHorario = $request->request->get('idHorario');
+                     $idHorario = $request->request->get('idHorario');
                     $fechaInscripcion = $hoy = date("Y-m-d");
                     $inscripcion = new Inscribete();
 
@@ -290,6 +264,66 @@ class DefaultController extends Controller
                     $jsonContent = $serializer->serialize($mdlFicha,'json');
 
                     return new JsonResponse($jsonContent);   
+                   
+                }else{
+
+                    $participante = new Participante();
+                    $participante->setDni($dniParticipante);
+                    $participante->setApellidoPaterno($apellidoPaternoParticipante);
+                    $participante->setApellidoMaterno($apellidoMaternoParticipante);
+                    $participante->setNombre($nombreParticipante);
+                    $participante->setFechaNacimiento(new \DateTime($fechaNacimientoParticipante));
+                    $participante->setSexo($sexoParticipante);
+                    $participante->setParentesco($parentesco);
+                    $participante->setTipoDeSeguro($tipoSeguro);
+                    $participante->setEstado($estado);
+                    $participante->setDiscapacitado($discapacidad);
+
+                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                    $buscarApoderadoInscripcion = $em->find($idApod);
+                    $participante->setApoderado($buscarApoderadoInscripcion);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($participante);
+                    $em->flush();
+                    $idParticipanteN= $participante->getId();      
+
+                     $idHorario = $request->request->get('idHorario');
+                    $fechaInscripcion = $hoy = date("Y-m-d");
+                    $inscripcion = new Inscribete();
+
+                    $estado=1;
+                    $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
+
+                    $inscripcion->setEstado($estado);
+                    $em = $this->getDoctrine()->getRepository(Participante::class);
+                    $buscarParticipante = $em->find($idParticipanteN);
+                    $inscripcion->setParticipante($buscarParticipante);
+
+                    $em = $this->getDoctrine()->getRepository(Horario::class);
+                    $buscarHorario = $em->find($idHorario);
+                    $inscripcion->setHorario($buscarHorario);            
+                    
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($inscripcion);
+                    $em->flush();
+                    $em2 = $this->getDoctrine()->getManager();
+                    $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
+                    
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+                    $normalizer->setCircularReferenceLimit(1);
+                    $normalizer->setCircularReferenceHandler(function ($object) {
+                        return $object->getId();
+                    });
+
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($mdlFicha,'json');
+
+                    return new JsonResponse($jsonContent);                
+
+                } 
                             
         }else{
 
@@ -444,13 +478,13 @@ class DefaultController extends Controller
             $subject =  'PRE INSCRIPCION CONFIRMADA - IPD ';
             $message =  '<html>'.
                         '<head><title>IPD</title></head>'.
-                        '<body><h2>Hola!'+$nombre+' </h2>'.
+                        '<body><h2>Hola! '.$nombre.' </h2>'.
                         '<hr>'.
                         'Aquí puedes descargar tu ficha de inscripción y la declaración jurada, haz click en estos enlaces:'.
                         '<br>'.
-                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/inscripcion/'+$id+'"> Ficha de Inscripción </a>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/inscripcion/'.$id.'"> Ficha de Inscripción </a>'.
                         '<br>'.
-                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/declaracion-jurada/'+$id+'"> Declaración Jurada </a>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/declaracion-jurada/'.$id.'"> Declaración Jurada </a>'.
                         '<br>'.
                         '<p>Acércate al complejo que eligiste para finalizar tu inscripción.</p>'.
                         '<br><br>'.
