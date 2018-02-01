@@ -71,7 +71,7 @@ class Participante
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaNacimiento", type="date")
+     * @ORM\Column(name="fechaNacimiento", type="datetime")
      */
     private $fechaNacimiento;
 

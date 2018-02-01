@@ -1265,7 +1265,32 @@ function registrar(){
 
 		success: function(data){
 			
-			console.log("sucuss =>", data);
+			var valor =JSON.parse(data)[0];
+			sessionStorage.removeItem("idInscripcion");
+			sessionStorage.setItem("idInscripcion",valor.id);
+
+			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+
+			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+
+			$("#nombre-ficha").append(valor.nombre);
+			$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
+			$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
+			$("#distrito-ficha").append(valor.distrito);
+			$("#domicilio-ficha").append(valor.direccion);
+			$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
+			$("#telefono-ficha").append(valor.telefono);
+			$("#dni-ficha").append(valor.dni);
+			$("#edad-ficha").append(sessionStorage.getItem("edad"));
+			$("#email-ficha").append(valor.correo);
+			$("#deporte-ficha").append(valor.nombreDisciplina);
+			$("#complejo-ficha").append(valor.nombreComplejo);
+			$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
+			$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+			$(".bar-inscripcion__2").removeClass('active');
+			$(".bar-inscripcion__3").addClass('active');
+		
+			/*console.log("sucuss =>", data);
 
 			sessionStorage.removeItem("idInscripcion");
 			sessionStorage.setItem("idInscripcion",data[0]['id']);
@@ -1286,7 +1311,7 @@ function registrar(){
 			$("#email-ficha").append(data[0]['correo']);
 			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
 			$("#complejo-ficha").append(data[0]['nombreComplejo']);
-			$("#horario-ficha").append(data[0]['horaInicio']+" a "+data[0]['horaFin'] +" - "+data[0]['turno']);
+			$("#horario-ficha").append(data[0]['horaInicio']+" a "+data[0]['horaFin'] +" - "+data[0]['turno']);*/
 			
 			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 

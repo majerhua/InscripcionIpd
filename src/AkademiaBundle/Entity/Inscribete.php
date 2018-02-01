@@ -37,7 +37,7 @@ class Inscribete
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaInscripcion", type="date")
+     * @ORM\Column(name="fechaInscripcion", type="datetime")
      */
     private $fechaInscripcion;
 

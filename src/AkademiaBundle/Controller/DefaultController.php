@@ -233,35 +233,6 @@ class DefaultController extends Controller
                     $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
                     $em->flush(); 
                    
-                    $idHorario = $request->request->get('idHorario');
-                    $fechaInscripcion = $hoy = date("Y-m-d");
-
-                    $inscripcion = new Inscribete();
-
-                    $estado=1;
-                    $inscripcion->setFechaInscripcion(new \DateTime($fechaInscripcion));
-
-                    $inscripcion->setEstado($estado);
-                    $em = $this->getDoctrine()->getRepository(Participante::class);
-                    $buscarParticipante = $em->find($idParticipanteN);
-                    $inscripcion->setParticipante($buscarParticipante);
-
-                    $em = $this->getDoctrine()->getRepository(Horario::class);
-                    $buscarHorario = $em->find($idHorario);
-                    $inscripcion->setHorario($buscarHorario);            
-                    
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($inscripcion);
-                    $em->flush();
-                    $em2 = $this->getDoctrine()->getManager();
-                    $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
-                    
-                    var_dump($mdlFicha);
-
-                    return new JsonResponse($mdlFicha);
-                
-                   
-
                 }else{
 
                     $participante = new Participante();
@@ -283,11 +254,13 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($participante);
                     $em->flush();
-                    $idParticipanteN= $participante->getId();
+                    $idParticipanteN= $participante->getId();                   
 
-                     $idHorario = $request->request->get('idHorario');
+                } 
+
+
+                    $idHorario = $request->request->get('idHorario');
                     $fechaInscripcion = $hoy = date("Y-m-d");
-
                     $inscripcion = new Inscribete();
 
                     $estado=1;
@@ -307,15 +280,24 @@ class DefaultController extends Controller
                     $em->flush();
                     $em2 = $this->getDoctrine()->getManager();
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
-
-                   // return $this->renderText(json_encode($mdlFicha));
-                    var_dump($mdlFicha);
-
-                    return new JsonResponse($mdlFicha);
                     
+                   /* var_dump($mdlFicha);
 
-                }       
-                    
+                    return new JsonResponse($mdlFicha);   */
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+
+                    $normalizer->setCircularReferenceLimit(1);
+                        //Add Circular reference handler
+                    $normalizer->setCircularReferenceHandler(function ($object) {
+                        return $object->getId();
+                    });
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($mdlFicha,'json');
+
+                    return new JsonResponse($jsonContent);   
+                            
         }else{
 
             return new JsonResponse("No es ajax");
