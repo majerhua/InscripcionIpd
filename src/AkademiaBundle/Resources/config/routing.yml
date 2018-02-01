@@ -1,5 +1,5 @@
 akademia_homepage:
-    path:     /
+    path:     /principal
     defaults: { _controller: AkademiaBundle:Default:index }
     methods:  [GET,POST]
 

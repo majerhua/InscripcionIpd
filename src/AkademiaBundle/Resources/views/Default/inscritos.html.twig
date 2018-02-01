@@ -233,7 +233,10 @@
 	<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
 
 	<script type="text/javascript">
-
+		
+		$(document).ready(function(){
+		    $('#btn-confirmar-inscripcion').attr("disabled", true);
+		 });
 		$("#btn-salir").on('click', function(){
 			$(location).attr('href','/logout');
 		});
@@ -258,7 +261,7 @@
 					var valor =JSON.parse(data)[0];
 					console.log(valor);
 					
-
+					clearFicha();
 					if( valor.estado == 0){
 						$("#estado-participante").append("INSCRITO");
 						$('#btn-confirmar-inscripcion').attr("disabled", true);
@@ -275,6 +278,7 @@
 					$("#deporte-participante").append(valor.nombreDisciplina);
 					$("#complejo-participante").append(valor.nombreComplejo);
 					$("#horario-participante").append(valor.horaInicio+" a "+valor.horaFin +" - "+ valor.turno);
+
 					
 				},
 				error: function(error){
@@ -297,18 +301,24 @@
 				dataType: 'json',
 				url: "{{url('akademia_cambiarEstado')}}",
 				data: dataFicha,
-				beforeSend: function(){				
+				beforeSend: function(){	
+					$("#btn-confirmar-inscripcion").attr("disabled", true);	
 				},
 				success: function(data){
-
-					clearFicha();
-					$('#input-codigo-inscripcion').focus();
-					showAlertMessage('#alerta-confirmacion', "Ficha inscrita");	
+					//var valor = JSON.parse(data);
+					console.log("valor: " + data);
+					if(data == 1){
+						clearFicha();
+						$("#btn-confirmar-inscripcion").attr("disabled", false);
+						$('#input-codigo-inscripcion').focus();
+						showAlertMessage('#alerta-confirmacion', "Ficha Inscrita");
+					}
 				},
 				error: function(error){
 					clearFicha();
 					$('#input-codigo-inscripcion').focus();
 					showAlertMessage('#alerta-confirmacion', "Ficha Inscrita satisfactoriamente");	
+					$("#btn-confirmar-inscripcion").attr("disabled", false);
 					
 				}
 		    });

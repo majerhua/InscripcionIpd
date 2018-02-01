@@ -41,10 +41,11 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login
+                default_target_path: akademia_inscritos
             http_basic: ~
             logout:
                 path: /logout
-                target: /
+                target: /principal
 
         main:
             anonymous: ~
@@ -58,8 +59,10 @@ security:
             #form_login: ~
             
     access_control:
-        - {path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+
+        - {path: ^/principal, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/consulta, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - {path: ^/, roles: [ROLE_USER, ROLE_ADMIN]}
+        - {path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/inscritos, roles: [ROLE_USER, ROLE_ADMIN]}
 
      

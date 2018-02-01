@@ -192,6 +192,8 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getRepository(Apoderado::class);
                     $apoderado = $em->find($idApod);
                     $apoderado->setDireccion($direccion);
+                    $apoderado->setTelefono($telefono);
+                    $apoderado->setCorreo($correo);
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
 
@@ -286,12 +288,11 @@ class DefaultController extends Controller
                     return new JsonResponse($mdlFicha);   */
                     $encoders = array(new JsonEncoder());
                     $normalizer = new ObjectNormalizer();
-
                     $normalizer->setCircularReferenceLimit(1);
-                        //Add Circular reference handler
                     $normalizer->setCircularReferenceHandler(function ($object) {
                         return $object->getId();
                     });
+
                     $normalizers = array($normalizer);
                     $serializer = new Serializer($normalizers, $encoders);
                     $jsonContent = $serializer->serialize($mdlFicha,'json');
@@ -340,6 +341,7 @@ class DefaultController extends Controller
     }
 
     public function cambiarEstadoAction(Request $request){
+        
         if($request-> isXmlHttpRequest()){
 
             $idFicha = $request->request->get('id');
@@ -348,14 +350,18 @@ class DefaultController extends Controller
 
             $post = $ficha->find($idFicha);
             $post->setEstado(0);
-            $em2->persist($post);
+           // $em2->persist($post);
             $flush = $em2->flush();
-     
+            $data = 1;
+
             if ($flush == null) {
                 echo "Ficha actualizado correctamente";
             } else {
                 echo "La ficha no se ha actualizado";
             }
+
+            var_dump($data);
+            return ($data);
                
            // die();
         }
