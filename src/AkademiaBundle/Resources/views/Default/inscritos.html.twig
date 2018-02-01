@@ -309,7 +309,7 @@
 					console.log("valor: " + data);
 					if(data == 1){
 						clearFicha();
-						$("#btn-confirmar-inscripcion").attr("disabled", false);
+						$("#btn-confirmar-inscripcion").attr("disabled", true);
 						$('#input-codigo-inscripcion').focus();
 						showAlertMessage('#alerta-confirmacion', "Ficha Inscrita");
 					}
@@ -318,7 +318,7 @@
 					clearFicha();
 					$('#input-codigo-inscripcion').focus();
 					showAlertMessage('#alerta-confirmacion', "Ficha Inscrita satisfactoriamente");	
-					$("#btn-confirmar-inscripcion").attr("disabled", false);
+					$("#btn-confirmar-inscripcion").attr("disabled", true);
 					
 				}
 		    });

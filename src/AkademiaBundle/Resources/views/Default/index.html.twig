@@ -279,9 +279,9 @@
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
                         <label for="sexo-hijo">Sexo</label>
                         <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-                            <option value="2">--SELECCIONAR--</option>
-                            <option value="1" >MASCULINO</option>
-                            <option value="0" >FEMENINO</option>
+                           	<option value="2" selected>--SELECCIONAR--</option>
+					      	<option value="1">Masculino</option>
+					      	<option value="0">Femenino</option>
                         </select>
                     </div>
 				    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
@@ -1222,7 +1222,6 @@ $("#boton-next-final").on('click',function(){
 
 });
 
-
 function registrar(){
 
 	var dataRegisterApoderado={
@@ -1289,29 +1288,9 @@ function registrar(){
 			$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 			$(".bar-inscripcion__2").removeClass('active');
 			$(".bar-inscripcion__3").addClass('active');
+
+			enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
 		
-			/*console.log("sucuss =>", data);
-
-			sessionStorage.removeItem("idInscripcion");
-			sessionStorage.setItem("idInscripcion",data[0]['id']);
-
-			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
-
-			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
-
-			$("#nombre-ficha").append(data[0]['nombre']);
-			$("#apellidoPaterni-ficha").append(data[0]['apellidoPaterno']);
-			$("#apellidoMaterno-ficha").append(data[0]['apellidoMaterno']);
-			$("#distrito-ficha").append(data[0]['distrito']);
-			$("#domicilio-ficha").append(data[0]['direccion']);
-			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
-			$("#telefono-ficha").append(data[0]['telefono']);
-			$("#dni-ficha").append(data[0]['dni']);
-			$("#edad-ficha").append(sessionStorage.getItem("edad"));
-			$("#email-ficha").append(data[0]['correo']);
-			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
-			$("#complejo-ficha").append(data[0]['nombreComplejo']);
-			$("#horario-ficha").append(data[0]['horaInicio']+" a "+data[0]['horaFin'] +" - "+data[0]['turno']);*/
 		},
 
 		error: function(error){
@@ -1321,6 +1300,33 @@ function registrar(){
 		}
 			
 	});
+}
+
+function enviarEmailApoderado($correoApod,$nombre,$id){
+
+	var correoApoderado = {
+		"correo" : $correoApod,
+		"nombre" : $nombre,
+		"id" : $id,
+	};
+
+	$.ajax({
+		type:'POST',
+		dataType: 'json',
+		url: "{{url('akademia_sendemailapoderado')}}",
+		data: correoApoderado,
+
+		beforeSend: function(){
+
+		},
+		success: function(data){
+
+		},
+		error: function(error){
+
+		}
+	});
+
 }
 
 $('.cargarDatosApoderado').hide();	
@@ -1485,27 +1491,6 @@ $(".mensajeEdad").empty();
 								$("#sexo-hijo").val(valor.sexo);
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
-							/*}else{
-
-								$("#apellidoPaterno-hijo").attr('readonly', false);
-                                $("#apellidoMaterno-hijo").attr('readonly', false);
-                                $("#nombre-hijo").attr('readonly', false);
-                                $("#fechaNacimiento-hijo").attr('readonly', false);
-                                $("#sexo-hijo").attr('readonly', false);
-								
-								console.log("Se ha removido edad");
-
-								sessionStorage.removeItem("edad");
-								$(".mensajeEdadParticpante").empty();
-								$(".mensajeEdadParticipante").append("Usted es mayor de edad");
-                               
-
-                               /* $("#apellidoPaterno-hijo").val("");
-                                $("#apellidoMaterno-hijo").val("");
-                                $("#nombre-hijo").val("");
-                                $("#fechaNacimiento-hijo").val("");
-                                $("#sexo-hijo").val(0);*/
-							//}
 						});					
 					
 						$('.cargarDatosParticipante').hide();

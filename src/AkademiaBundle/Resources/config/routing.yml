@@ -18,6 +18,11 @@ akademia_getPost:
     defaults: { _controller: AkademiaBundle:Default:post}
     methods:  [GET,POST]
 
+akademia_sendemailapoderado:
+    path:     /sendemailapoderado
+    defaults: { _controller: AkademiaBundle:Default:sendemailapoderado}
+    methods:  [GET,POST]
+
 akademia_generarPdfInscripcion:
     path:     /pdf/inscripcion/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfInscripcion}

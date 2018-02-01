@@ -448,7 +448,43 @@ class DefaultController extends Controller
             $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
             mail($correo, $subject, $message, $headers);
-            return new JsonResponse("enviado");
+            return new JsonResponse("Enviado");
+        }
+    }
+
+     public function sendemailapoderadoAction(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            $correoApoderado = $request->request->get('correo');
+            $nombre = $request->request->get('nombre');
+            $id = $request->request->get('id');
+
+            $subject =  'PRE INSCRIPCION CONFIRMADA - IPD ';
+            $message =  '<html>'.
+                        '<head><title>IPD</title></head>'.
+                        '<body><h1>Hola!.$nombre. </h1>'.
+                        'Aquí puedes descargar tu ficha de inscripción y la declaración jurada, haz click en estos enlaces:'.
+                        '<br>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/inscripcion/.$id.">Ficha de Inscripción </a>'.
+                        '<br>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/declaracion-jurada/.$id.">Declaración Jurada </a>'.
+                        '<hr>'.
+                        '<br>'.
+                        '<p>Acércate al complejo que eligiste para finalizar tu inscripción.</p>'.
+                        '<br><br>'.
+                        '<p>NO SE RESERVAN VACANTES</p>'.
+                        '<br><br>'.
+                        '<p><strong><OBLIGATORIO</strong></p>'.
+                        '<ol><li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado</li><li>DNI del menor de edad y del apoderado (original y copia).</li><li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li><li>Foto tamaño carnet del menor de edad (actual).</li></ol>'.
+                        '</body>'.
+                        '</html>'
+                    ;
+            $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
+
+            mail($correoApoderado,$subject,$message,$headers);
+            return new JsonResponse("Enviado");
+
         }
     }
 
