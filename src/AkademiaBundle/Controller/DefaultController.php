@@ -133,9 +133,7 @@ class DefaultController extends Controller
         $mdlComplejoDisciplina = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejoDisciplinas();
         $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
 
-
-
-         return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario,"departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario,"departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 
 		
     }
 
@@ -164,7 +162,6 @@ class DefaultController extends Controller
             $telefono = $request->request->get('telefono');
             $correo = $request->request->get('correo');
 
-
             //DATOS PARTICIPANTE
             $dniParticipante = $request->request->get('dniParticipante');
             $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
@@ -176,8 +173,6 @@ class DefaultController extends Controller
             $tipoSeguro = $request->request->get('tipoSeguro');
             $estado = 1;
             $discapacidad = $request->request->get('discapacidad');
-
-
 
             //REGISTRAR APODERADO
 
@@ -283,9 +278,6 @@ class DefaultController extends Controller
                     $em2 = $this->getDoctrine()->getManager();
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
                     
-                   /* var_dump($mdlFicha);
-
-                    return new JsonResponse($mdlFicha);   */
                     $encoders = array(new JsonEncoder());
                     $normalizer = new ObjectNormalizer();
                     $normalizer->setCircularReferenceLimit(1);
@@ -354,16 +346,8 @@ class DefaultController extends Controller
             $flush = $em2->flush();
             $data = 1;
 
-            if ($flush == null) {
-                echo "Ficha actualizado correctamente";
-            } else {
-                echo "La ficha no se ha actualizado";
-            }
-
             var_dump($data);
             return ($data);
-               
-           // die();
         }
     }
 
@@ -416,10 +400,8 @@ class DefaultController extends Controller
 
     public function postAction(Request $request)
     {
-
         if($request->isXmlHttpRequest())
         {
-
             $em = $this->getDoctrine()->getRepository(Post::class);
             $posts = $em->findAll();
 
@@ -435,7 +417,6 @@ class DefaultController extends Controller
 
     public function sendemailAction(Request $request)
     {
-
         if($request->isXmlHttpRequest())
         {
 
@@ -463,19 +444,19 @@ class DefaultController extends Controller
             $subject =  'PRE INSCRIPCION CONFIRMADA - IPD ';
             $message =  '<html>'.
                         '<head><title>IPD</title></head>'.
-                        '<body><h1>Hola!.$nombre. </h1>'.
+                        '<body><h2>Hola!'+$nombre+' </h2>'.
+                        '<hr>'.
                         'Aquí puedes descargar tu ficha de inscripción y la declaración jurada, haz click en estos enlaces:'.
                         '<br>'.
-                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/inscripcion/.$id.">Ficha de Inscripción </a>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/inscripcion/'+$id+'"> Ficha de Inscripción </a>'.
                         '<br>'.
-                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/declaracion-jurada/.$id.">Declaración Jurada </a>'.
-                        '<hr>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/declaracion-jurada/'+$id+'"> Declaración Jurada </a>'.
                         '<br>'.
                         '<p>Acércate al complejo que eligiste para finalizar tu inscripción.</p>'.
                         '<br><br>'.
                         '<p>NO SE RESERVAN VACANTES</p>'.
                         '<br><br>'.
-                        '<p><strong><OBLIGATORIO</strong></p>'.
+                        '<h3><OBLIGATORIO</h3>'.
                         '<ol><li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado</li><li>DNI del menor de edad y del apoderado (original y copia).</li><li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li><li>Foto tamaño carnet del menor de edad (actual).</li></ol>'.
                         '</body>'.
                         '</html>'
@@ -491,13 +472,10 @@ class DefaultController extends Controller
     public function loginAction(Request $request){
 
 
-        //Llamamos al servicio de autenticacion
         $authenticationUtils = $this->get('security.authentication_utils');
-        // conseguir el error del login si falla
         $error = $authenticationUtils->getLastAuthenticationError();
-        // ultimo nombre de usuario que se ha intentado identificar
         $lastUsername = $authenticationUtils->getLastUsername();
-         
+
         return $this->render(
 
             'AkademiaBundle:Default:login.html.twig', array(
@@ -511,6 +489,4 @@ class DefaultController extends Controller
         return $this->render('AkademiaBundle:Default:inscritos.html.twig');
     }
     
-
-
 }
