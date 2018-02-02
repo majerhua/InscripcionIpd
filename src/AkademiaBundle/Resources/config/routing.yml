@@ -4,7 +4,7 @@ akademia_homepage:
     methods:  [GET,POST]
 
 akademia_registrar:
-    path:     /ajax/registrar
+    path:     /registrar
     defaults: { _controller: AkademiaBundle:Default:registrar }
     methods:  [GET,POST]
 
@@ -14,27 +14,27 @@ akademia_mostrarficha:
     methods:  [GET,POST]
 
 akademia_getPost:
-    path:     /ajax/post/get
+    path:     /post/get
     defaults: { _controller: AkademiaBundle:Default:post}
     methods:  [GET,POST]
 
 akademia_sendemailapoderado:
-    path:     /ajax/sendemailapoderado
+    path:     /sendemailapoderado
     defaults: { _controller: AkademiaBundle:Default:sendemailapoderado}
     methods:  [GET,POST]
 
 akademia_generarPdfInscripcion:
-    path:     /ajax/pdf/inscripcion/{id}
+    path:     /pdf/inscripcion/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfInscripcion}
     methods:  [GET,POST]
 
 akademia_generarPdfDeclaracionJurada:
-    path:     /ajax/pdf/declaracion-jurada/{id}
+    path:     /pdf/declaracion-jurada/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfDeclaracionJurada}
     methods:  [GET,POST]
 
 akademia_sendemail:
-    path:     /ajax/sendemail
+    path:     /sendemail
     defaults: { _controller: AkademiaBundle:Default:sendemail}
     methods:  [GET,POST]
 
@@ -45,7 +45,7 @@ akademia_prueba:
 
 
 akademia_sendemailusuario:
-    path:     /ajax/sendemailusuario
+    path:     /sendemailusuario
     defaults: { _controller: AkademiaBundle:Default:sendemailusuario}
     methods:  [GET,POST]
 
@@ -55,7 +55,7 @@ akademia_consulta:
     methods:  [GET,POST]
 
 akademia_mostrarcomplejos:
-    path:    /ajax/mostrarcomplejos
+    path:    /mostrarcomplejos
     defaults: {_controller: AkademiaBundle:Default:mostrarcomplejos}
     methods: [GET,POST]
 
@@ -65,7 +65,7 @@ akademia_inscritos:
     methods: [GET,POST]
 
 akademia_cambiarEstado:
-    path:   /ajax/cambiarEstado
+    path:   /cambiarEstado
     defaults: {_controller: AkademiaBundle:Default:cambiarEstado}
     methods: [GET, POST]
 
