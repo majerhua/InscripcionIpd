@@ -789,7 +789,7 @@
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
 
 		
-		if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
+		if(sessionStorage.getItem('flagDiscapacitado') == '1'){
 			{% for complejoDisciplina in complejosDisciplinas  %}
 
 				if("{{complejoDisciplina['idComplejoDeportivo']}}" == idComplejoDeportivo && "{{complejoDisciplina['discapacidad']}}" == 1){
@@ -864,7 +864,7 @@
 				var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
 				var horaFin = "{{horario['horaFin']}}".substr(0,5);
 
-				if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
+				if("{{horario['edi_codigo']}}" == idComplejoDisciplina  && "{{horario['discapacitados']}}" == 0 ){
 					if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
 
 						localStorage.removeItem('idHorario');
@@ -1135,69 +1135,72 @@ $("#boton3").on('click',function(){
        alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
     }else{
         //DATOS APODERADO
-        sessionStorage.removeItem("dni-participante");
-        sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+	        sessionStorage.removeItem("dni-participante");
+	        sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
 
-        sessionStorage.removeItem("apellidoPaterno-participante");
-        sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+	        sessionStorage.removeItem("apellidoPaterno-participante");
+	        sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
 
-        sessionStorage.removeItem("apellidoMaterno-partcipante");
-        sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+	        sessionStorage.removeItem("apellidoMaterno-partcipante");
+	        sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
 
-        sessionStorage.removeItem("nombre-partcipante");
-        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+	        sessionStorage.removeItem("nombre-partcipante");
+	        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
 
-        sessionStorage.removeItem("fechaNacimiento-partcipante");
-        sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+	        sessionStorage.removeItem("fechaNacimiento-partcipante");
+	        sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
 
-        sessionStorage.removeItem("sexo-partcipante");
-        sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+	        sessionStorage.removeItem("sexo-partcipante");
+	        sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
 
-        sessionStorage.removeItem("parentesco-partcipante");
-        sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+	        sessionStorage.removeItem("parentesco-partcipante");
+	        sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
 
-        sessionStorage.removeItem("tipoSeguro-partcipante");
-        sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
+	        sessionStorage.removeItem("tipoSeguro-partcipante");
+	        sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
 
-		sessionStorage.removeItem('edad');
-		sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
-        console.log("EDAD SESION"+sessionStorage.getItem("edad"));
+			sessionStorage.removeItem('edad');
+			sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
+	        console.log("EDAD SESION"+sessionStorage.getItem("edad"));
+
+	            console.log("Edad SESION ==> "+sessionStorage.getItem("edad"));
+
+		if(sessionStorage.getItem("edad")  == null || sessionStorage.getItem('edad')  == undefined){
+			var edadParticipante = calcularEdad($("#fechaNacimiento-hijo").val());
+
+			console.log("EDAD CALCULAR FRONTED ==> "+sessionStorage.getItem("edad"));
+		}
+
+		if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
+
+			if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
+				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
+					$("#proceso3").hide();
+					$("#process4").show();	
+					$(".bar-inscripcion__3").removeClass('active');
+					$(".bar-inscripcion__4").addClass('active');	
+			    }else{
+			    	alertify.error('<p style="color:white">Sólo de 5 a 40 años. </p>'); 
+			    }
+			}
+
+			else if(sessionStorage.getItem('flagDiscapacitado') == null ){
+
+				if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
+					$("#proceso3").hide();
+					$("#process4").show();	
+					$(".bar-inscripcion__3").removeClass('active');
+					$(".bar-inscripcion__4").addClass('active');		
+				}else{
+					alertify.error('<p style="color:white">Sólo de 6 a 17 años. </p>'); 
+			    }
+			}
+			
+		}
+
     }
 
-    console.log("Edad SESION ==> "+sessionStorage.getItem("edad"));
 
-	if(sessionStorage.getItem("edad")  == null || sessionStorage.getItem('edad')  == undefined){
-		var edadParticipante = calcularEdad($("#fechaNacimiento-hijo").val());
-
-		console.log("EDAD CALCULAR FRONTED ==> "+sessionStorage.getItem("edad"));
-	}
-
-	if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
-
-		if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-			if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
-				$("#proceso3").hide();
-				$("#process4").show();	
-				$(".bar-inscripcion__3").removeClass('active');
-				$(".bar-inscripcion__4").addClass('active');	
-		    }else{
-		    	alertify.error('<p style="color:white">Sólo de 5 a 40 años. </p>'); 
-		    }
-		}
-
-		else if(sessionStorage.getItem('flagDiscapacitado') == null ){
-
-			if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
-				$("#proceso3").hide();
-				$("#process4").show();	
-				$(".bar-inscripcion__3").removeClass('active');
-				$(".bar-inscripcion__4").addClass('active');		
-			}else{
-				alertify.error('<p style="color:white">Sólo de 6 a 17 años. </p>'); 
-		    }
-		}
-		
-	}
 });
 
 
@@ -1252,6 +1255,8 @@ function registrar(){
 		"discapacidad" :sessionStorage.getItem('flagDiscapacitado')
 	};
 
+	console.log("DATOS A REGISTRAR => ",dataRegisterApoderado);
+
 	$.ajax({
 
 		type:'POST',
@@ -1262,6 +1267,35 @@ function registrar(){
 		},
 
 		success: function(data){
+
+			/*sessionStorage.removeItem("idInscripcion");
+			sessionStorage.setItem("idInscripcion",data[0]['id']);
+
+			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+
+			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+
+			$("#nombre-ficha").append(data[0]['nombre']);
+			$("#apellidoPaterni-ficha").append(data[0]['apellidoPaterno']);
+			$("#apellidoMaterno-ficha").append(data[0]['apellidoMaterno']);
+			$("#distrito-ficha").append(data[0]['distrito']);
+			$("#domicilio-ficha").append(data[0]['direccion']);
+			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
+			$("#telefono-ficha").append(data[0]['telefono']);
+			$("#dni-ficha").append(data[0]['dni']);
+			$("#edad-ficha").append(sessionStorage.getItem("edad"));
+			$("#email-ficha").append(data[0]['correo']);
+			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
+			$("#complejo-ficha").append(data[0]['nombreComplejo']);
+			$("#horario-ficha").append(data[0]['horaInicio']+" a "+data[0]['horaFin'] +" - "+data[0]['turno']);
+
+			enviarEmailApoderado(data[0]['correo'],data[0]['nombre'],data[0]['id']);*/
+			
+			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+
+			//console.log("sucess: " + data[0]['nombre']);
+
+			//console.log(response[0].nombre);
 
 			var valor =JSON.parse(data)[0];
 			sessionStorage.removeItem("idInscripcion");
@@ -1286,7 +1320,7 @@ function registrar(){
 			$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
 			$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 
-			enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
+		    enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
 		
 		},
 
@@ -1354,7 +1388,7 @@ $(".mensajeEdad").empty();
             $("#apellidoMaterno").val('');
             $("#nombre").val('');
             $("#fechaNacimiento").val('');
-            $("#sexo").val(0);
+            $("#sexo").val(2);
             $("#apellidoPaterno").attr('readonly', false);
             $("#apellidoMaterno").attr('readonly', false);
             $("#nombre").attr('readonly', false);
@@ -1452,7 +1486,7 @@ $(".mensajeEdad").empty();
 			data: datoDniPersona,
 
 			beforeSend: function(){
-                                $(".mensajeEdad").empty();
+                $(".mensajeEdad").empty();
 				$('.cargarDatosParticipante').show();
 			},
 
@@ -1466,14 +1500,13 @@ $(".mensajeEdad").empty();
                 $("#apellidoMaterno-hijo").val("");
                 $("#nombre-hijo").val("");
                 $("#fechaNacimiento-hijo").val("");
-                $("#sexo-hijo").val(0);
+                $("#sexo-hijo").val(2);
 				if(data != ""){
 					var dataHijo = JSON.parse(data);
 
 					console.log("Busqueda DNI ==> ",dataHijo);
 
 						$(dataHijo).each(function(index,valor){
-
 							//if(valor.edad <= 17 ){
                                 $("#apellidoPaterno-hijo").attr('readonly', true);
                                 $("#apellidoMaterno-hijo").attr('readonly', true);
