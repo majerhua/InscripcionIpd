@@ -402,9 +402,6 @@ class Participante
         return $this->percodigo;
     }
 
-   
-    
-
     /**
      * Set estado
      *

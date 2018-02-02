@@ -37,6 +37,10 @@
 
 				font-size: 1.4em;
 			}
+	.container-footer{
+		font-size: 10px;
+		width: 50%;
+	}
 
 	.container-datosPersonales{
 		display: flex;

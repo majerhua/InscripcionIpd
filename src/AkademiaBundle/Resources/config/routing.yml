@@ -64,9 +64,9 @@ akademia_inscritos:
     defaults: {_controller: AkademiaBundle:Default:inscritos}
     methods: [GET,POST]
 
-akademia_cambiarEstado:
-    path:   /cambiarEstado
-    defaults: {_controller: AkademiaBundle:Default:cambiarEstado}
+akademia_cambiarestado:
+    path:   /cambiarestado
+    defaults: {_controller: AkademiaBundle:Default:cambiarestado}
     methods: [GET, POST]
 
 

@@ -301,10 +301,12 @@ class DefaultController extends Controller
     public function pruebaAction(Request $request){
     
         $em = $this->getDoctrine()->getManager();
-        $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante('48123344');
-        $idApod = $IDParticipante[0]['id'];
+        $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getApoderadoBusqueda('08161415');
+        //$idApod = $IDParticipante[0]['id'];
 
-        return new JsonResponse($idApod);
+        return new JsonResponse($IDParticipante);
+
+
     }
 
 
@@ -333,23 +335,128 @@ class DefaultController extends Controller
 
     }
 
-    public function cambiarEstadoAction(Request $request){
+    public function cambiarestadoAction(Request $request){
         
         if($request-> isXmlHttpRequest()){
 
             $idFicha = $request->request->get('id');
-            $em2 = $this->getDoctrine()->getManager();
-            $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
+           
+            $em = $this->getDoctrine()->getManager();
+            $data = $em->getRepository('AkademiaBundle:Inscribete')->cargaDatos($idFicha);
 
-            $post = $ficha->find($idFicha);
-            $post->setEstado(0);
-           // $em2->persist($post);
-            $flush = $em2->flush();
-            $data = 1;
+            $estadoFicha = $data[0]['estadoFicha'];
+            $idParticipante = $data[0]['idParticipante'];
+            $dniParticipante = $data[0]['dniParticipante'];
+            $estadoParticipante = $data[0]['estadoParticipante'];
+            $idApoderado = $data[0]['idApoderado'];
+            $dniApoderado = $data[0]['dniApoderado'];
+            $estadoApoderado = $data[0]['estadoApoderado'];
 
-            var_dump($data);
-            return ($data);
+
+            if( $estadoFicha == 0){
+
+                $em = $this->getDoctrine()->getManager();
+                $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
+
+                 if(!empty($IDParticipante)){      
+                   
+                    $idParticipanteN = $IDParticipante[0]['id'];
+
+                    $em = $this->getDoctrine()->getRepository(Participante::class);
+                    $participante = $em->find($idParticipanteN);
+                    $participante->setEstado(1);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+
+                    $em = $this->getDoctrine()->getManager();
+                    $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dniApoderado);
+                   
+                    if(!empty($IDApoderado)){
+
+                        $idApod = $IDApoderado[0]['id'];
+
+                    }else{
+
+                        $em = $this->getDoctrine()->getManager();
+                        $IDApoderadoExistente = $em->getRepository('AkademiaBundle:Apoderado')->getApoderadoBusqueda($dniApoderado);
+                        $idApod = $IDApoderadoExistente[0]['id'];
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $apoderado = $em->find($idApod);
+                        $apoderado->setEstado(1);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
+                        $em->flush(); 
+
+                    }
+                   
+                }else{
+
+                    $em = $this->getDoctrine()->getManager();
+                    $IDParticipanteExistente = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipanteApoderado($dniParticipante);
+                    
+                    $idParticipante = $IDParticipanteExistente[0]['id'];
+
+                    $em = $this->getDoctrine()->getRepository(Participante::class);
+                    $apoderado = $em->find($idParticipante);
+                    $apoderado->setEstado(1);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
+                    $em->flush(); 
+
+                    $idApoderadoActual = $IDParticipanteExistente[0]['apoderado_id'];
+
+                    $em = $this->getDoctrine()->getManager();
+                    $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarNuevoApoderado($dniApoderado, $idApoderadoActual);
+                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                    $apoderado = $em->find($idApoderadoActual);
+                    $apoderado->setEstado(1);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderadoActual,$dniParticipante);
+                    $em->flush(); 
+
+                }
+
+                $em2 = $this->getDoctrine()->getManager();
+                $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
+                $estadoFicha = $ficha->find($idFicha);
+                $estadoFicha->setEstado(2);
+                $em2->persist($estadoFicha);
+                $em2->flush();
+
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+
+
+            }else if( $estadoFicha == 1){
+
+                if ( $estadoParticipante == 1 && $estadoApoderado == 1){
+
+                    $em2 = $this->getDoctrine()->getManager();
+                    $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
+                    $estadoFicha = $ficha->find($idFicha);
+                    $estadoFicha->setEstado(2);
+                    $em2->persist($estadoFicha);
+                    $em2->flush();
+
+                    $mensaje = 1;
+                    return new JsonResponse($mensaje);
+                }
+
+            }
+            
         }
+
     }
 
 

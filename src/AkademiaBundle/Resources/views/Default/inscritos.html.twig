@@ -262,7 +262,7 @@
 					console.log(valor);
 					
 					clearFicha();
-					if( valor.estado == 0){
+					if( valor.estado == 2){
 						$("#estado-participante").append("INSCRITO");
 						$('#btn-confirmar-inscripcion').attr("disabled", true);
 					}else{
@@ -299,26 +299,27 @@
 
 				type:'POST',
 				dataType: 'json',
-				url: "{{url('akademia_cambiarEstado')}}",
+				url: "{{url('akademia_cambiarestado')}}",
 				data: dataFicha,
 				beforeSend: function(){	
 					$("#btn-confirmar-inscripcion").attr("disabled", true);	
 				},
 				success: function(data){
+					alert("Cambiooo");
 					//var valor = JSON.parse(data);
-					console.log("valor: " + data);
-					if(data == 1){
-						clearFicha();
-						$("#btn-confirmar-inscripcion").attr("disabled", true);
-						$('#input-codigo-inscripcion').focus();
-						showAlertMessage('#alerta-confirmacion', "Ficha Inscrita");
-					}
+					//console.log("valor: " + data);
+					//if(data == 1){
+					//	clearFicha();
+					//	$("#btn-confirmar-inscripcion").attr("disabled", true);
+					//	$('#input-codigo-inscripcion').focus();
+					//	showAlertMessage('#alerta-confirmacion', "Ficha Inscrita");
+					//}
 				},
 				error: function(error){
-					clearFicha();
-					$('#input-codigo-inscripcion').focus();
-					showAlertMessage('#alerta-confirmacion', "Ficha Inscrita satisfactoriamente");	
-					$("#btn-confirmar-inscripcion").attr("disabled", true);
+					//clearFicha();
+					//$('#input-codigo-inscripcion').focus();
+					//showAlertMessage('#alerta-confirmacion', "Ficha Inscrita satisfactoriamente");	
+					//$("#btn-confirmar-inscripcion").attr("disabled", true);
 					
 				}
 		    });

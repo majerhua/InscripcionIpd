@@ -20,4 +20,26 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
     	return $dni;
 	}
 
+    public function getbuscarNuevoApoderado($dni,$id){
+
+        $query ="select id from ACADEMIA.apoderado where dni='$dni' and id=$id";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $dni = $stmt->fetchAll();
+
+        return $dni;
+    }
+
+	public function getApoderadoBusqueda($dni){
+
+        $query ="select top 1 id from ACADEMIA.apoderado where dni='$dni' and estado = 0";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $dni = $stmt->fetchAll();
+
+    	return $dni;
+	}
+
+
+
 }
