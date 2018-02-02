@@ -18,14 +18,15 @@
             <br>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Inscripciones</a></li>
-                <li><a href="/consulta">Consultas</a></li>
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %}  
-                <li><a href="/inscritos">Promotores</a></li>
+                <li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 
-            {% else %}
-                <li><a href="/login">Promotores</a></li>                
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %}  
+                    <li><a href="{{url('akademia_inscritos')}}">Promotores</a></li>
 
-            {% endif %}
+                {% else %}
+                    <li><a href="{{url('akademia_login')}}">Promotores</a></li>             
+
+                {% endif %}
             </ul>
         </div>
     </div>
