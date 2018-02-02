@@ -45,7 +45,7 @@ security:
             http_basic: ~
             logout:
                 path: /logout
-                target: /principal
+                target: /
 
         main:
             anonymous: ~
@@ -60,9 +60,9 @@ security:
             
     access_control:
 
-        - {path: ^/principal, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - {path: ^/consulta, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - {path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - {path: ^/inscritos, roles: [ROLE_USER, ROLE_ADMIN]}
+        - {path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/consulta$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^(/inscritos|/consulta|/login|/), roles: [ROLE_USER, ROLE_ADMIN]}
 
      

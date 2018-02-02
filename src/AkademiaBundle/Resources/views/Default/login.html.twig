@@ -16,9 +16,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/principal">Inscripciones</a></li>
+                    <li><a href="/">Inscripciones</a></li>
                     <li><a href="/consulta">Consultas</a></li>
-                    <li><a href="/login">Promotores</a></li>
+                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %}	
+	            	<li><a href="/inscritos">Promotores</a></li>
+
+	            {% else %}
+					<li><a href="/login">Promotores</a></li>	            
+
+	            {% endif %}
                 </ul>
             </div>
         </div>
