@@ -442,7 +442,7 @@ class DefaultController extends Controller
             $nombre = $request->request->get('nombre');
             $id = $request->request->get('id');
 
-            $subject =  'PRE INSCRIPCION CONFIRMADA - IPD ';
+            $subject =  'PRE INSCRIPCION CONFIRMADA PARA '.$nombre.'';
             $message =  '<html>'.
                         '<head><title>IPD</title></head>'.
                         '<body><h2>Hola! '.$nombre.' </h2>'.
