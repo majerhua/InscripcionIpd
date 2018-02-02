@@ -60,7 +60,7 @@ security:
             
     access_control:
 
-        - {path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/consulta$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^(/inscritos|/consulta|/login|/), roles: [ROLE_USER, ROLE_ADMIN]}
