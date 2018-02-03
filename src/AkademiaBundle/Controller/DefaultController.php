@@ -161,6 +161,7 @@ class DefaultController extends Controller
             $direccion = $request->request->get('direccion');
             $telefono = $request->request->get('telefono');
             $correo = $request->request->get('correo');
+            $estado = $request->request->get('estado');
 
             //DATOS PARTICIPANTE
             $dniParticipante = $request->request->get('dniParticipante');
@@ -210,7 +211,8 @@ class DefaultController extends Controller
                     $apoderado->setDistrito($buscarDistrito);
                     $apoderado->setDireccion($direccion);
                     $apoderado->setTelefono($telefono);
-                    $apoderado->setCorreo($correo);         
+                    $apoderado->setCorreo($correo);    
+                    $apoderado->setEstado($estado);     
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($apoderado);
                     $em->flush();
@@ -358,7 +360,7 @@ class DefaultController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
 
-                 if(!empty($IDParticipante)){      
+                if(!empty($IDParticipante)){      
                    
                     $idParticipanteN = $IDParticipante[0]['id'];
 
@@ -375,7 +377,6 @@ class DefaultController extends Controller
                     if(!empty($IDApoderado)){
 
                         $idApod = $IDApoderado[0]['id'];
-
                     }else{
 
                         $em = $this->getDoctrine()->getManager();
@@ -391,9 +392,8 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getManager();
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
                         $em->flush(); 
-
                     }
-                   
+
                 }else{
 
                     $em = $this->getDoctrine()->getManager();

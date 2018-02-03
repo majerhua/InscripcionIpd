@@ -305,15 +305,12 @@
 					$("#btn-confirmar-inscripcion").attr("disabled", true);	
 				},
 				success: function(data){
-					alert("Cambiooo");
-					//var valor = JSON.parse(data);
-					//console.log("valor: " + data);
-					//if(data == 1){
-					//	clearFicha();
-					//	$("#btn-confirmar-inscripcion").attr("disabled", true);
-					//	$('#input-codigo-inscripcion').focus();
-					//	showAlertMessage('#alerta-confirmacion', "Ficha Inscrita");
-					//}
+					//alert("Cambiooo");
+					clearFicha();
+					$("#btn-confirmar-inscripcion").attr("disabled", true);
+					$('#input-codigo-inscripcion').focus();
+					showAlertMessage('#alerta-confirmacion', "Ficha Inscrita");
+					
 				},
 				error: function(error){
 					//clearFicha();
