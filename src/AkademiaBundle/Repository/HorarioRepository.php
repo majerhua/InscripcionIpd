@@ -11,26 +11,37 @@ namespace AkademiaBundle\Repository;
 class HorarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
-	public function getHorarios(){
+        public function getHorarios(){
 
-        $query = "select * from ACADEMIA.horario where convocatoria='1'";
-        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-        $stmt->execute();
-        $horarios = $stmt->fetchAll();
+                $query = "select * from ACADEMIA.horario where convocatoria='1'";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $horarios = $stmt->fetchAll();
 
-        return $horarios;
-	}
+                return $horarios;
+        }
 
-	public function getHorariosDiscapacitados(){
-		$query = "select * from ACADEMIA.horario where discapacitados = 1";
-        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-        $stmt->execute();
-        $horarios = $stmt->fetchAll();
+        public function getHorariosDiscapacitados(){
+        
+                $query = "select * from ACADEMIA.horario where discapacitados = 1";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $horarios = $stmt->fetchAll();
 
-        return $horarios;
+                return $horarios;
 
-	}
+        }
 
+        public function getHorariosComplejos($idcomplejo){
+        
+                $query ="select rtrim(b.dis_descripcion) as nombreDisciplina,b.dis_codigo as idDisciplina ,d.turno as turno, d.discapacitados as discapacidad,d.edadMinima as edadMinima,d.edadMaxima as edadMaxima, d.id as idHorario, d.horaInicio as horaInicio, d.horaFin as horaFin, d.vacantes as vacantes,d.convocatoria as convocatoria from CATASTRO.edificacionDisciplina as a inner join CATASTRO.disciplina as b on a.dis_codigo = b.dis_codigo inner join CATASTRO.edificacionesdeportivas as c on a.ede_codigo=c.ede_codigo inner join academia.horario as d on a.ede_codigo= d.edi_codigo where a.ede_codigo = $idcomplejo and b.dis_estado = 1";
 
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $horarios = $stmt->fetchAll();
+
+                return $horarios;
+
+        }
 
 }

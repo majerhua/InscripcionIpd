@@ -233,7 +233,6 @@ class DefaultController extends Controller
                     $em->flush(); 
                    
                 }else{
-
                     
                     $participante = new Participante();
                     $participante->setDni($dniParticipante);
@@ -354,45 +353,54 @@ class DefaultController extends Controller
             $dniApoderado = $data[0]['dniApoderado'];
             $estadoApoderado = $data[0]['estadoApoderado'];
 
-
             if( $estadoFicha == 0){
 
                 $em = $this->getDoctrine()->getManager();
                 $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
 
-                if(!empty($IDParticipante)){      
+                if(!empty($IDParticipante)){   
+
+                    $idParticipante = $IDParticipante[0]['id'];
                    
-                    $idParticipanteN = $IDParticipante[0]['id'];
-
-                    $em = $this->getDoctrine()->getRepository(Participante::class);
-                    $participante = $em->find($idParticipanteN);
-                    $participante->setEstado(1);
                     $em = $this->getDoctrine()->getManager();
-                    $em->flush();
+                    $idApoderadoB = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dniApoderado);          
 
+                    if(!empty($idApoderadoB)){
 
-                    $em = $this->getDoctrine()->getManager();
-                    $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dniApoderado);
-                   
-                    if(!empty($IDApoderado)){
-
-                        $idApod = $IDApoderado[0]['id'];
-                    }else{
+                        $idApoderado = $idApoderadoB[0]['id'];
 
                         $em = $this->getDoctrine()->getManager();
-                        $IDApoderadoExistente = $em->getRepository('AkademiaBundle:Apoderado')->getApoderadoBusqueda($dniApoderado);
-                        $idApod = $IDApoderadoExistente[0]['id'];
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->flush();
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
+                        $em->flush(); 
+                    
+                    }else{
+
+                        
+                        $em = $this->getDoctrine()->getManager();
+                        $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getApoderadoBusqueda($dniApoderado);
+
+                        $idApoderado = $IDApoderado[0]['id'];
 
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
-                        $apoderado = $em->find($idApod);
+                        $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
 
                         $em = $this->getDoctrine()->getManager();
-                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
                         $em->flush(); 
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
+                        $em->flush(); 
+
                     }
+
 
                 }else{
 
@@ -411,19 +419,36 @@ class DefaultController extends Controller
                     $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
                     $em->flush(); 
 
-                    $idApoderadoActual = $IDParticipanteExistente[0]['apoderado_id'];
+                    $em = $this->getDoctrine()->getManager();
+                    $idApoderadoB = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dniApoderado);
+                    
+                   
 
-                    $em = $this->getDoctrine()->getManager();
-                    $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarNuevoApoderado($dniApoderado, $idApoderadoActual);
-                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
-                    $apoderado = $em->find($idApoderadoActual);
-                    $apoderado->setEstado(1);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->flush();
+                    if(!empty($idApoderadoB)){
 
-                    $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderadoActual,$dniParticipante);
-                    $em->flush(); 
+                        $idApoderado = $idApoderadoB[0]['id'];
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->flush(); 
+                    
+                    }else{
+
+                        $em = $this->getDoctrine()->getManager();
+                        $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getApoderadoBusqueda($dniApoderado);
+
+                        $idApoderado = $IDApoderado[0]['id'];
+                        
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $apoderado = $em->find($idApoderado);
+                        $apoderado->setEstado(1);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->flush(); 
+                    }                  
 
                 }
 
@@ -458,7 +483,6 @@ class DefaultController extends Controller
         }
 
     }
-
 
     public function generarPdfInscripcionAction(Request $request , $id)
     {   
@@ -595,6 +619,26 @@ class DefaultController extends Controller
 
     public function inscritosAction(Request $request){
         return $this->render('AkademiaBundle:Default:inscritos.html.twig');
+    }
+
+    public function horariosAction(Request $request){
+
+            $em2 = $this->getDoctrine()->getManager();
+            $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios(11);
+            $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos(11);
+
+            return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios)); 
+    }
+
+
+    public function horariosComplejoAction(Request $request){
+        if($request->isXmlHttpRequest())
+        {
+         
+
+
+
+        }
     }
     
 }

@@ -16,6 +16,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
+                	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -26,7 +27,10 @@
 	
 	<section >
 		<div id="" class="proceso" style="margin-bottom: 60px;">
-			<h1 class="text-center">Confirmación de la pre-inscripción</h1>
+			<br>
+			<h2>Administración de Inscritos</h2>
+			<h4 class="text-center" style="color:grey">CONFIRMAR PRE-INSCRIPCIÓN</h4>
+			<hr>
 			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
 				<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
 				<p>Confirma la inscripción de los participantes buscándolos por el número de registro que aparece en su ficha de pre-inscripción</p>
@@ -138,7 +142,6 @@
 												<strong><p id="edad-participante"></p></strong>
 											</div>
 										</div>
-
 									</li>
 
 									<li class="list-group-item">
@@ -150,9 +153,7 @@
 											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 												<strong><p id="deporte-participante"></p></strong>
 											</div>
-
 										</div>
-
 									</li>
 
 									<li class="list-group-item">
@@ -169,24 +170,18 @@
 									</li>					
 
 									<li class="list-group-item">
-
 										<div class="row">
 											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 												<p>Horario</p>
 											</div>
-
 											<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 												<strong><p id="horario-participante"></p></strong>
 											</div>
-
 										</div>
-
 									</li>	
-
 								</ul>
 							</div>
-						</div>
-						
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -228,9 +223,11 @@
 
 {% endblock %}
 {% block javascripts %}
-	<!-- scripts -->
+
 	<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 	<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+
 
 	<script type="text/javascript">
 		
@@ -262,6 +259,7 @@
 					console.log(valor);
 					
 					clearFicha();
+
 					if( valor.estado == 2){
 						$("#estado-participante").append("INSCRITO");
 						$('#btn-confirmar-inscripcion').attr("disabled", true);
@@ -279,7 +277,6 @@
 					$("#complejo-participante").append(valor.nombreComplejo);
 					$("#horario-participante").append(valor.horaInicio+" a "+valor.horaFin +" - "+ valor.turno);
 
-					
 				},
 				error: function(error){
 					console.log("Error En la captura de dataa");
@@ -313,11 +310,7 @@
 					
 				},
 				error: function(error){
-					//clearFicha();
-					//$('#input-codigo-inscripcion').focus();
-					//showAlertMessage('#alerta-confirmacion', "Ficha Inscrita satisfactoriamente");	
-					//$("#btn-confirmar-inscripcion").attr("disabled", true);
-					
+					console.log("Error en la captura de datos");
 				}
 		    });
 
@@ -339,6 +332,7 @@
 				
 		}
 
+		
 		/*Muestra mensaje de alerta*/
 		function showAlertMessage(alert, mensaje){
 			$(alert).text(mensaje).show('fade');

@@ -1275,35 +1275,6 @@ function registrar(){
 
 		success: function(data){
 
-			/*sessionStorage.removeItem("idInscripcion");
-			sessionStorage.setItem("idInscripcion",data[0]['id']);
-
-			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
-
-			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
-
-			$("#nombre-ficha").append(data[0]['nombre']);
-			$("#apellidoPaterni-ficha").append(data[0]['apellidoPaterno']);
-			$("#apellidoMaterno-ficha").append(data[0]['apellidoMaterno']);
-			$("#distrito-ficha").append(data[0]['distrito']);
-			$("#domicilio-ficha").append(data[0]['direccion']);
-			$("#fechaNacimiento-ficha").append(data[0]['fechaNacimiento']);
-			$("#telefono-ficha").append(data[0]['telefono']);
-			$("#dni-ficha").append(data[0]['dni']);
-			$("#edad-ficha").append(sessionStorage.getItem("edad"));
-			$("#email-ficha").append(data[0]['correo']);
-			$("#deporte-ficha").append(data[0]['nombreDisciplina']);
-			$("#complejo-ficha").append(data[0]['nombreComplejo']);
-			$("#horario-ficha").append(data[0]['horaInicio']+" a "+data[0]['horaFin'] +" - "+data[0]['turno']);
-
-			enviarEmailApoderado(data[0]['correo'],data[0]['nombre'],data[0]['id']);*/
-			
-			//$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
-
-			//console.log("sucess: " + data[0]['nombre']);
-
-			//console.log(response[0].nombre);
-
 			var valor =JSON.parse(data)[0];
 			sessionStorage.removeItem("idInscripcion");
 			sessionStorage.setItem("idInscripcion",valor.id);

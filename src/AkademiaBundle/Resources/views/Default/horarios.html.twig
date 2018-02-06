@@ -1,0 +1,519 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
+                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
+                    <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+	<section  id="inscribete"  class="proceso-inscripcion">
+		<div id="proceso1" class="proceso" style="margin-bottom: 60px;">	
+				
+		    	<h2>CP {{complejosDisciplinas[0]['nombreComplejo']}}</h2>
+		    
+			<h4 style="color:grey">ADMINISTRACION DE HORARIOS</h4>
+			<hr>
+
+			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
+				<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+				<p>Administra los horarios asignados al tu complejo deportivo, puedes actualizar el número de vacantes y aperturar o cerrar horarios</p>
+
+			</div>
+
+			{% for complejosDisciplina in complejosDisciplinas %}
+			
+
+			<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">	
+				<div class="card">
+					<div class="card-header text-center" role="tab" id="">
+						<a class="title-card" data-toggle="collapse" href="#{{complejosDisciplina['idDisciplina']}}" >
+							<strong>{{complejosDisciplina['nombreDisciplina']}}</strong>
+						</a>
+					</div>
+					<div id="{{complejosDisciplina['idDisciplina']}}" class="collapse" role="tabpanel" data-parent="#accordion">
+						<br>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="panel panel-default" style="overflow-x:auto;">
+										<table class=table> 
+											<thead> 
+												<tr> 
+													<th class="text-center">Código</th>
+													<th class="text-center">Turno</th> 
+													<th class="text-center">Hora</th>
+													<th class="text-center">Edades</th> 
+													<th class="text-center">Vacantes</th> 
+													<th class="text-center">Discapacitad</th>
+													<th></th>
+													<th></th>
+												</tr>
+
+											</thead> 
+											
+											<tbody id="horariosDisciplina"> 
+												
+											{% for horario in horarios %}
+
+											{% if horario['idDisciplina'] == complejosDisciplina['idDisciplina'] %}
+											
+												<tr> 
+													<td class="text-center">{{horario['idHorario']}}</td> 
+													<td class="text-center">{{horario['turno']}}</td> 
+													<td class="text-center">{{horario['horaInicio']}} - {{horario['horaFin']}}</td> 
+													<td class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
+													<td class="text-center">{{horario['vacantes']}}</td> 
+													{% if  horario['discapacidad'] == 0 %}
+														<td class="text-center"> No </td> 
+													{% else %}
+														<td class="text-center"> Si </td> 
+													{% endif %}
+													<td><button type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-default" data-toggle="modal" data-target="#modal-editar">Editar</button></td>
+													<td><a href="#" type="button" class="btn btn-info">Inscritos</a></td>
+												</tr> 
+												
+											{% endif %}
+										    {% endfor %}
+																								
+											</tbody> 
+										</table>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row text-right">
+								<button type="button" data-toggle="modal"  onclick="nuevoHorario()" data-target="#modal-crear" class="btn btn-danger" style="margin-right: 18px;">Crear nuevo horario</button>
+							</div>
+						</div>
+					</div>
+				</div>       
+			</div>
+			
+			{% endfor %}
+
+		</div>
+</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+
+<!-- modal -->
+<div id="modal-editar" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+				<h4 class="title-card">CP {{complejosDisciplinas[0]['nombreComplejo']}}</h4>
+			</div>
+			<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div id="alert-editar-info" class="alert alert-warning alert-dismissible text-center" role="alert">
+								<button id="btn-close-alert-editar-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+								<p>Actualiza la información de este horario</p>
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Código</strong></p>
+										</div>
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<p id="editar_codigo_horario"></p>
+
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Disciplina</strong></p>
+										</div>
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<p id="editar_disciplina_horario"></p>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Turno</strong></p>
+										</div>
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<p id="editar_turno_horario"></p>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Hora</strong></p>
+										</div>
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<p id="editar_hora_horario"></p>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Edades</strong></p>
+										</div>
+
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<p id="editar_edades_horario"></p>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Discapacidad</strong></p>
+										</div>
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<p id="editar_discapacidad_horario"></p>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Vacantes</strong></p>
+										</div>
+
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<input id="editar_vacantes_horario" class="form-control"  type="number" min="0" class="validate" autofocus>
+										</div>
+									</div>
+								</li>					
+
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+											<p><strong>Convocatoria</strong></p>
+										</div>
+
+										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+											<select class="form-control" id="">
+												<option selected> --Seleccionar--</option>
+												<option value="1">Abierta</option>
+												<option value="0">Cerrada</option>
+											</select>
+										</div>
+									</div>
+								</li>	
+							</ul>
+						</div>
+					</div>
+				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button id="btn-actualizar-horario" type="button" class="btn btn-danger" data-dismiss="modal"  onclick="actualizarHorario()">Actualizar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="modal-crear" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+				<h4 class="title-card">C.D. Canto Grande</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div id="alert-crear-info" class="alert alert-warning alert-dismissible text-center" role="alert">
+							<button id="btn-close-alert-crear-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+							<p>Apertura un nuevo horario</p>
+						</div>
+
+						<ul class="list-group">
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Disciplina</strong></p>
+									</div>
+
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<p id="crear_disciplina-horario">Natación</p>
+									</div>
+								</div>
+
+							</li>
+
+							<li class="list-group-item">
+
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Turno</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										
+										<input id="crear_turno-horario" class="form-control" name="turno-horario" type="text" class="validate">
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Hora Inicio</strong></p>
+											</div>
+
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Hora Fin</strong></p>
+											</div>
+
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+
+								<div class="row">
+
+									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Edad mínima</strong></p>
+											</div>
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_edad-minima-horario" class="form-control" name="edad-minima-horario" type="number" min="0" class="validate">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Edad máxima</strong></p>
+
+											</div>
+
+											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_edad-maxima-horario" class="form-control" name="edad-maxima-horario" type="number" min="0" class="validate">
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Discapacidad</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<select class="form-control">
+											<option>No</option>
+											<option>Si</option>
+										</select>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Vacantes</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<input id="crear_vacantes-horario" class="form-control" name="vacantes-horario" type="number" min="0" class="validate">
+									</div>
+								</div>
+							</li>					
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Convocatoria</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<select class="form-control">
+											<option>Abierta</option>
+											<option>Cerrada</option>
+										</select>
+									</div>
+								</div>
+							</li>	
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button id="btn-crear-horario" type="button" class="btn btn-danger" data-dismiss="modal">Crear</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+{% block javascripts %}
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+			$('#btn-close-alert-info').click(function(){
+				hideAlertMessage('#alert-info');
+			});	
+
+			$('#btn-close-alert-editar-info').click(function(){
+				hideAlertMessage('#alert-editar-info');
+			});	
+
+			$('#btn-close-alert-crear-info').click(function(){
+				hideAlertMessage('#alert-crear-info');
+			});	
+
+		});
+
+
+		function editarHorario(idHorario, idDisciplina){
+			
+			var idHorario = idHorario;
+			var idDisciplina = idDisciplina;
+			console.log(idDisciplina);
+			
+			Limpiar();
+			
+
+                {% for horario in horarios  %}
+				if( "{{horario['idHorario']}}" == idHorario && {{horario['idDisciplina']}} == idDisciplina ){
+					
+					$("#editar_codigo_horario").append("<p>{{horario['idHorario']}}</p>");
+					$("#editar_disciplina_horario").append("<p>{{horario['nombreDisciplina']}}</p>");
+					$("#editar_turno_horario").append("<p>{{horario['turno']}}</p>");
+					$("#editar_hora_horario").append("<p>{{horario['horaInicio']}} - {{horario['horaFin']}}</p>");
+					$("#editar_edades_horario").append("<p>{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</p>");
+					$("#editar_discapacidad_horario").append("<p>{{horario['discapacidad']}}</p>");
+					
+					
+				}
+
+				{% endfor %}
+		}
+
+		function Limpiar(){
+
+			$("#editar_codigo_horario").empty();
+			$("#editar_disciplina_horario").empty();
+			$("#editar_turno_horario").empty();
+			$("#editar_hora_horario").empty();
+			$("#editar_edades_horario").empty();
+			$("#editar_discapacidad_horario").empty();
+			$("#editar_vacantes_horario").empty();
+			$("#editar_convocatoria_horario").empty();
+
+		}
+
+		function actualizarHorario(){
+
+			//var idHorario = document.getElementById('editar_codigo_horario').value;
+			var idHorario = $("#editar_codigo_horario").text();
+			var vacantes = $("#editar_vacantes_horario").val();
+			var convocatoria = $("#editar_convocatoria_horario").val();
+			
+			console.log(idHorario, vacantes , convocatoria);
+			
+		}
+
+
+		/*Muestra mensaje de alerta*/
+		function showAlertMessage(alert, mensaje){
+			$(alert).text(mensaje).show('fade');
+			setTimeout(function(){
+				hideAlertMessage(alert);	
+			}, 2000);
+		}
+
+		/*Oculta mensaje de alerta*/
+		function hideAlertMessage(alert){
+			$(alert).hide('fade');		
+		}
+	
+</script>
+
+{% endblock %}

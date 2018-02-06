@@ -13,7 +13,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getbuscarParticipante($dni){
 
-        $query = "select id from ACADEMIA.participante where dni='$dni' and estado=1";
+        $query = "select id from ACADEMIA.participante where dni='$dni' and estado = 1";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $dni = $stmt->fetchAll();
@@ -30,6 +30,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
         return $dni;
     }
+
 
     public function getActualizarApoderado($idApod, $dni){
         $query = "UPDATE ACADEMIA.participante SET apoderado_id ='$idApod'  WHERE dni='$dni'; ";

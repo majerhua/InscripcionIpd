@@ -4,37 +4,37 @@ akademia_homepage:
     methods:  [GET,POST]
 
 akademia_registrar:
-    path:     /registrar
+    path:     /ajax/registrar
     defaults: { _controller: AkademiaBundle:Default:registrar }
     methods:  [GET,POST]
 
 akademia_mostrarficha:
-    path:     /mostrarficha
+    path:     /ajax/mostrarficha
     defaults: { _controller: AkademiaBundle:Default:mostrarficha }
     methods:  [GET,POST]
 
 akademia_getPost:
-    path:     /post/get
+    path:     /ajax/post/get
     defaults: { _controller: AkademiaBundle:Default:post}
     methods:  [GET,POST]
 
 akademia_sendemailapoderado:
-    path:     /sendemailapoderado
+    path:     /ajax/sendemailapoderado
     defaults: { _controller: AkademiaBundle:Default:sendemailapoderado}
     methods:  [GET,POST]
 
 akademia_generarPdfInscripcion:
-    path:     /pdf/inscripcion/{id}
+    path:     /ajax/pdf/inscripcion/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfInscripcion}
     methods:  [GET,POST]
 
 akademia_generarPdfDeclaracionJurada:
-    path:     /pdf/declaracion-jurada/{id}
+    path:     /ajax/pdf/declaracion-jurada/{id}
     defaults: { _controller: AkademiaBundle:Default:generarPdfDeclaracionJurada}
     methods:  [GET,POST]
 
 akademia_sendemail:
-    path:     /sendemail
+    path:     /ajax/sendemail
     defaults: { _controller: AkademiaBundle:Default:sendemail}
     methods:  [GET,POST]
 
@@ -45,7 +45,7 @@ akademia_prueba:
 
 
 akademia_sendemailusuario:
-    path:     /sendemailusuario
+    path:     /ajax/sendemailusuario
     defaults: { _controller: AkademiaBundle:Default:sendemailusuario}
     methods:  [GET,POST]
 
@@ -55,7 +55,7 @@ akademia_consulta:
     methods:  [GET,POST]
 
 akademia_mostrarcomplejos:
-    path:    /mostrarcomplejos
+    path:    /ajax/mostrarcomplejos
     defaults: {_controller: AkademiaBundle:Default:mostrarcomplejos}
     methods: [GET,POST]
 
@@ -64,11 +64,20 @@ akademia_inscritos:
     defaults: {_controller: AkademiaBundle:Default:inscritos}
     methods: [GET,POST]
 
+akademia_horarios:
+    path:    /horarios
+    defaults: {_controller: AkademiaBundle:Default:horarios}
+    methods: [GET,POST]
+    
+akademia_horariosComplejo:
+   path:    /ajax/horariosCompejo
+   defaults: {_controller: AkademiaBundle:Default:horariosComplejo}
+   methods: [GET,POST]
+
 akademia_cambiarestado:
-    path:   /cambiarestado
+    path:   /ajax/cambiarestado
     defaults: {_controller: AkademiaBundle:Default:cambiarestado}
     methods: [GET, POST]
-
 
 akademia_login:
     path:    /login

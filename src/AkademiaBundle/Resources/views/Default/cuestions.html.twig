@@ -20,13 +20,13 @@
                 <li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
                 <li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %}  
+                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %} 
                     <li><a href="{{url('akademia_inscritos')}}">Promotores</a></li>
 
                 {% else %}
-                    {#<li><a href="{{url('akademia_login')}}">Promotores</a></li>#}            
+                    <li><a href="{{url('akademia_login')}}">Promotores</a></li>             
 
-                {% endif %}
+                {% endif %} 
             </ul>
         </div>
     </div>
