@@ -477,7 +477,7 @@ class Participante
      */
     public function getUsuarioValida()
     {
-        return $this->UsuarioValida;
+        return $this->usuarioValida;
     }
 
 }

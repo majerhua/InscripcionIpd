@@ -303,7 +303,6 @@ class DefaultController extends Controller
     
         $em = $this->getDoctrine()->getManager();
         $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getApoderadoBusqueda('08161415');
-        //$idApod = $IDParticipante[0]['id'];
 
         return new JsonResponse($IDParticipante);
 
@@ -342,7 +341,6 @@ class DefaultController extends Controller
         if($request-> isXmlHttpRequest()){
 
             $idFicha = $request->request->get('id');
-            $usuario = $this->getUser()->getUsername();
            
             $em = $this->getDoctrine()->getManager();
             $data = $em->getRepository('AkademiaBundle:Inscribete')->cargaDatos($idFicha);
@@ -364,6 +362,7 @@ class DefaultController extends Controller
 
                     $idParticipante = $IDParticipante[0]['id'];
 
+                    $usuario = $this->getUser()->getUsername();
                     $em = $this->getDoctrine()->getRepository(Participante::class);
                     $participante = $em->find($idParticipante);
                     $participante->setUsuarioValida($usuario);
@@ -378,9 +377,10 @@ class DefaultController extends Controller
                         $idApoderado = $idApoderadoB[0]['id'];
 
                         $em = $this->getDoctrine()->getManager();
-                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$idParticipante);
                         $em->flush();
 
+                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setUsuarioValida($usuario);
@@ -400,6 +400,7 @@ class DefaultController extends Controller
 
                         $idApoderado = $IDApoderado[0]['id'];
 
+                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
@@ -408,7 +409,7 @@ class DefaultController extends Controller
                         $em->flush();
 
                         $em = $this->getDoctrine()->getManager();
-                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$idParticipante);
                         $em->flush(); 
 
                         $em = $this->getDoctrine()->getManager();
@@ -425,6 +426,7 @@ class DefaultController extends Controller
                     
                     $idParticipante = $IDParticipanteExistente[0]['id'];
 
+                    $usuario = $this->getUser()->getUsername();
                     $em = $this->getDoctrine()->getRepository(Participante::class);
                     $participante = $em->find($idParticipante);
                     $participante->setEstado(1);
@@ -446,38 +448,43 @@ class DefaultController extends Controller
                         $idApoderado = $idApoderadoB[0]['id'];
 
                         $em = $this->getDoctrine()->getManager();
-                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$idParticipante);
                         $em->flush(); 
 
+                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setUsuarioValida($usuario);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                        
-
-                    
                     }else{
 
                         $em = $this->getDoctrine()->getManager();
                         $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getApoderadoBusqueda($dniApoderado);
 
                         $idApoderado = $IDApoderado[0]['id'];
-                        
+
+                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
                         $apoderado->setUsuarioValida($usuario);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
-                        
+
                         $em = $this->getDoctrine()->getManager();
-                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$idParticipante);
+                        $em->flush(); 
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
                         $em->flush(); 
                     }                  
 
                 }
 
+                $usuario = $this->getUser()->getUsername();
                 $em2 = $this->getDoctrine()->getManager();
                 $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
                 $estadoFicha = $ficha->find($idFicha);
@@ -489,12 +496,23 @@ class DefaultController extends Controller
                 $mensaje = 1;
                 return new JsonResponse($mensaje);
 
-
             }else if( $estadoFicha == 1){
-
+                
                 if ( $estadoParticipante == 1 && $estadoApoderado == 1){
 
-                   
+                    $usuario = $this->getUser()->getId();
+                    $em = $this->getDoctrine()->getRepository(Participante::class);
+                    $participante = $em->find($idParticipante);
+                    $participante->setUsuarioValida($usuario);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                    $apoderado = $em->find($idApoderado);
+                    $apoderado->setUsuarioValida($usuario);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
                     $em2 = $this->getDoctrine()->getManager();
                     $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
                     $estadoFicha = $ficha->find($idFicha);
@@ -505,6 +523,9 @@ class DefaultController extends Controller
 
                     $mensaje = 1;
                     return new JsonResponse($mensaje);
+
+
+
                 }
 
             }
