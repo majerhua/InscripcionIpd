@@ -26,11 +26,15 @@
 	
 	
 	<section >
+		<br>
+		<div style="width:91%">
+			<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+		</div>
 		<div id="" class="proceso" style="margin-bottom: 60px;">
-			<br>
+			
 			<h2>Administración de Inscritos</h2>
 			<h4 class="text-center" style="color:grey">CONFIRMAR PRE-INSCRIPCIÓN</h4>
-			<hr>
+		
 			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
 				<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
 				<p>Confirma la inscripción de los participantes buscándolos por el número de registro que aparece en su ficha de pre-inscripción</p>
@@ -186,7 +190,6 @@
 				</div>
 			</div>
 		</div>
-
 	</section>
 
 <footer class="footer">
@@ -319,6 +322,7 @@
 
 		/*Limpia todos los campos de la ficha*/
 		function clearFicha(){
+			
 			$("#estado-participante").text('');
 			$('#input-codigo-inscripcion').text('');
 			$('#nombre-participante').text('');				

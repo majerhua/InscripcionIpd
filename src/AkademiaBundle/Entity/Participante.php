@@ -110,6 +110,12 @@ class Participante
      */
     private $discapacitado;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario_valida", type="string", length=255)
+     */
+    private $usuarioValida;
 
     /**
      * Get id
@@ -449,4 +455,29 @@ class Participante
     {
         return $this->discapacitado;
     }
+
+    /**
+     * Set usuarioValida
+     *
+     * @param string $usuarioValida
+     *
+     * @return Inscribete
+     */
+    public function setUsuarioValida($usuarioValida)
+    {
+        $this->usuarioValida = $usuarioValida;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioValida
+     *
+     * @return string
+     */
+    public function getUsuarioValida()
+    {
+        return $this->UsuarioValida;
+    }
+
 }

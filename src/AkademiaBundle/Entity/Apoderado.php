@@ -116,6 +116,12 @@ class Apoderado
      */
     private $estado;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario_valida", type="string", length=255)
+     */
+    private $usuarioValida;
 
     /**
      * Get id
@@ -366,6 +372,32 @@ class Apoderado
     {
         return $this->fechaNacimiento->format('Y-m-d');
     }
+
+    /**
+     * Set usuarioValida
+     *
+     * @param string $usuarioValida
+     *
+     * @return Inscribete
+     */
+    public function setUsuarioValida($usuarioValida)
+    {
+        $this->usuarioValida = $usuarioValida;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioValida
+     *
+     * @return string
+     */
+    public function getUsuarioValida()
+    {
+        return $this->UsuarioValida;
+    }
+
+
     /**
      * Constructor
      */

@@ -48,6 +48,13 @@ class Inscribete
      */
     private $estado;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario_valida", type="string", length=255)
+     */
+    private $usuarioValida;
+
 
     /**
      * Get id
@@ -108,6 +115,30 @@ class Inscribete
     }
 
     /**
+     * Set usuarioValida
+     *
+     * @param string $usuarioValida
+     *
+     * @return Inscribete
+     */
+    public function setUsuarioValida($usuarioValida)
+    {
+        $this->usuarioValida = $usuarioValida;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioValida
+     *
+     * @return string
+     */
+    public function getUsuarioValida()
+    {
+        return $this->UsuarioValida;
+    }
+
+    /**
      * Set participante
      *
      * @param \AkademiaBundle\Entity\Participante $participante
@@ -154,4 +185,6 @@ class Inscribete
     {
         return $this->horario;
     }
+
+
 }

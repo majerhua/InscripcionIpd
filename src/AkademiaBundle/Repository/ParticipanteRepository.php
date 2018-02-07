@@ -38,7 +38,8 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
     }
 
-     public function getActualizarParticipanteFicha($idParticipante, $ficha){
+    
+    public function getActualizarParticipanteFicha($idParticipante, $ficha){
         $query = "UPDATE ACADEMIA.inscribete SET participante_id ='$idParticipante'  WHERE id='$ficha'; ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();

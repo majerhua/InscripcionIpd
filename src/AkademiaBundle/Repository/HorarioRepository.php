@@ -44,4 +44,12 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         }
 
+        public function getActualizarHorarios($idHorario, $idDisciplina, $vacantes, $convocatoria){
+
+                $query = "update academia.horario set convocatoria = $convocatoria, vacantes = $vacantes from academia.horario a, catastro.disciplina b where a.id = $idHorario and b.dis_codigo = $idDisciplina";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+
+        }
+
 }

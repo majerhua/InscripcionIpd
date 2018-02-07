@@ -337,10 +337,12 @@ class DefaultController extends Controller
     }
 
     public function cambiarestadoAction(Request $request){
+
         
         if($request-> isXmlHttpRequest()){
 
             $idFicha = $request->request->get('id');
+            $usuario = $this->getUser()->getUsername();
            
             $em = $this->getDoctrine()->getManager();
             $data = $em->getRepository('AkademiaBundle:Inscribete')->cargaDatos($idFicha);
@@ -361,6 +363,12 @@ class DefaultController extends Controller
                 if(!empty($IDParticipante)){   
 
                     $idParticipante = $IDParticipante[0]['id'];
+
+                    $em = $this->getDoctrine()->getRepository(Participante::class);
+                    $participante = $em->find($idParticipante);
+                    $participante->setUsuarioValida($usuario);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
                    
                     $em = $this->getDoctrine()->getManager();
                     $idApoderadoB = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dniApoderado);          
@@ -372,6 +380,13 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getManager();
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
                         $em->flush();
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $apoderado = $em->find($idApoderado);
+                        $apoderado->setUsuarioValida($usuario);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                       
 
                         $em = $this->getDoctrine()->getManager();
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
@@ -388,6 +403,7 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
+                        $apoderado->setUsuarioValida($usuario);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
 
@@ -410,8 +426,9 @@ class DefaultController extends Controller
                     $idParticipante = $IDParticipanteExistente[0]['id'];
 
                     $em = $this->getDoctrine()->getRepository(Participante::class);
-                    $apoderado = $em->find($idParticipante);
-                    $apoderado->setEstado(1);
+                    $participante = $em->find($idParticipante);
+                    $participante->setEstado(1);
+                    $participante->setUsuarioValida($usuario);
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
 
@@ -431,6 +448,14 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getManager();
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
                         $em->flush(); 
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $apoderado = $em->find($idApoderado);
+                        $apoderado->setUsuarioValida($usuario);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                       
+
                     
                     }else{
 
@@ -442,9 +467,10 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
+                        $apoderado->setUsuarioValida($usuario);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
-
+                        
                         $em = $this->getDoctrine()->getManager();
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$dniParticipante);
                         $em->flush(); 
@@ -456,6 +482,7 @@ class DefaultController extends Controller
                 $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
                 $estadoFicha = $ficha->find($idFicha);
                 $estadoFicha->setEstado(2);
+                $estadoFicha->setUsuarioValida($usuario);
                 $em2->persist($estadoFicha);
                 $em2->flush();
 
@@ -467,10 +494,12 @@ class DefaultController extends Controller
 
                 if ( $estadoParticipante == 1 && $estadoApoderado == 1){
 
+                   
                     $em2 = $this->getDoctrine()->getManager();
                     $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
                     $estadoFicha = $ficha->find($idFicha);
                     $estadoFicha->setEstado(2);
+                    $estadoFicha->setUsuarioValida($usuario);
                     $em2->persist($estadoFicha);
                     $em2->flush();
 
@@ -634,7 +663,20 @@ class DefaultController extends Controller
     public function actualizarHorarioAction(Request $request){
         if($request->isXmlHttpRequest())
         {
+            $idHorario = $request->request->get('idHorario');
+            $idDisciplina = $request->request->get('idDisciplina');
+            $vacantes = $request->request->get('vacantes');
+            $convocatoria = $request->request->get('convocatoria');
 
+
+            $em = $this->getDoctrine()->getManager();
+            $em->getRepository('AkademiaBundle:Horario')->getActualizarHorarios($idHorario,$idDisciplina, $vacantes, $convocatoria);
+            $em->flush();
+
+            $confirmacion = 1;
+            return new JsonResponse($confirmacion);
+
+            
         }
     }
     

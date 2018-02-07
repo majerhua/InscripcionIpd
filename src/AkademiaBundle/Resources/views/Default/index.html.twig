@@ -1140,6 +1140,10 @@ $("#boton3").on('click',function(){
       alertify.error('<p style="color:white">Se requiere el campo fecha de nacimiento</p>'); 
     }else if($("#sexo-hijo").val()==2){
        alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
+    }else if($("#parentesco").val()==""){
+       alertify.error('<p style="color:white">Debe seleccionar el campo parentesco</p>');              
+    }else if($("#tipoSeguro").val()==""){
+       alertify.error('<p style="color:white">Debe seleccionar el campo tipo de seguro</p>');              
     }else{
         //DATOS APODERADO
 	        sessionStorage.removeItem("dni-participante");
