@@ -1279,9 +1279,9 @@ function registrar(){
 			sessionStorage.removeItem("idInscripcion");
 			sessionStorage.setItem("idInscripcion",valor.id);
 
-			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/ajax/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
 
-			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
 
 			$("#nombre-ficha").append(valor.nombre);
 			$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);

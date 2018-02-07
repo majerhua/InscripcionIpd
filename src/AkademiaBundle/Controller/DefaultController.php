@@ -631,12 +631,9 @@ class DefaultController extends Controller
     }
 
 
-    public function horariosComplejoAction(Request $request){
+    public function actualizarHorarioAction(Request $request){
         if($request->isXmlHttpRequest())
         {
-         
-
-
 
         }
     }

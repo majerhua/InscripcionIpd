@@ -69,9 +69,9 @@ akademia_horarios:
     defaults: {_controller: AkademiaBundle:Default:horarios}
     methods: [GET,POST]
     
-akademia_horariosComplejo:
-   path:    /ajax/horariosCompejo
-   defaults: {_controller: AkademiaBundle:Default:horariosComplejo}
+akademia_actualizarHorario:
+   path:    /ajax/actualizarHorario
+   defaults: {_controller: AkademiaBundle:Default:actualizarHorario}
    methods: [GET,POST]
 
 akademia_cambiarestado:
