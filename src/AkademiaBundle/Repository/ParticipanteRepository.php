@@ -23,7 +23,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     public function getbuscarParticipanteApoderado($dni){
 
-        $query = "select top 1 id,apoderado_id from ACADEMIA.participante where dni='$dni' and estado=0";
+        $query = "select top 1 id,apoderado_id from ACADEMIA.participante where dni='$dni' and estado=0 order by id DESC";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $dni = $stmt->fetchAll();

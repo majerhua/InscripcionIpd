@@ -22,7 +22,7 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getApoderadoBusqueda($dni){
 
-        $query ="select top 1 id from ACADEMIA.apoderado where dni='$dni' and estado = 0";
+        $query ="select top 1 id from ACADEMIA.apoderado where dni='$dni' and estado = 0 order by id DESC";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $dni = $stmt->fetchAll();
