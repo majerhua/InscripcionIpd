@@ -341,6 +341,7 @@ class DefaultController extends Controller
         if($request-> isXmlHttpRequest()){
 
             $idFicha = $request->request->get('id');
+            $usuario = $this->getUser()->getId();
            
             $em = $this->getDoctrine()->getManager();
             $data = $em->getRepository('AkademiaBundle:Inscribete')->cargaDatos($idFicha);
@@ -362,7 +363,6 @@ class DefaultController extends Controller
 
                     $idParticipante = $IDParticipante[0]['id'];
 
-                    $usuario = $this->getUser()->getUsername();
                     $em = $this->getDoctrine()->getRepository(Participante::class);
                     $participante = $em->find($idParticipante);
                     $participante->setUsuarioValida($usuario);
@@ -380,7 +380,7 @@ class DefaultController extends Controller
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$idParticipante);
                         $em->flush();
 
-                        $usuario = $this->getUser()->getUsername();
+                       
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setUsuarioValida($usuario);
@@ -400,7 +400,6 @@ class DefaultController extends Controller
 
                         $idApoderado = $IDApoderado[0]['id'];
 
-                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
@@ -426,7 +425,6 @@ class DefaultController extends Controller
                     
                     $idParticipante = $IDParticipanteExistente[0]['id'];
 
-                    $usuario = $this->getUser()->getUsername();
                     $em = $this->getDoctrine()->getRepository(Participante::class);
                     $participante = $em->find($idParticipante);
                     $participante->setEstado(1);
@@ -451,7 +449,6 @@ class DefaultController extends Controller
                         $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApoderado,$idParticipante);
                         $em->flush(); 
 
-                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setUsuarioValida($usuario);
@@ -465,7 +462,6 @@ class DefaultController extends Controller
 
                         $idApoderado = $IDApoderado[0]['id'];
 
-                        $usuario = $this->getUser()->getUsername();
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setEstado(1);
@@ -484,7 +480,6 @@ class DefaultController extends Controller
 
                 }
 
-                $usuario = $this->getUser()->getUsername();
                 $em2 = $this->getDoctrine()->getManager();
                 $ficha = $em2->getRepository('AkademiaBundle:Inscribete');
                 $estadoFicha = $ficha->find($idFicha);
@@ -500,7 +495,6 @@ class DefaultController extends Controller
                 
                 if ( $estadoParticipante == 1 && $estadoApoderado == 1){
 
-                    $usuario = $this->getUser()->getId();
                     $em = $this->getDoctrine()->getRepository(Participante::class);
                     $participante = $em->find($idParticipante);
                     $participante->setUsuarioValida($usuario);
@@ -520,18 +514,11 @@ class DefaultController extends Controller
                     $estadoFicha->setUsuarioValida($usuario);
                     $em2->persist($estadoFicha);
                     $em2->flush();
-
                     $mensaje = 1;
                     return new JsonResponse($mensaje);
-
-
-
                 }
-
-            }
-            
+            }   
         }
-
     }
 
     public function generarPdfInscripcionAction(Request $request , $id)
