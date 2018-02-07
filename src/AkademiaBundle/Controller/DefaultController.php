@@ -580,9 +580,9 @@ class DefaultController extends Controller
                         '<hr>'.
                         'Aquí puedes descargar tu ficha de inscripción y la declaración jurada, haz click en estos enlaces:'.
                         '<br>'.
-                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/inscripcion/'.$id.'"> Ficha de Inscripción </a>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/ajax/pdf/inscripcion/'.$id.'"> Ficha de Inscripción </a>'.
                         '<br>'.
-                        '<a href="http://appweb.ipd.gob.pe/academia/web/pdf/declaracion-jurada/'.$id.'"> Declaración Jurada </a>'.
+                        '<a href="http://appweb.ipd.gob.pe/academia/web/ajax/pdf/declaracion-jurada/'.$id.'"> Declaración Jurada </a>'.
                         '<br>'.
                         '<p>Acércate al complejo que eligiste para finalizar tu inscripción.</p>'.
                         '<br><br>'.
