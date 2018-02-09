@@ -41,6 +41,14 @@ class Horario
     private $vacantes;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="inscritos", type="integer")
+     */
+    private $inscritos;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="horaInicio", type="string", length=255)
@@ -355,5 +363,29 @@ class Horario
     public function getVacantes()
     {
         return $this->vacantes;
+    }
+
+    /**
+     * Set inscritos
+     *
+     * @param integer $inscritos
+     *
+     * @return Horario
+     */
+    public function setInscritos($inscritos)
+    {
+        $this->inscritos = $inscritos;
+
+        return $this;
+    }
+
+    /**
+     * Get inscritos
+     *
+     * @return integer
+     */
+    public function getInscritos()
+    {
+        return $this->inscritos;
     }
 }

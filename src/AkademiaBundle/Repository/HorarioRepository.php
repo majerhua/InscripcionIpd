@@ -110,4 +110,12 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         }
 
+        public function getAcumularInscritos($idHorario){
+
+                $query = "update academia.horario set inscritos = (inscritos + 1) where id = $idHorario ";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+        
+        }
+
 }

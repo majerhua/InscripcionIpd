@@ -518,6 +518,10 @@ class DefaultController extends Controller
                     $em->getRepository('AkademiaBundle:Horario')->getActualizarVacantesHorarios($idHorario);
                     $em->flush();
 
+                    $em2 = $this->getDoctrine()->getManager();
+                    $em2->getRepository('AkademiaBundle:Horario')->getAcumularInscritos($idHorario);
+                    $em2->flush();
+
                     $mensaje = 1;
                     return new JsonResponse($mensaje);
                 
@@ -562,6 +566,10 @@ class DefaultController extends Controller
 
                         $em= $this->getDoctrine()->getManager();
                         $em->getRepository('AkademiaBundle:Horario')->getActualizarVacantesHorarios($idHorario);
+                        $em->flush();
+
+                        $em= $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Horario')->getAcumularInscritos($idHorario);
                         $em->flush();
 
                         $mensaje = 1;
