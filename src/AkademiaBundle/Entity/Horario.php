@@ -47,7 +47,6 @@ class Horario
      */
     private $inscritos;
 
-
     /**
      * @var string
      *
@@ -96,6 +95,13 @@ class Horario
      * @ORM\Column(name="convocatoria", type="string", length=1)
      */
     private $convocatoria;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="estado", type="integer")
+     */
+    private $estado;
 
     /**
      * Get id
@@ -388,4 +394,32 @@ class Horario
     {
         return $this->inscritos;
     }
+
+
+    /**
+     * Set estado
+     *
+     * @param integer $estado
+     *
+     * @return Horario
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+
 }
+

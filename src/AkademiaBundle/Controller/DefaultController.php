@@ -777,28 +777,42 @@ class DefaultController extends Controller
                 return new JsonResponse($mensaje);
 
             }
-
         }
     }
 
-    public function crearHorarioAction(Request $request){
+   /* public function crearHorarioAction(Request $request){
         if($request->isXmlHttpRequest()){
 
-            $horarioInicio = $request->request->get('horarioInicio');
-            $horarioFin = $request->request->get('horarioFin');
+            $horaInicio = $request->request->get('horarioInicio');
+            $horaFin = $request->request->get('horarioFin');
             $edadMinima = $request->request->get('edadMinima');
             $edadMaxima = $request->request->get('edadMaxima');
             $vacantes = $request->request->get('vacantes');
             $convocatoria = $request->request->get('convocatoria');
-            $discapacidad = $request->request->get('discapacidad');
+            $discapacitados = $request->request->get('discapacidad');
             $turno = $request->request->get('turno');
+            $idDisciplina = $request->request->get('idDisciplina');
+           
+            $idComplejo = $this->getUser()->getIdComplejo();
 
-           # $em = $this->getDoctrine()->getManager();
-           # $ediCodigo = $em->getRepository('AkademiaBundle:Horario')->getCapturarEdiCodigo($idComplejo, $idDisciplina);
+            $em = $this->getDoctrine()->getManager();
+            $ediCodigo = $em->getRepository('AkademiaBundle:Horario')->getCapturarEdiCodigo($idComplejo, $idDisciplina);
                       
-           # $codigoEdi = $ediCodigo[0]['edi_codigo'];
+            $codigoEdi = $ediCodigo[0]['edi_codigo'];
 
+            $em = $this->getDoctrine()->getManager();
+            $resp = $em->getRepository('AkademiaBundle:Horario')->getCrearHorario($vacantes, $horaInicio, $horaFin, $edadMinima, $edadMaxima, $ediCodigo, $discapacitados, $convocatoria, $turno);
+
+            if(empty($resp)){
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+            }else{
+                $mensaje = 2;
+                return new JsonResponse($mensaje);
+            }
+           
         }
-    }
+
+    }*/
     
 }

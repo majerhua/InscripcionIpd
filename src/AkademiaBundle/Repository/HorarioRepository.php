@@ -70,13 +70,8 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         public function getCapturarEdiCodigo($idComplejo, $idDisciplina){
-                $query="select top 1 edi.edi_codigo as edi_codigo
-                        from
-                        ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = di.edi_codigo
-                        inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
-                        inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
-                        where ede.ede_codigo =$idcomplejo and dis.dis_codigo = $idDisciplina";
-                        
+
+                $query="select edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -116,6 +111,13 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
         
+        }
+
+        public function getCrearHorario($vacantes, $horaInicio, $horaFin, $edadMinima, $edadMaxima, $ediCodigo, $discapacitados, $convocatoria, $turno){
+                $query=" insert academia.horario (vacantes, horaInicio, horaFin, edadMinima, edadMaxima, edi_codigo, discapacitados,convocatoria, turno, estado ,inscritos) values ($vacantes,$horaInicio,$horaFin,$edadMinima,$edadMaxima,$ediCodigo,$discapacitados,$convocatoria,$turno,1,0)";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+
         }
 
 }

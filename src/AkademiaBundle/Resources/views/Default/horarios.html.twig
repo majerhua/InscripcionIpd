@@ -96,6 +96,7 @@
 													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>
 													<td><a href="{{url('akademia_beneficiarios')}}" title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
 												</tr> 
+												<input type="hidden" name="idDisciplina"  id="idDisciplina" value="{{horario['idDisciplina']}}" >
 												
 											{% endif %}
 										    {% endfor %}
@@ -107,7 +108,7 @@
 							</div>
 							<hr>
 							<div class="row text-right">
-								<button type="button" data-toggle="modal" data-target="#modal-crear" class="btn btn-danger" style="margin-right: 18px;" onclick="">Crear nuevo horario</button>
+								<button type="button" data-toggle="modal" data-target="#modal-crear" class="btn btn-danger" style="margin-right: 18px;" id="nuevoHorario" onclick="">Crear nuevo horario</button>
 							</div>
 						</div>
 					</div>
@@ -428,7 +429,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button id="btn-crear-horario" type="button" class="btn btn-danger" onclick="nuevoHorario()" data-dismiss="modal">Crear</button>
+				<button id="btn-crear-horario" type="button" class="btn btn-danger" onclick="" data-dismiss="modal">Crear</button>
 			</div>
 		</div>
 	</div>
@@ -544,6 +545,7 @@
 								
 								var dataN =JSON.parse(data)[0];
 								$("#vacantesT").val(dataN.vacantes);
+
 								if(dataN.convocatoria == 1){
 									$("#convocatoria").val("ABIERTA");
 								}else{
@@ -570,7 +572,9 @@
 		} 
 
 
-		function nuevoHorario(){
+		
+
+	/*	function nuevoHorario(){
 
 			var horarioInicio = $("#crear_hora-inicio-horario").val();
 		    var horarioFin = $("#crear_hora-inicio-horario").val();
@@ -580,6 +584,7 @@
 			var convocatoria = $("#crear_convocatoria_horario").val();
 			var discapacidad = $("#crear_discapacidad").val();
 			var turno = $("#crear_turno-horario").val();
+			var idDisciplina = $("#idDisciplina").val();
 
 			var dataCrearHorario = {
 
@@ -590,10 +595,11 @@
 				"vacantes" : vacantes,
 				"convocatoria" : convocatoria,
 				"discapacidad" : discapacidad,
-				"turno" : turno
-
+				"turno" : turno,
+				"idDisciplina" : idDisciplina
 			}
 			
+			console.log(dataCrearHorario);
 			$.ajax({
 
 				type:'POST',
@@ -604,21 +610,21 @@
 				
 				},
 
-				success: function(data){				
+				success: function(data){
+
+					if(data == 1){
+						alertify.success('<p style="color:black">Nuevo horario creado. </p>');
+					}else{
+						 alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
+					}	
 
 				},
 				error: function(error){
 					console.log("Error En la captura de data!! . ");
 					console.log(error);
 				}
-		    });
-		}
-
-		function crearHorario(idDisciplina){
-
-			var idDisciplina = idDisciplina;
-			console.log(idDisciplina);
-		}
+		    }); 
+		}*/
 
 		/*Muestra mensaje de alerta*/
 		function showAlertMessage(alert, mensaje){

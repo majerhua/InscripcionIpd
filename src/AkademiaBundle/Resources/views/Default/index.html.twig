@@ -401,6 +401,8 @@
 		            </select> 
 		        </div>
 		        <br>
+		        <div id="alerta-error" class="alert alert-danger collapse"></div>
+		        <br>
 		        <div class="form-group  container-horario-participante">
 		        	<div id="rango-edad-horario" ></div>
 		        	<div>
@@ -1307,7 +1309,7 @@ function registrar(){
 
 			}else{
 
-				alertify.error('<p style="color:white">Ups ! La última vacante ha sido copada! Disculpe los inconvenientes. </p>'); 
+				showAlertMessage('#alerta-error', "Lo sentimos, se agotaron las vacantes para este horario. ");
 				$("#boton-next-final").attr("disabled", true);
 				$("#process5").hide();
 
@@ -1533,6 +1535,19 @@ $(".mensajeEdad").empty();
 		});
 		}
 
+	}
+
+	/*Muestra mensaje de alerta*/
+	function showAlertMessage(alert, mensaje){
+		$(alert).text(mensaje).show('fade');
+		setTimeout(function(){
+			hideAlertMessage(alert);	
+		}, 2000);
+	}
+
+	/*Oculta mensaje de alerta*/
+	function hideAlertMessage(alert){
+		$(alert).hide('fade');		
 	}
 
 </script>
