@@ -149,36 +149,45 @@ class DefaultController extends Controller
 
         if($request->isXmlHttpRequest()){
 
-            //DATOS APODERADO
-            $dni = $request->request->get('dni');
-            $apellidoPaterno = $request->request->get('apellidoPaterno');
-            $apellidoMaterno = $request->request->get('apellidoMaterno');
-            $nombre = $request->request->get('nombre'); 
-            $fechaNacimiento = $request->request->get('fechaNacimiento');
-            $sexo = $request->request->get('sexo');
-            $distrito = $request->request->get('distrito');
-            $direccion = $request->request->get('direccion');
-            $telefono = $request->request->get('telefono');
-            $correo = $request->request->get('correo');
-            $estado = $request->request->get('estado');
-
-            //DATOS PARTICIPANTE
-            $dniParticipante = $request->request->get('dniParticipante');
-            $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
-            $apellidoMaternoParticipante = $request->request->get('apellidoMaternoParticipante');
-            $nombreParticipante = $request->request->get('nombreParticipante'); 
-            $fechaNacimientoParticipante = $request->request->get('fechaNacimientoParticipante');
-            $sexoParticipante = $request->request->get('sexoParticipante');
-            $parentesco = $request->request->get('parentesco');
-            $tipoSeguro = $request->request->get('tipoSeguro');
-            $estado = 1;
-            $discapacidad = $request->request->get('discapacidad');
-
-            //REGISTRAR APODERADO
+            $idHorario = $request->request->get('idHorario');
 
             $em = $this->getDoctrine()->getManager();
-            $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
-        
+            $vacantesHorario = $em->getRepository('AkademiaBundle:Horario')->getHorariosVacantes($idHorario);
+            $cantVacantes = $vacantesHorario[0]['vacantes'];
+           
+
+           if($cantVacantes > 0 ){
+
+                //DATOS APODERADO
+                $dni = $request->request->get('dni');
+                $apellidoPaterno = $request->request->get('apellidoPaterno');
+                $apellidoMaterno = $request->request->get('apellidoMaterno');
+                $nombre = $request->request->get('nombre'); 
+                $fechaNacimiento = $request->request->get('fechaNacimiento');
+                $sexo = $request->request->get('sexo');
+                $distrito = $request->request->get('distrito');
+                $direccion = $request->request->get('direccion');
+                $telefono = $request->request->get('telefono');
+                $correo = $request->request->get('correo');
+                $estado = $request->request->get('estado');
+
+                //DATOS PARTICIPANTE
+                $dniParticipante = $request->request->get('dniParticipante');
+                $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
+                $apellidoMaternoParticipante = $request->request->get('apellidoMaternoParticipante');
+                $nombreParticipante = $request->request->get('nombreParticipante'); 
+                $fechaNacimientoParticipante = $request->request->get('fechaNacimientoParticipante');
+                $sexoParticipante = $request->request->get('sexoParticipante');
+                $parentesco = $request->request->get('parentesco');
+                $tipoSeguro = $request->request->get('tipoSeguro');
+                $estado = 1;
+                $discapacidad = $request->request->get('discapacidad');
+
+                //REGISTRAR APODERADO
+
+                $em = $this->getDoctrine()->getManager();
+                $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+            
 
                 if(!empty($IDApoderado)){
                     
@@ -220,8 +229,8 @@ class DefaultController extends Controller
 
                 }
 
-            $em = $this->getDoctrine()->getManager();
-            $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
+                $em = $this->getDoctrine()->getManager();
+                $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
         
                 if(!empty($IDParticipante)){      
                    
@@ -289,12 +298,13 @@ class DefaultController extends Controller
                     $normalizers = array($normalizer);
                     $serializer = new Serializer($normalizers, $encoders);
                     $jsonContent = $serializer->serialize($mdlFicha,'json');
+                    return new JsonResponse($jsonContent);  
+           }else{
 
-                    return new JsonResponse($jsonContent);          
-                            
-        }else{
-
-            return new JsonResponse("No es ajax");
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+           }
+                                   
         }
     }
     

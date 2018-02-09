@@ -823,7 +823,8 @@
 
 
 	function cambiarDisciplinaDeportiva(complejoDisciplina){
-	
+		
+		$("#boton-next-final").attr("disabled", false);
 		var idComplejoDisciplina = complejoDisciplina.value;
 		$("#horario").empty();
 		$(".horario-otrasEdades").empty();
@@ -1221,11 +1222,6 @@ $("#boton-next-final").on('click',function(){
 			alertify.error('<p style="color:white">Debe seleccionar Disciplina y/o Horario </p>'); 
 	}else{
 		
-		$(".bar-inscripcion__4").removeClass('active');
-		$(".bar-inscripcion__5").addClass('active');
-		$("#process4").hide();
-		$("#process5").show();
-		
 		registrar();
 	}
 
@@ -1275,30 +1271,47 @@ function registrar(){
 
 		success: function(data){
 
-			var valor =JSON.parse(data)[0];
-			sessionStorage.removeItem("idInscripcion");
-			sessionStorage.setItem("idInscripcion",valor.id);
+			$("#boton-next-final").attr("disabled", false);
 
-			$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/ajax/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+			if(data != 1){
 
-			$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+				$(".bar-inscripcion__4").removeClass('active');
+				$(".bar-inscripcion__5").addClass('active');
+				$("#process4").hide();
+				$("#process5").show();
 
-			$("#nombre-ficha").append(valor.nombre);
-			$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
-			$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
-			$("#distrito-ficha").append(valor.distrito);
-			$("#domicilio-ficha").append(valor.direccion);
-			$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
-			$("#telefono-ficha").append(valor.telefono);
-			$("#dni-ficha").append(valor.dni);
-			$("#edad-ficha").append(sessionStorage.getItem("edad"));
-			$("#email-ficha").append(valor.correo);
-			$("#deporte-ficha").append(valor.nombreDisciplina);
-			$("#complejo-ficha").append(valor.nombreComplejo);
-			$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
-			$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+				var valor =JSON.parse(data)[0];
+				sessionStorage.removeItem("idInscripcion");
+				sessionStorage.setItem("idInscripcion",valor.id);
 
-		    enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
+				$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/ajax/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
+
+				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
+
+				$("#nombre-ficha").append(valor.nombre);
+				$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
+				$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
+				$("#distrito-ficha").append(valor.distrito);
+				$("#domicilio-ficha").append(valor.direccion);
+				$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
+				$("#telefono-ficha").append(valor.telefono);
+				$("#dni-ficha").append(valor.dni);
+				$("#edad-ficha").append(sessionStorage.getItem("edad"));
+				$("#email-ficha").append(valor.correo);
+				$("#deporte-ficha").append(valor.nombreDisciplina);
+				$("#complejo-ficha").append(valor.nombreComplejo);
+				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
+				$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+
+			    enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
+
+			}else{
+
+				alertify.error('<p style="color:white">Ups ! La última vacante ha sido copada! Disculpe los inconvenientes. </p>'); 
+				$("#boton-next-final").attr("disabled", true);
+				$("#process5").hide();
+
+			}			
 		
 		},
 
