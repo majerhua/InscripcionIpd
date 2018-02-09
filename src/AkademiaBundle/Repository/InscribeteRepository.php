@@ -41,7 +41,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
 
 
   public function cargaDatos($idInscripcion){
-    $query = "select a.id as idFicha, a.estado as estadoFicha, a.participante_id as idParticipante, b.dni as dniParticipante, b.estado as estadoParticipante, c.dni as dniApoderado, c.id as idApoderado, c.estado as estadoApoderado from academia.inscribete a inner join academia.participante b on a.participante_id = b.id inner join academia.apoderado c on b.apoderado_id = c.id where
+    $query = "select a.id as idFicha, a.horario_id as idHorario, a.estado as estadoFicha, a.participante_id as idParticipante, b.dni as dniParticipante, b.estado as estadoParticipante, c.dni as dniApoderado, c.id as idApoderado, c.estado as estadoApoderado from academia.inscribete a inner join academia.participante b on a.participante_id = b.id inner join academia.apoderado c on b.apoderado_id = c.id where
       a.id = $idInscripcion";
     
       $stmt = $this->getEntityManager()->getConnection()->prepare($query);

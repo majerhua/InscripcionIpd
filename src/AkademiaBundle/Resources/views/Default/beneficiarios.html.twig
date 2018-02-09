@@ -1,0 +1,429 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                              
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
+                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
+                    <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<section  id=""  class="proceso-inscripcion">
+		<div id="proceso1" class="proceso" style="margin-bottom: 60px;">
+			<h1> XXXXXXXX </h1>
+			<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">	
+				<div class="card">
+					<div class="card-header text-center">
+						<h3>Natación</h3>
+					</div>
+					<hr>
+
+					<div class="card-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<strong>Código:</strong>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										132
+									</div>									
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="row">
+
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<strong>Turno:</strong>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										Martes - Viernes
+									</div>									
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<strong>Hora:</strong>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										2 - 3 pm
+									</div>			
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<strong>Edades:</strong>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										8 - 10 años
+									</div>									
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<strong>Vacantes:</strong>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										8
+									</div>	
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								
+								<div class="row">
+
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<strong>Discapacidad:</strong>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										Si
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+
+			<br>
+
+			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert">
+				<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+				<p>Puedes actualizar el estado de los participantes de este horario, verificar su asistencia, darlos de baja y recomendarlos como talentos</p>
+			</div>
+
+			<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">
+				<div class="card">
+					<div class="card-header text-center" role="tab">
+						<h3>Lista de Inscritos</h3>
+					</div>
+					<hr>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="panel panel-default" style="overflow-x:auto;">
+									<table class="table"> 
+										<thead> 
+											<tr> 
+												<th>Nombre</th> 
+												<th>DNI</th>
+												<th>Edad</th> 
+												<th>Sexo</th> 
+												<th>Estado</th>
+												<th></th>
+											</tr>
+
+										</thead> 
+
+										<tbody> 
+
+											<tr> 
+												<td>Bryam Soto Ñahui</td> 
+												<td>70002229</td> 
+												<td>21</td> 
+												<td>Masculino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr> 
+
+											<tr> 
+												<td>Jimmy Cainamarks</td> 
+												<td>42424123</td> 
+												<td>15</td> 
+												<td>Masculino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr> 
+
+											<tr> 
+												<td>Isabel Luna</td> 
+												<td>51412519</td> 
+												<td>16</td> 
+												<td>Femenino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr>
+
+											<tr> 
+												<td>Jimmy Cainamarks</td> 
+												<td>42424123</td> 
+												<td>15</td> 
+												<td>Masculino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr> 
+
+											<tr> 
+												<td>Isabel Luna</td> 
+												<td>51412519</td> 
+												<td>16</td> 
+												<td>Femenino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr>
+
+											<tr> 
+												<td>Jimmy Cainamarks</td> 
+												<td>42424123</td> 
+												<td>15</td> 
+												<td>Masculino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr> 
+
+											<tr> 
+												<td>Isabel Luna</td> 
+												<td>51412519</td> 
+												<td>16</td> 
+												<td>Femenino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr>
+
+											<tr> 
+												<td>Jimmy Cainamarks</td> 
+												<td>42424123</td> 
+												<td>15</td> 
+												<td>Masculino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr> 
+
+											<tr> 
+												<td>Isabel Luna</td> 
+												<td>51412519</td> 
+												<td>16</td> 
+												<td>Femenino</td> 
+												<td>Asistente</td> 
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-participante">Editar</button></td>
+											</tr>												
+										</tbody> 
+									</table>
+								</div>
+
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+								<br>
+								<div class="input-group">
+									<span class="input-group-addon alert-info">Inscritos:</span>
+									<p id="inscritos-horario" class="form-control">25</p>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+								<br>
+								<div class="input-group">
+									<span class="input-group-addon alert-success">Asistentes:</span>
+									<p id="asistentes-horario" class="form-control">20</p>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+								<br>
+								<div class="input-group">
+									<span class="input-group-addon alert-danger">Retirados:</span>
+									<p id="retirados-horario" class="form-control">5</p>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+								<br>
+								<div class="input-group">
+									<span class="input-group-addon alert-warning">Talentos:</span>
+									<p id="talentos-horario" class="form-control">2</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+
+<div id="modal-editar-participante" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+				<h4 class="title-card">Bryam Soto Ñahui</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div id="alert-editar-participante" class="alert alert-warning alert-dismissible text-center" role="alert">
+							<button id="btn-close-alert-editar-participante" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+							<p>Actualiza el estado del participante</p>
+						</div>
+
+						<ul class="list-group">
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>DNI</strong></p>
+									</div>
+
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<p id="apellidoPaterni-ficha">70002229</p>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Edad</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<p id="disciplina">16</p>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Sexo</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<p id="turno">Masculino</p>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Disciplina</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<p id="discapacidad">Natación</p>
+									</div>
+								</div>
+							</li>			
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Estado</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<select class="form-control">
+											<option>Inscrito</option>
+											<option>Asistente</option>
+											<option>Talento</option>
+										</select>
+									</div>
+								</div>
+							</li>	
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+			$('#btn-close-alert-info').click(function(){
+				hideAlertMessage('#alert-info')
+			});
+
+			$('#btn-close-alert-editar-participante').click(function(){
+				hideAlertMessage('#alert-editar-participante')
+			});			
+
+		});
+
+
+		/*Desplaza sutilmente la ventana hacía una sección*/
+		function scrollTo(destino){
+			$('html, body').animate({
+				scrollTop: $(destino).offset().top
+			}, 800);			
+		}
+
+
+		/*Muestra mensaje de alerta*/
+		function showAlertMessage(alert, mensaje){
+			$(alert).text(mensaje).show('fade');
+			setTimeout(function(){
+				hideAlertMessage(alert);	
+			}, 2000);
+		}
+
+		/*Oculta mensaje de alerta*/
+		function hideAlertMessage(alert){
+			$(alert).hide('fade');		
+		}
+</script>
+
+
+{% endblock %}

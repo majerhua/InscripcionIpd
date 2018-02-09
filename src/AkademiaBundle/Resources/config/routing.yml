@@ -43,7 +43,6 @@ akademia_prueba:
     defaults: { _controller: AkademiaBundle:Default:prueba}
     methods:  [GET,POST]
 
-
 akademia_sendemailusuario:
     path:     /ajax/sendemailusuario
     defaults: { _controller: AkademiaBundle:Default:sendemailusuario}
@@ -68,10 +67,20 @@ akademia_horarios:
     path:    /horarios
     defaults: {_controller: AkademiaBundle:Default:horarios}
     methods: [GET,POST]
+
+akademia_beneficiarios:
+    path:    /beneficiarios
+    defaults: {_controller: AkademiaBundle:Default:beneficiarios}
+    methods: [GET,POST]
     
 akademia_actualizarHorario:
    path:    /ajax/actualizarHorario
    defaults: {_controller: AkademiaBundle:Default:actualizarHorario}
+   methods: [GET,POST]
+
+akademia_crearHorario:
+   path:    /ajax/crearHorario
+   defaults: {_controller: AkademiaBundle:Default:crearHorario}
    methods: [GET,POST]
 
 akademia_cambiarestado:
