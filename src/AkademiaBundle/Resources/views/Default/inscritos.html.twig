@@ -17,6 +17,7 @@
                 <br>
                 <ul class="nav navbar-nav navbar-right">
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
+                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -290,9 +291,6 @@
 						$('#input-codigo-inscripcion').focus();
 						showAlertMessage('#alerta-error', "No existe ningun pre-inscrito con este código! ");
 					}
-
-					
-
 				},
 				error: function(error){
 					console.log("Error En la captura de dataa");

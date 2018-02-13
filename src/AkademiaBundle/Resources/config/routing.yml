@@ -69,7 +69,7 @@ akademia_horarios:
     methods: [GET,POST]
 
 akademia_beneficiarios:
-    path:    /beneficiarios
+    path:    /beneficiarios/{idHorario}
     defaults: {_controller: AkademiaBundle:Default:beneficiarios}
     methods: [GET,POST]
     
@@ -77,6 +77,12 @@ akademia_actualizarHorario:
    path:    /ajax/actualizarHorario
    defaults: {_controller: AkademiaBundle:Default:actualizarHorario}
    methods: [GET,POST]
+   
+akademia_mostrarHorarioIndividual:
+   path:    /ajax/mostrarHorarioIndividual
+   defaults: {_controller: AkademiaBundle:Default:mostrarHorarioIndividual}
+   methods: [GET,POST]
+
 
 akademia_crearHorario:
    path:    /ajax/crearHorario

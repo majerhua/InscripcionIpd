@@ -69,6 +69,33 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         }
 
+        public function getHorariosIndividual($idHorario, $idDisciplina){
+                
+                $query = "select rtrim(dis.dis_descripcion) as nombreDisciplina,
+                        dis.dis_codigo as idDisciplina,
+                        hor.id as idHorario,
+                        hor.turno as turno,
+                        hor.discapacitados as discapacidad,
+                        hor.edadMinima as edadMinima,
+                        hor.edadMaxima as edadMaxima,
+                        hor.horaInicio as horaInicio, 
+                        hor.horaFin as horaFin, 
+                        hor.vacantes as vacantes,
+                        hor.convocatoria as convocatoria,
+                        edi.edi_codigo as edi_codigo
+                        from 
+                        ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
+                        inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
+                        inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
+                        where dis.dis_codigo =$idDisciplina and hor.id = $idHorario";
+
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $horarios = $stmt->fetchAll();
+
+                return $horarios;
+        }
+
         public function getCapturarEdiCodigo($idComplejo, $idDisciplina){
 
                 $query="select edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
@@ -89,7 +116,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getMostrarCambios($idHorario){
 
-                $query = "select vacantes, convocatoria from academia.horario where id='$idHorario'";
+                $query = "select * from academia.horario where id='$idHorario'";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -113,11 +140,53 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         
         }
 
-        public function getCrearHorario($vacantes, $horaInicio, $horaFin, $edadMinima, $edadMaxima, $ediCodigo, $discapacitados, $convocatoria, $turno){
-                $query=" insert academia.horario (vacantes, horaInicio, horaFin, edadMinima, edadMaxima, edi_codigo, discapacitados,convocatoria, turno, estado ,inscritos) values ($vacantes,$horaInicio,$horaFin,$edadMinima,$edadMaxima,$ediCodigo,$discapacitados,$convocatoria,$turno,1,0)";
+        public function getHorarioBeneficiario($idHorario){
+
+                $query = "select rtrim(dis.dis_descripcion) as nombreDisciplina,
+                        dis.dis_codigo as idDisciplina,
+                        hor.id as idHorario,
+                        hor.turno as turno,
+                        hor.inscritos as inscritos,
+                        hor.discapacitados as discapacidad,
+                        hor.edadMinima as edadMinima,
+                        hor.edadMaxima as edadMaxima,
+                        hor.horaInicio as horaInicio, 
+                        hor.horaFin as horaFin, 
+                        hor.vacantes as vacantes,
+                        hor.convocatoria as convocatoria,
+                        edi.edi_codigo as edi_codigo,
+                        ede.ede_nombre as nombreComplejo
+                        from 
+                        ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
+                        inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
+                        inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
+                        where hor.id = $idHorario";
+
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
+                $horarios = $stmt->fetchAll();
 
+                return $horarios;
+        
+        }
+
+        public function getBeneficiarios($idHorario){
+                $query = "select (a.apellidoPaterno+' '+a.apellidoMaterno+' '+a.nombre) as nombre,
+                        a.id as idParticipante,
+                        a.dni as dni, (cast(datediff(dd,a.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad,
+                        a.sexo as sexo, 
+                        a.estado as estadoParticipante,
+                        b.id as idHorario, 
+                        c.id as idInscribete
+                        from
+                        academia.inscribete c inner join academia.horario b on c.horario_id = b.id 
+                        inner join academia.participante a on c.participante_id = a.id where b.id = $idHorario";
+
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $beneficiarios = $stmt->fetchAll();
+
+                return $beneficiarios;
         }
 
 }

@@ -734,10 +734,6 @@ class DefaultController extends Controller
             return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios)); 
     }
 
-    public function beneficiariosAction(Request $request){
-        return $this->render('AkademiaBundle:Default:beneficiarios.html.twig');
-    }
-
     public function actualizarHorarioAction(Request $request){
        
         if($request->isXmlHttpRequest())
@@ -780,10 +776,43 @@ class DefaultController extends Controller
         }
     }
 
-   /* public function crearHorarioAction(Request $request){
+    public function mostrarHorarioIndividualAction(Request $request){
+      
         if($request->isXmlHttpRequest()){
 
-            $horaInicio = $request->request->get('horarioInicio');
+            $idHorario=$request->request->get('idHorario');
+            $idDisciplina= $request->request->get('idDisciplina');
+
+            $em = $this->getDoctrine()->getManager();
+            $datosHorario = $em->getRepository('AkademiaBundle:Horario')->getHorariosIndividual($idHorario, $idDisciplina);
+
+
+            if(!empty($datosHorario)){
+
+                $encoders = array(new JsonEncoder());
+                $normalizer = new ObjectNormalizer();
+                $normalizer->setCircularReferenceLimit(1);
+                $normalizer->setCircularReferenceHandler(function ($object) {
+                    return $object->getId();
+                });
+
+                $normalizers = array($normalizer);
+                $serializer = new Serializer($normalizers, $encoders);
+                $jsonContent = $serializer->serialize($datosHorario,'json');
+                return new JsonResponse($jsonContent);   
+
+            }else{
+
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+            }
+        }
+    }
+
+    public function crearHorarioAction(Request $request){
+        if($request->isXmlHttpRequest()){
+
+            $horaInicio =$request->request->get('horarioInicio');
             $horaFin = $request->request->get('horarioFin');
             $edadMinima = $request->request->get('edadMinima');
             $edadMaxima = $request->request->get('edadMaxima');
@@ -791,28 +820,72 @@ class DefaultController extends Controller
             $convocatoria = $request->request->get('convocatoria');
             $discapacitados = $request->request->get('discapacidad');
             $turno = $request->request->get('turno');
-            $idDisciplina = $request->request->get('idDisciplina');
-           
+
+            $idDisciplina = $request->request->get('idDisciplina');           
             $idComplejo = $this->getUser()->getIdComplejo();
-
             $em = $this->getDoctrine()->getManager();
-            $ediCodigo = $em->getRepository('AkademiaBundle:Horario')->getCapturarEdiCodigo($idComplejo, $idDisciplina);
-                      
+            $ediCodigo = $em->getRepository('AkademiaBundle:Horario')->getCapturarEdiCodigo($idComplejo, $idDisciplina);         
             $codigoEdi = $ediCodigo[0]['edi_codigo'];
+            
 
+            $horario = new Horario();
+            $horario->setVacantes($vacantes);
+            $horario->setHoraInicio($horaInicio);
+            $horario->setHoraFin($horaFin);
+            $horario->setEdadMinima($edadMinima);
+            $horario->setEdadMaxima($edadMaxima);
+            $horario->setDiscapacitados($discapacitados);
+            $horario->setTurno($turno);
+            $horario->setConvocatoria($convocatoria);
+            $horario->setEstado(1);
+            $horario->setInscritos(0);
+
+            $em = $this->getDoctrine()->getRepository(complejoDisciplina::class);
+            $codigoDisciplina = $em->find($codigoEdi);
+            $horario->setComplejoDisciplina($codigoDisciplina);
+     
             $em = $this->getDoctrine()->getManager();
-            $resp = $em->getRepository('AkademiaBundle:Horario')->getCrearHorario($vacantes, $horaInicio, $horaFin, $edadMinima, $edadMaxima, $ediCodigo, $discapacitados, $convocatoria, $turno);
+            $em->persist($horario);
+            $em->flush();
 
-            if(empty($resp)){
-                $mensaje = 1;
-                return new JsonResponse($mensaje);
+            $idHorarioNuevo = $horario->getId(); 
+               
+            $em = $this->getDoctrine()->getManager();
+            $dataActualizada = $em->getRepository('AkademiaBundle:Horario')->getMostrarCambios($idHorarioNuevo);         
+
+            if(!empty($dataActualizada)){
+                    
+                $encoders = array(new JsonEncoder());
+                $normalizer = new ObjectNormalizer();
+                $normalizer->setCircularReferenceLimit(1);
+                $normalizer->setCircularReferenceHandler(function ($object) {
+                    return $object->getId();
+                });
+
+                $normalizers = array($normalizer);
+                $serializer = new Serializer($normalizers, $encoders);
+                $jsonContent = $serializer->serialize($dataActualizada,'json');
+
+                return new JsonResponse($jsonContent);   
+
             }else{
-                $mensaje = 2;
+                $mensaje = 1;
                 return new JsonResponse($mensaje);
             }
            
         }
 
-    }*/
+    }
+
+    public function beneficiariosAction(Request $request, $idHorario){
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $Horarios = $em->getRepository('AkademiaBundle:Horario')->getHorarioBeneficiario($idHorario);
+        $Beneficiarios = $em->getRepository('AkademiaBundle:Horario')->getBeneficiarios($idHorario);
+
+        return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios));
+    }
     
 }
