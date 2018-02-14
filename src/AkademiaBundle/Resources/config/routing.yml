@@ -83,10 +83,14 @@ akademia_mostrarHorarioIndividual:
    defaults: {_controller: AkademiaBundle:Default:mostrarHorarioIndividual}
    methods: [GET,POST]
 
-
 akademia_crearHorario:
    path:    /ajax/crearHorario
    defaults: {_controller: AkademiaBundle:Default:crearHorario}
+   methods: [GET,POST]
+
+akademia_crearDisciplina:
+   path:    /ajax/crearDisciplina
+   defaults: {_controller: AkademiaBundle:Default:crearDisciplina}
    methods: [GET,POST]
 
 akademia_cambiarestado:

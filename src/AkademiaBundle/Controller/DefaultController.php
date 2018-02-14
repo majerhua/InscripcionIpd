@@ -730,8 +730,9 @@ class DefaultController extends Controller
             $em2 = $this->getDoctrine()->getManager();
             $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios($idComplejo);
             $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
+            $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
 
-            return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios)); 
+            return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
     }
 
     public function actualizarHorarioAction(Request $request){
@@ -739,13 +740,13 @@ class DefaultController extends Controller
         if($request->isXmlHttpRequest())
         {
             $idHorario = $request->request->get('idHorario');
-            $idDisciplina = $request->request->get('idDisciplina');
+           // $idDisciplina = $request->request->get('idDisciplina');
             $vacantes = $request->request->get('vacantes');
             $convocatoria = $request->request->get('convocatoria');
 
 
             $em = $this->getDoctrine()->getManager();
-            $em->getRepository('AkademiaBundle:Horario')->getActualizarHorarios($idHorario,$idDisciplina, $vacantes, $convocatoria);
+            $em->getRepository('AkademiaBundle:Horario')->getActualizarHorarios($idHorario, $vacantes, $convocatoria);
             $em->flush();
 
             $em = $this->getDoctrine()->getManager();
@@ -817,7 +818,6 @@ class DefaultController extends Controller
             $edadMinima = $request->request->get('edadMinima');
             $edadMaxima = $request->request->get('edadMaxima');
             $vacantes = $request->request->get('vacantes');
-            $convocatoria = $request->request->get('convocatoria');
             $discapacitados = $request->request->get('discapacidad');
             $turno = $request->request->get('turno');
 
@@ -836,7 +836,7 @@ class DefaultController extends Controller
             $horario->setEdadMaxima($edadMaxima);
             $horario->setDiscapacitados($discapacitados);
             $horario->setTurno($turno);
-            $horario->setConvocatoria($convocatoria);
+            $horario->setConvocatoria(0);
             $horario->setEstado(1);
             $horario->setInscritos(0);
 
@@ -887,5 +887,60 @@ class DefaultController extends Controller
 
         return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios));
     }
+
+
+
+    public function crearDisciplinaAction(Request $request){
+        if($request->isXmlHttpRequest()){
+
+            $idDisciplina = $request->request->get('idDisciplina');           
+            $idComplejo = $this->getUser()->getIdComplejo();
+            
+
+            $disciplina = new ComplejoDisciplina();
+
+            $em = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class);
+            $codigoDisciplina = $em->find($idDisciplina);
+            $disciplina->setDisciplinaDeportiva($codigoDisciplina);
+           
+            $em = $this->getDoctrine()->getRepository(ComplejoDeportivo::class);
+            $codigoComplejo = $em->find($idComplejo);
+            $disciplina->setComplejoDeportivo($codigoComplejo);
+     
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($disciplina);
+            $em->flush();
+
+            $idDisciplinaNueva = $disciplina->getId(); 
+               
+            $em = $this->getDoctrine()->getManager();
+            $dataActualizada = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->getMostrarCambios($idDisciplinaNueva);         
+
+            if(!empty($dataActualizada)){
+                    
+                $encoders = array(new JsonEncoder());
+                $normalizer = new ObjectNormalizer();
+                $normalizer->setCircularReferenceLimit(1);
+                $normalizer->setCircularReferenceHandler(function ($object) {
+                    return $object->getId();
+                });
+
+                $normalizers = array($normalizer);
+                $serializer = new Serializer($normalizers, $encoders);
+                $jsonContent = $serializer->serialize($dataActualizada,'json');
+
+                return new JsonResponse($jsonContent);   
+
+            }else{
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+            }
+           
+        }
+
+    }
+
+
+
     
 }

@@ -36,45 +36,55 @@
 				<p>Administra los horarios asignados a tu complejo deportivo, puedes actualizar el número de vacantes, aperturar o cerrar horarios.</p>
 			</div>
 
-			
+			{% set cont = 0 %}
 			{% for complejosDisciplina in complejosDisciplinas %}
 			
 			<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">	
-				<div class="card">
+				<div class="card" id="listadoDisciplinas">
 					<div class="card-header text-center" role="tab" id="">
 						<a class="title-card" data-toggle="collapse" href="#{{complejosDisciplina['idDisciplina']}}" >
 							<strong>{{complejosDisciplina['nombreDisciplina']}}</strong>
 						</a>
 					</div>
+					
 					<div id="{{complejosDisciplina['idDisciplina']}}" class="collapse" role="tabpanel" data-parent="#accordion">
-						<br>
+						<hr>
 						<div class="card-body">
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<div class="panel panel-default" style="overflow-x:auto;">
+									<div class="input-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+									  <span class="input-group-addon">Buscar</span>
+									  <input class="filtrar form-control" type="text" ident-buscar="{{cont}}"  placeholder=" ingresa los campos a buscar ">
+									</div>
+									<br>
+									<div class="panel panel-default" style="overflow-x:auto;">			
+
 										<table class="table"> 
-											<thead> 
+											<thead style="background:#F2F2F2; color:#585858"> 
 												<tr> 
-													<th class="text-center">Código</th>
-													<th class="text-center">Turno</th> 
-													<th class="text-center">Hora</th>
-													<th class="text-center">Edades</th> 
-													<th class="text-center">Vacantes</th> 
-													<th class="text-center">Discapacitad</th>
-													<th class="text-center">Convocatoria</th>
+													<th class="text-center" style="font-size:14px">Código</th>
+													<th class="text-center" style="font-size:14px" >Turno</th> 
+													<th class="text-center" style="font-size:14px">Hora</th>
+													<th class="text-center" style="font-size:14px">Edades</th> 
+													<th class="text-center" style="font-size:14px">Vacantes</th> 
+													<th class="text-center" style="font-size:14px">Discapacitad</th>
+													<th class="text-center" style="font-size:14px">Convocatoria</th>
 													<th></th>
 													<th></th>
 												</tr>
 
 											</thead> 
 											
-											<tbody id="1{{complejosDisciplina['idDisciplina']}}"> 
-												
+											
+
+											<tbody id="1{{complejosDisciplina['idDisciplina']}}" class="buscar" > 
+											
+
 											{% for horario in horarios %}
 
 											{% if horario['idDisciplina'] == complejosDisciplina['idDisciplina'] %}
 											
-												<tr > 
+												<tr> 
 													<td id="1{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
 													<td id="2{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
 													<td id="3{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']}} - {{horario['horaFin']}}</td> 
@@ -92,7 +102,7 @@
 														<td id="7{{horario['idHorario']}}" class="text-center"> Cerrado </td> 
 													{% endif %}
 
-													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>
+													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px" ></i></button></td>
 
 													<td><a href="/beneficiarios/{{horario['idHorario']}}"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
 												</tr> 
@@ -109,16 +119,25 @@
 							<hr>
 							<div class="row text-right">
 								
-								<button type="button" data-toggle="modal" data-target="#modal-crear" class="btn btn-danger" style="margin-right: 18px;" id="nuevoHorario" onclick="disciplina({{complejosDisciplina['idDisciplina']}});">Crear nuevo horario</button>
+								<button type="button" data-toggle="modal" data-target="#modal-crear" class="btn btn-danger" style="margin-right: 18px;" onclick="disciplina({{complejosDisciplina['idDisciplina']}});">Crear nuevo horario</button>
 							</div>
 						</div>
 					</div>
 				</div>       
 			</div>
-			
+			{% set cont = cont + 1 %}
 			{% endfor %}
+			
+			<hr>
+			<div class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">				
+				<div class="card-header text-center">
+					<p style="font-size:16px; color:grey">¿Quieres aperturar una nueva disciplina en tu complejo deportivo?</p>
+					<button type="button" data-toggle="modal" data-target="#modal-disciplina" class="btn btn-danger" style="margin-right: 18px;">Crear nueva disciplina</button>		
+				</div>
+			</div>
 
 		</div>
+
 </section>
 
 <footer class="footer">
@@ -166,9 +185,9 @@
 			<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<div id="alert-editar-info" class="alert alert-warning alert-dismissible text-center" role="alert">
+							<div id="alert-editar-info" class="alert alert-danger alert-dismissible text-center" role="alert">
 								<button id="btn-close-alert-editar-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-								<p>Actualiza la información de este horario</p>
+								<p style="font-size:14px;">¡Cuidado! Antes de abrir la convocatoria, verifica que no existan horarios iguales.</p>
 							</div>
 							<ul class="list-group">
 								<li class="list-group-item">
@@ -288,33 +307,18 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div id="alert-crear-info" class="alert alert-warning alert-dismissible text-center" role="alert">
+						<div id="alert-crear-info" class="alert alert-danger alert-dismissible text-center" role="alert">
 							<button id="btn-close-alert-crear-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-							<p>Apertura un nuevo horario</p>
+							<p style="font-size:14px">¡Cuidado! Evita crear horarios iguales. Verifica antes de crear uno nuevo.</p>
 						</div>
 
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-										<p><strong>Disciplina</strong></p>
-									</div>
-
-									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										<p id="crear_disciplina-horario">Natación</p>
-									</div>
-								</div>
-
-							</li>
-
-							<li class="list-group-item">
-
-								<div class="row">
-									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 										<p><strong>Turno</strong></p>
 									</div>
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										
 										<input id="crear_turno-horario" class="form-control" name="turno-horario" type="text" placeholder="Ejm: Martes a Jueves ... " class="validate">
 									</div>
 								</div>
@@ -406,22 +410,7 @@
 										<input id="crear_vacantes-horario" class="form-control" name="vacantes-horario" type="number" min="0" class="validate">
 									</div>
 								</div>
-							</li>					
-
-							<li class="list-group-item">
-								<div class="row">
-									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-										<p><strong>Convocatoria</strong></p>
-									</div>
-									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										<select class="form-control" id="crear_convocatoria_horario">
-											<option value="">--Seleccionar--</option>
-											<option value="1">Abierta</option>
-											<option value="0">Cerrada</option>
-										</select>
-									</div>
-								</div>
-							</li>	
+							</li>				
 						</ul>
 					</div>
 				</div>
@@ -430,6 +419,51 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				<button id="btn-crear-horario" type="button" class="btn btn-danger" onclick="nuevoHorario();" data-dismiss="modal">Crear</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="modal-disciplina" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+				<h4 class="title-card">CP {{complejosDisciplinas[0]['nombreComplejo']}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div id="alert-crear-disciplina-info" class="alert alert-warning alert-dismissible text-center" role="alert">
+							<button id="btn-close-alert-crear-disciplina" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+							<p>Apertura una nueva disciplina</p>
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Disciplina</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+
+										<select id="Disciplina" class="form-control"  name="Disciplina" >
+									    	<option value=""selected>--SELECCIONAR--</option>
+								      		{% for disciplina in disciplinas %}
+												<option value="{{disciplina['dis_codigo']}}">{{disciplina['dis_descripcion']}}</option>
+											{% endfor %}
+									    </select>
+									</div>
+									
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button id="btn-crearDisciplina" type="button" class="btn btn-danger" data-dismiss="modal" onclick="crearDisciplina();">Crear</button>
 			</div>
 		</div>
 	</div>
@@ -445,7 +479,7 @@
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function(){
+		$(document).ready(function(){
 
 			$('#btn-close-alert-info').click(function(){
 				hideAlertMessage('#alert-info');
@@ -461,6 +495,56 @@
 
 		});
 
+		/*FILTROS */
+		$(document).ready(function () {
+            (function ($) {
+            	var jsFiltrar = document.querySelectorAll('.filtrar');
+            	var jsBuscar = document.querySelectorAll('.buscar');
+            	//console.log($(jsBuscar[0]).children('tr'));
+
+            	for (var i = 0; i < jsFiltrar.length; i++) {
+
+            		$(jsFiltrar[i]).keyup(function () {
+
+            			var idfil = $(this).attr('ident-buscar');
+	                    var rex = new RegExp($(this).val(),'i');
+
+	                    $(jsBuscar[idfil]).children('tr').hide();
+	                    $(jsBuscar[idfil]).children('tr').filter(function () {
+	                        return rex.test($(this).text());
+	                    }).show();
+                	})
+            	}  
+
+            }(jQuery));
+
+        });
+
+		function clearData(){
+
+			$("#editar_codigo_horario").empty();
+			$("#editar_disciplina_horario").empty();
+			$("#editar_turno_horario").empty();
+			$("#editar_hora_horario").empty();
+			$("#editar_edades_horario").empty();
+			$("#editar_discapacidad_horario").empty();
+			$("#editar_vacantes_horario").val("");
+			$("#editar_convocatoria_horario").val("");
+
+		}
+
+		function clearDataCrear(){
+
+			$("#crear_turno-horario").val("");
+			$("#crear_hora-inicio-horario").val("");
+			$("#crear_hora-fin-horario").val("");
+			$("#crear_edad-minima-horario").val("");
+			$("#crear_edad-maxima-horario").val("");
+			$("#crear_vacantes-horario").val("");
+			$("#crear_discapacidad").val("");
+			$("#crear_convocatoria_horario").val(0);
+
+		}
 
 		function editarHorario(idHorario, idDisciplina){
 			
@@ -491,7 +575,7 @@
 						$("#editar_disciplina_horario").append(dataHorario.nombreDisciplina);
 						$("#editar_turno_horario").append(dataHorario.turno);
 						$("#editar_hora_horario").append(dataHorario.horaInicio + '-' + dataHorario.horaFin);
-						$("#editar_edades_horario").append(dataHorario.edadMinima + ' - ' + dataHorario.edadMaxima +' años.');
+						$("#editar_edades_horario").append(dataHorario.edadMinima + '-' + dataHorario.edadMaxima +' años.');
 						
 						if(dataHorario.discapacidad == 0){
 							$("#editar_discapacidad_horario").append("No");
@@ -515,31 +599,6 @@
 			
 		}
 
-		function clearData(){
-
-			$("#editar_codigo_horario").empty();
-			$("#editar_disciplina_horario").empty();
-			$("#editar_turno_horario").empty();
-			$("#editar_hora_horario").empty();
-			$("#editar_edades_horario").empty();
-			$("#editar_discapacidad_horario").empty();
-			$("#editar_vacantes_horario").val("");
-			$("#editar_convocatoria_horario").val("");
-
-		}
-
-		function clearDataCrear(){
-
-			$("#crear_turno-horario").empty();
-			$("#crear_hora-inicio-horario").empty();
-			$("#crear_hora-fin-horario").empty();
-			$("#crear_edad-minima-horario").empty();
-			$("#crear_edad-maxima-horario").empty();
-			$("#crear_discapacidad").empty();
-			$("#crear_convocatoria_horario").empty();
-
-		}
-
 		function actualizarHorario(){
 
 			if($("#editar_vacantes_horario").val()==""){
@@ -554,13 +613,11 @@
             		//$("#btn-actualizar-horario").attr("disabled", false);
             		
 		           	var idHorario = $("#editar_codigo_horario").text();
-					var idDisciplina = $("#idDisciplina").val();
 					var vacantes = $("#editar_vacantes_horario").val();
 					var convocatoria = $("#editar_convocatoria_horario").val();
 
 					var dataActualizarHorario={
 						"idHorario" : idHorario,
-						"idDisciplina" : idDisciplina,
 						"vacantes" :vacantes,
 						"convocatoria" : convocatoria
 					};
@@ -586,7 +643,8 @@
 								$("#7"+dataHorario.id).empty();
 
 								$("#1"+dataHorario.id).text(dataHorario.id);
-								$("#5"+dataHorario.id).text(dataHorario.vacantes);							
+								$("#5"+dataHorario.id).text(dataHorario.vacantes);	
+
 								if(dataHorario.convocatoria == 1){
 									$("#7"+dataHorario.id).text("Abierta");
 								}else{
@@ -606,7 +664,11 @@
 		} 
 
 		function disciplina(idDisciplina2){
+
+			clearDataCrear();
 			$("#idDisciplina").val(idDisciplina2);
+			var idDisciplina = $("#idDisciplina").val();
+			
 		}
 		
 		function nuevoHorario(){
@@ -616,12 +678,11 @@
 			var edadMinima = $("#crear_edad-minima-horario").val();
 			var edadMaxima = $("#crear_edad-maxima-horario").val();
 			var vacantes = $("#crear_vacantes-horario").val();
-			var convocatoria = $("#crear_convocatoria_horario").val();
 			var discapacidad = $("#crear_discapacidad").val();
 			var turno = $("#crear_turno-horario").val();
 			var idDisciplina = $("#idDisciplina").val();
 
-			console.log("el codigo de la disciplina es : " + idDisciplina);
+			clearDataCrear();
 
 			var dataCrearHorario = {
 
@@ -630,7 +691,6 @@
 				"edadMinima" :edadMinima,
 				"edadMaxima" : edadMaxima,
 				"vacantes" : vacantes,
-				"convocatoria" : convocatoria,
 				"discapacidad" : discapacidad,
 				"turno" : turno,
 				"idDisciplina" : idDisciplina
@@ -649,8 +709,10 @@
 
 				success: function(data){
 
-					if(data != 1){
+					
 
+					if(data != 1){
+					
 						var tdhorario = '';
 						var idDisciplina = $("#idDisciplina").val();
 						var dataHorario =JSON.parse(data)[0];
@@ -658,7 +720,7 @@
 						tdhorario+='<tr>';
 						tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
 						tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-						tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
+						tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +'-'+dataHorario.horaFin+'</td>';
 						tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+'-'+dataHorario.edadMaxima+ ' años </td>';
 						tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 						
@@ -680,8 +742,10 @@
 						tdhorario+='</tr>';
 
 						$('#1'+idDisciplina).append(tdhorario);
-						clearDataCrear();
-						alertify.success('<p style="color:black">Nuevo horario creado. </p>');		
+
+						//clearDataCrear();
+						alertify.success('<p style="color:black">Nuevo horario creado. </p>');	
+
 					}else{
 
 						alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
@@ -707,8 +771,61 @@
 
 		/*Oculta mensaje de alerta*/
 		function hideAlertMessage(alert){
-			$(alert).hide('fade');		
+			$(alert).hide('fade');
+
 		}
+	
+
+
+	/*CREAR NUEVA DISCIPLINA*/
+
+	function crearDisciplina(){
+		
+		var disciplina = $("#Disciplina").val();
+
+		if(disciplina != ""){
+			var Datadisciplina = {
+				"idDisciplina" : disciplina
+			};
+
+			$.ajax({
+				type:'POST',
+				dataType: 'json',
+				url: "{{url('akademia_crearDisciplina')}}",
+				data: Datadisciplina,
+				beforeSend: function(){				
+				
+				},
+
+				success: function(data){
+					if(data != 1){
+						/*var dataDisciplina =JSON.parse(data)[0];
+						var accordion = '';
+						accordion+='<div class="card" id="listadoDisciplinas">';
+						accordion+='<div class="card-header text-center" role="tab" id="">';
+						accordion+='<a class="title-card" data-toggle="collapse" href="#'+dataDisciplina.idDisciplina+'" >';
+						accordion+='<strong>'+ dataDisciplina.nombreDisciplina+'</strong>';
+						accordion+='</a>';
+						accordion+='</div>';
+						accordion+='</div>';
+						$("#listadoDisciplinas").append(accordion);*/
+						window.location.href = "{{url('akademia_horarios')}}";
+						alertify.success('<p style="color:black">Disciplina creada. </p>');							
+					}
+				},
+
+				error: function(data){
+					alertify.error('<p style="color:black">Se produjo un error al crear la nueva disciplina. </p>');	
+					console.log(data);
+				},
+			});
+
+		}else{
+			alertify.error('<p style="color:black">Debe seleccionar una disciplina a crear. </p>');			
+		}
+
+		
+	}
 	
 </script>
 
