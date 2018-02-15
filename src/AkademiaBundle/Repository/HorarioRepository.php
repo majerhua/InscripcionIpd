@@ -189,4 +189,15 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $beneficiarios;
         }
 
+        public function getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados){
+               
+                $query="select turno from academia.horario where turno ='$turno' and edadMinima=$edadMinima and edadMaxima=$edadMaxima and horaInicio='$horaInicio' and horaFin='$horaFin' and discapacitados=$discapacitados";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $horarios = $stmt->fetchAll();
+
+                return $horarios;
+
+        }
+
 }

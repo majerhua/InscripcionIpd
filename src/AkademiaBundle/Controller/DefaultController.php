@@ -828,53 +828,62 @@ class DefaultController extends Controller
             $codigoEdi = $ediCodigo[0]['edi_codigo'];
             
 
-            $horario = new Horario();
-            $horario->setVacantes($vacantes);
-            $horario->setHoraInicio($horaInicio);
-            $horario->setHoraFin($horaFin);
-            $horario->setEdadMinima($edadMinima);
-            $horario->setEdadMaxima($edadMaxima);
-            $horario->setDiscapacitados($discapacitados);
-            $horario->setTurno($turno);
-            $horario->setConvocatoria(0);
-            $horario->setEstado(1);
-            $horario->setInscritos(0);
-
-            $em = $this->getDoctrine()->getRepository(complejoDisciplina::class);
-            $codigoDisciplina = $em->find($codigoEdi);
-            $horario->setComplejoDisciplina($codigoDisciplina);
-     
             $em = $this->getDoctrine()->getManager();
-            $em->persist($horario);
-            $em->flush();
+            $data = $em->getRepository('AkademiaBundle:Horario')->getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados);
 
-            $idHorarioNuevo = $horario->getId(); 
-               
-            $em = $this->getDoctrine()->getManager();
-            $dataActualizada = $em->getRepository('AkademiaBundle:Horario')->getMostrarCambios($idHorarioNuevo);         
+            if(!empty($data)){
 
-            if(!empty($dataActualizada)){
-                    
-                $encoders = array(new JsonEncoder());
-                $normalizer = new ObjectNormalizer();
-                $normalizer->setCircularReferenceLimit(1);
-                $normalizer->setCircularReferenceHandler(function ($object) {
-                    return $object->getId();
-                });
-
-                $normalizers = array($normalizer);
-                $serializer = new Serializer($normalizers, $encoders);
-                $jsonContent = $serializer->serialize($dataActualizada,'json');
-
-                return new JsonResponse($jsonContent);   
-
-            }else{
                 $mensaje = 1;
                 return new JsonResponse($mensaje);
-            }
-           
-        }
 
+            }else{
+
+                $horario = new Horario();
+                $horario->setVacantes($vacantes);
+                $horario->setHoraInicio($horaInicio);
+                $horario->setHoraFin($horaFin);
+                $horario->setEdadMinima($edadMinima);
+                $horario->setEdadMaxima($edadMaxima);
+                $horario->setDiscapacitados($discapacitados);
+                $horario->setTurno($turno);
+                $horario->setConvocatoria(0);
+                $horario->setEstado(1);
+                $horario->setInscritos(0);
+
+                $em = $this->getDoctrine()->getRepository(complejoDisciplina::class);
+                $codigoDisciplina = $em->find($codigoEdi);
+                $horario->setComplejoDisciplina($codigoDisciplina);
+         
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($horario);
+                $em->flush();
+
+                $idHorarioNuevo = $horario->getId(); 
+                   
+                $em = $this->getDoctrine()->getManager();
+                $dataActualizada = $em->getRepository('AkademiaBundle:Horario')->getMostrarCambios($idHorarioNuevo);         
+
+                if(!empty($dataActualizada)){
+                        
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+                    $normalizer->setCircularReferenceLimit(1);
+                    $normalizer->setCircularReferenceHandler(function ($object) {
+                        return $object->getId();
+                    });
+
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($dataActualizada,'json');
+
+                    return new JsonResponse($jsonContent);   
+                
+                }else{
+                    $mensaje = 2;
+                    return new JsonResponse($mensaje);
+                }
+            } 
+        }
     }
 
     public function beneficiariosAction(Request $request, $idHorario){

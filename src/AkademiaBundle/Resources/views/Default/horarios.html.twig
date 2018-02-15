@@ -87,7 +87,7 @@
 												<tr> 
 													<td id="1{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
 													<td id="2{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
-													<td id="3{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']}} - {{horario['horaFin']}}</td> 
+													<td id="3{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']|date('H:i')}} - {{horario['horaFin']|date('H:i')}}</td> 
 													<td id="4{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
 													<td id="5{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
 													{% if  horario['discapacidad'] == 0 %}
@@ -102,7 +102,7 @@
 														<td id="7{{horario['idHorario']}}" class="text-center"> Cerrado </td> 
 													{% endif %}
 
-													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px" ></i></button></td>
+													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px; color:white" ></i></button></td>
 
 													<td><a href="/beneficiarios/{{horario['idHorario']}}"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
 												</tr> 
@@ -187,7 +187,7 @@
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<div id="alert-editar-info" class="alert alert-danger alert-dismissible text-center" role="alert">
 								<button id="btn-close-alert-editar-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-								<p style="font-size:14px;">¡Cuidado! Antes de abrir la convocatoria, verifica que no existan horarios iguales.</p>
+								<p style="font-size:14px;">¡Cuidado! Antes de abrir la convocatoria, verifica que no existan horarios iguales. </p>
 							</div>
 							<ul class="list-group">
 								<li class="list-group-item">
@@ -309,49 +309,118 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div id="alert-crear-info" class="alert alert-danger alert-dismissible text-center" role="alert">
 							<button id="btn-close-alert-crear-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-							<p style="font-size:14px">¡Cuidado! Evita crear horarios iguales. Verifica antes de crear uno nuevo.</p>
+							<p style="font-size:14px">¡Cuidado! Evita crear horarios iguales. </p>
 						</div>
 
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 										<p><strong>Turno</strong></p>
 									</div>
-									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										<input id="crear_turno-horario" class="form-control" name="turno-horario" type="text" placeholder="Ejm: Martes a Jueves ... " class="validate">
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+
+										<div class="checkbox">
+										  <label><input type="checkbox" value="Lun" onclick="elegirDias(this)">Lunes</label>
+										</div>
+										<div class="checkbox">
+										  <label><input type="checkbox" value="Mar" onclick="elegirDias(this)">Martes</label>
+										</div>
+										<div class="checkbox">
+										  <label><input type="checkbox" value="Mie" onclick="elegirDias(this)" >Miércoles</label>
+										</div>
+
+										<div class="checkbox">
+										  <label><input type="checkbox" value="Jue" onclick="elegirDias(this)">Jueves</label>
+										</div>
+										
+									</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
+										<div class="checkbox">
+										  <label><input type="checkbox" value="Vie" onclick="elegirDias(this)"> Viernes </label>
+										</div>
+										<div class="checkbox ">
+										  <label><input type="checkbox" value="Sab" onclick="elegirDias(this)"> Sábado </label>
+										</div>
+										<div class="checkbox ">
+										  <label><input type="checkbox" value="Dom"onclick="elegirDias(this)"> Domingo </label>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<p style="font-size:14px; color:grey">Turno creado : <span id="turno"></span></p>
+							</li>
+
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+										<p><strong>Hora Inicio</strong></p>
+									</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+										<div class="input-group">
+											<span class="input-group-addon">hh</span>
+
+											<input class="form-control" placeholder=" 09 " id="hora-inicio"
+											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+											    type = "number"
+											    maxlength = "2"
+											    min = "1"
+											    max = "24"
+											 />
+										</div>
+									</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+										<div class="input-group">
+											<span class="input-group-addon">mm</span>
+											
+											<input class="form-control" placeholder=" 0 " id="min-inicio"
+											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+											    type = "number"
+											    maxlength = "2"
+											    min = "0"
+											    max = "60"
+											 />
+											
+										</div>
 									</div>
 								</div>
 							</li>
 
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-										<div class="row">
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Hora Inicio</strong></p>
-											</div>
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+										<p><strong>Hora Fin</strong></p>
+									</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+										<div class="input-group">
+											<span class="input-group-addon">hh</span>
 
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="text" placeholder="Ejm: 09:00" class="validate">
-											</div>
+											<input class="form-control" placeholder=" 10 " id="hora-fin"
+											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+											    type = "number"
+											    maxlength = "2"
+											    min = "1"
+											    max = "24"
+											 />
 										</div>
 									</div>
-
-									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-										<div class="row">
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Hora Fin</strong></p>
-											</div>
-
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="text" placeholder="Ejm: 10:00" class="validate">
-
-											</div>
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+										<div class="input-group">
+											<span class="input-group-addon">mm</span>
+											<input class="form-control" placeholder=" 00 " id="min-fin"
+											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+											    type = "number"
+											    maxlength = "2"
+											    min = "1"
+											    max = "60"
+											 />
 										</div>
 									</div>
 								</div>
-							</li>
+								<br>
+								<p style="font-size:14px; color:grey">El formato es de 24 horas.</p>
+							</li>						
 
 							<li class="list-group-item">
 
@@ -363,7 +432,14 @@
 												<p><strong>Edad mínima</strong></p>
 											</div>
 											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_edad-minima-horario" class="form-control" name="edad-minima-horario" type="number" min="0" class="validate">
+
+												<input class="form-control" name="edad-minima" id="edad-minima"
+												    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+												    type = "number"
+												    maxlength = "2"
+												    min = "1"
+												    max = "40"
+												 />
 											</div>
 										</div>
 									</div>
@@ -377,7 +453,14 @@
 
 											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_edad-maxima-horario" class="form-control" name="edad-maxima-horario" type="number" min="0" class="validate">
+												<input class="form-control" id="edad-maxima" name="edad-maxima"
+												    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+												    type = "number"
+												    maxlength = "2"
+												    min = "1"
+												    max = "40"
+												 />
+
 											</div>
 										</div>
 									</div>
@@ -407,7 +490,13 @@
 										<p><strong>Vacantes</strong></p>
 									</div>
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										<input id="crear_vacantes-horario" class="form-control" name="vacantes-horario" type="number" min="0" class="validate">
+
+										<input class="form-control" id="vacantes-horario" name="vacantes-horario"
+										    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+										    type = "number"
+										    maxlength = "4"
+										    min="0" 
+										 />		
 									</div>
 								</div>
 							</li>				
@@ -479,6 +568,8 @@
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 
 <script type="text/javascript">
+		
+		/* CARGAR ALERTAS */
 		$(document).ready(function(){
 
 			$('#btn-close-alert-info').click(function(){
@@ -493,11 +584,13 @@
 				hideAlertMessage('#alert-crear-info');
 			});	
 
+			$("#btn-crear-horario").attr('disabled', true);
 		});
 
 		/*FILTROS */
 		$(document).ready(function () {
             (function ($) {
+
             	var jsFiltrar = document.querySelectorAll('.filtrar');
             	var jsBuscar = document.querySelectorAll('.buscar');
             	//console.log($(jsBuscar[0]).children('tr'));
@@ -507,8 +600,8 @@
             		$(jsFiltrar[i]).keyup(function () {
 
             			var idfil = $(this).attr('ident-buscar');
-	                    var rex = new RegExp($(this).val(),'i');
 
+	                    var rex = new RegExp($(this).val(),'i');
 	                    $(jsBuscar[idfil]).children('tr').hide();
 	                    $(jsBuscar[idfil]).children('tr').filter(function () {
 	                        return rex.test($(this).text());
@@ -520,8 +613,23 @@
 
         });
 
-		function clearData(){
+		/*CREAR TURNO DINÁMICO*/
 
+		var turno = document.getElementById('turno')
+		var diasElegidos = []
+
+		function elegirDias(element){
+		    if (element.checked) {
+		        diasElegidos.push(element.value)
+		    }else{
+		        diasElegidos.splice( diasElegidos.indexOf( element.value ), 1 )
+		    }
+		    turno.innerHTML = diasElegidos.join(',')
+		}
+
+
+		/*LIMPIAR CAJAS */
+		function clearData(){
 			$("#editar_codigo_horario").empty();
 			$("#editar_disciplina_horario").empty();
 			$("#editar_turno_horario").empty();
@@ -530,22 +638,38 @@
 			$("#editar_discapacidad_horario").empty();
 			$("#editar_vacantes_horario").val("");
 			$("#editar_convocatoria_horario").val("");
-
 		}
 
 		function clearDataCrear(){
-
-			$("#crear_turno-horario").val("");
-			$("#crear_hora-inicio-horario").val("");
-			$("#crear_hora-fin-horario").val("");
-			$("#crear_edad-minima-horario").val("");
-			$("#crear_edad-maxima-horario").val("");
-			$("#crear_vacantes-horario").val("");
+			$("#turno").text("");
+			$("#hora-inicio").val("");
+			$("#min-inicio").val("");
+			$("#hora-fin").val("");
+			$("#min-fin").val("");
+			$("#edad-minima").val("");
+			$("#edad-maxima").val("");
+			$("#vacantes-horario").val("");
 			$("#crear_discapacidad").val("");
-			$("#crear_convocatoria_horario").val(0);
+			//$("#diasTurno :checkbox").attr('checked', false);
+			$('input:checkbox').attr('checked',false);
 
+			//$("#crear_convocatoria_horario").val(0);
 		}
 
+		function validar(){
+			
+			if($("#turno").text() == "" ||  $("#hora-inicio").val() == "" ||  $("#min-inicio").val() == "" ||   $("#hora-fin").val() == "" ||  $("#edad-minima").val() == "" ||  $("#edad-maxima").val() == "" ||  $("#vacantes-horario").val()== "" ||  $("#crear_discapacidad").val() == "" ){
+
+				$("#btn-crear-horario").attr('disabled', true);
+				alertify.error('<p style="color:white">Debe rellenar los campos </p>'); 
+			
+			}else{
+
+				$("#btn-crear-horario").attr('disabled', false);
+			}
+		}
+
+		/* EDITAR HORARIO*/
 		function editarHorario(idHorario, idDisciplina){
 			
 			var idHorario = idHorario;
@@ -596,8 +720,9 @@
 				},
 
 			})
-			
 		}
+
+		/*ACTUALIZAR HORARIO*/
 
 		function actualizarHorario(){
 
@@ -609,8 +734,6 @@
             	alertify.error('<p style="color:white">Seleccione la convocatoria. </p>');
 
             }else if($("#editar_convocatoria_horario").val()!= "" && $("#editar_vacantes_horario").val()!=""){
-
-            		//$("#btn-actualizar-horario").attr("disabled", false);
             		
 		           	var idHorario = $("#editar_codigo_horario").text();
 					var vacantes = $("#editar_vacantes_horario").val();
@@ -663,8 +786,11 @@
 			console.log(idHorario, idDisciplina, vacantes , convocatoria);
 		} 
 
+		/*NUEVO HORARIO*/
 		function disciplina(idDisciplina2){
 
+			//$("#diasTurno :checkbox").attr('checked', false);
+			
 			clearDataCrear();
 			$("#idDisciplina").val(idDisciplina2);
 			var idDisciplina = $("#idDisciplina").val();
@@ -673,30 +799,31 @@
 		
 		function nuevoHorario(){
 
-			var horarioInicio = $("#crear_hora-inicio-horario").val();
-		    var horarioFin = $("#crear_hora-inicio-horario").val();
-			var edadMinima = $("#crear_edad-minima-horario").val();
-			var edadMaxima = $("#crear_edad-maxima-horario").val();
-			var vacantes = $("#crear_vacantes-horario").val();
+			validar();
+
+			var turno = $("#turno").text();
+			var horarioInicio = $("#hora-inicio").val()+':'+ $("#min-inicio").val();
+			var horarioFin = $("#hora-fin").val()+':'+$("#min-fin").val();
+			var edadMinima = $("#edad-minima").val();
+			var edadMaxima = $("#edad-maxima").val();
+			var vacantes = $("#vacantes-horario").val();
 			var discapacidad = $("#crear_discapacidad").val();
-			var turno = $("#crear_turno-horario").val();
 			var idDisciplina = $("#idDisciplina").val();
 
-			clearDataCrear();
-
+			//console.log(horarioInicio, horarioFin, turno, edadMinima, edadMaxima,vacantes,discapacidad);
 			var dataCrearHorario = {
 
+				"turno" : turno,
 				"horarioInicio" : horarioInicio,
 				"horarioFin" : horarioFin,
 				"edadMinima" :edadMinima,
 				"edadMaxima" : edadMaxima,
 				"vacantes" : vacantes,
 				"discapacidad" : discapacidad,
-				"turno" : turno,
 				"idDisciplina" : idDisciplina
 			}
 			
-			console.log(dataCrearHorario);
+			//console.log(dataCrearHorario);
 			$.ajax({
 
 				type:'POST',
@@ -709,10 +836,17 @@
 
 				success: function(data){
 
-					
+					if(data == 1){
+						clearDataCrear();
+						alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
+						
+					}else if(data == 2){
 
-					if(data != 1){
+						clearDataCrear();
+						alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
 					
+					}else {
+
 						var tdhorario = '';
 						var idDisciplina = $("#idDisciplina").val();
 						var dataHorario =JSON.parse(data)[0];
@@ -720,8 +854,8 @@
 						tdhorario+='<tr>';
 						tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
 						tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-						tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +'-'+dataHorario.horaFin+'</td>';
-						tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+'-'+dataHorario.edadMaxima+ ' años </td>';
+						tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
+						tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
 						tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 						
 						if(dataHorario.discapacitados == 0){
@@ -743,12 +877,8 @@
 
 						$('#1'+idDisciplina).append(tdhorario);
 
-						//clearDataCrear();
-						alertify.success('<p style="color:black">Nuevo horario creado. </p>');	
-
-					}else{
-
-						alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
+						clearDataCrear();
+						alertify.success('<p style="color:white"> El nuevo horario fue creado exitosamente. </p>');	
 					}	
 
 				},
@@ -760,21 +890,6 @@
 				}
 		    }); 
 		}
-
-		/*Muestra mensaje de alerta*/
-		function showAlertMessage(alert, mensaje){
-			$(alert).text(mensaje).show('fade');
-			setTimeout(function(){
-				hideAlertMessage(alert);	
-			}, 2000);
-		}
-
-		/*Oculta mensaje de alerta*/
-		function hideAlertMessage(alert){
-			$(alert).hide('fade');
-
-		}
-	
 
 
 	/*CREAR NUEVA DISCIPLINA*/
@@ -810,21 +925,33 @@
 						accordion+='</div>';
 						$("#listadoDisciplinas").append(accordion);*/
 						window.location.href = "{{url('akademia_horarios')}}";
-						alertify.success('<p style="color:black">Disciplina creada. </p>');							
+						alertify.success('<p style="color:white">La nueva disciplina fue creada exitosamente. </p>');							
 					}
 				},
 
 				error: function(data){
-					alertify.error('<p style="color:black">Se produjo un error al crear la nueva disciplina. </p>');	
+					alertify.error('<p style="color:white">Se produjo un error al crear la nueva disciplina. </p>');	
 					console.log(data);
 				},
 			});
 
 		}else{
-			alertify.error('<p style="color:black">Debe seleccionar una disciplina a crear. </p>');			
+			alertify.error('<p style="color:white">Debe seleccionar una disciplina a crear. </p>');			
 		}
+	}
 
-		
+	/* MOSTRAR MENSAJE DE ALERTA */
+	function showAlertMessage(alert, mensaje){
+		$(alert).text(mensaje).show('fade');
+		setTimeout(function(){
+			hideAlertMessage(alert);	
+		}, 2000);
+	}
+
+	/* COULTAR ALERTA*/
+	function hideAlertMessage(alert){
+		$(alert).hide('fade');
+
 	}
 	
 </script>
