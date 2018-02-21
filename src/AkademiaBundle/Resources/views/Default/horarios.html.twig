@@ -10,12 +10,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>                       
-                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="logoAcademia" />                                      
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
+                	<li><a href="{{url('akademia_homepage')}}">Pre Inscripción</a></li>
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
                 	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
@@ -26,6 +27,9 @@
 </header>
 
 <section  id="inscribete"  class="proceso-inscripcion">
+		<div style="width:91%">
+			<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+		</div>
 		<div id="proceso1" class="proceso" style="margin-bottom: 60px;">	
 		    
 		    <h2>CP {{complejosDisciplinas[0]['nombreComplejo']}}</h2>
@@ -119,7 +123,7 @@
 							<hr>
 							<div class="row text-right">
 								
-								<button type="button" data-toggle="modal" data-target="#modal-crear" class="btn btn-danger" style="margin-right: 18px;" onclick="disciplina({{complejosDisciplina['idDisciplina']}});">Crear nuevo horario</button>
+								<button type="button" data-toggle="modal" data-target="#modal-crear" id="Crear-Nuevo-Horario"  class="btn btn-danger" style="margin-right: 18px;" onclick="disciplina({{complejosDisciplina['idDisciplina']}});">Crear nuevo horario</button>
 							</div>
 						</div>
 					</div>
@@ -132,7 +136,7 @@
 			<div class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">				
 				<div class="card-header text-center">
 					<p style="font-size:16px; color:grey">¿Quieres aperturar una nueva disciplina en tu complejo deportivo?</p>
-					<button type="button" data-toggle="modal" data-target="#modal-disciplina" class="btn btn-danger" style="margin-right: 18px;">Crear nueva disciplina</button>		
+					<button type="button" data-toggle="modal" data-target="#modal-disciplina" class="btn btn-danger" id="CrearDisc" style="margin-right: 18px;">Crear nueva disciplina</button>		
 				</div>
 			</div>
 
@@ -185,9 +189,9 @@
 			<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<div id="alert-editar-info" class="alert alert-danger alert-dismissible text-center" role="alert">
+							<div id="alert-editar-info" class="alert alert-warning alert-dismissible text-center" role="alert">
 								<button id="btn-close-alert-editar-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-								<p style="font-size:14px;">¡Cuidado! Antes de abrir la convocatoria, verifica que no existan horarios iguales. </p>
+								<p style="font-size:14px;">Apertura de un horario. </p>
 							</div>
 							<ul class="list-group">
 								<li class="list-group-item">
@@ -307,10 +311,11 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div id="alert-crear-info" class="alert alert-danger alert-dismissible text-center" role="alert">
+						<div id="alert-crear-info" class="alert alert-warning alert-dismissible text-center" role="alert">
 							<button id="btn-close-alert-crear-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
 							<p style="font-size:14px">¡Cuidado! Evita crear horarios iguales. </p>
 						</div>
+						<div id="alerta-errorCrear" class="alert alert-danger collapse text-center"></div>
 
 						<ul class="list-group">
 							<li class="list-group-item">
@@ -321,29 +326,29 @@
 									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
 
 										<div class="checkbox">
-										  <label><input type="checkbox" value="Lun" onclick="elegirDias(this)">Lunes</label>
+										  <label><input type="checkbox" value="1" onclick="elegirDias(this)">Lunes</label>
 										</div>
 										<div class="checkbox">
-										  <label><input type="checkbox" value="Mar" onclick="elegirDias(this)">Martes</label>
+										  <label><input type="checkbox" value="2" onclick="elegirDias(this)">Martes</label>
 										</div>
 										<div class="checkbox">
-										  <label><input type="checkbox" value="Mie" onclick="elegirDias(this)" >Miércoles</label>
+										  <label><input type="checkbox" value="3" onclick="elegirDias(this)">Miércoles</label>
 										</div>
 
 										<div class="checkbox">
-										  <label><input type="checkbox" value="Jue" onclick="elegirDias(this)">Jueves</label>
+										  <label><input type="checkbox" value="4" onclick="elegirDias(this)">Jueves</label>
 										</div>
 										
 									</div>
 									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
 										<div class="checkbox">
-										  <label><input type="checkbox" value="Vie" onclick="elegirDias(this)"> Viernes </label>
+										  <label><input type="checkbox" value="5" onclick="elegirDias(this)"> Viernes </label>
 										</div>
 										<div class="checkbox ">
-										  <label><input type="checkbox" value="Sab" onclick="elegirDias(this)"> Sábado </label>
+										  <label><input type="checkbox" value="6" onclick="elegirDias(this)"> Sábado </label>
 										</div>
 										<div class="checkbox ">
-										  <label><input type="checkbox" value="Dom"onclick="elegirDias(this)"> Domingo </label>
+										  <label><input type="checkbox" value="7" onclick="elegirDias(this)"> Domingo </label>
 										</div>
 									</div>
 								</div>
@@ -374,7 +379,7 @@
 										<div class="input-group">
 											<span class="input-group-addon">mm</span>
 											
-											<input class="form-control" placeholder=" 0 " id="min-inicio"
+											<input class="form-control" placeholder=" 00 " id="min-inicio"
 											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 											    type = "number"
 											    maxlength = "2"
@@ -507,7 +512,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button id="btn-crear-horario" type="button" class="btn btn-danger" onclick="nuevoHorario();" data-dismiss="modal">Crear</button>
+				<button id="btn-crear-horario" type="button" class="btn btn-danger">Crear</button>
 			</div>
 		</div>
 	</div>
@@ -529,6 +534,8 @@
 							<p>Apertura una nueva disciplina</p>
 						</div>
 						<ul class="list-group">
+							<div id="alerta-errorModal" class="alert alert-danger collapse text-center"></div>
+							<!--<p id="alerta-errorModal"></p>-->
 							<li class="list-group-item">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
@@ -537,7 +544,7 @@
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 
 										<select id="Disciplina" class="form-control"  name="Disciplina" >
-									    	<option value=""selected>--SELECCIONAR--</option>
+									    	<option value="0" selected>--SELECCIONAR--</option>
 								      		{% for disciplina in disciplinas %}
 												<option value="{{disciplina['dis_codigo']}}">{{disciplina['dis_descripcion']}}</option>
 											{% endfor %}
@@ -552,10 +559,29 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button id="btn-crearDisciplina" type="button" class="btn btn-danger" data-dismiss="modal" onclick="crearDisciplina();">Crear</button>
+				<button id="btn-confirm" type="button" class="btn btn-danger">Crear</button>
 			</div>
+
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirmarDisciplina">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#EBE6E5; color:white">
+      		<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+			<h5 class="title-card">Mensaje de confirmación. </h5>
+      </div>
+      <div class="modal-body">
+      		<p class="text-center" style="color:grey">¿ Estás seguro de crear esta nueva disciplina ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="modal-btn-si">Si</button>
+        <button type="button" class="btn btn-default" id="modal-btn-no">No</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -584,7 +610,7 @@
 				hideAlertMessage('#alert-crear-info');
 			});	
 
-			$("#btn-crear-horario").attr('disabled', true);
+			//$("#btn-crear-horario").attr('disabled', true);
 		});
 
 		/*FILTROS */
@@ -613,19 +639,83 @@
 
         });
 
+
 		/*CREAR TURNO DINÁMICO*/
 
 		var turno = document.getElementById('turno')
 		var diasElegidos = []
+		var elemento = []
+		
 
 		function elegirDias(element){
+
 		    if (element.checked) {
+
 		        diasElegidos.push(element.value)
+
 		    }else{
+		  
 		        diasElegidos.splice( diasElegidos.indexOf( element.value ), 1 )
 		    }
-		    turno.innerHTML = diasElegidos.join(',')
-		}
+
+
+		 /*  
+		 	diasElegidos.sort();
+		    console.log(diasElegidos);
+		    
+		    var cadenaHorario = ''
+		    dia =  {1:'Lun', 2:'Mar', 3:'Mie', 4:'Jue', 5:'Vie', 6:'Sab', 7:'Dom'}
+
+	    	for(var i = 0; i < diasElegidos.length; i++){	
+
+		 		if(i!=diasElegidos.length-1)
+		 			cadenaHorario+=dia[diasElegidos[i]]+',';
+		 		else 
+		 			cadenaHorario+=dia[diasElegidos[i]];
+		 	} 
+
+			turno.innerHTML = cadenaHorario
+
+		 	*/
+
+
+			arregloAOrdenar=ordenarCheckbox(diasElegidos);
+
+			function ordenarCheckbox(arreglo){
+				
+				var cadenaHorario = '';
+			    
+			    for(i=0;i<(arreglo.length-1);i++){
+
+			   		for(j=0;j<(arreglo.length-i);j++){
+			 
+				        if(arreglo[j]>arreglo[j+1]){
+				             
+				             aux=arreglo[j];
+				             arreglo[j]=arreglo[j+1];
+				             arreglo[j+1]=aux;
+				        }
+
+			   		}				 	
+
+			 	}
+
+			 	dia = {1:'Lun', 2:'Mar', 3:'Mie', 4:'Jue', 5:'Vie', 6:'Sab', 7:'Dom'}
+
+			 	for(var i = 0; i < arreglo.length; i++){	
+
+			 		if(i!=arreglo.length-1)
+			 			cadenaHorario+=dia[arreglo[i]]+',';
+			 		else 
+			 			cadenaHorario+=dia[arreglo[i]];
+			 	}
+			 	//console.log(cadenaHorario);
+			 	turno.innerHTML = cadenaHorario
+			 	return arreglo
+			}
+
+	
+	}
 
 
 		/*LIMPIAR CAJAS */
@@ -654,19 +744,6 @@
 			$('input:checkbox').attr('checked',false);
 
 			//$("#crear_convocatoria_horario").val(0);
-		}
-
-		function validar(){
-			
-			if($("#turno").text() == "" ||  $("#hora-inicio").val() == "" ||  $("#min-inicio").val() == "" ||   $("#hora-fin").val() == "" ||  $("#edad-minima").val() == "" ||  $("#edad-maxima").val() == "" ||  $("#vacantes-horario").val()== "" ||  $("#crear_discapacidad").val() == "" ){
-
-				$("#btn-crear-horario").attr('disabled', true);
-				alertify.error('<p style="color:white">Debe rellenar los campos </p>'); 
-			
-			}else{
-
-				$("#btn-crear-horario").attr('disabled', false);
-			}
 		}
 
 		/* EDITAR HORARIO*/
@@ -789,107 +866,147 @@
 		/*NUEVO HORARIO*/
 		function disciplina(idDisciplina2){
 
-			//$("#diasTurno :checkbox").attr('checked', false);
-			
 			clearDataCrear();
+			$("#diasTurno :checkbox").attr('checked', false);
 			$("#idDisciplina").val(idDisciplina2);
 			var idDisciplina = $("#idDisciplina").val();
 			
 		}
 		
-		function nuevoHorario(){
+		$("#btn-crear-horario").on("click", function(){
 
-			validar();
+			if($("#turno").text() == "" || $("#hora-inicio").val() == "" || $("#min-inicio").val() == "" || $("#hora-fin").val() == "" || $("#edad-minima").val() == "" || $("#edad-maxima").val() == "" || $("#vacantes-horario").val()== "" || $("#crear_discapacidad").val() == "" ){
 
-			var turno = $("#turno").text();
-			var horarioInicio = $("#hora-inicio").val()+':'+ $("#min-inicio").val();
-			var horarioFin = $("#hora-fin").val()+':'+$("#min-fin").val();
-			var edadMinima = $("#edad-minima").val();
-			var edadMaxima = $("#edad-maxima").val();
-			var vacantes = $("#vacantes-horario").val();
-			var discapacidad = $("#crear_discapacidad").val();
-			var idDisciplina = $("#idDisciplina").val();
-
-			//console.log(horarioInicio, horarioFin, turno, edadMinima, edadMaxima,vacantes,discapacidad);
-			var dataCrearHorario = {
-
-				"turno" : turno,
-				"horarioInicio" : horarioInicio,
-				"horarioFin" : horarioFin,
-				"edadMinima" :edadMinima,
-				"edadMaxima" : edadMaxima,
-				"vacantes" : vacantes,
-				"discapacidad" : discapacidad,
-				"idDisciplina" : idDisciplina
-			}
+				showAlertMessage('#alerta-errorCrear', "Debe rellenar todos los campos");
+				//$("#btn-crear-horario").attr('disabled', true);		
+			}else{
 			
-			//console.log(dataCrearHorario);
-			$.ajax({
+				var turno = $("#turno").text();
+				var horarioInicio = $("#hora-inicio").val()+':'+ $("#min-inicio").val();
+				var horarioFin = $("#hora-fin").val()+':'+$("#min-fin").val();
+				var edadMinima = $("#edad-minima").val();
+				var edadMaxima = $("#edad-maxima").val();
+				var vacantes = $("#vacantes-horario").val();
+				var discapacidad = $("#crear_discapacidad").val();
+				var idDisciplina = $("#idDisciplina").val();
 
-				type:'POST',
-				dataType: 'json',
-				url: "{{url('akademia_crearHorario')}}",
-				data: dataCrearHorario,
-				beforeSend: function(){				
-				
-				},
+				//console.log(horarioInicio, horarioFin, turno, edadMinima, edadMaxima,vacantes,discapacidad);
+				var dataCrearHorario = {
 
-				success: function(data){
-
-					if(data == 1){
-						clearDataCrear();
-						alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
-						
-					}else if(data == 2){
-
-						clearDataCrear();
-						alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
-					
-					}else {
-
-						var tdhorario = '';
-						var idDisciplina = $("#idDisciplina").val();
-						var dataHorario =JSON.parse(data)[0];
-
-						tdhorario+='<tr>';
-						tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
-						tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-						tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
-						tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
-						tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
-						
-						if(dataHorario.discapacitados == 0){
-							tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
-						}else{
-							tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
-						}
-
-						if(dataHorario.convocatoria == 0 ){
-							tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
-						}else {
-							tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
-						
-						}
-
-						tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
-						tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
-						tdhorario+='</tr>';
-
-						$('#1'+idDisciplina).append(tdhorario);
-
-						clearDataCrear();
-						alertify.success('<p style="color:white"> El nuevo horario fue creado exitosamente. </p>');	
-					}	
-
-				},
-				error: function(error){
-
-					alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
-					console.log("Error En la captura de data!! . ");
-					console.log(error);
+					"turno" : turno,
+					"horarioInicio" : horarioInicio,
+					"horarioFin" : horarioFin,
+					"edadMinima" :edadMinima,
+					"edadMaxima" : edadMaxima,
+					"vacantes" : vacantes,
+					"discapacidad" : discapacidad,
+					"idDisciplina" : idDisciplina
 				}
-		    }); 
-		}
+			
+				$.ajax({
+
+					type:'POST',
+					dataType: 'json',
+					url: "{{url('akademia_crearHorario')}}",
+					data: dataCrearHorario,
+					beforeSend: function(){
+
+						$("#btn-crear-horario").attr('disabled', true);
+					},
+
+					success: function(data){
+
+						if(data == 1){
+							clearDataCrear();
+							alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
+							
+						}else if(data == 2){
+
+							clearDataCrear();
+							alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
+						
+						}else {
+
+							var tdhorario = '';
+							var idDisciplina = $("#idDisciplina").val();
+							var dataHorario =JSON.parse(data)[0];
+
+							tdhorario+='<tr>';
+							tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
+							tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
+							tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
+							tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
+							tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
+							
+							if(dataHorario.discapacitados == 0){
+								tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
+							}else{
+								tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
+							}
+
+							if(dataHorario.convocatoria == 0 ){
+								tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
+							}else {
+								tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
+							}
+
+							tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
+							tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
+							tdhorario+='</tr>';
+
+							$('#1'+idDisciplina).append(tdhorario);
+
+							clearDataCrear();
+							alertify.success('<p style="color:white"> El horario fue creado exitosamente. </p>');	
+						}	
+					},
+					error: function(error){
+
+						alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
+						console.log("Error En la captura de data!! . ");
+						console.log(error);
+					}
+			    });
+			}
+		})
+
+		$("#CrearDisc").on("click", function(){
+			$("#Disciplina").val(0);
+		});
+
+
+		/* CONFIRMAR LA CREACION DE DISCIPLINAS*/
+		var modalConfirm = function(callback){
+  
+		  $("#btn-confirm").on("click", function(){
+
+		  	if($("#Disciplina").val() == 0){
+
+		  		showAlertMessage('#alerta-errorModal', "Debe seleccionar una disciplina ");
+
+		  	}else{
+
+		  		$("#confirmarDisciplina").modal('show');
+		  	}
+		   
+		  });
+
+		  $("#modal-btn-si").on("click", function(){
+		    callback(true);
+		    $("#confirmarDisciplina").modal('hide');
+		  });
+		  
+		  $("#modal-btn-no").on("click", function(){
+		    callback(false);
+		    $("#confirmarDisciplina").modal('hide');
+		  });
+		};
+
+		modalConfirm(function(confirm){
+		  if(confirm){
+		  	crearDisciplina()
+		  }
+		});
 
 
 	/*CREAR NUEVA DISCIPLINA*/
@@ -914,6 +1031,10 @@
 
 				success: function(data){
 					if(data != 1){
+
+						alertify.success('<p style="color:white">La disciplina fue creada exitosamente. </p>');	
+						window.location.href = "{{url('akademia_horarios')}}";
+
 						/*var dataDisciplina =JSON.parse(data)[0];
 						var accordion = '';
 						accordion+='<div class="card" id="listadoDisciplinas">';
@@ -924,8 +1045,7 @@
 						accordion+='</div>';
 						accordion+='</div>';
 						$("#listadoDisciplinas").append(accordion);*/
-						window.location.href = "{{url('akademia_horarios')}}";
-						alertify.success('<p style="color:white">La nueva disciplina fue creada exitosamente. </p>');							
+												
 					}
 				},
 
@@ -953,6 +1073,9 @@
 		$(alert).hide('fade');
 
 	}
+
+
+
 	
 </script>
 

@@ -21,6 +21,16 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $horarios;
         }
 
+        public function getHorariosPromotores(){
+                
+                $query = "select * from ACADEMIA.horario";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+                $horarios = $stmt->fetchAll();
+
+                return $horarios;
+        }
+
         public function getHorariosVacantes($idHorario){
                 $query = "select vacantes from ACADEMIA.horario where id = '$idHorario' ";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -177,10 +187,11 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                         a.sexo as sexo, 
                         a.estado as estadoParticipante,
                         b.id as idHorario, 
-                        c.id as idInscribete
+                        c.id as idInscribete,
+                        c.estado as estadoInscribete   
                         from
                         academia.inscribete c inner join academia.horario b on c.horario_id = b.id 
-                        inner join academia.participante a on c.participante_id = a.id where b.id = $idHorario";
+                        inner join academia.participante a on c.participante_id = a.id where b.id = $idHorario and c.estado = 2";
 
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();

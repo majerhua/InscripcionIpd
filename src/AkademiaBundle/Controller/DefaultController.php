@@ -113,10 +113,8 @@ class DefaultController extends Controller
                     $normalizers = array($normalizer);
                     $serializer = new Serializer($normalizers, $encoders);
                     $jsonContent = $serializer->serialize($po,'json');
-
                     return new JsonResponse($jsonContent);  
-                }
-
+                }            
             }
         }     
 
@@ -130,13 +128,18 @@ class DefaultController extends Controller
         $mdlDistrito = $em2->getRepository('AkademiaBundle:Distrito')->getDistritos();
         $mdlComplejoDeportivo = $em2->getRepository('AkademiaBundle:ComplejoDeportivo')->getComplejosDeportivos();
         $mdlComplejoDisciplina = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejoDisciplinas();
-        $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
 
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario,"departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 
-		
+        $session = $this->isGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+        $Role = $this->getUser();
+
+        if($Role == null){
+            $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
+        }else{
+            $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorariosPromotores();   
+        }
+        
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario,"departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD )); 	
     }
-
-
 
     public function consultaAction(Request $request)
     {
@@ -200,9 +203,7 @@ class DefaultController extends Controller
                     $apoderado->setCorreo($correo);
                     $em = $this->getDoctrine()->getManager();
                     $em->flush();
-
                     $idApod = $apoderado->getId();
-                    
 
                 }else{
 
@@ -312,10 +313,7 @@ class DefaultController extends Controller
     
         $em = $this->getDoctrine()->getManager();
         $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getApoderadoBusqueda('08161415');
-
         return new JsonResponse($IDParticipante);
-
-
     }
 
 
@@ -347,8 +345,6 @@ class DefaultController extends Controller
                 $mensaje = 1;
                 return new JsonResponse($mensaje);
             }
-
-          
 
         }
 
@@ -440,9 +436,7 @@ class DefaultController extends Controller
                             $em = $this->getDoctrine()->getManager();
                             $em->getRepository('AkademiaBundle:Participante')->getActualizarParticipanteFicha($idParticipante,$idFicha);
                             $em->flush(); 
-
                         }
-
 
                     }else{
 
@@ -465,7 +459,6 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getManager();
                         $idApoderadoB = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dniApoderado);
                         
-                       
 
                         if(!empty($idApoderadoB)){
 
@@ -524,7 +517,7 @@ class DefaultController extends Controller
 
                     $mensaje = 1;
                     return new JsonResponse($mensaje);
-                
+                    
                 }else{
 
                     $mensaje = 2;
@@ -725,14 +718,15 @@ class DefaultController extends Controller
 
     public function horariosAction(Request $request){
 
-            $idComplejo = $this->getUser()->getIdComplejo();
+        $idComplejo = $this->getUser()->getIdComplejo();
 
-            $em2 = $this->getDoctrine()->getManager();
-            $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios($idComplejo);
-            $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
-            $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
+        $em2 = $this->getDoctrine()->getManager();
+        $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios($idComplejo);
+        $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
+        $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
 
-            return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
+
+        return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
     }
 
     public function actualizarHorarioAction(Request $request){
@@ -887,8 +881,6 @@ class DefaultController extends Controller
     }
 
     public function beneficiariosAction(Request $request, $idHorario){
-
-
 
         $em = $this->getDoctrine()->getManager();
         $Horarios = $em->getRepository('AkademiaBundle:Horario')->getHorarioBeneficiario($idHorario);

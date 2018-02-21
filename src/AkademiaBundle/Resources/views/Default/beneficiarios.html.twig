@@ -15,6 +15,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
+                	<li><a href="{{url('akademia_homepage')}}">Pre Inscripción</a></li>
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
                 	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
@@ -65,7 +66,7 @@
 										<strong>Hora:</strong>
 									</div>
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										{{horarios[0]['horaInicio']}} - {{horarios[0]['horaFin']}}
+										{{horarios[0]['horaInicio']|date('H:i')}} - {{horarios[0]['horaFin']|date('H:i')}}
 									</div>			
 								</div>
 							</div>
@@ -161,8 +162,11 @@
 														<td> Masculino </td>
 													{% endif %}
 													
-													<td>{{beneficiario['estadoParticipante']}}</td> 
-													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar"  onclick="editarParticipante({{beneficiario['idParticipante']}})">Editar</button></td>
+													{% if beneficiario['estadoParticipante'] == 1 %}
+														<td>Inscrito</td>
+													{% endif %} 
+
+													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar"  onclick="editarParticipante({{beneficiario['idParticipante']}})" disabled>Editar</button></td>
 												</tr> 
 											{% endfor %}								
 										</tbody> 

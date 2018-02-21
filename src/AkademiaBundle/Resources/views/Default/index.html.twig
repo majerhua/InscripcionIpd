@@ -18,96 +18,135 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	        <br>
 	        <ul class="nav navbar-nav navbar-right">
-	            <li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
-	            <li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 
-	            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %}	
-	            	<li><a href="{{url('akademia_inscritos')}}">Promotores</a></li>
-	            {% else %}
+	            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}	
+	            	
+	            	<li><a href="{{url('akademia_homepage')}}">Pre Inscripción</a></li>
+                	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
+                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
+                    <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
+                
+                {% else %}
+                	<li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
+	            	<li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 					<li><a href="{{url('akademia_login')}}">Promotores</a></li>	            
 	            {% endif %}
 	        </ul>
 	    </div>
 	</div>
 	</nav>
-<div id="carousel-1" class="carousel slide" data-ride="carousel">
-		<!-- Indicadores -->
-		<ol class="carousel-indicators">
-			<li data-target="#carousel-1" data-slide-to="0"	class="active" ></li>
-			<li data-target="#carousel-1" data-slide-to="1"	></li>
-			<li data-target="#carousel-1" data-slide-to="2"	></li>
-			<li data-target="#carousel-1" data-slide-to="3"	></li>
-			<li data-target="#carousel-1" data-slide-to="4"	></li>
-			<li data-target="#carousel-1" data-slide-to="5"	></li>
-			<li data-target="#carousel-1" data-slide-to="6"	></li>
-			<li data-target="#carousel-1" data-slide-to="7"	></li>
-			<li data-target="#carousel-1" data-slide-to="8"	></li>
-		</ol>
-		<!-- contenedor de los slide -->
+	{% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+	<br>
+	<div style="width:91%">
+		<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+	</div>
+	<div class="proceso text-center">
+		<h2>Administración de Pre - Inscritos</h2>
+		<h4 style="color:grey">HORARIOS DESACTIVADOS</h4>
 
-		<div class="carousel-inner" role="listbox">
-			<!-- #1 -->
-			<div class="item active">
-				<img src="{{ asset('assets/images/slider1.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #2 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider2.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #3 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider3.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #4 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider4.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #5 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider5.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #6 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider6.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #7 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider7.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
-			<!-- #8 -->
-			<div class="item">
-				<img src="{{ asset('assets/images/slider8.png') }}" class="img-responsive" alt="" style="width:100%;" />
-			</div>
+		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px;">
+			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+			<p>Previsualiza los horarios para los registros antiguos. Inscripción de preinscritos.</p>
 		</div>
-		<!-- Controles -->
-		<a href="#carousel-1" class="left carousel-control" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			<span class="sr-only">Anterior</span>
-		</a>
-		<a href="#carousel-1" class="right carousel-control" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			<span class="sr-only">Siguiente</span>
-		</a>
-	</div>
-	<div class="bar-info alert alert-info text-center">
-		<strong>Inscripciones abiertas sólo para menores de edad desde los 6 años</strong>
-	</div>
+
+	</div>	
+		
+	{% else %}
+
+		<div id="carousel-1" class="carousel slide" data-ride="carousel">
+			<!-- Indicadores -->
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-1" data-slide-to="0"	class="active" ></li>
+				<li data-target="#carousel-1" data-slide-to="1"	></li>
+				<li data-target="#carousel-1" data-slide-to="2"	></li>
+				<li data-target="#carousel-1" data-slide-to="3"	></li>
+				<li data-target="#carousel-1" data-slide-to="4"	></li>
+				<li data-target="#carousel-1" data-slide-to="5"	></li>
+				<li data-target="#carousel-1" data-slide-to="6"	></li>
+				<li data-target="#carousel-1" data-slide-to="7"	></li>
+				<li data-target="#carousel-1" data-slide-to="8"	></li>
+			</ol>
+			<!-- contenedor de los slide -->
+
+			<div class="carousel-inner" role="listbox">
+				<!-- #1 -->
+				<div class="item active">
+					<img src="{{ asset('assets/images/slider1.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #2 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider2.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #3 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider3.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #4 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider4.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #5 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider5.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #6 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider6.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #7 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider7.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+				<!-- #8 -->
+				<div class="item">
+					<img src="{{ asset('assets/images/slider8.png') }}" class="img-responsive" alt="" style="width:100%;" />
+				</div>
+			</div>
+			<!-- Controles -->
+			<a href="#carousel-1" class="left carousel-control" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Anterior</span>
+			</a>
+			<a href="#carousel-1" class="right carousel-control" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Siguiente</span>
+			</a>
+		</div>
+		<div class="bar-info alert alert-info text-center">
+			<strong>Inscripciones abiertas sólo para menores de edad desde los 6 años</strong>
+		</div>
+
+	{% endif %}
 </header>
 
 <section  id="inscribete"  class="proceso-inscripcion">
 	<div class="progreso">
-		<div class="container-titulo">		
-			<p>PRE - INSCRIPCIÓN 2018 I</p>
-		</div>
-		<div class="progreso_container">
-			<div class="progreso__barraInscripcion">
-				<div class="bar-inscripcion__1 active" >1</div>
-				<div class="bar-inscripcion__2 ">2</div>
-				<div class="bar-inscripcion__3">3</div>
-				<div class="bar-inscripcion__4">4</div>
-				<div class="bar-inscripcion__5">5</div>
-			</div>		
-		</div>
+		{% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+
+			<div class="progreso_container">
+				<div class="progreso__barraInscripcion">
+					<div class="bar-inscripcion__1 active" >1</div>
+					<div class="bar-inscripcion__2 ">2</div>
+					<div class="bar-inscripcion__3">3</div>
+					<div class="bar-inscripcion__4">4</div>
+					<div class="bar-inscripcion__5">5</div>
+				</div>		
+			</div>
+		{% else %}
+			<div class="container-titulo">		
+				<p>PRE - INSCRIPCIÓN 2018 I</p>
+			</div>
+			<div class="progreso_container">
+				<div class="progreso__barraInscripcion">
+					<div class="bar-inscripcion__1 active" >1</div>
+					<div class="bar-inscripcion__2 ">2</div>
+					<div class="bar-inscripcion__3">3</div>
+					<div class="bar-inscripcion__4">4</div>
+					<div class="bar-inscripcion__5">5</div>
+				</div>		
+			</div>
+		{% endif %}
+		
 	</div>
 		
 	<div id="proceso1"  class="proceso">
@@ -446,7 +485,71 @@
 </div>
 
 <div class="proceso">
-	<div class="proceso-inscripcion__horarios row" id="process5">
+	<div class="proceso row" id="process5">
+
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')  %}
+
+			<div class="container-card col-xs-12 col-sm-8 col-md-6 col-ld-6">
+				<div class="card">
+					<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
+					<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
+					<hr>
+					
+					<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
+					<div id="alerta-error" class="alert alert-danger collapse"></div>
+
+					<div class="row">
+						<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" id="inscribirPreinscrito"><button id="btn-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
+
+						<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center"><button class="btn btn-danger" style="margin: 5px;">Salir</button></a>-->
+					</div>
+					
+					<hr>
+					<div class="pdf_inscripcion__ficha row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
+								<p>Código de ficha</p>
+								<p>Nombre</p>
+								<p>Apellido Paterno</p>
+								<p>Apellido Materno</p>
+								<p>Distrito</p>
+								<p>Domicilio</p>
+								<p>Fecha Nacimiento</p>
+								<p>Teléfono</p>
+								<p>DNI</p>
+								<p>Edad</p>
+								<p>Email</p>
+								<p>Deporte</p>
+								<p>Complejo</p>
+								<p>Horario</p>
+							</div>
+
+							<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
+								<p id="codigo-inscripcionRef"></p>
+								<p id="nombre-ficha"></p>
+								<p id="apellidoPaterni-ficha"></p>
+								<p id="apellidoMaterno-ficha"></p>
+								<p id="distrito-ficha"></p>
+								<p id="domicilio-ficha"></p>
+								<p id="fechaNacimiento-ficha"></p>
+								<p id="telefono-ficha"></p>
+								<p id="dni-ficha"></p>
+								<p id="edad-ficha"></p>
+								<p id="email-ficha"></p>
+								<p id="deporte-ficha"></p>
+								<p id="complejo-ficha"></p>
+								<p id="horario-ficha"></p>
+								<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
+							</div>
+						</div>
+						
+					</div>
+					<hr>
+				</div>
+			</div>
+
+		{% else %}
+
 		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
 			<div class="card">
 				<p class="title-card text-center">PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
@@ -480,6 +583,10 @@
 				<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
 				<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
 				<hr>
+				
+				<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
+				<div id="alerta-error" class="alert alert-danger collapse"></div>
+				
 				<div class="pdf_inscripcion__ficha row">
 					<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
 
@@ -512,11 +619,15 @@
 						<p id="deporte-ficha"></p>
 						<p id="complejo-ficha"></p>
 						<p id="horario-ficha"></p>
+						<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
 					</div>
 				</div>
 				<hr>
 			</div>
 		</div>
+
+		{% endif %}
+		
 	</div>
 </div>
 
@@ -1229,6 +1340,7 @@ $("#boton-next-final").on('click',function(){
 
 });
 
+
 function registrar(){
 
 	var dataRegisterApoderado={
@@ -1268,7 +1380,9 @@ function registrar(){
 		dataType: "json",
 		url: "{{url('akademia_registrar')}}",
 		data: dataRegisterApoderado,
-		beforeSend: function(){				
+		beforeSend: function(){	
+
+			$("#boton-next-final").attr("disabled", true);		
 		},
 
 		success: function(data){
@@ -1290,6 +1404,7 @@ function registrar(){
 
 				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
 
+				$("#codigo-inscripcionRef").append(valor.id);
 				$("#nombre-ficha").append(valor.nombre);
 				$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
 				$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
@@ -1303,7 +1418,8 @@ function registrar(){
 				$("#deporte-ficha").append(valor.nombreDisciplina);
 				$("#complejo-ficha").append(valor.nombreComplejo);
 				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
-				$("nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+				$("#nombrePadre-declaracion-jurada").append(valor.nombrePadre);
+				$("#codigo-inscripcion").val(valor.id);
 
 			    enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
 
@@ -1325,6 +1441,46 @@ function registrar(){
 			
 	});
 }
+
+$("#inscribirPreinscrito").on('click',function(){
+
+	var id = $('#codigo-inscripcion').val();
+	console.log(id);
+
+	var dataFicha = {
+		"id" : id,
+	}
+
+	$.ajax({
+
+		type:'POST',
+		dataType: 'json',
+		url: "{{url('akademia_cambiarestado')}}",
+		data: dataFicha,
+		beforeSend: function(){	
+			$("#btn-inscripcion").attr("disabled", true);	
+		},
+		success: function(data){
+
+			if (data == 1){
+				//clearFicha();
+				$("#inscribirPreinscrito").attr("disabled", true);
+				showAlertMessage('#alerta-confirmacion', "Ficha inscrita exitosamente !");
+			
+			}else if( data == 2){
+
+				$("#inscribirPreinscrito").attr("disabled", true);
+				showAlertMessage('#alerta-error', "No existen vacantes disponibles para este Horario. ");
+
+			}
+
+		},
+		error: function(error){
+			console.log("Error en la captura de datos");
+		}
+    });
+});
+
 
 function enviarEmailApoderado($correoApod,$nombre,$id){
 
@@ -1549,6 +1705,7 @@ $(".mensajeEdad").empty();
 	function hideAlertMessage(alert){
 		$(alert).hide('fade');		
 	}
+
 
 </script>
 
