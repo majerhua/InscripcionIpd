@@ -23,7 +23,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getHorariosPromotores(){
                 
-                $query = "select * from ACADEMIA.horario";
+                $query = "select * from ACADEMIA.horario where estado = 1";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -57,6 +57,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                         dis.dis_codigo as idDisciplina,
                         hor.id as idHorario,
                         hor.turno as turno,
+                        hor.estado as estadoHorario,
                         hor.discapacitados as discapacidad,
                         hor.edadMinima as edadMinima,
                         hor.edadMaxima as edadMaxima,
@@ -69,7 +70,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                         ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
                         inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
                         inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
-                        where ede.ede_codigo =$idcomplejo and dis.dis_estado = 1";
+                        where ede.ede_codigo =$idcomplejo and dis.dis_estado = 1 and hor.estado = 1";
 
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
