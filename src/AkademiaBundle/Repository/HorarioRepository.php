@@ -57,6 +57,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                         dis.dis_codigo as idDisciplina,
                         hor.id as idHorario,
                         hor.turno as turno,
+                        hor.inscritos as inscritos,
                         hor.estado as estadoHorario,
                         hor.discapacitados as discapacidad,
                         hor.edadMinima as edadMinima,
@@ -123,6 +124,12 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
 
+        }
+
+        public function getOcultarHorario($idHorario){
+                $query = "update academia.horario set estado = 0 where id= $idHorario";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
         }
 
         public function getMostrarCambios($idHorario){

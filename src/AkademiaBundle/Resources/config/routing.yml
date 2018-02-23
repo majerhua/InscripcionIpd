@@ -77,7 +77,12 @@ akademia_actualizarHorario:
    path:    /ajax/actualizarHorario
    defaults: {_controller: AkademiaBundle:Default:actualizarHorario}
    methods: [GET,POST]
-   
+
+akademia_ocultarHorario:
+   path:    /ajax/ocultarHorario
+   defaults: {_controller: AkademiaBundle:Default:ocultarHorario}
+   methods: [GET,POST]
+
 akademia_mostrarHorarioIndividual:
    path:    /ajax/mostrarHorarioIndividual
    defaults: {_controller: AkademiaBundle:Default:mostrarHorarioIndividual}

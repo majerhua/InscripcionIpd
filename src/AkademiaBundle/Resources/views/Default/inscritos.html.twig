@@ -330,6 +330,17 @@
 						$('#input-codigo-inscripcion').focus();
 						showAlertMessage('#alerta-error', "No existen vacantes disponibles para este Horario. ");
 
+					}else if( data == 3){
+
+						$("#btn-confirmar-inscripcion").attr("disabled", true);
+						$('#input-codigo-inscripcion').focus();
+						showAlertMessage('#alerta-error', "Este alumno ya se encuentra inscrito en esta disciplina. ");
+
+					}else if( data == 4){
+
+						$("#btn-confirmar-inscripcion").attr("disabled", true);
+						$('#input-codigo-inscripcion').focus();
+						showAlertMessage('#alerta-error', "El alumno excedió la cantidad de Inscripciones posibles.");
 					}
 
 				},

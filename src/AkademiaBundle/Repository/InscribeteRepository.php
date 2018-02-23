@@ -14,31 +14,29 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getFicha($idInscripcion){
 
-   $query = "select inscribete.id as id, inscribete.estado as estado, apoderado.apellidoMaterno as apellidoMaternoApoderado,apoderado.dni as dniApoderado, 
-   apoderado.apellidoPaterno as apellidoPaternoApoderado ,
-   (cast(datediff(dd,participante.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad , 
-   apoderado.nombre as nombrePadre,horario.horaInicio, horario.horaFin, horario.turno, participante.nombre
-   , participante.apellidoPaterno, participante.apellidoMaterno, participante.dni, apoderado.direccion,
-   apoderado.correo, apoderado.telefono, grubigeo.ubinombre as distrito, participante.fechaNacimiento,
-   disciplina.dis_descripcion as nombreDisciplina, edificacionDeportiva.ede_nombre as nombreComplejo
-   from ACADEMIA.inscribete as inscribete, ACADEMIA.horario as horario, ACADEMIA.participante
-   as participante, ACADEMIA.apoderado as apoderado, grubigeo, CATASTRO.edificacionDisciplina 
-   as edificacionDisciplina, CATASTRO.disciplina as disciplina, CATASTRO.edificacionesdeportivas as
-   edificacionDeportiva where inscribete.horario_id = horario.id and 
-   participante.id = inscribete.participante_id and apoderado.id = participante.apoderado_id 
-   and grubigeo.ubicodigo = apoderado.ubicodigo  and edificacionDisciplina.edi_codigo = 
-   horario.edi_codigo and edificacionDisciplina.dis_codigo = disciplina.dis_codigo and
-   edificacionDeportiva.ede_codigo = edificacionDisciplina.ede_codigo and inscribete.id = '$idInscripcion'";
+      $query = "select inscribete.id as id, inscribete.estado as estado, apoderado.apellidoMaterno as apellidoMaternoApoderado,apoderado.dni as dniApoderado, 
+       apoderado.apellidoPaterno as apellidoPaternoApoderado ,
+       (cast(datediff(dd,participante.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad , 
+       apoderado.nombre as nombrePadre,horario.horaInicio, horario.horaFin, horario.turno, participante.nombre
+       , participante.apellidoPaterno, participante.apellidoMaterno, participante.dni, apoderado.direccion,
+       apoderado.correo, apoderado.telefono, grubigeo.ubinombre as distrito, participante.fechaNacimiento,
+       disciplina.dis_descripcion as nombreDisciplina, edificacionDeportiva.ede_nombre as nombreComplejo
+       from ACADEMIA.inscribete as inscribete, ACADEMIA.horario as horario, ACADEMIA.participante
+       as participante, ACADEMIA.apoderado as apoderado, grubigeo, CATASTRO.edificacionDisciplina 
+       as edificacionDisciplina, CATASTRO.disciplina as disciplina, CATASTRO.edificacionesdeportivas as
+       edificacionDeportiva where inscribete.horario_id = horario.id and 
+       participante.id = inscribete.participante_id and apoderado.id = participante.apoderado_id 
+       and grubigeo.ubicodigo = apoderado.ubicodigo  and edificacionDisciplina.edi_codigo = 
+       horario.edi_codigo and edificacionDisciplina.dis_codigo = disciplina.dis_codigo and
+       edificacionDeportiva.ede_codigo = edificacionDisciplina.ede_codigo and inscribete.id = '$idInscripcion'";
 
     	$stmt = $this->getEntityManager()->getConnection()->prepare($query);
     	$stmt->execute();
     	$ficha = $stmt->fetchAll();
 
-    return $ficha;
+      return $ficha;
 	
 	}
-
-
 
   public function cargaDatos($idInscripcion){
     $query = "select a.id as idFicha, a.horario_id as idHorario, a.estado as estadoFicha, a.participante_id as idParticipante, b.dni as dniParticipante, b.estado as estadoParticipante, c.dni as dniApoderado, c.id as idApoderado, c.estado as estadoApoderado from academia.inscribete a inner join academia.participante b on a.participante_id = b.id inner join academia.apoderado c on b.apoderado_id = c.id where
@@ -50,6 +48,28 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
 
     return $datos;
 
+  }
+
+  public function getDobleInscripcion($idHorario, $idParticipante){
+    
+    $query = "select * from academia.inscribete where participante_id = $idParticipante and horario_id = $idHorario and estado = 2";
+    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+    $stmt->execute();
+    $datos = $stmt->fetchAll();
+
+    return $datos;
+
+  }
+
+  public function getCantInscripciones($idParticipante){
+
+    $query = "select count(*)as cantidadRegistros from academia.inscribete where participante_id = $idParticipante and estado = 2";
+    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+    $stmt->execute();
+    $datos = $stmt->fetchAll();
+
+    return $datos;
+  
   }
 
 }
