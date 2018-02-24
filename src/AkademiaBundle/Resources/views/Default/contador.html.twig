@@ -1,0 +1,134 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+<header>
+     <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="logoAcademia" />                                      
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{url('akademia_contador')}}">Inicio</a></li>
+                    <li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
+                    <li><a href="{{url('akademia_login')}}">Promotores</a></li> 
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="bg">
+
+    <div class="container text-center" style="background-color: rgba(0,0,0,0.8); height: 100%; width: 100%; margin: 0; padding-bottom: 60px;">
+
+        <strong><p style="font-size:65px; color: #FFFFFF; margin-top: 60px; margin-bottom: 20px;">LA ACADEMIA</p></strong>
+        <strong><p style="font-size: 30px; color: #DBA901;">Temporada Invierno 2018</p></strong>
+        <p style="font-size: 30px; color: #FFFFFF; margin-top: 40px; margin-bottom: 0px;">Inicio de Inscripciones: 05 de marzo</p>
+        <br>
+
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center"></div>
+
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center" style="border-style: solid; margin-right: 3px;">
+            <strong><p id="dias" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style="font-size: 25px; color: #FFFFFF;">Días</p>
+        </div>
+
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center" style="border-style: solid; margin-right: 3px;">
+            <strong><p id="horas" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style="font-size: 25px; color: #FFFFFF;">Horas</p>
+        </div>
+
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center" style="border-style: solid; margin-right: 3px;">
+            <strong><p id="minutos" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style="font-size: 25px; color: #FFFFFF;">Minutos</p>
+        </div>
+
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center" style="border-style: solid;">
+            <strong><p id="segundos" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style="font-size: 25px; color: #FFFFFF;">Segundos</p>
+        </div>
+
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center"></div>
+
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+                <br>
+                <br>
+                <br>
+                <img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <br><br>
+                <h4>La Academia</h4>
+                <p class="footerTex">
+                    Dirección:Calle Madre de Dios N° 463
+                </p>
+                <p class="footerTex">
+                    Teléfono: 204-8420 /anexo 1302
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <br><br>
+                <h4>Enlaces de Interés</h4>
+                <p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+                <p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+                <p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+            </div>
+        </div>
+        <br>
+        <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+    </div>
+</footer>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+<script type="text/javascript">
+
+    var countDownDate = new Date("Mar 5, 2018 8:00:00").getTime();
+   
+    var x = setInterval(function() {
+
+        var now = new Date().getTime();    
+        var distance = countDownDate - now;
+        
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById("dias").innerHTML = days;
+        document.getElementById("horas").innerHTML = hours;
+        document.getElementById("minutos").innerHTML = minutes;
+        document.getElementById("segundos").innerHTML = seconds;
+        
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("dias").innerHTML = 0;
+            document.getElementById("horas").innerHTML = 0;
+            document.getElementById("minutos").innerHTML = 0;
+            document.getElementById("segundos").innerHTML = 0;
+        }
+    }, 1000);
+
+</script>
+
+
+{% endblock %}

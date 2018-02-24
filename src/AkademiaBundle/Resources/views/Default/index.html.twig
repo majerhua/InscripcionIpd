@@ -27,7 +27,8 @@
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
                 
                 {% else %}
-                	<li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
+                
+                	<li><a href="{{url('akademia_contador')}}">Inscripciones</a></li>
 	            	<li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 					<li><a href="{{url('akademia_login')}}">Promotores</a></li>	            
 	            {% endif %}
@@ -1462,18 +1463,31 @@ $("#inscribirPreinscrito").on('click',function(){
 		},
 		success: function(data){
 
+
 			if (data == 1){
-				//clearFicha();
-				$("#inscribirPreinscrito").attr("disabled", true);
+				clearFicha();
+				$("#btn-confirmar-inscripcion").attr("disabled", true);
+				$('#input-codigo-inscripcion').focus();
 				showAlertMessage('#alerta-confirmacion', "Ficha inscrita exitosamente !");
 			
 			}else if( data == 2){
 
-				$("#inscribirPreinscrito").attr("disabled", true);
+				$("#btn-confirmar-inscripcion").attr("disabled", true);
+				$('#input-codigo-inscripcion').focus();
 				showAlertMessage('#alerta-error', "No existen vacantes disponibles para este Horario. ");
 
-			}
+			}else if( data == 3){
 
+				$("#btn-confirmar-inscripcion").attr("disabled", true);
+				$('#input-codigo-inscripcion').focus();
+				showAlertMessage('#alerta-error', "Este alumno ya se encuentra inscrito en esta disciplina. ");
+
+			}else if( data == 4){
+
+				$("#btn-confirmar-inscripcion").attr("disabled", true);
+				$('#input-codigo-inscripcion').focus();
+				showAlertMessage('#alerta-error', "El alumno excedió la cantidad de Inscripciones posibles.");
+			}
 		},
 		error: function(error){
 			console.log("Error en la captura de datos");

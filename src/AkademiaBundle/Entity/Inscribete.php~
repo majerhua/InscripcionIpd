@@ -26,6 +26,11 @@ class Inscribete
     private $horario;
 
     /**
+     * @ORM\OneToMany(targetEntity="Movimientos", mappedBy="inscripciones")
+     */
+    private $movimientos;  
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -37,7 +42,7 @@ class Inscribete
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaInscripcion", type="date")
+     * @ORM\Column(name="fechaInscripcion", type="datetime")
      */
     private $fechaInscripcion;
 
@@ -47,6 +52,13 @@ class Inscribete
      * @ORM\Column(name="estado", type="integer")
      */
     private $estado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario_valida", type="string", length=255)
+     */
+    private $usuarioValida;
 
 
     /**
@@ -108,6 +120,30 @@ class Inscribete
     }
 
     /**
+     * Set usuarioValida
+     *
+     * @param string $usuarioValida
+     *
+     * @return Inscribete
+     */
+    public function setUsuarioValida($usuarioValida)
+    {
+        $this->usuarioValida = $usuarioValida;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioValida
+     *
+     * @return string
+     */
+    public function getUsuarioValida()
+    {
+        return $this->UsuarioValida;
+    }
+
+    /**
      * Set participante
      *
      * @param \AkademiaBundle\Entity\Participante $participante
@@ -154,4 +190,6 @@ class Inscribete
     {
         return $this->horario;
     }
+
+
 }

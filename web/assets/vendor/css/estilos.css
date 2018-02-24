@@ -12,6 +12,26 @@ body{
 
 }
 
+.bg {
+
+    background-image: url("../../images/slider4.png");
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.contador{
+	background-color: rgba(0,0,0,0.8); 
+	height: 100%;
+	width: 100%; 
+	margin: 0; 
+	padding-bottom: 60px;
+}
+
 .header{ 
 
 	background-color:orange; 

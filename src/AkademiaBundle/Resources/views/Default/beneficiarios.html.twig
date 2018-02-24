@@ -166,7 +166,7 @@
 														<td>Inscrito</td>
 													{% endif %} 
 
-													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar"  onclick="editarParticipante({{beneficiario['idParticipante']}})" disabled>Editar</button></td>
+													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar"  onclick="editarParticipante({{beneficiario['idParticipante']}})">Editar</button></td>
 												</tr> 
 											{% endfor %}								
 										</tbody> 
@@ -315,7 +315,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+				<button type="button" class="btn btn-danger" id="btn-actualizarEstado" data-dismiss="modal">Actualizar</button>
 			</div>
 		</div>
 	</div>

@@ -313,7 +313,7 @@
 				</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button id="" type="button" class="btn btn-danger" data-dismiss="modal"  onclick="actualizarHorario()">Actualizar</button>
+				<button id="" type="button" class="btn btn-danger" data-dismiss="modal" onclick="actualizarHorario()" >Actualizar</button>
 			</div>
 		</div>
 	</div>
@@ -345,29 +345,29 @@
 									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
 
 										<div class="checkbox">
-										  <label><input type="checkbox" value="1" onclick="elegirDias(this)">Lunes</label>
+										  <label><input type="checkbox" id="Lun" value="1" onclick="elegirDias(this)">Lunes</label>
 										</div>
 										<div class="checkbox">
-										  <label><input type="checkbox" value="2" onclick="elegirDias(this)">Martes</label>
+										  <label><input type="checkbox" id="Mar" value="2" onclick="elegirDias(this)">Martes</label>
 										</div>
 										<div class="checkbox">
-										  <label><input type="checkbox" value="3" onclick="elegirDias(this)">Miércoles</label>
+										  <label><input type="checkbox" id="Mie" value="3" onclick="elegirDias(this)">Miércoles</label>
 										</div>
 
 										<div class="checkbox">
-										  <label><input type="checkbox" value="4" onclick="elegirDias(this)">Jueves</label>
+										  <label><input type="checkbox" id="Jue" value="4" onclick="elegirDias(this)">Jueves</label>
 										</div>
 										
 									</div>
 									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 " >
 										<div class="checkbox">
-										  <label><input type="checkbox" value="5" onclick="elegirDias(this)"> Viernes </label>
+										  <label><input type="checkbox" id="Vie" value="5" onclick="elegirDias(this)"> Viernes </label>
 										</div>
 										<div class="checkbox ">
-										  <label><input type="checkbox" value="6" onclick="elegirDias(this)"> Sábado </label>
+										  <label><input type="checkbox" id="Sab" value="6" onclick="elegirDias(this)"> Sábado </label>
 										</div>
 										<div class="checkbox ">
-										  <label><input type="checkbox" value="7" onclick="elegirDias(this)"> Domingo </label>
+										  <label><input type="checkbox" id="Dom" value="7" onclick="elegirDias(this)"> Domingo </label>
 										</div>
 									</div>
 								</div>
@@ -531,7 +531,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button id="btn-crear-horario" type="button" class="btn btn-danger">Crear</button>
+				<button id="btn-crear-horario" type="button" class="btn btn-danger" >Crear</button>
 			</div>
 		</div>
 	</div>
@@ -604,6 +604,23 @@
   </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirmarEliminarHorario">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#EBE6E5; color:white">
+      		<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+			<h5 class="title-card">Mensaje de confirmación. </h5>
+      </div>
+      <div class="modal-body">
+      		<p class="text-center" style="color:grey">¿ Estás seguro que desea eliminar este horario ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="modal-btn-si-horario">Si</button>
+        <button type="button" class="btn btn-default" id="modal-btn-no-horario">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}
@@ -637,7 +654,6 @@
 
             	var jsFiltrar = document.querySelectorAll('.filtrar');
             	var jsBuscar = document.querySelectorAll('.buscar');
-            	//console.log($(jsBuscar[0]).children('tr'));
 
             	for (var i = 0; i < jsFiltrar.length; i++) {
 
@@ -657,13 +673,12 @@
 
         });
 
-
-		/*CREAR TURNO DINÁMICO*/
-		var turno = document.getElementById('turno')
+        
+        var turno = document.getElementById('turno')
 		var diasElegidos = []
 		var elemento = []
-		
-		function elegirDias(element){
+
+    	function elegirDias(element){
 
 		    if (element.checked) {
 		        diasElegidos.push(element.value)
@@ -671,7 +686,7 @@
 		        diasElegidos.splice( diasElegidos.indexOf( element.value ), 1 )
 		    }
 
-		 /*  
+		 /*
 		 	diasElegidos.sort();
 		    console.log(diasElegidos);
 		    
@@ -719,10 +734,8 @@
 			 	turno.innerHTML = cadenaHorario
 			 	return arreglo
 			}
-
 	
-	}
-
+		}
 
 		/*LIMPIAR CAJAS */
 		function clearData(){
@@ -734,10 +747,12 @@
 			$("#editar_discapacidad_horario").empty();
 			$("#editar_vacantes_horario").val("");
 			$("#editar_convocatoria_horario").val("");
+			$("#turno").empty();
 		}
 
 		function clearDataCrear(){
-			$("#turno").text("");
+	
+			$("#turno").empty();
 			$("#hora-inicio").val("");
 			$("#min-inicio").val("");
 			$("#hora-fin").val("");
@@ -746,7 +761,14 @@
 			$("#edad-maxima").val("");
 			$("#vacantes-horario").val("");
 			$("#crear_discapacidad").val("");
-			$('input:checkbox').attr('checked',false);
+			$("#Lun").prop('checked', false);
+			$("#Mar").prop('checked', false); 
+			$("#Mie").prop('checked', false);
+			$("#Jue").prop('checked', false); 
+			$("#Vie").prop('checked', false);
+			$("#Sab").prop('checked', false); 
+			$("#Dom").prop('checked', false);
+			
 
 		}
 
@@ -754,6 +776,8 @@
 
 		function editarHorario(idHorario, idDisciplina){
 			
+			sessionStorage.removeItem('flagOcularHorario');
+
 			var idHorario = idHorario;
 			var idDisciplina = idDisciplina;
 			
@@ -812,51 +836,73 @@
 		/*ACTUALIZAR HORARIO*/
 
 		$('#cbx-horario').on( 'click', function() {
+
 		    if($(this).is(':checked'))
 		    {
-		        sessionStorage.removeItem('flagOcularHorario');
+		        
 		        sessionStorage.setItem('flagOcularHorario',$(this).val());
 		    }
-		});
+		});		
 
 		function actualizarHorario(){
 
 			if(sessionStorage.getItem('flagOcularHorario') == '1' ){
+				console.log(sessionStorage.getItem('flagOcularHorario'));
+				var confirmarHorario = function(callback){
+				 	
+					$("#confirmarEliminarHorario").modal('show');					
 
-				var idHorario = $("#editar_codigo_horario").text();
-				
-				var dataOcultarHorario={
-					"idHorario" : idHorario
-				};
+					$("#modal-btn-si-horario").on("click", function(){
+				    	callback(true);
+				    	$("#confirmarEliminarHorario").modal('hide');
+				  	});
+				  
+					$("#modal-btn-no-horario").on("click", function(){
+					    callback(false);
+					    $("#confirmarEliminarHorario").modal('hide');
+					});
+				}
 
-				$.ajax({
+				confirmarHorario(function(confirm){
+				  
+				  if(confirm){
 
-					type:'POST',
-					dataType: "json",
-					url: "{{url('akademia_ocultarHorario')}}",
-					data: dataOcultarHorario,
+				  	var idHorario = $("#editar_codigo_horario").text();	
+					
+					var dataOcultarHorario={
+						"idHorario" : idHorario
+					};
 
-					beforeSend: function(){				
+					$.ajax({
 
-					},
+						type:'POST',
+						dataType: "json",
+						url: "{{url('akademia_ocultarHorario')}}",
+						data: dataOcultarHorario,
 
-					success: function(data){
+						beforeSend: function(){				
 
-						if(data == 1){
-							console.log(data);
-							alert("Horario Eliminado");
-							window.location.href = "{{url('akademia_horarios')}}";
+						},
+
+						success: function(data){
+
+							if(data == 1){
+								console.log(data);
+								window.location.href = "{{url('akademia_horarios')}}";
+							}
+						},
+
+						error: function(error){
+							console.log(error);
 						}
-					},
 
-					error: function(error){
-						console.log(error);
-					}
+					});
 
+				  }
 				});
 
 			}else{
-
+				console.log(sessionStorage.getItem('flagOcularHorario'));
 				if($("#editar_vacantes_horario").val()==""){
 	               	alertify.error('<p style="color:white">Se requiere que ingrese la cantidad de vacantes. </p>'); 
 	               	$("#editar_vacantes_horario").focus();
@@ -918,6 +964,7 @@
 
 				console.log(idHorario, idDisciplina, vacantes , convocatoria);
 
+				
 			}
 			
 		} 
@@ -932,102 +979,143 @@
 			
 		}
 		
+		/*CREAR NUEVO HORARIO*/
 		$("#btn-crear-horario").on("click", function(){
 
-			if($("#turno").text() == "" || $("#hora-inicio").val() == "" || $("#min-inicio").val() == "" || $("#hora-fin").val() == "" || $("#edad-minima").val() == "" || $("#edad-maxima").val() == "" || $("#vacantes-horario").val()== "" || $("#crear_discapacidad").val() == "" ){
+			diasElegidos = [];
 
-				showAlertMessage('#alerta-errorCrear', "Debe rellenar todos los campos");
-				//$("#btn-crear-horario").attr('disabled', true);		
-			}else{
-			
+			if( $("#turno").text() != "" && $("#hora-inicio").val() != "" && $("#min-inicio").val() != "" && $("#hora-fin").val() != "" && $("#min-fin").val() != "" && $("#edad-minima").val() != "" && $("#edad-maxima").val() != "" && $("#vacantes-horario").val() != ""	&& $("#crear_discapacidad").val() != "" )
+			{
+
 				var turno = $("#turno").text();
-				var horarioInicio = $("#hora-inicio").val()+':'+ $("#min-inicio").val();
-				var horarioFin = $("#hora-fin").val()+':'+$("#min-fin").val();
+
+				var horIni = $("#hora-inicio").val();
+				var horFin = $("#hora-fin").val();
+				var minIni = $("#min-inicio").val();
+				var minFin = $("#min-fin").val();
+
+				var horarioInicio = horIni+':'+ minIni;
+				var horarioFin = horFin+':'+ minFin;
+
 				var edadMinima = $("#edad-minima").val();
 				var edadMaxima = $("#edad-maxima").val();
 				var vacantes = $("#vacantes-horario").val();
 				var discapacidad = $("#crear_discapacidad").val();
 				var idDisciplina = $("#idDisciplina").val();
 
-				var dataCrearHorario = {
+				console.log("Edad min: " + edadMinima);
+				console.log("Edad max: " + edadMaxima);
 
-					"turno" : turno,
-					"horarioInicio" : horarioInicio,
-					"horarioFin" : horarioFin,
-					"edadMinima" :edadMinima,
-					"edadMaxima" : edadMaxima,
-					"vacantes" : vacantes,
-					"discapacidad" : discapacidad,
-					"idDisciplina" : idDisciplina
-				}
-			
-				$.ajax({
+				if(((discapacidad == 0 && edadMinima <= 17 && edadMaxima <= 17 ) || (discapacidad == 1 && edadMinima <= 40 && edadMaxima <= 40 )) && edadMinima >= 6 && edadMaxima >= 6 && edadMinima <= edadMaxima)
+				{
+					if(horFin > horIni || (horFin == horIni && minFin >= minIni))
+					{
+						var dataCrearHorario={
+							"turno" : turno,
+							"horarioInicio" : horarioInicio,
+							"horarioFin" : horarioFin,
+							"edadMinima" :edadMinima,
+							"edadMaxima" : edadMaxima,
+							"vacantes" : vacantes,
+							"discapacidad" : discapacidad,
+							"idDisciplina" : idDisciplina
+						}
 
-					type:'POST',
-					dataType: 'json',
-					url: "{{url('akademia_crearHorario')}}",
-					data: dataCrearHorario,
-					beforeSend: function(){
+						$.ajax({
 
-						$("#btn-crear-horario").attr('disabled', true);
-					},
+							type:'POST',
+							dataType: 'json',
+							url: "{{url('akademia_crearHorario')}}",
+							data: dataCrearHorario,
+							beforeSend: function()
+							{
+								
+							},
 
-					success: function(data){
+							success: function(data)
+							{
 
-						if(data == 1){
-							clearDataCrear();
-							alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
-							
-						}else if(data == 2){
+								$("#btn-crear-horario").attr("data-dismiss","modal");				
 
-							clearDataCrear();
-							alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
+								if (data == 1){
+									clearDataCrear();
+									alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
+								}
+								else if (data == 2){
+									clearDataCrear();
+									alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
+								
+								}else {
+
+									var tdhorario = '';
+									var idDisciplina = $("#idDisciplina").val();
+									var dataHorario =JSON.parse(data)[0];
+
+									tdhorario+='<tr>';
+									tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
+									tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
+									tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
+									tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
+									tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
+
+									if (dataHorario.discapacitados == 0){
+										tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
+									
+									}else{
+										tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
+									}
+
+									if (dataHorario.convocatoria == 0 )
+									{
+										tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
+									}
+									else
+									{
+										tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
+									}
+									tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
+
+									tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
+									tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
+									tdhorario+='</tr>';
+
+									$('#1'+idDisciplina).append(tdhorario);
+									$("#modal-crear").modal('hide');
+									clearDataCrear();
+									alertify.success('<p style="color:white"> El horario fue creado exitosamente. </p>');
+								}
+							},
+
+							error: function(error)
+							{
+
+								alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
+								console.log("Error En la captura de data!! . ");
+								console.log(error);
+
+							}
+
+						});
+
 						
-						}else {
+					}else{
 
-							var tdhorario = '';
-							var idDisciplina = $("#idDisciplina").val();
-							var dataHorario =JSON.parse(data)[0];
-
-							tdhorario+='<tr>';
-							tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
-							tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-							tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
-							tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
-							tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
-							
-							if(dataHorario.discapacitados == 0){
-								tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
-							}else{
-								tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
-							}
-
-							if(dataHorario.convocatoria == 0 ){
-								tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
-							}else {
-								tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
-							}
-
-							tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
-							tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
-							tdhorario+='</tr>';
-
-							$('#1'+idDisciplina).append(tdhorario);
-
-							clearDataCrear();
-							alertify.success('<p style="color:white"> El horario fue creado exitosamente. </p>');	
-						}	
-					},
-					error: function(error){
-
-						alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
-						console.log("Error En la captura de data!! . ");
-						console.log(error);
+						showAlertMessage('#alerta-errorCrear', "Verifique que los horarios ingresados sean correctos");
 					}
-			    });
+				}else{
+
+					showAlertMessage('#alerta-errorCrear', "Verifique que las edades ingresadas estén correctas");
+
+				}
+
+			}else{
+
+				showAlertMessage('#alerta-errorCrear', "Debe rellenar todos los campos");
 			}
+
 		})
 
+		
 		$("#CrearDisc").on("click", function(){
 			$("#Disciplina").val(0);
 		});
@@ -1040,9 +1128,14 @@
 		  $("#btn-confirm").on("click", function(){
 
 		  	if($("#Disciplina").val() == 0){
+
+		  		$("#btn-confirm").attr("data-dismiss", "");
 		  		showAlertMessage('#alerta-errorModal', "Debe seleccionar una disciplina ");
+
 		  	}else{
+		  		$("#btn-confirm").attr("data-dismiss", "modal");
 		  		$("#confirmarDisciplina").modal('show');
+
 		  	}
 		   
 		  });
@@ -1063,7 +1156,6 @@
 		  	crearDisciplina()
 		  }
 		});
-
 
 
 	/*CREAR NUEVA DISCIPLINA*/

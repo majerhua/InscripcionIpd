@@ -1,0 +1,222 @@
+<?php
+
+namespace AkademiaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Movimientos
+ *
+ * @ORM\Table(name="ACADEMIA.movimientos")
+ * @ORM\Entity(repositoryClass="AkademiaBundle\Repository\MovimientosRepository")
+ */
+class Movimientos
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="categorias")
+     * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
+     */
+
+    private $categoriaId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Asistencia", inversedBy="asistencias")
+     * @ORM\JoinColumn(name="asistencia_id", referencedColumnName="id")
+     */
+
+    private $asistenciaId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_modificacion", type="date")
+     */
+    private $fechaModificacion;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="usuario_valida", type="integer")
+     */
+
+    private $usuarioValida;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Inscribete", inversedBy="inscripciones")
+     * @ORM\JoinColumn(name="inscribete_id", referencedColumnName="id")
+     */
+
+    private $inscribeteId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="estado", type="integer")
+     */
+    private $estado;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set categoriaId
+     *
+     * @param \AkademiaBundle\Entity\Categoria $categoriaId
+     *
+     * @return Movimientos
+     */
+    public function setCategoriaId(\AkademiaBundle\Entity\Categoria $categoriaId = null)
+    {
+        $this->categoriaId = $categoriaId;
+
+        return $this;
+    }
+
+    /**
+     * Get categoriaId
+     *
+     * @return \AkademiaBundle\Entity\Categoria
+     */
+    public function getCategoriaId()
+    {
+        return $this->categoriaId;
+    }
+
+    /**
+     * Set asistenciaId
+     *
+     * @param \AkademiaBundle\Entity\Asistencia $asistenciaId
+     *
+     * @return Movimientos
+     */
+    public function setAsistenciaId(\AkademiaBundle\Entity\Asistencia $asistenciaId = null)
+    {
+        $this->asistenciaId = $asistenciaId;
+
+        return $this;
+    }
+
+    /**
+     * Get asistenciaId
+     *
+     * @return \AkademiaBundle\Entity\Asistencia
+     */
+    public function getAsistenciaId()
+    {
+        return $this->asistenciaId;
+    }
+
+    /**
+     * Set inscribeteId
+     *
+     * @param \AkademiaBundle\Entity\Inscribete $inscribeteId
+     *
+     * @return Movimientos
+     */
+    public function setInscribeteId(\AkademiaBundle\Entity\Inscribete $inscribeteId = null)
+    {
+        $this->inscribeteId = $inscribeteId;
+
+        return $this;
+    }
+
+    /**
+     * Get inscribeteId
+     *
+     * @return \AkademiaBundle\Entity\Inscribete
+     */
+    public function getInscribeteId()
+    {
+        return $this->inscribeteId;
+    }
+
+    /**
+     * Set fechaModificacion
+     *
+     * @param \DateTime $fechaModificacion
+     *
+     * @return Movimientos
+     */
+    public function setFechaModificacion($fechaModificacion)
+    {
+        $this->fechaModificacion = $fechaModificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaModificacion
+     *
+     * @return \DateTime
+     */
+    public function getFechaModificacion()
+    {
+        return $this->fechaModificacion;
+    }
+
+    /**
+     * Set usuarioValida
+     *
+     * @param integer $usuarioValida
+     *
+     * @return Movimientos
+     */
+    public function setUsuarioValida($usuarioValida)
+    {
+        $this->usuarioValida = $usuarioValida;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioValida
+     *
+     * @return int
+     */
+    public function getUsuarioValida()
+    {
+        return $this->usuarioValida;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param integer $estado
+     *
+     * @return Movimientos
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return int
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+}

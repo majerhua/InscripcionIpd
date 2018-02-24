@@ -83,7 +83,7 @@ class Apoderado
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaNacimiento", type="date")
+     * @ORM\Column(name="fechaNacimiento", type="datetime")
      */
     private $fechaNacimiento;
 
@@ -109,8 +109,19 @@ class Apoderado
      */
     private $correo;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="estado", type="integer")
+     */
+    private $estado;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usuario_valida", type="string", length=255)
+     */
+    private $usuarioValida;
 
     /**
      * Get id
@@ -361,6 +372,32 @@ class Apoderado
     {
         return $this->fechaNacimiento->format('Y-m-d');
     }
+
+    /**
+     * Set usuarioValida
+     *
+     * @param string $usuarioValida
+     *
+     * @return Inscribete
+     */
+    public function setUsuarioValida($usuarioValida)
+    {
+        $this->usuarioValida = $usuarioValida;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioValida
+     *
+     * @return string
+     */
+    public function getUsuarioValida()
+    {
+        return $this->UsuarioValida;
+    }
+
+
     /**
      * Constructor
      */
@@ -426,4 +463,30 @@ class Apoderado
     {
         return $this->percodigo;
     }
+
+    
+    /**
+     * Set estado
+     *
+     * @param integer $estado
+     *
+     * @return Participante
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
 }

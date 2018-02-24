@@ -63,6 +63,6 @@ security:
         - {path: ^/ajax, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/consulta$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - {path: ^(/inscritos|/consulta|/login|/), roles: [ROLE_USER, ROLE_ADMIN]}
+        - {path: ^(/inscritos|/consulta|/beneficiarios|/contador|/login|/), roles: [ROLE_USER, ROLE_ADMIN]}
 
          

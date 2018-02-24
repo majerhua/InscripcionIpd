@@ -31,6 +31,11 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DefaultController extends Controller
 {
+    public function contadorAction(Request $request){
+      
+             return $this->render('AkademiaBundle:Default:contador.html.twig' );
+    }
+
     public function indexAction(Request $request)
     {
 
@@ -370,23 +375,25 @@ class DefaultController extends Controller
             $estadoApoderado = $data[0]['estadoApoderado'];
             $idHorario = $data[0]['idHorario'];
 
+            
             $em = $this->getDoctrine()->getManager();
-            $data = $em->getRepository('AkademiaBundle:Inscribete')->getCantInscripciones($idParticipante);
-            $cantRegistros = $data[0]['cantidadRegistros'];
+            $data = $em->getRepository('AkademiaBundle:Inscribete')->getDobleInscripcion($idHorario,$idParticipante);
 
-            if($cantRegistros > 2){
 
-                $mensaje = 4;
+            if(!empty($data)){
+
+                $mensaje = 3;
                 return new JsonResponse($mensaje);
-
+            
             }else {
 
                 $em = $this->getDoctrine()->getManager();
-                $data = $em->getRepository('AkademiaBundle:Inscribete')->getDobleInscripcion($idHorario,$idParticipante);
+                $data = $em->getRepository('AkademiaBundle:Inscribete')->getCantInscripciones($idParticipante);
+                $cantRegistros = $data[0]['cantidadRegistros'];
 
-                if(!empty($data)){
+                if((Int)$cantRegistros > 2){
                     
-                    $mensaje = 3;
+                    $mensaje = 4;
                     return new JsonResponse($mensaje);
 
                 }else{

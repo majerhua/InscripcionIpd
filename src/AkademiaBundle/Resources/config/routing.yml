@@ -1,6 +1,11 @@
 akademia_homepage:
-    path:     /
+    path:     /contador
     defaults: { _controller: AkademiaBundle:Default:index }
+    methods:  [GET,POST]
+
+akademia_contador:
+    path:     /
+    defaults: { _controller: AkademiaBundle:Default:contador }
     methods:  [GET,POST]
 
 akademia_registrar:
