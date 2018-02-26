@@ -244,6 +244,7 @@
 
 								<li class="list-group-item">
 									<div class="row">
+										
 										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 											<p><strong>Edades</strong></p>
 										</div>
@@ -251,6 +252,7 @@
 										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 											<p id="editar_edades_horario"></p>
 										</div>
+
 									</div>
 								</li>
 								<li class="list-group-item">
@@ -269,9 +271,13 @@
 										<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 											<p><strong>Vacantes</strong></p>
 										</div>
-
 										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-											<input id="editar_vacantes_horario" class="form-control"  type="number" min="0" class="validate" autofocus>
+											<input class="form-control" id="editar_vacantes_horario" name="editar_vacantes_horario"
+										    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+										    type = "number"
+										    maxlength = "4"
+										    min="0"
+											/>	
 										</div>
 									</div>
 								</li>					
@@ -519,7 +525,7 @@
 										    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 										    type = "number"
 										    maxlength = "4"
-										    min="0" 
+										    min="0"
 										 />		
 									</div>
 								</div>
@@ -910,6 +916,9 @@
 	            }else if($("#editar_convocatoria_horario").val()==""){
 	            	alertify.error('<p style="color:white">Seleccione la convocatoria. </p>');
 
+	            }else if(parseInt($("#editar_vacantes_horario").val())<0){
+					alertify.error('<p style="color:white">Verifique el numero de vacantes. </p>');
+
 	            }else if($("#editar_convocatoria_horario").val()!= "" && $("#editar_vacantes_horario").val()!=""){
 	            		
 			           	var idHorario = $("#editar_codigo_horario").text();
@@ -984,124 +993,151 @@
 
 			diasElegidos = [];
 
-			if( $("#turno").text() != "" && $("#hora-inicio").val() != "" && $("#min-inicio").val() != "" && $("#hora-fin").val() != "" && $("#min-fin").val() != "" && $("#edad-minima").val() != "" && $("#edad-maxima").val() != "" && $("#vacantes-horario").val() != ""	&& $("#crear_discapacidad").val() != "" )
-			{
+			if( 
+				$("#turno").text() != "" 
+				&& $("#hora-inicio").val() != "" 
+				&& $("#min-inicio").val() != "" 
+				&& $("#hora-fin").val() != "" 
+				&& $("#min-fin").val() != "" 
+				&& $("#edad-minima").val() != "" 
+				&& $("#edad-maxima").val() != "" 
+				&& $("#vacantes-horario").val() != "" 
+				&& $("#crear_discapacidad").val() != "" 
+			) {
 
 				var turno = $("#turno").text();
+				var horIni = parseInt($("#hora-inicio").val());
+				var horFin = parseInt($("#hora-fin").val());
+				var minIni = parseInt($("#min-inicio").val());
+				var minFin = parseInt($("#min-fin").val());
 
-				var horIni = $("#hora-inicio").val();
-				var horFin = $("#hora-fin").val();
-				var minIni = $("#min-inicio").val();
-				var minFin = $("#min-fin").val();
+				var horarioInicio = horIni + ':' + minIni;
+				var horarioFin = horFin + ':' + minFin;
 
-				var horarioInicio = horIni+':'+ minIni;
-				var horarioFin = horFin+':'+ minFin;
+				var edadMinima = parseInt($("#edad-minima").val());
+				var edadMaxima = parseInt($("#edad-maxima").val());
+				var vacantes = parseInt($("#vacantes-horario").val());
+				var discapacidad = parseInt($("#crear_discapacidad").val());
+				var idDisciplina = parseInt($("#idDisciplina").val());
 
-				var edadMinima = $("#edad-minima").val();
-				var edadMaxima = $("#edad-maxima").val();
-				var vacantes = $("#vacantes-horario").val();
-				var discapacidad = $("#crear_discapacidad").val();
-				var idDisciplina = $("#idDisciplina").val();
+				if(
+					(
+						(discapacidad == 0 && edadMinima <= 17 && edadMaxima <= 17 ) 
+						|| 
+						(discapacidad == 1 && edadMinima <= 40 && edadMaxima <= 40 )
+					) 
+					&& (edadMinima >= 6) 
+					&& (edadMaxima >= 6) 
+					&& (edadMaxima >= edadMinima)
+				){
 
-				console.log("Edad min: " + edadMinima);
-				console.log("Edad max: " + edadMaxima);
+					if(
+						(
+							horFin > horIni 
+							|| 
+							(
+								horFin == horIni 
+								&& 
+								minFin >= minIni
+							)
+						)
+						&& horIni >= 0
+						&& horFin >= 0
+						&& horIni <= 24
+						&& horFin <= 24
+						&& minIni >= 0
+						&& minFin >= 0
+						&& minIni <= 60
+						&& minFin <= 60
+					){
 
-				if(((discapacidad == 0 && edadMinima <= 17 && edadMaxima <= 17 ) || (discapacidad == 1 && edadMinima <= 40 && edadMaxima <= 40 )) && edadMinima >= 6 && edadMaxima >= 6 && edadMinima <= edadMaxima)
-				{
-					if(horFin > horIni || (horFin == horIni && minFin >= minIni))
-					{
-						var dataCrearHorario={
-							"turno" : turno,
-							"horarioInicio" : horarioInicio,
-							"horarioFin" : horarioFin,
-							"edadMinima" :edadMinima,
-							"edadMaxima" : edadMaxima,
-							"vacantes" : vacantes,
-							"discapacidad" : discapacidad,
-							"idDisciplina" : idDisciplina
-						}
+						if (vacantes >= 0) {
 
-						$.ajax({
-
-							type:'POST',
-							dataType: 'json',
-							url: "{{url('akademia_crearHorario')}}",
-							data: dataCrearHorario,
-							beforeSend: function()
-							{
-								
-							},
-
-							success: function(data)
-							{
-
-								$("#btn-crear-horario").attr("data-dismiss","modal");				
-
-								if (data == 1){
-									clearDataCrear();
-									alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
-								}
-								else if (data == 2){
-									clearDataCrear();
-									alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
-								
-								}else {
-
-									var tdhorario = '';
-									var idDisciplina = $("#idDisciplina").val();
-									var dataHorario =JSON.parse(data)[0];
-
-									tdhorario+='<tr>';
-									tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
-									tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-									tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
-									tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
-									tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
-
-									if (dataHorario.discapacitados == 0){
-										tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
-									
-									}else{
-										tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
-									}
-
-									if (dataHorario.convocatoria == 0 )
-									{
-										tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
-									}
-									else
-									{
-										tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
-									}
-									tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
-
-									tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
-									tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
-									tdhorario+='</tr>';
-
-									$('#1'+idDisciplina).append(tdhorario);
-									$("#modal-crear").modal('hide');
-									clearDataCrear();
-									alertify.success('<p style="color:white"> El horario fue creado exitosamente. </p>');
-								}
-							},
-
-							error: function(error)
-							{
-
-								alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
-								console.log("Error En la captura de data!! . ");
-								console.log(error);
-
+							var dataCrearHorario={
+								"turno" : turno,
+								"horarioInicio" : horarioInicio,
+								"horarioFin" : horarioFin,
+								"edadMinima" :edadMinima,
+								"edadMaxima" : edadMaxima,
+								"vacantes" : vacantes,
+								"discapacidad" : discapacidad,
+								"idDisciplina" : idDisciplina
 							}
 
-						});
 
+							$.ajax({
+								type:'POST',
+								dataType: 'json',
+								url: "{{url('akademia_crearHorario')}}",
+								data: dataCrearHorario,
+								beforeSend: function()
+								{
+
+								},
+								success: function(data)
+								{
+									$("#btn-crear-horario").attr("data-dismiss","modal");				
+									if (data == 1){
+										clearDataCrear();
+										alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
+									}
+									else if (data == 2){
+										clearDataCrear();
+										alertify.error('<p style="color:white">Se produjo un error al crear el horario.</p>');
+									
+									}else {
+										var tdhorario = '';
+										var idDisciplina = $("#idDisciplina").val();
+										var dataHorario =JSON.parse(data)[0];
+										tdhorario+='<tr>';
+										tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
+										tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
+										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
+										tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
+										tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
+										if (dataHorario.discapacitados == 0){
+											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
+										
+										}else{
+											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
+										}
+										if (dataHorario.convocatoria == 0 )
+										{
+											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
+										}
+										else
+										{
+											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
+										}
+										tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
+										tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
+										tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
+										tdhorario+='</tr>';
+										$('#1'+idDisciplina).append(tdhorario);
+										$("#modal-crear").modal('hide');
+										clearDataCrear();
+										alertify.success('<p style="color:white"> El horario fue creado exitosamente. </p>');
+									}
+								},
+								error: function(error)
+								{
+									alertify.error('<p style="color:black">Se produjo un error en el registro. </p>');
+									console.log("Error En la captura de data!! . ");
+									console.log(error);
+								}
+							});
+
+
+						}else{
+
+							showAlertMessage('#alerta-errorCrear', "Verifique que el numero de vacantes sean correctas");
+						}
 						
 					}else{
 
 						showAlertMessage('#alerta-errorCrear', "Verifique que los horarios ingresados sean correctos");
 					}
+
 				}else{
 
 					showAlertMessage('#alerta-errorCrear', "Verifique que las edades ingresadas estén correctas");
@@ -1112,8 +1148,8 @@
 
 				showAlertMessage('#alerta-errorCrear', "Debe rellenar todos los campos");
 			}
-
-		})
+		
+		});
 
 		
 		$("#CrearDisc").on("click", function(){
