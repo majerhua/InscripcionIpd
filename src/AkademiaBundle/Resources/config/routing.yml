@@ -1,3 +1,7 @@
+entradas_list:
+    path: /pruebas/entradas
+    defaults: { _controller: AppBundle:Pruebas:entradas}
+
 akademia_homepage:
     path:     /contador
     defaults: { _controller: AkademiaBundle:Default:index }

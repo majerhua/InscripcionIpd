@@ -22,6 +22,31 @@
             </div>
         </div>
     </nav>
+
+
+    <style type="text/css">
+    .horario-time p{
+        font-size: 100px;
+        
+    }
+
+    .horario-time > p{
+        font-size: 25px;
+    }
+
+    @media only screen and (max-width: 636px) {
+        .horario-time > strong p{
+            font-size: 40px;
+        }
+
+        .horario-time > p{
+            font-size: 0.8em;
+        }
+    }
+
+
+
+</style>
 </header>
 
 <div class="bg">
@@ -35,46 +60,25 @@
 
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center"></div>
 
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
-
-            <div style="border-style: solid; margin-right: 3px;">
-
-            <strong><p id="dias" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Días</p>
-
-            </div>
+        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 text-center horario-time" style="border-style: solid;">
+            <strong><p id="dias" style=" color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style=" color: #FFFFFF;">Días</p>
         </div>
 
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
-
-            <div style="border-style: solid; margin-right: 3px;">
-
-            <strong><p id="horas" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Horas</p>
-
-           </div>
-    
+        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 text-center horario-time" style="border-style: solid;">
+            <strong><p id="horas" style=" color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style=" color: #FFFFFF;">Horas</p>
         </div>
 
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
-
-            <div style="border-style: solid; margin-right: 3px;">
-
-            <strong><p id="minutos" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Minutos</p>
-
-            </div>
-        
+        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 text-center horario-time" style="border-style: solid;">
+            <strong><p id="minutos" style=" color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style=" color: #FFFFFF;">Minutos</p>
         </div>
 
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
+        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 text-center horario-time" style="border-style: solid;">
+            <strong><p id="segundos" style=" color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
+            <p style=" color: #FFFFFF;">Segundos</p>
 
-            <div style="border-style: solid;">
-                
-            <strong><p id="segundos" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Segundos</p>
-
-            </div>
         </div>
 
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center"></div>
