@@ -31,6 +31,23 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DefaultController extends Controller
 {
+
+    public function entradasAction(Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql = "SELECT e FROM BlogBundle:Entry e";
+        $query = $em->createQuery($dql);
+ 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $query, 
+                $request->query->getInt('page', 1),
+                5
+        );
+ 
+        return $this->render('AppBundle:pruebas:listado.html.twig',
+                array('pagination' => $pagination));
+    }
+
     public function contadorAction(Request $request){
       
              return $this->render('AkademiaBundle:Default:contador.html.twig' );
@@ -757,6 +774,17 @@ class DefaultController extends Controller
         $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
         $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
 
+
+        //$em = $this->getDoctrine()->getEntityManager();
+        //$dql = "SELECT e FROM BlogBundle:Entry e";
+        //$query = $em->createQuery($dql);
+ 
+       /* $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $Horarios, 
+                $request->query->getInt('page', 1),
+                5
+        );*/
 
         return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
     }

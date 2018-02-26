@@ -27,6 +27,7 @@
 </header>
 
 <section  id="inscribete"  class="proceso-inscripcion">
+	
 		<div style="width:91%">
 			<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
 		</div>
@@ -61,9 +62,10 @@
 									  <input class="filtrar form-control" type="text" ident-buscar="{{cont}}"  placeholder=" ingresa los campos a buscar ">
 									</div>
 									<br>
-									<div class="panel panel-default" style="overflow-x:auto;">			
 
-										<table class="table"> 
+									<div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:50vh; ">			
+
+										<table class="table display table-dataTable dataTable"  style="width: 100%;"> 
 											<thead style="background:#F2F2F2; color:#585858"> 
 												<tr> 
 													<th class="text-center" style="font-size:14px">Código</th>
@@ -622,18 +624,24 @@
   </div>
 </div>
 
-
 {% endblock %}
 {% block javascripts %}
 
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
+
+		
+    		
+
 		
 		/* CARGAR ALERTAS */
 		$(document).ready(function(){
+
+
 
 			$('#btn-close-alert-info').click(function(){
 				hideAlertMessage('#alert-info');
@@ -650,6 +658,25 @@
 
 		/*FILTROS */
 		$(document).ready(function () {
+
+			tableDataTable =  document.querySelectorAll(".table-dataTable");
+
+			console.log(tableDataTable)
+			/*
+			for (var i =0; i < tableDataTable.length; i++) {
+				tableDataTable[i].setAttribute('id','table_horario_p'+i);
+				$('#table_horario_p'+i).DataTable( {
+        "scrollY":        "200px",
+        "scrollCollapse": true,
+        "paging":         false
+    } );
+				
+		}
+			$('th').removeAttr('style');*/
+
+			$('#table_example').DataTable();
+			//$('#table_data').DataTable();
+			
             (function ($) {
 
             	var jsFiltrar = document.querySelectorAll('.filtrar');
