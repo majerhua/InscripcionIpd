@@ -93,7 +93,11 @@
 													<td id="1{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
 													<td id="2{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
 													<td id="3{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']|date('H:i')}} - {{horario['horaFin']|date('H:i')}}</td> 
-													<td id="4{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
+													{% if  horario['edadMinima'] == horario['edadMaxima'] %}
+														<td id="4{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} años</td> 
+													{% else %}
+														<td id="4{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
+													{% endif %} 
 													<td id="5{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
 													{% if  horario['discapacidad'] == 0 %}
 														<td id="6{{horario['idHorario']}}" class="text-center"> No </td> 
@@ -1093,7 +1097,11 @@
 										tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
 										tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
 										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
-										tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
+										if(dataHorario.edadMinima == dataHorario.edadMaxima){
+											tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima + ' años </td>';
+										}else{
+											tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
+										}
 										tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 										if (dataHorario.discapacitados == 0){
 											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
