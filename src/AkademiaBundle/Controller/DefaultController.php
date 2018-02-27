@@ -765,7 +765,6 @@ class DefaultController extends Controller
             'AkademiaBundle:Default:login.html.twig', array(
                 'last_username' => $lastUsername,
                 'error' => $error,
-            
             ));
     }
 

@@ -457,7 +457,24 @@
 								</div>
 								<br>
 								<p style="font-size:14px; color:grey">El formato es de 24 horas.</p>
-							</li>						
+							</li>		
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Discapacidad</strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<select class="form-control" id="crear_discapacidad" onchange="validar(this.value)">
+											<option value="">--Seleccionar--</option>
+											<option value="0">No</option>
+											<option value="1">Si</option>
+										</select>
+									</div>
+								</div>
+								<br>
+								<p style="font-size:14px; color:grey">Edades comprendidas: <span style="font-size:14px;" id="textEdad"></span></p>
+							</li>				
 
 							<li class="list-group-item">
 
@@ -502,24 +519,10 @@
 										</div>
 									</div>
 								</div>
-								<br>
-								<p style="font-size:14px; color:grey">Edades comprendidas de 6 a 17 años.</p>
+								
 							</li>
 
-							<li class="list-group-item">
-								<div class="row">
-									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-										<p><strong>Discapacidad</strong></p>
-									</div>
-									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										<select class="form-control" id="crear_discapacidad">
-											<option value="">--Seleccionar--</option>
-											<option value="0">No</option>
-											<option value="1">Si</option>
-										</select>
-									</div>
-								</div>
-							</li>
+							
 
 							<li class="list-group-item">
 
@@ -652,7 +655,7 @@
 		
 		/*VALIDAR NEGATIVOS*/
 		
-		jQuery('#hora-inicio, #hora-fin, #min-inicio, #min-fin, #edad-minima, #edad-maxima').on('keypress', function (e) {
+		jQuery('#hora-inicio, #hora-fin, #min-inicio, #min-fin, #edad-minima, #edad-maxima, #vacantes-horario').on('keypress', function (e) {
 
 		    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47) {
 		        return false;
@@ -665,7 +668,22 @@
 		        return (key >= 48 && key <= 57)
 		}
 
-		
+		/*EDADES MÁXIMAS*/
+		var edad = document.getElementById('textEdad');
+
+		function validar(val){
+		  switch (val){
+		   case "0":
+		   	edad.innerHTML = 'De 6 a 17 años.' ;
+		   break;
+		   case "1":
+		   edad.innerHTML = 'De 7 a 40 años.';
+		   
+		   break;
+		   default : edad.innerHTML = '';
+		  }
+		}
+
 		/* CARGAR ALERTAS */
 		$(document).ready(function(){
 
@@ -783,10 +801,12 @@
 			$("#editar_vacantes_horario").val("");
 			$("#editar_convocatoria_horario").val("");
 			$("#turno").empty();
+			$("#textEdad").empty();
 		}
 
 		function clearDataCrear(){
-	
+
+			$("#textEdad").empty();
 			$("#turno").empty();
 			$("#hora-inicio").val("");
 			$("#min-inicio").val("");
@@ -837,13 +857,16 @@
 				},
 				success : function(data){
 					if(data != 1){
+
 						var dataHorario =JSON.parse(data)[0];
+						let horaInicio = String(dataHorario.horaInicio).split(":");
+						let horaFin = String(dataHorario.horaFin).split(":");
 
 						$("#editar_codigo_horario").append(dataHorario.idHorario);
 						$("#editar_disciplina_horario").append(dataHorario.nombreDisciplina);
 						$("#editar_turno_horario").append(dataHorario.turno);
-						$("#editar_hora_horario").append(dataHorario.horaInicio + '-' + dataHorario.horaFin);
-						$("#editar_edades_horario").append(dataHorario.edadMinima + '-' + dataHorario.edadMaxima +' años.');
+						$("#editar_hora_horario").append(horaInicio[0]+':'+horaInicio[1] + ' - ' + horaFin[0]+':'+horaFin[1]);
+						$("#editar_edades_horario").append(dataHorario.edadMinima + ' - ' + dataHorario.edadMaxima +' años.');
 						
 						if(dataHorario.discapacidad == 0){
 							$("#editar_discapacidad_horario").append("No");
@@ -882,7 +905,7 @@
 		        $("#btn-actualizar").attr('value',"Eliminar");
 		    
 		    }else{
-		    	
+		    	sessionStorage.removeItem('flagOcularHorario');
 		    	$("#advertencia").hide();
 		    	$("#btn-actualizar").attr('value',"Actualizar");
 
@@ -1018,6 +1041,10 @@
 			
 		} 
 
+		function dateToHour(date){
+			return date.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+		}
+
 		/*NUEVO HORARIO*/
 		function disciplina(idDisciplina2){
 
@@ -1128,15 +1155,17 @@
 										var tdhorario = '';
 										var idDisciplina = $("#idDisciplina").val();
 										var dataHorario =JSON.parse(data)[0];
+										let horaInicio = String(dataHorario.horaInicio).split(":");
+										let horaFin = String(dataHorario.horaFin).split(":");
+										
 										tdhorario+='<tr>';
 										tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
 										tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio+' - '+dataHorario.horaFin+'</td>';
+										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+horaInicio[0]+':'+horaInicio[1]+' - '+horaFin[0]+':'+horaFin[1]+'</td>';
 										tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
 										tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 										if (dataHorario.discapacitados == 0){
 											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
-										
 										}else{
 											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
 										}
@@ -1148,6 +1177,7 @@
 										{
 											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierto </td>';
 										}
+
 										tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
 										tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
 										tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
