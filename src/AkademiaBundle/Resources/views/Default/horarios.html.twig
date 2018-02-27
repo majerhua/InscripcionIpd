@@ -196,7 +196,7 @@
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<div id="alert-editar-info" class="alert alert-warning alert-dismissible text-center" role="alert">
 								<button id="btn-close-alert-editar-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-								<p style="font-size:14px">Edición de horarios.</p>
+								<p style="font-size:14px">Edición de las vacantes y convocatoria.</p>
 							</div>
 							<ul class="list-group">
 								<li class="list-group-item">
@@ -318,7 +318,7 @@
 							</div>
 							<br>
 							<div id="advertencia" class="alert alert-danger collapse text-center">
-								<p>Recuerda que no se podrá recuperar este horario y la lista de sus beneficiarios ya no serán visibles.</p>
+								<p style="font-size:14px">Recuerda que no se podrá recuperar este horario y la lista de sus beneficiarios ya no serán visibles.</p>
 							</div>	
 						</div>
 					</div>
@@ -470,7 +470,7 @@
 											</div>
 											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input onkeyup="cambio(this)" class="form-control" name="edad-minima" id="edad-minima"
+												<input class="form-control" name="edad-minima" id="edad-minima"
 												    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 												    type = "number"
 												    maxlength = "2"
@@ -686,14 +686,14 @@
 
 		/*VALIDACION COLOR DEL INPUT*/
 
-		function cambio(elemento){
+		/*function cambio(elemento){
 		  if ($(elemento).val() === "") {
 		    $(elemento).css("border-color", "#FA5858");
 		  }
 		  else{
 		    $(elemento).css("border-color", "#5882FA");
 		  }
-		} 
+		} */
 
 
 		/*FILTROS */
@@ -813,6 +813,7 @@
 			
 			sessionStorage.removeItem('flagOcularHorario');
 			$("#cbx-horario").prop('checked', false);
+			$("#btn-actualizar").attr('value','Actualizar');
 			$("#advertencia").hide();
 
 			var idHorario = idHorario;
@@ -879,6 +880,7 @@
 		        $("#advertencia").show();
 		        sessionStorage.setItem('flagOcularHorario',$(this).val());
 		        $("#btn-actualizar").attr('value',"Eliminar");
+		    
 		    }else{
 		    	
 		    	$("#advertencia").hide();
@@ -1024,14 +1026,10 @@
 			$("#diasTurno :checkbox").attr('checked', false);
 			$("#idDisciplina").val(idDisciplina2);
 			var idDisciplina = $("#idDisciplina").val();
-
-			
 		}
 		
 		/*CREAR NUEVO HORARIO*/
-		$("#btn-crear-horario").on("click", function(){
-
-			
+		$("#btn-crear-horario").on("click", function(){			
 
 			if( 
 				$("#turno").text() != "" 
@@ -1117,7 +1115,7 @@
 								success: function(data)
 								{
 									diasElegidos = [];
-									$("#btn-crear-horario").attr("data-dismiss","modal");				
+								//	$("#btn-crear-horario").attr("data-dismiss","modal");				
 									if (data == 1){
 										clearDataCrear();
 										alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
@@ -1133,7 +1131,7 @@
 										tdhorario+='<tr>';
 										tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
 										tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio +' - '+dataHorario.horaFin+'</td>';
+										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+ dataHorario.horaInicio+' - '+dataHorario.horaFin+'</td>';
 										tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
 										tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 										if (dataHorario.discapacitados == 0){
