@@ -1002,7 +1002,7 @@
 		/*CREAR NUEVO HORARIO*/
 		$("#btn-crear-horario").on("click", function(){
 
-			diasElegidos = [];
+			
 
 			if( 
 				$("#turno").text() != "" 
@@ -1087,6 +1087,7 @@
 								},
 								success: function(data)
 								{
+									diasElegidos = [];
 									$("#btn-crear-horario").attr("data-dismiss","modal");				
 									if (data == 1){
 										clearDataCrear();
