@@ -13,16 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Movimientos
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-
-    /**
      * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="categorias")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
      */
@@ -35,6 +25,16 @@ class Movimientos
      */
 
     private $asistenciaId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
 
     /**
      * @var \DateTime
@@ -57,14 +57,6 @@ class Movimientos
      */
 
     private $inscribeteId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="estado", type="integer")
-     */
-    private $estado;
-
 
     /**
      * Get id
@@ -195,28 +187,5 @@ class Movimientos
     {
         return $this->usuarioValida;
     }
-
-    /**
-     * Set estado
-     *
-     * @param integer $estado
-     *
-     * @return Movimientos
-     */
-    public function setEstado($estado)
-    {
-        $this->estado = $estado;
-
-        return $this;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return int
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
+    
 }

@@ -543,6 +543,10 @@ class DefaultController extends Controller
                             $em2->getRepository('AkademiaBundle:Horario')->getAcumularInscritos($idHorario);
                             $em2->flush();
 
+                            $em3 = $this->getDoctrine()->getManager();
+                            $em3->getRepository('AkademiaBundle:Movimientos')->RegistrarMovInicial($idFicha);
+                            $em3->flush();
+
                             $mensaje = 1;
                             return new JsonResponse($mensaje);
                             
@@ -591,6 +595,10 @@ class DefaultController extends Controller
                                 $em= $this->getDoctrine()->getManager();
                                 $em->getRepository('AkademiaBundle:Horario')->getAcumularInscritos($idHorario);
                                 $em->flush();
+
+                                $em3= $this->getDoctrine()->getManager();
+                                $em3->getRepository('AkademiaBundle:Movimientos')->RegistrarMovInicial($idFicha);
+                                $em3->flush();
 
                                 $mensaje = 1;
                                 return new JsonResponse($mensaje);
@@ -757,6 +765,20 @@ class DefaultController extends Controller
         $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
         $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
 
+        /*$events = $this->getDoctrine()
+            ->getRepository('AppBundle:Event')
+            ->findAll();
+
+        if (!$events) {
+            throw $this->createNotFoundException(
+                'No event found'
+            );
+        }
+
+        return $this->render(
+            'AppBundle:Event:index.html.twig',
+            array('events' => $events)
+        );*/
 
         return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
     }
@@ -931,11 +953,56 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $Horarios = $em->getRepository('AkademiaBundle:Horario')->getHorarioBeneficiario($idHorario);
         $Beneficiarios = $em->getRepository('AkademiaBundle:Horario')->getBeneficiarios($idHorario);
+        $Asistencias = $em->getRepository('AkademiaBundle:Asistencia')->getMostrarAsistencia();
+        $Categorias = $em->getRepository('AkademiaBundle:Categoria')->getMostrarCategoria();
+        $movAsis = $em->getRepository('AkademiaBundle:Movimientos')->getCantAsistencias(5,$idHorario);
+        $movRet = $em->getRepository('AkademiaBundle:Movimientos')->getCantRetirados(6,$idHorario);
+        $movEva = $em->getRepository('AkademiaBundle:Movimientos')->getCantEvaluados(6,$idHorario);
 
-        return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios));
+        return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios, "asistencias" => $Asistencias, "categorias" => $Categorias, "asistentes" => $movAsis, "retirados" => $movRet, "seleccionados" => $movEva, "id" =>$idHorario));
     }
 
 
+
+    public function estadoBeneficiarioAction(Request $request){
+       
+        if($request->isXmlHttpRequest()){
+
+            $idFicha = $request->request->get('idFicha');
+            $idAsistencia = $request->request->get('idAsistencia');
+            $idCategoria = $request->request->get('idCategoria');
+
+            $usuario = $this->getUser()->getId();
+            $em = $this->getDoctrine()->getManager();
+            $nuevoMovimiento = $em->getRepository('AkademiaBundle:Movimientos')->nuevoMovimiento($idCategoria, $idAsistencia, $idFicha,$usuario);
+           
+            if($idAsistencia == 6){
+
+                $em = $this->getDoctrine()->getManager();
+                $nuevoMovimiento = $em->getRepository('AkademiaBundle:Inscribete')->getBeneficiarioRetirado($idFicha);
+            }
+
+
+           if(empty($nuevoMovimiento)){
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+
+           }else{
+                $mensaje = 2;
+
+           }    
+
+           /* $movimiento = new Movimientos();
+            $movimiento->setCategoriaId($idCategoria);
+            $movimiento->setAsistenciaId($idAsistencia);
+            $movimiento->setInscribeteId($idFicha);
+            $movimiento->setUsuarioValida($usuario);
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($movimiento);
+            $em->flush(); */
+        }
+    }
 
     public function crearDisciplinaAction(Request $request){
         if($request->isXmlHttpRequest()){

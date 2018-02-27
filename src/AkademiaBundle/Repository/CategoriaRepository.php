@@ -10,4 +10,13 @@ namespace AkademiaBundle\Repository;
  */
 class CategoriaRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getMostrarCategoria(){
+
+            $query = "select * from academia.categoria";
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+            $categoria = $stmt->fetchAll();
+
+            return $categoria;
+    }
 }

@@ -10,4 +10,55 @@ namespace AkademiaBundle\Repository;
  */
 class MovimientosRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  	public function nuevoMovimiento($idCategoria, $idAsistencia, $idFicha, $usuario){
+
+        $query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id, usuario_valida) values ($idCategoria,$idAsistencia,$idFicha,$usuario)";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+       
+    }
+
+    public function RegistrarMovInicial($idFicha){
+    	
+    	$query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id) values (1,3,$idFicha)";
+    	$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+    }
+    
+    public function getCantAsistencias($idAsistencia, $idHorario){
+    	$query = "SELECT count(*)asistencias FROM ACADEMIA.movimientos a inner join academia.inscribete b on a.inscribete_id = b.id
+				inner join academia.horario c on b.horario_id = c.id where a.asistencia_id=$idAsistencia and c.id= $idHorario and b.estado = 2";
+
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $asistencias = $stmt->fetchAll();
+
+        return $asistencias;
+    }
+
+    public function getCantRetirados($idRetirado, $idHorario){
+    	$query = "SELECT count(*)retirados FROM ACADEMIA.movimientos a inner join academia.inscribete b on a.inscribete_id = b.id
+				inner join academia.horario c on b.horario_id = c.id where a.asistencia_id=$idRetirado and c.id= $idHorario and b.estado = 1";
+
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $retirados = $stmt->fetchAll();
+
+        return $retirados;
+    }
+
+
+    public function getCantEvaluados($idCategoria, $idHorario){
+    	$query = "SELECT count(*)seleccionados FROM ACADEMIA.movimientos a inner join academia.inscribete b on a.inscribete_id = b.id
+				inner join academia.horario c on b.horario_id = c.id where a.categoria_id=$idCategoria and c.id= $idHorario and b.estado = 2";
+
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $retirados = $stmt->fetchAll();
+
+        return $retirados;
+    }
+
+
 }

@@ -10,4 +10,13 @@ namespace AkademiaBundle\Repository;
  */
 class AsistenciaRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getMostrarAsistencia(){
+
+            $query = "select * from academia.asistencia";
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+            $asistencia = $stmt->fetchAll();
+
+            return $asistencia;
+    }
 }
