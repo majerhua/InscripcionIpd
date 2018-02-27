@@ -782,31 +782,6 @@ class DefaultController extends Controller
         $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
         $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
 
-        /*$events = $this->getDoctrine()
-            ->getRepository('AppBundle:Event')
-            ->findAll();
-
-        if (!$events) {
-            throw $this->createNotFoundException(
-                'No event found'
-            );
-        }
-
-        return $this->render(
-            'AppBundle:Event:index.html.twig',
-            array('events' => $events)
-        );*/
-
-        //$em = $this->getDoctrine()->getEntityManager();
-        //$dql = "SELECT e FROM BlogBundle:Entry e";
-        //$query = $em->createQuery($dql);
- 
-       /* $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-                $Horarios, 
-                $request->query->getInt('page', 1),
-                5
-        );*/
 
         return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
     }
@@ -1054,6 +1029,7 @@ class DefaultController extends Controller
             $em->flush();
 
             $idDisciplinaNueva = $disciplina->getId(); 
+
                
             $em = $this->getDoctrine()->getManager();
             $dataActualizada = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->getMostrarCambios($idDisciplinaNueva);         

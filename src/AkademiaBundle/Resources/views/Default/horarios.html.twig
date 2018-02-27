@@ -12,13 +12,12 @@
                 </button>                       
                 <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="logoAcademia" />                                      
             </div>
-
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
                 	<!--<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>-->
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
-                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
+                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>	
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -38,7 +37,7 @@
 			<h4 style="color:grey">ADMINISTRACION DE HORARIOS</h4>
 			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
 				<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-				<p>Administra los horarios asignados a tu complejo deportivo, puedes actualizar el número de vacantes, aperturar o cerrar horarios.</p>
+				<p> Administra los horarios asignados a tu complejo deportivo. <br>También puedes actualizar el número de vacantes, abrir o cerrar las convocatorias de los horarios y visualizar la lista de sus inscritos.</p>
 			</div>
 
 			{% set cont = 0 %}
@@ -47,12 +46,12 @@
 			<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">	
 				<div class="card" id="listadoDisciplinas">
 					<div class="card-header text-center" role="tab" id="">
-						<a class="title-card" data-toggle="collapse" href="#{{complejosDisciplina['idDisciplina']}}" >
+						<a class="title-card" data-toggle="collapse" href="#caja{{complejosDisciplina['idDisciplina']}}" >
 							<strong>{{complejosDisciplina['nombreDisciplina']}}</strong>
 						</a>
 					</div>
 					
-					<div id="{{complejosDisciplina['idDisciplina']}}" class="collapse" role="tabpanel" data-parent="#accordion">
+					<div id="caja{{complejosDisciplina['idDisciplina']}}" class="collapse" role="tabpanel" data-parent="#accordion">
 						<hr>
 						<div class="card-body">
 							<div class="row">
@@ -63,7 +62,7 @@
 									</div>
 									<br>
 
-									<div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:50vh; ">			
+									<div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:40vh; ">			
 
 										<table class="table display table-dataTable dataTable"  style="width: 100%;"> 
 											<thead style="background:#F2F2F2; color:#585858"> 
@@ -294,8 +293,8 @@
 										<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 											<select class="form-control" id="editar_convocatoria_horario">
 												<option value=""> --Seleccionar--</option>
-												<option value="1">Abierta</option>
-												<option value="0">Cerrada</option>
+												<option value="1">Abierto</option>
+												<option value="0">Cerrado</option>
 											</select>
 										</div>
 									</div>
@@ -303,12 +302,12 @@
 							</ul>
 						</div>
 						<hr>
-						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12 ">
 							<div class="row">
 								<div class="form-group col-xs-9 col-sm-9 col-md-9 col-ld-9">
 									<p style="color:grey"> ¿Deseas eliminar este horario?</p>
 								</div>
-								<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3">  
+								<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3 accordion">  
 									<div class="input-group">
 		  								<span class="input-group-addon">
 		    								<input type="checkbox" name="cbx-horario" id="cbx-horario" value="1">
@@ -317,12 +316,17 @@
 									</div>
 								</div>
 							</div>
+							<br>
+							<div id="advertencia" class="alert alert-danger collapse text-center">
+								<p>Recuerda que no se podrá recuperar este horario y la lista de sus beneficiarios ya no serán visibles.</p>
+							</div>	
 						</div>
 					</div>
 				</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button id="" type="button" class="btn btn-danger" data-dismiss="modal" onclick="actualizarHorario()" >Actualizar</button>
+				<input id="btn-actualizar" type="button" class="btn btn-danger" data-dismiss="modal" onclick="actualizarHorario()" value="Actualizar">
+				<!--<button id="btn-actualizar" type="button" class="btn btn-danger" data-dismiss="modal" onclick="" value="Actualizar"></button>-->
 			</div>
 		</div>
 	</div>
@@ -394,7 +398,7 @@
 										<div class="input-group">
 											<span class="input-group-addon">hh</span>
 
-											<input class="form-control" placeholder=" 09 " id="hora-inicio"
+											<input class="form-control placeholder " placeholder=" Ej: 09 " id="hora-inicio"
 											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 											    type = "number"
 											    maxlength = "2"
@@ -407,7 +411,7 @@
 										<div class="input-group">
 											<span class="input-group-addon">mm</span>
 											
-											<input class="form-control" placeholder=" 00 " id="min-inicio"
+											<input class="form-control placeholder" placeholder=" Ej: 00 " id="min-inicio"
 											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 											    type = "number"
 											    maxlength = "2"
@@ -429,7 +433,7 @@
 										<div class="input-group">
 											<span class="input-group-addon">hh</span>
 
-											<input class="form-control" placeholder=" 10 " id="hora-fin"
+											<input class="form-control placeholder" placeholder=" Ej: 10 " id="hora-fin"
 											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 											    type = "number"
 											    maxlength = "2"
@@ -441,7 +445,7 @@
 									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 										<div class="input-group">
 											<span class="input-group-addon">mm</span>
-											<input class="form-control" placeholder=" 00 " id="min-fin"
+											<input class="form-control placeholder" placeholder=" Ej: 00 " id="min-fin"
 											    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 											    type = "number"
 											    maxlength = "2"
@@ -466,7 +470,7 @@
 											</div>
 											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input class="form-control" name="edad-minima" id="edad-minima"
+												<input onkeyup="cambio(this)" class="form-control" name="edad-minima" id="edad-minima"
 												    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 												    type = "number"
 												    maxlength = "2"
@@ -498,7 +502,8 @@
 										</div>
 									</div>
 								</div>
-
+								<br>
+								<p style="font-size:14px; color:grey">Edades comprendidas de 6 a 17 años.</p>
 							</li>
 
 							<li class="list-group-item">
@@ -616,12 +621,16 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirmarEliminarHorario">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header" style="background:#EBE6E5; color:white">
+      <div class="modal-header" style="">
       		<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-			<h5 class="title-card">Mensaje de confirmación. </h5>
+			<p class="title-card">Mensaje de confirmación. </p>
       </div>
       <div class="modal-body">
-      		<p class="text-center" style="color:grey">¿ Estás seguro que desea eliminar este horario ?</p>
+      		<strong><p class="text-center" style="color:#B40404; font-weight:bold">¿Estás seguro de eliminar este horario? </p></strong>
+      		<p class="" style="color:grey">
+      		Recuerda que:<br>
+			1) No podrás revertir el proceso. <br>
+			2) La lista de beneficiarios asociados al horario ya no serán visibles.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" id="modal-btn-si-horario">Si</button>
@@ -640,9 +649,21 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
-
 		
-    		
+		/*VALIDAR NEGATIVOS*/
+		
+		jQuery('#hora-inicio, #hora-fin, #min-inicio, #min-fin, #edad-minima, #edad-maxima').on('keypress', function (e) {
+
+		    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47) {
+		        return false;
+		    }
+		    soloNumeros(e.keyCode);
+		});
+
+		function soloNumeros(e) {
+		    var key = window.Event ? e.which : e.keyCode
+		        return (key >= 48 && key <= 57)
+		}
 
 		
 		/* CARGAR ALERTAS */
@@ -663,26 +684,23 @@
 			});	
 		});
 
+		/*VALIDACION COLOR DEL INPUT*/
+
+		function cambio(elemento){
+		  if ($(elemento).val() === "") {
+		    $(elemento).css("border-color", "#FA5858");
+		  }
+		  else{
+		    $(elemento).css("border-color", "#5882FA");
+		  }
+		} 
+
+
 		/*FILTROS */
 		$(document).ready(function () {
 
 			tableDataTable =  document.querySelectorAll(".table-dataTable");
-
-			console.log(tableDataTable)
-			/*
-			for (var i =0; i < tableDataTable.length; i++) {
-				tableDataTable[i].setAttribute('id','table_horario_p'+i);
-				$('#table_horario_p'+i).DataTable( {
-        "scrollY":        "200px",
-        "scrollCollapse": true,
-        "paging":         false
-    } );
-				
-		}
-			$('th').removeAttr('style');*/
-
 			$('#table_example').DataTable();
-			//$('#table_data').DataTable();
 			
             (function ($) {
 
@@ -794,6 +812,8 @@
 		function editarHorario(idHorario, idDisciplina){
 			
 			sessionStorage.removeItem('flagOcularHorario');
+			$("#cbx-horario").prop('checked', false);
+			$("#advertencia").hide();
 
 			var idHorario = idHorario;
 			var idDisciplina = idDisciplina;
@@ -853,17 +873,24 @@
 		/*ACTUALIZAR HORARIO*/
 
 		$('#cbx-horario').on( 'click', function() {
-
+			
 		    if($(this).is(':checked'))
 		    {
-		        
+		        $("#advertencia").show();
 		        sessionStorage.setItem('flagOcularHorario',$(this).val());
+		        $("#btn-actualizar").attr('value',"Eliminar");
+		    }else{
+		    	
+		    	$("#advertencia").hide();
+		    	$("#btn-actualizar").attr('value',"Actualizar");
+
 		    }
 		});		
 
 		function actualizarHorario(){
 
 			if(sessionStorage.getItem('flagOcularHorario') == '1' ){
+
 				console.log(sessionStorage.getItem('flagOcularHorario'));
 				var confirmarHorario = function(callback){
 				 	
@@ -968,9 +995,9 @@
 									$("#5"+dataHorario.id).text(dataHorario.vacantes);
 
 									if(dataHorario.convocatoria == 1){
-										$("#7"+dataHorario.id).text("Abierta");
+										$("#7"+dataHorario.id).text("Abierto");
 									}else{
-										$("#7"+dataHorario.id).text("Cerrada");
+										$("#7"+dataHorario.id).text("Cerrado");
 									}
 									alertify.success('<p style="color:black">Horario Actualizado .</p>');
 								}else{
@@ -992,10 +1019,12 @@
 		/*NUEVO HORARIO*/
 		function disciplina(idDisciplina2){
 
+			diasElegidos = [];
 			clearDataCrear();
 			$("#diasTurno :checkbox").attr('checked', false);
 			$("#idDisciplina").val(idDisciplina2);
 			var idDisciplina = $("#idDisciplina").val();
+
 			
 		}
 		
@@ -1115,11 +1144,11 @@
 										}
 										if (dataHorario.convocatoria == 0 )
 										{
-											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrada </td>';
+											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrado </td>';
 										}
 										else
 										{
-											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierta </td>';
+											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierto </td>';
 										}
 										tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
 										tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';

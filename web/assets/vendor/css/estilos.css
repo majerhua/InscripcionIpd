@@ -12,6 +12,45 @@ body{
 
 }
 
+
+/*ELIMINAR HORARIO*/
+
+#accordion input {
+	display: none;
+}
+#accordion label {
+	/*background: #eee;*/
+	border-radius: .25em;
+	cursor: pointer;
+	display: block;
+	margin-bottom: .125em;
+	padding: .25em 1em;
+	z-index: 20;
+}
+
+#accordion article {
+	/*background: #f7f7f7;*/
+	height:0px;
+	overflow:hidden;
+	z-index:10;
+}
+#accordion article p {
+	padding: 2em;
+}
+#accordion input:checked article {
+}
+#accordion input:checked ~ article {
+	border-bottom-left-radius: .25em;
+	border-bottom-right-radius: .25em;
+	height: auto;
+	margin-bottom: .125em;
+}
+
+
+
+
+	
+.placeholder::placeholder { color: #D8D8D8; }
 .bg {
 
     background-image: url("../../images/slider4.png");

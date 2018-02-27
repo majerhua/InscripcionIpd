@@ -13,7 +13,7 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getComplejoDisciplinas(){
 
-       $query = "select  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,ediComplejo.ede_discapacitado as discapacidad
+       $query = "SELECT  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,ediComplejo.ede_discapacitado as discapacidad
 			from CATASTRO.edificacionDisciplina as edidis inner join CATASTRO.disciplina as dis on edidis.dis_codigo = dis.dis_codigo inner join CATASTRO.edificacionesdeportivas as ediComplejo 
 			on edidis.ede_codigo=ediComplejo.ede_codigo";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -25,7 +25,7 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 	}
 
 	public function getComplejosDisciplinasDiscaspacitados(){
-		$query = "select  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,ediComplejo.ede_discapacitado as discapacidad
+		$query = "SELECT  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,ediComplejo.ede_discapacitado as discapacidad
 			from CATASTRO.edificacionDisciplina as edidis inner join CATASTRO.disciplina as dis on edidis.dis_codigo = dis.dis_codigo inner join CATASTRO.edificacionesdeportivas as ediComplejo 
 			on edidis.ede_codigo=ediComplejo.ede_codigo where ediComplejo.ede_discapacitado = 1";
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -37,7 +37,7 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getComplejosDisciplinasHorarios($idComplejo){
 
-		$query = "select a.edi_codigo as idDistrito,c.ede_nombre as nombreComplejo, a.ede_codigo as idComplejoDeportivo, rtrim(b.dis_descripcion) as nombreDisciplina,b.dis_codigo as idDisciplina ,c.ede_discapacitado as discapacidad from CATASTRO.edificacionDisciplina as a inner join CATASTRO.disciplina as b on a.dis_codigo = b.dis_codigo inner join CATASTRO.edificacionesdeportivas as c on a.ede_codigo=c.ede_codigo where a.ede_codigo = $idComplejo and b.dis_estado = 1";
+		$query = "SELECT a.edi_codigo as idDistrito,c.ede_nombre as nombreComplejo, a.ede_codigo as idComplejoDeportivo, rtrim(b.dis_descripcion) as nombreDisciplina,b.dis_codigo as idDisciplina ,c.ede_discapacitado as discapacidad from CATASTRO.edificacionDisciplina as a inner join CATASTRO.disciplina as b on a.dis_codigo = b.dis_codigo inner join CATASTRO.edificacionesdeportivas as c on a.ede_codigo=c.ede_codigo where a.ede_codigo = $idComplejo and b.dis_estado = 1";
 
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
