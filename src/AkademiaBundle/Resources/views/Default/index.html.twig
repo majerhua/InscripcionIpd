@@ -496,13 +496,13 @@
 					<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
 					<hr>
 					
-					<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
-					<div id="alerta-error" class="alert alert-danger collapse"></div>
+					<div id="alerta-confirmacionFicha" class="alert alert-success collapse"></div>
+					<div id="alerta-errorFicha" class="alert alert-danger collapse"></div>
 
 					<div class="row">
 						<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" id="inscribirPreinscrito"><button id="btn-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
 
-						<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center"><button class="btn btn-danger" style="margin: 5px;">Salir</button></a>-->
+						<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><button class="btn btn-default" style="margin: 5px;">Salir</button></a>-->
 					</div>
 					
 					<hr>
@@ -1468,25 +1468,25 @@ $("#inscribirPreinscrito").on('click',function(){
 				clearFicha();
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-confirmacion', "Ficha inscrita exitosamente !");
+				showAlertMessage('#alerta-confirmacionFicha', "Ficha inscrita exitosamente !");
 			
 			}else if( data == 2){
 
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-error', "No existen vacantes disponibles para este Horario. ");
+				showAlertMessage('#alerta-errorFicha', "No existen vacantes disponibles para este Horario. ");
 
 			}else if( data == 3){
 
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-error', "Este alumno ya se encuentra inscrito en esta disciplina. ");
+				showAlertMessage('#alerta-errorFicha', "Este alumno ya se encuentra inscrito en esta disciplina. ");
 
 			}else if( data == 4){
 
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-error', "El alumno excedió la cantidad de Inscripciones posibles.");
+				showAlertMessage('#alerta-errorFicha', "El alumno excedió la cantidad de Inscripciones posibles.");
 			}
 		},
 		error: function(error){

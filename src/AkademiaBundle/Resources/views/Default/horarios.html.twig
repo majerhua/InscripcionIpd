@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
-                	<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>
+                	<!--<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>-->
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
                 	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
@@ -113,7 +113,8 @@
 
 													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px; color:white" ></i></button></td>
 
-													<td><a href="/beneficiarios/{{horario['idHorario']}}"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
+
+													<td><a href="/academia/web/beneficiarios/{{horario['idHorario']}}"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
 												</tr> 
 												<input type="hidden" value="{{horario['idDisciplina']}}">				
 												
@@ -719,23 +720,6 @@
 		        diasElegidos.splice( diasElegidos.indexOf( element.value ), 1 )
 		    }
 
-		 /*
-		 	diasElegidos.sort();
-		    console.log(diasElegidos);
-		    
-		    var cadenaHorario = ''
-		    dia =  {1:'Lun', 2:'Mar', 3:'Mie', 4:'Jue', 5:'Vie', 6:'Sab', 7:'Dom'}
-
-	    	for(var i = 0; i < diasElegidos.length; i++){	
-
-		 		if(i!=diasElegidos.length-1)
-		 			cadenaHorario+=dia[diasElegidos[i]]+',';
-		 		else 
-		 			cadenaHorario+=dia[diasElegidos[i]];
-		 	} 
-			turno.innerHTML = cadenaHorario
-		 	*/
-
 			arregloAOrdenar=ordenarCheckbox(diasElegidos);
 
 			function ordenarCheckbox(arreglo){
@@ -1273,9 +1257,6 @@
 
 	}
 
-
-
-	
 </script>
 
 {% endblock %}
