@@ -345,7 +345,7 @@
 								</div>
 							</li>
 
-							<li class="list-group-item">
+							<li class="list-group-item" id="cbx-categoria">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 										<p><strong>Categoría</strong></p>
@@ -354,7 +354,9 @@
 										<select class="form-control" id="categoriaParticipante">
 											<option value="0">--Seleccionar--</option>
 											{% for categoria in categorias %}
+												{% if categoria['id'] != 7 %}
 												<option value="{{categoria['id']}}">{{categoria['descripcion']}}</option>
+												{% endif %}
 											{% endfor %}
 										</select>
 									</div>
@@ -424,6 +426,8 @@
 			var idParticipante = idParticipante;
 			clearData();
 			
+			$("#cbx-categoria").hide();
+
           	{% for beneficiario in beneficiarios %}
 
 				if( "{{beneficiario['idParticipante']}}" == idParticipante ){
@@ -437,16 +441,44 @@
 					 	$("#sexoParticipante").append("<p>Femenino</p>");	
 					}else{
 					 	$("#sexoParticipante").append("<p>Masculino</p>");
+					}	
+
+					var idCat = {{beneficiario['idCategoria']}};
+					var idAsis = {{beneficiario['idAsistencia']}};
+
+					if(idAsis == 4){
+						$("#asistenciaParticipante").val(0);
+
+					}else{
+
+						$("#cbx-categoria").show();
+						$("#asistenciaParticipante").val(idAsis);
+						$("#categoriaParticipante").val(idCat);
 					}
-
 					
-					//$("#categoriaParticipante").val(1);
-
 				}
 
 			{% endfor %}
-		
+
 		}
+
+			$('#asistenciaParticipante').on('click', function(){
+
+				var cbx_asist = document.getElementById("asistenciaParticipante").value;
+
+				if(cbx_asist == 5){
+
+					$("#cbx-categoria").show();
+
+				}else if (cbx_asist == 6){
+					
+					$("#cbx-categoria").hide();
+				}else{
+
+					$("#cbx-categoria").hide();
+				}
+
+			});
 
 		function clearData(){
 
@@ -455,6 +487,8 @@
 			$("#edadParticipante").empty();
 			$("#sexoParticipante").empty();
 			$("#idFicha").empty();
+
+
 		
 		}
 
@@ -500,8 +534,9 @@
 						}
 						if(data == 2){
 
-							alertify.error('<p style="color:white">Erroooooooor</p>');	
+							alertify.error('<p style="color:white">Se produjo un error.</p>');	
 						}
+						
 					},
 
 					error: function(data){

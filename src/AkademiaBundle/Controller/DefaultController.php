@@ -792,10 +792,11 @@ class DefaultController extends Controller
             $idHorario = $request->request->get('idHorario');
             $vacantes = $request->request->get('vacantes');
             $convocatoria = $request->request->get('convocatoria');
+            $usuario = $this->getUser()->getId();
 
 
             $em = $this->getDoctrine()->getManager();
-            $em->getRepository('AkademiaBundle:Horario')->getActualizarHorarios($idHorario, $vacantes, $convocatoria);
+            $em->getRepository('AkademiaBundle:Horario')->getActualizarHorarios($idHorario, $vacantes, $convocatoria, $usuario);
             $em->flush();
 
             $em = $this->getDoctrine()->getManager();
@@ -830,9 +831,10 @@ class DefaultController extends Controller
         
         if($request->isXmlHttpRequest()){
             $idHorario = $request->request->get('idHorario');
+            $usuario = $this->getUser()->getId();
 
             $em = $this->getDoctrine()->getManager();
-            $em ->getRepository('AkademiaBundle:Horario')->getOcultarHorario($idHorario);
+            $em ->getRepository('AkademiaBundle:Horario')->getOcultarHorario($idHorario, $usuario);
             $em->flush();
 
             $mensaje = 1;
@@ -884,6 +886,7 @@ class DefaultController extends Controller
             $vacantes = $request->request->get('vacantes');
             $discapacitados = $request->request->get('discapacidad');
             $turno = $request->request->get('turno');
+            $usuario = $this->getUser()->getId();
 
             $idDisciplina = $request->request->get('idDisciplina');           
             $idComplejo = $this->getUser()->getIdComplejo();
@@ -902,6 +905,16 @@ class DefaultController extends Controller
 
             }else{
 
+                if($discapacitados == 1){
+              
+                    $em = $this->getDoctrine()->getManager();
+                    $cambios = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->getEditarDiscapacitado($idComplejo, $usuario);
+
+                    $em2 = $this->getDoctrine()->getManager();
+                    $cambiosDisciplina = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getEditarDiscapacitado($idDisciplina, $usuario);
+
+                }
+
                 $horario = new Horario();
                 $horario->setVacantes($vacantes);
                 $horario->setHoraInicio($horaInicio);
@@ -911,6 +924,7 @@ class DefaultController extends Controller
                 $horario->setDiscapacitados($discapacitados);
                 $horario->setTurno($turno);
                 $horario->setConvocatoria(0);
+                $horario->setUsuarioCrea($usuario);
                 $horario->setEstado(1);
                 $horario->setInscritos(0);
 
@@ -975,24 +989,25 @@ class DefaultController extends Controller
             $idCategoria = $request->request->get('idCategoria');
 
             $usuario = $this->getUser()->getId();
+
             $em = $this->getDoctrine()->getManager();
             $nuevoMovimiento = $em->getRepository('AkademiaBundle:Movimientos')->nuevoMovimiento($idCategoria, $idAsistencia, $idFicha,$usuario);
-           
+          
             if($idAsistencia == 6){
 
                 $em = $this->getDoctrine()->getManager();
                 $nuevoMovimiento = $em->getRepository('AkademiaBundle:Inscribete')->getBeneficiarioRetirado($idFicha);
             }
 
-
-           if(empty($nuevoMovimiento)){
+            if(empty($nuevoMovimiento)){
                 $mensaje = 1;
                 return new JsonResponse($mensaje);
 
-           }else{
-                $mensaje = 2;
+            }else{
 
-           }    
+                $mensaje = 2;
+                return new JsonResponse($mensaje);
+            }       
         }
     }
 
@@ -1001,19 +1016,21 @@ class DefaultController extends Controller
 
             $idDisciplina = $request->request->get('idDisciplina');           
             $idComplejo = $this->getUser()->getIdComplejo();
-            $idUsuario = $this->getUser()->getId();
+            $usuario = $this->getUser()->getId();
             
 
             $em = $this->getDoctrine()->getManager();
             $estado = $em->getRepository('AkademiaBundle:ComplejoDisciplina')->getCompararEstado($idComplejo, $idDisciplina);
 
+        
             if(!empty($estado)){
 
                 $em = $this->getDoctrine()->getManager();
                 $estadoActual = $em->getRepository('AkademiaBundle:ComplejoDisciplina')->getCambiarEstado($idComplejo, $idDisciplina);
-                $mensaje = 2;
-                return new JsonResponse($mensaje);
 
+                $mensaje = 1;
+                return new JsonResponse($mensaje);    
+            
             }else{
 
                 $disciplina = new ComplejoDisciplina();
@@ -1026,35 +1043,14 @@ class DefaultController extends Controller
                 $codigoComplejo = $em->find($idComplejo);
                 $disciplina->setComplejoDeportivo($codigoComplejo);
                 $disciplina->setEstado(1);
-                $disciplina->setUsuario($idUsuario);
+                $disciplina->setUsuario($usuario);
          
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($disciplina);
-                $em->flush();
+                $em->flush();  
 
-                $idDisciplinaNueva = $disciplina->getId(); 
-                $em = $this->getDoctrine()->getManager();
-                $dataActualizada = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->getMostrarCambios($idDisciplinaNueva);
-
-                if(!empty($dataActualizada)){
-                        
-                    $encoders = array(new JsonEncoder());
-                    $normalizer = new ObjectNormalizer();
-                    $normalizer->setCircularReferenceLimit(1);
-                    $normalizer->setCircularReferenceHandler(function ($object) {
-                        return $object->getId();
-                    });
-
-                    $normalizers = array($normalizer);
-                    $serializer = new Serializer($normalizers, $encoders);
-                    $jsonContent = $serializer->serialize($dataActualizada,'json');
-
-                    return new JsonResponse($jsonContent);   
-
-                }else{
-                    $mensaje = 1;
-                    return new JsonResponse($mensaje);
-                }
+                $mensaje = 2;
+                return new JsonResponse($mensaje);           
 
             }
           
@@ -1062,7 +1058,4 @@ class DefaultController extends Controller
 
     }
 
-
-
-    
 }

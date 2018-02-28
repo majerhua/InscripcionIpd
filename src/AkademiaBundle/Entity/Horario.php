@@ -104,6 +104,34 @@ class Horario
     private $estado;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_eliminacion", type="datetime")
+     */
+    private $fechaEliminacion;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="usuario_modif", type="integer")
+     */
+    private $usuarioModifica;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="usuario_elimina", type="integer")
+     */
+    private $usuarioElimina;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="usuario_crea", type="integer")
+     */
+    private $usuarioCrea;
+
+    /**
      * Get id
      *
      * @return int
@@ -420,5 +448,99 @@ class Horario
         return $this->estado;
     }
 
+    /**
+     * Set usuarioModifica
+     *
+     * @param integer $usuarioModifica
+     *
+     * @return Horario
+     */
+    public function setUsuarioModifica($usuarioModifica)
+    {
+        $this->usuarioModifica = $usuarioModifica;
 
+        return $this;
+    }
+
+    /**
+     * Get usuarioModifica
+     *
+     * @return integer
+     */
+    public function getUsuarioModifica()
+    {
+        return $this->usuarioModifica;
+    }
+
+    /**
+     * Set usuarioElimina
+     *
+     * @param integer $usuarioElimina
+     *
+     * @return Horario
+     */
+    public function setUsuarioElimina($usuarioElimina)
+    {
+        $this->usuarioElimina = $usuarioElimina;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioElimina
+     *
+     * @return integer
+     */
+    public function getUsuarioElimina()
+    {
+        return $this->usuarioElimina;
+    }
+
+    /**
+     * Set usuarioCrea
+     *
+     * @param integer $usuarioCrea
+     *
+     * @return Horario
+     */
+    public function setUsuarioCrea($usuarioCrea)
+    {
+        $this->usuarioCrea = $usuarioCrea;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioCrea
+     *
+     * @return integer
+     */
+    public function getUsuarioCrea()
+    {
+        return $this->usuarioCrea;
+    }
+
+    /**
+     * Set fechaEliminacion
+     *
+     * @param \DateTime $fechaEliminacion
+     *
+     * @return Horario
+     */
+    public function setFechaEliminacion($fechaEliminacion)
+    {
+        $this->fechaEliminacion = $fechaEliminacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaEliminacion
+     *
+     * @return \DateTime
+     */
+    public function getFechaEliminacion()
+    {
+        return $this->fechaEliminacion;
+    }
 }

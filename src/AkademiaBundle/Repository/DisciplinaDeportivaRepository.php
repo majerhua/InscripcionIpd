@@ -40,4 +40,11 @@ class DisciplinaDeportivaRepository extends \Doctrine\ORM\EntityRepository
                 return $disciplinas;
 
         }
+
+        public function getEditarDiscapacitado($idDisciplina, $usuario){
+
+                $query = "UPDATE catastro.disciplina set dis_discapacitado = 1, dis_usumodi = $usuario, dis_fechamodi = getDate() where dis_codigo= $idDisciplina";
+                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+                $stmt->execute();
+        }
 }

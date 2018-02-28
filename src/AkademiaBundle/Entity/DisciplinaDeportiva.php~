@@ -34,7 +34,12 @@ class DisciplinaDeportiva
      */
     private $nombre;
 
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="dis_usucrea", type="integer")
+     */
+    private $usuarioCrea;
 
     /**
      * Get id

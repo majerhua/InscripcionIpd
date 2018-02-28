@@ -118,16 +118,16 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $horarios;
         }
 
-        public function getActualizarHorarios($idHorario, $vacantes, $convocatoria){
+        public function getActualizarHorarios($idHorario, $vacantes, $convocatoria, $usuario){
 
-                $query = "UPDATE academia.horario set convocatoria = $convocatoria, vacantes = $vacantes from academia.horario where id = $idHorario";
+                $query = "UPDATE academia.horario set convocatoria = $convocatoria, vacantes = $vacantes, usuario_modif = $usuario,fecha_modif = getDate() from academia.horario where id = $idHorario";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
 
         }
 
-        public function getOcultarHorario($idHorario){
-                $query = "UPDATE academia.horario set estado = 0 where id= $idHorario";
+        public function getOcultarHorario($idHorario, $usuario){
+                $query = "UPDATE academia.horario set estado = 0, usuario_elimina = $usuario, fecha_eliminacion = getDate() where id= $idHorario";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
         }

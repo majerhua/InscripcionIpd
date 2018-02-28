@@ -34,7 +34,12 @@ class DisciplinaDeportiva
      */
     private $nombre;
 
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="dis_usucrea", type="integer")
+     */
+    private $usuarioCrea;
 
     /**
      * Get id
@@ -111,5 +116,29 @@ class DisciplinaDeportiva
     public function getComplejosDisciplinas()
     {
         return $this->complejosDisciplinas;
+    }
+
+    /**
+     * Set usuarioCrea
+     *
+     * @param integer $usuarioCrea
+     *
+     * @return DisciplinaDeportiva
+     */
+    public function setUsuarioCrea($usuarioCrea)
+    {
+        $this->usuarioCrea = $usuarioCrea;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioCrea
+     *
+     * @return integer
+     */
+    public function getUsuarioCrea()
+    {
+        return $this->usuarioCrea;
     }
 }
