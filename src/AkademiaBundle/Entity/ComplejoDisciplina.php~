@@ -40,6 +40,21 @@ class ComplejoDisciplina
      */
     private $id;
 
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="edi_estado", type="integer")
+     */
+    private $estado;
+
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="edi_usucrea", type="integer")
+     */
+    private $usuario;
+
+
 
     /**
      * Get id

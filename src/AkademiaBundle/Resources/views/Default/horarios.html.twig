@@ -1282,15 +1282,25 @@
 				},
 
 				success: function(data){
-					if(data != 1){
+					if(data == 1){
+
+						alertify.error('<p style="color:white">Se produjo un error! </p>');	
+						console.log(data);
+
+					}else if(data == 2){
 
 						alertify.success('<p style="color:white">La disciplina fue creada exitosamente. </p>');	
 						window.location.href = "{{url('akademia_horarios')}}";
+					
+					}else{
 
+						alertify.error('<p style="color:white">Disciplina creada exitosamente</p>');	
+						window.location.href = "{{url('akademia_horarios')}}";
 					}
 				},
 
 				error: function(data){
+
 					alertify.error('<p style="color:white">Se produjo un error al crear la nueva disciplina. </p>');	
 					console.log(data);
 				},

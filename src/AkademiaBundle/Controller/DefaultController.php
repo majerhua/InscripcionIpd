@@ -888,10 +888,10 @@ class DefaultController extends Controller
             $idDisciplina = $request->request->get('idDisciplina');           
             $idComplejo = $this->getUser()->getIdComplejo();
             $em = $this->getDoctrine()->getManager();
+           
             $ediCodigo = $em->getRepository('AkademiaBundle:Horario')->getCapturarEdiCodigo($idComplejo, $idDisciplina);         
             $codigoEdi = $ediCodigo[0]['edi_codigo'];
             
-
             $em = $this->getDoctrine()->getManager();
             $data = $em->getRepository('AkademiaBundle:Horario')->getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados);
 
@@ -993,16 +993,6 @@ class DefaultController extends Controller
                 $mensaje = 2;
 
            }    
-
-           /* $movimiento = new Movimientos();
-            $movimiento->setCategoriaId($idCategoria);
-            $movimiento->setAsistenciaId($idAsistencia);
-            $movimiento->setInscribeteId($idFicha);
-            $movimiento->setUsuarioValida($usuario);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($movimiento);
-            $em->flush(); */
         }
     }
 
@@ -1011,48 +1001,63 @@ class DefaultController extends Controller
 
             $idDisciplina = $request->request->get('idDisciplina');           
             $idComplejo = $this->getUser()->getIdComplejo();
+            $idUsuario = $this->getUser()->getId();
             
 
-            $disciplina = new ComplejoDisciplina();
-
-            $em = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class);
-            $codigoDisciplina = $em->find($idDisciplina);
-            $disciplina->setDisciplinaDeportiva($codigoDisciplina);
-           
-            $em = $this->getDoctrine()->getRepository(ComplejoDeportivo::class);
-            $codigoComplejo = $em->find($idComplejo);
-            $disciplina->setComplejoDeportivo($codigoComplejo);
-     
             $em = $this->getDoctrine()->getManager();
-            $em->persist($disciplina);
-            $em->flush();
+            $estado = $em->getRepository('AkademiaBundle:ComplejoDisciplina')->getCompararEstado($idComplejo, $idDisciplina);
 
-            $idDisciplinaNueva = $disciplina->getId(); 
+            if(!empty($estado)){
 
-               
-            $em = $this->getDoctrine()->getManager();
-            $dataActualizada = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->getMostrarCambios($idDisciplinaNueva);         
-
-            if(!empty($dataActualizada)){
-                    
-                $encoders = array(new JsonEncoder());
-                $normalizer = new ObjectNormalizer();
-                $normalizer->setCircularReferenceLimit(1);
-                $normalizer->setCircularReferenceHandler(function ($object) {
-                    return $object->getId();
-                });
-
-                $normalizers = array($normalizer);
-                $serializer = new Serializer($normalizers, $encoders);
-                $jsonContent = $serializer->serialize($dataActualizada,'json');
-
-                return new JsonResponse($jsonContent);   
+                $em = $this->getDoctrine()->getManager();
+                $estadoActual = $em->getRepository('AkademiaBundle:ComplejoDisciplina')->getCambiarEstado($idComplejo, $idDisciplina);
+                $mensaje = 2;
+                return new JsonResponse($mensaje);
 
             }else{
-                $mensaje = 1;
-                return new JsonResponse($mensaje);
+
+                $disciplina = new ComplejoDisciplina();
+
+                $em = $this->getDoctrine()->getRepository(DisciplinaDeportiva::class);
+                $codigoDisciplina = $em->find($idDisciplina);
+                $disciplina->setDisciplinaDeportiva($codigoDisciplina);
+               
+                $em = $this->getDoctrine()->getRepository(ComplejoDeportivo::class);
+                $codigoComplejo = $em->find($idComplejo);
+                $disciplina->setComplejoDeportivo($codigoComplejo);
+                $disciplina->setEstado(1);
+                $disciplina->setUsuario($idUsuario);
+         
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($disciplina);
+                $em->flush();
+
+                $idDisciplinaNueva = $disciplina->getId(); 
+                $em = $this->getDoctrine()->getManager();
+                $dataActualizada = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->getMostrarCambios($idDisciplinaNueva);
+
+                if(!empty($dataActualizada)){
+                        
+                    $encoders = array(new JsonEncoder());
+                    $normalizer = new ObjectNormalizer();
+                    $normalizer->setCircularReferenceLimit(1);
+                    $normalizer->setCircularReferenceHandler(function ($object) {
+                        return $object->getId();
+                    });
+
+                    $normalizers = array($normalizer);
+                    $serializer = new Serializer($normalizers, $encoders);
+                    $jsonContent = $serializer->serialize($dataActualizada,'json');
+
+                    return new JsonResponse($jsonContent);   
+
+                }else{
+                    $mensaje = 1;
+                    return new JsonResponse($mensaje);
+                }
+
             }
-           
+          
         }
 
     }

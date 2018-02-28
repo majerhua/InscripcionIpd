@@ -135,7 +135,7 @@ class Horario
      */
     public function getHoraInicio()
     {
-        return $this->horaInicio;
+        return $this->horaInicio->format('H:i');
     }
 
     /**
@@ -159,7 +159,7 @@ class Horario
      */
     public function getHoraFin()
     {
-        return $this->horaFin;
+        return $this->horaFin->format('H:i');
     }
 
     /**
@@ -422,4 +422,3 @@ class Horario
 
 
 }
-

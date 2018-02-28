@@ -98,5 +98,45 @@ class Asistencia
     {
         return $this->estado;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->movimientos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add movimiento
+     *
+     * @param \AkademiaBundle\Entity\Movimientos $movimiento
+     *
+     * @return Asistencia
+     */
+    public function addMovimiento(\AkademiaBundle\Entity\Movimientos $movimiento)
+    {
+        $this->movimientos[] = $movimiento;
+
+        return $this;
+    }
+
+    /**
+     * Remove movimiento
+     *
+     * @param \AkademiaBundle\Entity\Movimientos $movimiento
+     */
+    public function removeMovimiento(\AkademiaBundle\Entity\Movimientos $movimiento)
+    {
+        $this->movimientos->removeElement($movimiento);
+    }
+
+    /**
+     * Get movimientos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMovimientos()
+    {
+        return $this->movimientos;
+    }
+}

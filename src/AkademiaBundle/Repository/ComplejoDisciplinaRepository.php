@@ -37,7 +37,7 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getComplejosDisciplinasHorarios($idComplejo){
 
-		$query = "SELECT a.edi_codigo as idDistrito,c.ede_nombre as nombreComplejo, a.ede_codigo as idComplejoDeportivo, rtrim(b.dis_descripcion) as nombreDisciplina,b.dis_codigo as idDisciplina ,c.ede_discapacitado as discapacidad from CATASTRO.edificacionDisciplina as a inner join CATASTRO.disciplina as b on a.dis_codigo = b.dis_codigo inner join CATASTRO.edificacionesdeportivas as c on a.ede_codigo=c.ede_codigo where a.ede_codigo = $idComplejo and b.dis_estado = 1";
+		$query = "SELECT a.edi_codigo as idDistrito,c.ede_nombre as nombreComplejo, a.ede_codigo as idComplejoDeportivo, rtrim(b.dis_descripcion) as nombreDisciplina,b.dis_codigo as idDisciplina ,c.ede_discapacitado as discapacidad from CATASTRO.edificacionDisciplina as a inner join CATASTRO.disciplina as b on a.dis_codigo = b.dis_codigo inner join CATASTRO.edificacionesdeportivas as c on a.ede_codigo=c.ede_codigo where a.ede_codigo = $idComplejo and a.edi_estado = 1";
 
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -48,5 +48,33 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 
 
 	}
+
+	public function getCompararEstado($idComplejo, $idDisciplina){
+		$query = "SELECT edi_estado as estado from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $estado = $stmt->fetchAll();
+
+        return $estado;
+
+	}
+
+	public function getCambiarEstado($idComplejo, $idDisciplina){
+		$query = "UPDATE catastro.edificacionDisciplina set edi_estado = 1 where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+  
+	}
+
+	public function getEdiCodDisciplina($idComplejo, $idDisciplina){
+		$query = "SELECT edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $codigo = $stmt->fetchAll();
+
+        return $codigo;
+
+	}
+
 
 }

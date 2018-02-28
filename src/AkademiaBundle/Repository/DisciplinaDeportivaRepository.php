@@ -13,14 +13,14 @@ class DisciplinaDeportivaRepository extends \Doctrine\ORM\EntityRepository
 	   public function getDisciplinasDiferentes($idComplejo){
                 
                 $query = "SELECT dis.dis_codigo, dis.dis_descripcion 
-			from catastro.disciplina dis left join 
-			(select d.dis_codigo, d.dis_descripcion 
-			from catastro.edificacionDisciplina edi 
-			inner join catastro.disciplina d on edi.dis_codigo = d.dis_codigo 
-			inner join catastro.edificacionesdeportivas ede on edi.ede_codigo = ede.ede_codigo
-			where ede.ede_codigo = $idComplejo) t2
-			on dis.dis_codigo = t2.dis_codigo 
-			where t2.dis_codigo IS NULL;";
+                        from catastro.disciplina dis left join 
+                        (select d.dis_codigo, d.dis_descripcion, edi.edi_estado 
+                        from catastro.edificacionDisciplina edi 
+                        inner join catastro.disciplina d on edi.dis_codigo = d.dis_codigo 
+                        inner join catastro.edificacionesdeportivas ede on edi.ede_codigo = ede.ede_codigo
+                        where ede.ede_codigo = 11 and edi.edi_estado=1) t2
+                        on dis.dis_codigo = t2.dis_codigo 
+                        where t2.dis_codigo IS NULL;";
 
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
