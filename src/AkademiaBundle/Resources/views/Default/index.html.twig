@@ -803,6 +803,7 @@
 		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
 		$("#disciplinaDeportiva").empty();
 		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+		
 		{% for provinciaCD in provinciasCD  %}
 
 			if("{{provinciaCD['idDepartamento']}}" == idDepartamentoHorario){
@@ -1179,13 +1180,15 @@
                     sessionStorage.removeItem("sexo-apoderado");
                     sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
                     console.log("Edad apoderado => "+edadApoderado);
-                    $("#proceso1").hide();
-                    $("#proceso2").show();
+                    //$("#proceso1").hide();
+                    //$("#proceso2").show();
 
-                    $(".bar-inscripcion__1").removeClass('active');
-                    $(".bar-inscripcion__2").addClass('active');	
+                    //$(".bar-inscripcion__1").removeClass('active');
+                    //$(".bar-inscripcion__2").addClass('active');	
             }
 	});
+
+$("#proceso2").show();
 
 	$("#boton2").on('click',function(){
 		
@@ -1222,17 +1225,17 @@
                     cambiarProvinciaHorario($("#provincia").val(),$("#departamento").val());
                     {#$("#distritoHorario").val($("#distrito").val());#}
                     
-                    $("#proceso2").hide();
-                    $("#proceso3").show();
+                    //$("#proceso2").hide();
+                    //$("#proceso3").show();
 
-                    $(".bar-inscripcion__2").removeClass('active');
-                    $(".bar-inscripcion__3").addClass('active');
+                    //$(".bar-inscripcion__2").removeClass('active');
+                    //$(".bar-inscripcion__3").addClass('active');
 
                 }
                 
 	});
 
-
+$("#proceso3").show();
 
 $("#boton3").on('click',function(){
 
@@ -1297,8 +1300,8 @@ $("#boton3").on('click',function(){
 
 			if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
 				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
-					$("#proceso3").hide();
-					$("#process4").show();	
+					//$("#proceso3").hide();
+					//$("#process4").show();	
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');	
 			    }else{
@@ -1309,8 +1312,8 @@ $("#boton3").on('click',function(){
 			else if(sessionStorage.getItem('flagDiscapacitado') == null ){
 
 				if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
-					$("#proceso3").hide();
-					$("#process4").show();	
+					//$("#proceso3").hide();
+					//$("#process4").show();	
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');		
 				}else{
@@ -1341,6 +1344,7 @@ $("#boton-next-final").on('click',function(){
 
 });
 
+$("#process4").show();
 
 function registrar(){
 
