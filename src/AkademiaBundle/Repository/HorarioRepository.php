@@ -189,12 +189,11 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         public function getBeneficiarios($idHorario){
-                
-                $query="SELECT (par.apellidoPaterno+' '+par.apellidoMaterno+' '+par.nombre) as nombre,
+
+                $query ="SELECT (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
                         par.id as idParticipante,
-                        par.dni as dni, (cast(datediff(dd,par.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad,
-                        par.sexo as sexo, 
-                        par.estado as estadoParticipante,
+                        per.perdni as dni, (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                        per.persexo as sexo,
                         hor.id as idHorario, 
                         ins.id as idInscribete,
                         ins.estado as estadoInscribete,
@@ -208,11 +207,12 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                         FROM ACADEMIA.movimientos m
                         GROUP BY m.inscribete_id) ids
                         ON ins.id = ids.mov_ins_id
-                        inner join academia.horario hor on ins.horario_id = hor.id 
+                        inner join academia.horario hor on ins.horario_id = hor.id
                         inner join academia.participante par on ins.participante_id = par.id
                         inner join academia.movimientos mov on mov.id = ids.mov_id
+                        inner join grpersona per on per.percodigo = par.percodigo
                         WHERE hor.id = $idHorario and ins.estado = 2";
-               
+                
 
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();

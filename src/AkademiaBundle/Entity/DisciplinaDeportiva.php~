@@ -117,4 +117,28 @@ class DisciplinaDeportiva
     {
         return $this->complejosDisciplinas;
     }
+
+    /**
+     * Set usuarioCrea
+     *
+     * @param integer $usuarioCrea
+     *
+     * @return DisciplinaDeportiva
+     */
+    public function setUsuarioCrea($usuarioCrea)
+    {
+        $this->usuarioCrea = $usuarioCrea;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioCrea
+     *
+     * @return integer
+     */
+    public function getUsuarioCrea()
+    {
+        return $this->usuarioCrea;
+    }
 }

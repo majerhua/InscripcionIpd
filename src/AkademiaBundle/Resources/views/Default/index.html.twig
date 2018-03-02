@@ -1,8 +1,6 @@
-
 {% extends '::base.html.twig' %}
 {% block title %}La Academia{% endblock %}
 {% block body  %}
-
 
 <header>
 	<nav class="navbar navbar-inverse" role="navigation">
@@ -387,7 +385,6 @@
 						<label class="text-left">Departamento</label>
 			            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this,0)">
 			                <option value="">--Seleccionar--</option>
-
 				            {% for departamentoCD in departamentosCD %}
 				            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
 				            {% endfor %}
@@ -1406,23 +1403,23 @@ function registrar(){
 				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
 
 				$("#codigo-inscripcionRef").append(valor.id);
-				$("#nombre-ficha").append(valor.nombre);
-				$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
-				$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
+				$("#nombre-ficha").append(valor.pernombres);
+				$("#apellidoPaterni-ficha").append(valor.perapepaterno);
+				$("#apellidoMaterno-ficha").append(valor.perapematerno);
 				$("#distrito-ficha").append(valor.distrito);
-				$("#domicilio-ficha").append(valor.direccion);
-				$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
-				$("#telefono-ficha").append(valor.telefono);
+				$("#domicilio-ficha").append(valor.perdomdireccion);
+				$("#fechaNacimiento-ficha").append(valor.perfecnacimiento);
+				$("#telefono-ficha").append(valor.pertelefono);
 				$("#dni-ficha").append(valor.dni);
 				$("#edad-ficha").append(sessionStorage.getItem("edad"));
-				$("#email-ficha").append(valor.correo);
+				$("#email-ficha").append(valor.percorreo);
 				$("#deporte-ficha").append(valor.nombreDisciplina);
 				$("#complejo-ficha").append(valor.nombreComplejo);
 				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
 				$("#nombrePadre-declaracion-jurada").append(valor.nombrePadre);
 				$("#codigo-inscripcion").val(valor.id);
 
-			    enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
+			    enviarEmailApoderado(valor.percorreo,valor.nombrePadre,valor.id);
 
 			}else{
 
@@ -1529,6 +1526,7 @@ $(".mensajeEdad").empty();
 	function buscarDniApoderado(refDni){
 
 		if(refDni.value !=''){
+
 			datoDniPersona = {
 			'dni' : refDni.value,
 			"persona": 'apoderado'
@@ -1558,10 +1556,11 @@ $(".mensajeEdad").empty();
             $("#fechaNacimiento").attr('readonly', false);
             $("#sexo").attr('readonly', false);
 				
-			if(data != "" ){
-				var dataParticiapnte = JSON.parse(data);
-				console.log("Busqueda DNI ==> ",dataParticiapnte);
-					$(dataParticiapnte).each(function(index,valor){
+			if(data != 1){
+				var dataApoderado = JSON.parse(data);
+				console.log("Busqueda DNI ==> ",dataApoderado);
+
+					$(dataApoderado).each(function(index,valor){
 
 						if(valor.edad >=18){
 			                $("#apellidoPaterno").attr('readonly', true);
@@ -1584,33 +1583,33 @@ $(".mensajeEdad").empty();
 
 						else{
 
-						 $(".mensajeEdad").empty();
-			             $(".mensajeEdad").append("(*Usted es menor de edad)");
+						 	$(".mensajeEdad").empty();
+			             	$(".mensajeEdad").append("(*Usted es menor de edad)");
 
-		             	$("#apellidoPaterno").attr('readonly', true);
-		                $("#apellidoMaterno").attr('readonly', true);
-		                $("#nombre").attr('readonly', true);
-		                $("#fechaNacimiento").attr('readonly', true);
-		                $("#sexo").attr('readonly', true);
+			             	$("#apellidoPaterno").attr('readonly', true);
+			                $("#apellidoMaterno").attr('readonly', true);
+			                $("#nombre").attr('readonly', true);
+			                $("#fechaNacimiento").attr('readonly', true);
+			                $("#sexo").attr('readonly', true);
 
-			             {#SE AUMENTO: LIMPIAR LAS CAJAS DE TEXTO EN EL MOMENTO  SEA MENOR DE EDAD#}
-			             $("#apellidoPaterno").val('');
-			             $("#apellidoMaterno").val('');
-			             $("#nombre").val('');
-			             $("#fechaNacimiento").val('');
-			             $("#sexo").val(0);
-			            
-						
+			             	$("#apellidoPaterno").val('');
+			             	$("#apellidoMaterno").val('');
+			             	$("#nombre").val('');
+			             	$("#fechaNacimiento").val('');
+			             	$("#sexo").val(2);
+			      
 						}
 					});	
 
 				}else{
 
+					$(".mensajeEdad").empty();
+
 		            $("#apellidoPaterno").val('');
 		            $("#apellidoMaterno").val('');
 		            $("#nombre").val('');
 		            $("#fechaNacimiento").val('');
-		            $("#sexo").val(0);
+		            $("#sexo").val(2);
 		            $("#apellidoPaterno").attr('readonly', false);
 		            $("#apellidoMaterno").attr('readonly', false);
 		            $("#nombre").attr('readonly', false);
@@ -1631,12 +1630,13 @@ $(".mensajeEdad").empty();
      		
 	}
 
+	
 	$('.cargarDatosParticipante').hide();
+	
 	function buscarDniHijo(refDni){
 		if(refDni.value != ''){
 			$(".mensajeEdadParticipante").empty();
 			var datoDniPersona = {
-
 				'dni' : refDni.value,
 				"persona": 'hijo'
 			};
@@ -1654,6 +1654,7 @@ $(".mensajeEdad").empty();
 			},
 
 			success: function(data){
+				
 				$("#apellidoPaterno-hijo").attr('readonly', false);
                 $("#apellidoMaterno-hijo").attr('readonly', false);
                 $("#nombre-hijo").attr('readonly', false);
@@ -1664,9 +1665,10 @@ $(".mensajeEdad").empty();
                 $("#nombre-hijo").val("");
                 $("#fechaNacimiento-hijo").val("");
                 $("#sexo-hijo").val(2);
-				if(data != ""){
-					var dataHijo = JSON.parse(data);
+				
+				if(data != 1){
 
+					var dataHijo = JSON.parse(data);
 					console.log("Busqueda DNI ==> ",dataHijo);
 
 						$(dataHijo).each(function(index,valor){
@@ -1682,6 +1684,7 @@ $(".mensajeEdad").empty();
 								$("#nombre-hijo").val(valor.nombre);
 								$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
 								$("#sexo-hijo").val(valor.sexo);
+								
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
 						});					
@@ -1692,7 +1695,7 @@ $(".mensajeEdad").empty();
 						sessionStorage.removeItem("edad");
 						$(".mensajeEdadParticpante").empty();
 						$('.cargarDatosParticipante').hide();
-						$(".mensajeEdadParticipante").append("(*Usted está registrado)");
+					//	$(".mensajeEdadParticipante").append("(*Usted es mayor de edad. )");
                                                 
 				}
 				

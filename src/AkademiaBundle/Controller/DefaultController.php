@@ -31,112 +31,45 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DefaultController extends Controller
 {
-
-    public function entradasAction(Request $request) {
-        $em = $this->getDoctrine()->getEntityManager();
-        $dql = "SELECT e FROM BlogBundle:Entry e";
-        $query = $em->createQuery($dql);
- 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-                $query, 
-                $request->query->getInt('page', 1),
-                5
-        );
- 
-        return $this->render('AppBundle:pruebas:listado.html.twig',
-                array('pagination' => $pagination));
-    }
-
     public function contadorAction(Request $request){
       
-             return $this->render('AkademiaBundle:Default:contador.html.twig' );
+        return $this->render('AkademiaBundle:Default:contador.html.twig' );
     }
 
-    public function indexAction(Request $request)
-    {
+    
+    public function indexAction(Request $request){
 
-		if($request->isXmlHttpRequest())
-        {
-            if($request->request->get('persona') == "apoderado"){
-                $dni = $request->request->get('dni');
+		if($request->isXmlHttpRequest()){
 
-                    $em = $this->getDoctrine()->getEntityManager();
-                    $db = $em->getConnection();
-                    $query = "select dni,apellidoPaterno,apellidoMaterno,nombre,sexo,fechaNacimiento,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from ACADEMIA.apoderado where dni='$dni';";
-                    $stmt = $db->prepare($query);
-                    $params = array();
-                    $stmt->execute($params);
-                    $po = $stmt->fetchAll();
-                    
-                    if($po){
+            $parentesco = $request->request->get('persona');
 
-                        $encoders = array(new JsonEncoder());
-                        $normalizer = new ObjectNormalizer();
-                        $normalizers = array($normalizer);
-                        $serializer = new Serializer($normalizers, $encoders);
-                        $jsonContent = $serializer->serialize($po,'json');
-                        return new JsonResponse($jsonContent);
-
-                    }else{
-
-                        $em = $this->getDoctrine()->getEntityManager();
-                        $db = $em->getConnection();
-                        $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from dbo.grpersona where perdni='$dni';";
-                        $stmt = $db->prepare($query);
-                        $params = array();
-                        $stmt->execute($params);
-                        $po = $stmt->fetchAll();
-                        $encoders = array(new JsonEncoder());
-                        $normalizer = new ObjectNormalizer();
-                        $normalizers = array($normalizer);
-                        $serializer = new Serializer($normalizers, $encoders);
-                        $jsonContent = $serializer->serialize($po,'json');
-
-                        return new JsonResponse($jsonContent);  
-                    }  
-
-            }
-             
-            if($request->request->get('persona') == "hijo"){
+            if($parentesco == "apoderado" || $parentesco == "hijo"){
 
                 $dni = $request->request->get('dni');
+                $refAp = $this->getDoctrine()->getManager();
+                $datos = $refAp->getRepository('AkademiaBundle:Apoderado')->busquedaDni($dni);
 
-                
-                $em = $this->getDoctrine()->getEntityManager();
-                $db = $em->getConnection();
-                $query = "select dni,apellidoPaterno,apellidoMaterno,nombre,sexo,fechaNacimiento,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from ACADEMIA.participante where dni='$dni'";
-                $stmt = $db->prepare($query);
-                $params = array();
-                $stmt->execute($params);
-                $po = $stmt->fetchAll();
-
-                if($po){
+                if(!empty($datos)){
 
                     $encoders = array(new JsonEncoder());
                     $normalizer = new ObjectNormalizer();
+                    $normalizer->setCircularReferenceLimit(1);
+                    $normalizer->setCircularReferenceHandler(function ($object) {
+                        return $object->getId();
+                    });
+
                     $normalizers = array($normalizer);
                     $serializer = new Serializer($normalizers, $encoders);
-                    $jsonContent = $serializer->serialize($po,'json');
-                    
-                    return new JsonResponse($jsonContent);
+                    $jsonContent = $serializer->serialize($datos,'json');
+
+                    return new JsonResponse($jsonContent);   
 
                 }else{
 
-                    $em = $this->getDoctrine()->getEntityManager();
-                    $db = $em->getConnection();
-                    $query = "select perdni as dni , perapepaterno as apellidoPaterno, perapematerno as apellidoMaterno, pernombres as nombre, persexo as sexo,perfecnacimiento as fechaNacimiento, (cast(datediff(dd,perfecnacimiento,GETDATE()) / 365.25 as int)) as edad from grpersona where perdni='$dni'";
-                    $stmt = $db->prepare($query);
-                    $params = array();
-                    $stmt->execute($params);
-                    $po = $stmt->fetchAll();
-                    $encoders = array(new JsonEncoder());
-                    $normalizer = new ObjectNormalizer();
-                    $normalizers = array($normalizer);
-                    $serializer = new Serializer($normalizers, $encoders);
-                    $jsonContent = $serializer->serialize($po,'json');
-                    return new JsonResponse($jsonContent);  
-                }            
+                    $mensaje = 1;
+                    return new JsonResponse($mensaje);
+
+                }
             }
         }     
 
@@ -175,7 +108,8 @@ class DefaultController extends Controller
         if($request->isXmlHttpRequest()){
 
             $idHorario = $request->request->get('idHorario');
-
+            $usuario = $this->getUser()->getId();
+        
             $em = $this->getDoctrine()->getManager();
             $vacantesHorario = $em->getRepository('AkademiaBundle:Horario')->getHorariosVacantes($idHorario);
             $cantVacantes = $vacantesHorario[0]['vacantes'];
@@ -208,86 +142,218 @@ class DefaultController extends Controller
                 $estado = 1;
                 $discapacidad = $request->request->get('discapacidad');
 
+               
                 //REGISTRAR APODERADO
 
                 $em = $this->getDoctrine()->getManager();
-                $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+                $percodigoApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderadoPersona($dni);
+
+
+                if(!empty($percodigoApoderado)){
             
-
-                if(!empty($IDApoderado)){
-                    
-                    $idApod = $IDApoderado[0]['id'];
-
-                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
-                    $apoderado = $em->find($idApod);
-                    $apoderado->setDireccion($direccion);
-                    $apoderado->setTelefono($telefono);
-                    $apoderado->setCorreo($correo);
                     $em = $this->getDoctrine()->getManager();
-                    $em->flush();
-                    $idApod = $apoderado->getId();
+                    $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniPersona($dni);
+                    $percodigoApod = $codigo[0]['percodigo'];
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoApod, $telefono, $correo, $direccion, $distrito);
+
+                    //Búsqueda en Academia.apoderado
+                    $em = $this->getDoctrine()->getManager();
+                    $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+                
+
+                    if(!empty($IDApoderado)){
+
+                        $em = $this->getDoctrine()->getManager();
+                        $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniAcademiaApod($dni);
+
+                        $idApoderado = $codigo[0]['id'];
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $apoderado = $em->find($idApoderado);
+                        $apoderado->setPercodigo($percodigoApod);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        $idApod = $apoderado->getId();
+
+                    }else{
+
+                        $apoderado = new Apoderado();
+                        $apoderado->setDni($dni);
+                        $apoderado->setPercodigo($percodigoApod);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($apoderado);
+                        $em->flush();
+
+                        $idApod = $apoderado->getId();                 
+
+                    }
 
                 }else{
+                    
+                    //si no existe apoderado en grpersona, registramos al usuario
 
-                    $apoderado = new Apoderado();
-                    $apoderado->setDni($dni);
-                    $apoderado->setApellidoPaterno($apellidoPaterno);
-                    $apoderado->setApellidoMaterno($apellidoMaterno);
-                    $apoderado->setNombre($nombre);
-                    $apoderado->setFechaNacimiento(new \DateTime($fechaNacimiento));
-                    $apoderado->setSexo($sexo);
-                
-                    $em = $this->getDoctrine()->getRepository(Distrito::class);
-                    $buscarDistrito = $em->find($distrito);
-                    $apoderado->setDistrito($buscarDistrito);
-                    $apoderado->setDireccion($direccion);
-                    $apoderado->setTelefono($telefono);
-                    $apoderado->setCorreo($correo);    
-                    $apoderado->setEstado($estado);     
                     $em = $this->getDoctrine()->getManager();
-                    $em->persist($apoderado);
-                    $em->flush();
+                    $datosApoderado = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,$distrito);
 
-                    $idApod = $apoderado->getId();                 
+                    //retornar el percodigo del nuevo registro
+                    $em = $this->getDoctrine()->getManager();
+                    $percodigoApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderadoPersona($dni);
+                    $percodigoApod = $percodigoApoderado[0]['id'];
 
-                }
+                    //Búsqueda en Academia.apoderado
+                    $em = $this->getDoctrine()->getManager();
+                    $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
+                
+
+                    if(!empty($IDApoderado)){
+
+                        $em = $this->getDoctrine()->getManager();
+                        $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniAcademiaApod($dni);
+
+                        $idApoderado = $codigo[0]['id'];
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $apoderado = $em->find($idApoderado);
+                        $apoderado->setPercodigo($percodigoApod);
+                       // $apoderado->setDistrito($distrito);
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        $idApod = $apoderado->getId();
+
+                    }else{
+
+                        $apoderado = new Apoderado();
+                        $apoderado->setDni($dni);
+                        $apoderado->setPercodigo($percodigoApod);
+                       // $apoderado->setDistrito($distrito);
+            
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($apoderado);
+                        $em->flush();
+
+                        $idApod = $apoderado->getId();                 
+                    }
+                } 
+
+                //REGISTRAR PARTICIPANTE
 
                 $em = $this->getDoctrine()->getManager();
-                $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
+                $percodigoParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipantePersona($dniParticipante);
+
+                if(!empty($percodigoParticipante)){
+
+                    $em = $this->getDoctrine()->getManager();
+                    $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniPersona($dniParticipante);
+                    $percodigoPart = $codigo[0]['percodigo'];
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoPart, $telefono, $correo, $direccion, $distrito);
+
+                    // Búsqueda en academia.participantes 
+                    $em = $this->getDoctrine()->getManager();
+                    $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
         
-                if(!empty($IDParticipante)){      
                    
-                    $idParticipanteN = $IDParticipante[0]['id'];
+                    if(!empty($IDParticipante)){      
 
-                    $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod,$dniParticipante);
-                    $em->flush(); 
-                   
+
+                        $em = $this->getDoctrine()->getManager();
+                        $codigo = $em->getRepository('AkademiaBundle:Participante')->maxDniAcademiaPart($dniParticipante);
+
+                        $idParticipante = $codigo[0]['id'];
+
+                        $em = $this->getDoctrine()->getRepository(Participante::class);
+                        $participante = $em->find($idParticipante);
+                        $participante->setPercodigo($percodigoPart);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        $idParticipanteN = $participante->getId();
+
+                       
+                    }else{
+                        
+                        //Participantes nuevos academia.participante
+
+                        $participante = new Participante();
+                        $participante->setDni($dniParticipante);
+                        $participante->setParentesco($parentesco);
+                        $participante->setTipoDeSeguro($tipoSeguro);
+                        $participante->setDiscapacitado($discapacidad);
+                        $participante->setPercodigo($percodigoPart);
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $buscarApoderadoInscripcion = $em->find($idApod);
+                        $participante->setApoderado($buscarApoderadoInscripcion);
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($participante);
+                        $em->flush();
+
+                        $idParticipanteN= $participante->getId();      
+
+                    } 
+
                 }else{
-                    
-                    $participante = new Participante();
-                    $participante->setDni($dniParticipante);
-                    $participante->setApellidoPaterno($apellidoPaternoParticipante);
-                    $participante->setApellidoMaterno($apellidoMaternoParticipante);
-                    $participante->setNombre($nombreParticipante);
-                    $participante->setFechaNacimiento(new \DateTime($fechaNacimientoParticipante));
-                    $participante->setSexo($sexoParticipante);
-                    $participante->setParentesco($parentesco);
-                    $participante->setTipoDeSeguro($tipoSeguro);
-                    $participante->setEstado($estado);
-                    $participante->setDiscapacitado($discapacidad);
 
-                    $em = $this->getDoctrine()->getRepository(Apoderado::class);
-                    $buscarApoderadoInscripcion = $em->find($idApod);
-                    $participante->setApoderado($buscarApoderadoInscripcion);
+                    //si no existe apoderado en grpersona, registramos al usuario
 
                     $em = $this->getDoctrine()->getManager();
-                    $em->persist($participante);
-                    $em->flush();
+                    $datosParticipante = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dniParticipante,$apellidoPaternoParticipante,$apellidoMaternoParticipante, $nombreParticipante,$fechaNacimientoParticipante,$sexoParticipante,$telefono, $correo, $direccion,$distrito);
 
-                    $idParticipanteN= $participante->getId();      
+                    //retornar el percodigo del nuevo registro
+                    $em = $this->getDoctrine()->getManager();
+                    $percodigoParticipante = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderadoPersona($dniParticipante);
+                    $percodigoPart = $percodigoParticipante[0]['id'];
 
-                } 
+
+                     // Búsqueda en academia.participantes 
+                    $em = $this->getDoctrine()->getManager();
+                    $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
+        
+                   
+                    if(!empty($IDParticipante)){      
+
+
+                        $em = $this->getDoctrine()->getManager();
+                        $codigo = $em->getRepository('AkademiaBundle:Participante')->maxDniAcademiaPart($dniParticipante);
+
+                        $idParticipante = $codigo[0]['id'];
+
+                        $em = $this->getDoctrine()->getRepository(Participante::class);
+                        $participante = $em->find($idParticipante);
+                        $participante->setPercodigo($percodigoPart);
+                        $em = $this->getDoctrine()->getManager();
+                        $em->flush();
+                        $idParticipanteN = $participante->getId();
+
+                       
+                    }else{
+                        
+                        //Participantes nuevos academia.participante
+
+                        $participante = new Participante();
+                        $participante->setDni($dniParticipante);
+                        $participante->setParentesco($parentesco);
+                        $participante->setTipoDeSeguro($tipoSeguro);
+                        $participante->setDiscapacitado($discapacidad);
+                        $participante->setPercodigo($percodigoPart);
+
+                        $em = $this->getDoctrine()->getRepository(Apoderado::class);
+                        $buscarApoderadoInscripcion = $em->find($idApod);
+                        $participante->setApoderado($buscarApoderadoInscripcion);
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($participante);
+                        $em->flush();
+
+                        $idParticipanteN= $participante->getId();      
+
+                    } 
+
+                }
 
                     $idHorario = $request->request->get('idHorario');
                     $fechaInscripcion = $hoy = date("Y-m-d");
@@ -308,6 +374,7 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($inscripcion);
                     $em->flush();
+                   
                     $em2 = $this->getDoctrine()->getManager();
                     $mdlFicha = $em2->getRepository('AkademiaBundle:Inscribete')->getFicha($inscripcion->getId());
                                    
@@ -321,13 +388,12 @@ class DefaultController extends Controller
                     $normalizers = array($normalizer);
                     $serializer = new Serializer($normalizers, $encoders);
                     $jsonContent = $serializer->serialize($mdlFicha,'json');
-                    return new JsonResponse($jsonContent);  
+                    return new JsonResponse($jsonContent);
            }else{
 
                 $mensaje = 1;
                 return new JsonResponse($mensaje);
-           }
-                                   
+           }                        
         }
     }
     
@@ -386,10 +452,10 @@ class DefaultController extends Controller
             $estadoFicha = $data[0]['estadoFicha'];
             $idParticipante = $data[0]['idParticipante'];
             $dniParticipante = $data[0]['dniParticipante'];
-            $estadoParticipante = $data[0]['estadoParticipante'];
+            //$estadoParticipante = $data[0]['estadoParticipante'];
             $idApoderado = $data[0]['idApoderado'];
             $dniApoderado = $data[0]['dniApoderado'];
-            $estadoApoderado = $data[0]['estadoApoderado'];
+            //$estadoApoderado = $data[0]['estadoApoderado'];
             $idHorario = $data[0]['idHorario'];
 
             
@@ -583,17 +649,17 @@ class DefaultController extends Controller
 
                         if($cantVacantes > 0 ){
                        
-                            if ( $estadoParticipante == 1 && $estadoApoderado == 1){
+                       //     if ( $estadoParticipante == 1 && $estadoApoderado == 1){
 
                                 $em = $this->getDoctrine()->getRepository(Participante::class);
                                 $participante = $em->find($idParticipante);
-                                $participante->setUsuarioValida($usuario);
+                               // $participante->setUsuarioValida($usuario);
                                 $em = $this->getDoctrine()->getManager();
                                 $em->flush();
 
                                 $em = $this->getDoctrine()->getRepository(Apoderado::class);
                                 $apoderado = $em->find($idApoderado);
-                                $apoderado->setUsuarioValida($usuario);
+                                //$apoderado->setUsuarioValida($usuario);
                                 $em = $this->getDoctrine()->getManager();
                                 $em->flush();
 
@@ -619,7 +685,7 @@ class DefaultController extends Controller
 
                                 $mensaje = 1;
                                 return new JsonResponse($mensaje);
-                            }
+                         //   }
 
                         }else{
 

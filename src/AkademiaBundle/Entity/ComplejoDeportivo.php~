@@ -64,7 +64,6 @@ class ComplejoDeportivo
      */
     private $longitud;
 
-
     /**
      * Get id
      *
