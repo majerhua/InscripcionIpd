@@ -3,10 +3,7 @@
 {% block title %}La Academia{% endblock %}
 {% block body  %}
 
-
-	
 <div class="proceso">
-
 	<div class="proceso-inscripcion__horarios" id="process4">
 		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
 			<div class="card">
@@ -102,6 +99,7 @@
 	</div>
 </div>
 
+{#
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -119,509 +117,201 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-
-
-</section>
-<br><br>
-
-<footer class="footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
-				<br>
-				<br>
-				<br>
-				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
-			</div>
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-				<br><br>
-				<h4>La Academia</h4>
-				<p class="footerTex">
-					Dirección:Calle Madre de Dios N° 463
-				</p>
-				<p class="footerTex">
-					Teléfono: 204-8420 /anexo 1302
-				</p>
-			</div>
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-				<br><br>
-				<h4>Enlaces de Interés</h4>
-				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
-				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
-				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
-			</div>
-		</div>
-		<br>
-    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
-	</div>
-</footer>
-
-
+</div>#}
 
 {% endblock %}
 
 {% block javascripts %}
 
-<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
-<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+	<script>
 
+		var cambiarDepartamentoHorario = (depHor)=>{
 
-<script>
-	
+				var valDepHor = depHor.value;
 
+				$("#provinciaHorario").empty();
+				$("#distritoHorario").empty();
+				$("#provinciaHorario").append("<option value='' >--Seleccionar--</option>");
+				$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
+				$("#complejosDeportivo").empty();
+				$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
+				$("#disciplinaDeportiva").empty();
+				$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+				$("#horario").empty();
+				$("#horario").append("<option value='' >--Seleccionar--</option>");
 
+		    {% for  pro in  provincias  %}
 
+					{% for proFlag in provinciasFlag %}
+						
+						if ( "{{pro['idDepartamento']}}" == "{{proFlag['idDepartamento']}}" && "{{pro['idProvincia']}}" == "{{proFlag['idProvincia']}}" &&  "{{proFlag['idDepartamento']}}" == valDepHor ){
 
-		
+							$("#provinciaHorario").append("<option value={{proFlag['idProvincia']}}  data-departamento={{pro['idDepartamento']}} >{{pro['nombreProvincia']}}</option>");
 
-	function cambiarDepartamentoHorario(depHor){
+						}
 
-		var valDepHor = depHor.value;
-
-		$("#provinciaHorario").empty();
-		$("#distritoHorario").empty();
-		$("#provinciaHorario").append("<option value='' >--Seleccionar--</option>");
-		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
-		$("#complejosDeportivo").empty();
-		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		$("#horario").empty();
-		$("#horario").append("<option value='' >--Seleccionar--</option>");
-
-    {% for  pro in  provincias  %}
-
-			{% for proFlag in provinciasFlag %}
-				
-				if ( "{{pro['idDepartamento']}}" == "{{proFlag['idDepartamento']}}" && "{{pro['idProvincia']}}" == "{{proFlag['idProvincia']}}" &&  "{{proFlag['idDepartamento']}}" == valDepHor ){
-
-					$("#provinciaHorario").append("<option value={{proFlag['idProvincia']}}  data-departamento={{pro['idDepartamento']}} >{{pro['nombreProvincia']}}</option>");
-
-				}
-
-			{% endfor %}
-	  {% endfor %}
-
-	}
-{#&&  "{{disFlag['idDepartamento']}}" == idDepartamentoHorario &&  "{{disFlag['idProvincia']}}" == valProHor #}
-
-	function cambiarProvinciaHorario(proHor){
-		
-		idDepartamentoHorario = $(proHor[1]).attr('data-departamento');
-		var valProHor = proHor.value;
-
-		$("#distritoHorario").empty();
-		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
-		$("#complejosDeportivo").empty();
-		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		$("#horario").empty();
-		$("#horario").append("<option value='' >--Seleccionar--</option>");
-
-    {% for  dis in  distritos  %}
-    	
-			{% for disFlag in distritosFlag %}
-				
-				if ( "{{dis['idDepartamento']}}" == "{{disFlag['idDepartamento']}}" && "{{dis['idProvincia']}}" == "{{disFlag['idProvincia']}}" &&  "{{dis['idDistrito']}}" == "{{disFlag['idDistrito']}}" &&  "{{disFlag['idDepartamento']}}" == idDepartamentoHorario &&  "{{disFlag['idProvincia']}}" == valProHor){
-					
-					$("#distritoHorario").append("<option value={{disFlag['identDistrito']}}>{{disFlag['nombreDistrito']}}</option>");
-
-				}
-
-			{% endfor %}
-	  {% endfor %}
-
-	}
-
-	function cambiarDistritoHorario(disHor){
-
-		var idDistritoHorario = disHor.value;
-		$("#complejosDeportivo").empty();
-		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		$("#horario").empty();
-		$("#horario").append("<option value='' >--Seleccionar--</option>");
-
-		{% for comDep in complejosDeportivos  %}
-
-				if("{{comDep['ubicodigo']}}" == idDistritoHorario){
-						$("#complejosDeportivo").append("<option value={{comDep['id']}} >{{comDep['nombre']}}</option>");
-				}
-
-		{% endfor %}
-	
-	}
-
-	function cambiarComplejoDeportivo(comDep){
-
-		var idComplejoDeportivo = comDep.value;
-		
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		$("#horario").empty();
-		$("#horario").append("<option value='' >--Seleccionar--</option>");
-
-		{% for disDep in disciplinasDeportivas  %}
-
-			if("{{disDep['idComplejoDeportivo']}}" == idComplejoDeportivo){
-				
-				var nombreDis = "{{ disDep['nombreDisciplina'] }} ";
-				$("#disciplinaDeportiva").append("<option value = {{disDep['id']}}>"+nombreDis.trim()+"</option>");
+					{% endfor %}
+			  {% endfor %}
 
 			}
-		{% endfor %}		
-	}
+
+			var cambiarProvinciaHorario = (proHor)=>{
+				
+				idDepartamentoHorario = $(proHor[1]).attr('data-departamento');
+				var valProHor = proHor.value;
+
+				$("#distritoHorario").empty();
+				$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
+				$("#complejosDeportivo").empty();
+				$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
+				$("#disciplinaDeportiva").empty();
+				$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+				$("#horario").empty();
+				$("#horario").append("<option value='' >--Seleccionar--</option>");
+
+		  	{% for  dis in  distritos  %}	
+					{% for disFlag in distritosFlag %}
+							
+						if("{{dis['idDepartamento']}}" == "{{disFlag['idDepartamento']}}" && "{{dis['idProvincia']}}" == "{{disFlag['idProvincia']}}" &&  "{{dis['idDistrito']}}" == "{{disFlag['idDistrito']}}" &&  "{{disFlag['idDepartamento']}}" == idDepartamentoHorario &&  "{{disFlag['idProvincia']}}" == valProHor){
+								
+								$("#distritoHorario").append("<option value={{disFlag['identDistrito']}}>{{disFlag['nombreDistrito']}}</option>");
+						}
+					{% endfor %}
+			  {% endfor %}
+			}
+
+			var cambiarDistritoHorario =  (disHor)=>{
+
+				var idDistritoHorario = disHor.value;
+				$("#complejosDeportivo").empty();
+				$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
+				$("#disciplinaDeportiva").empty();
+				$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+				$("#horario").empty();
+				$("#horario").append("<option value='' >--Seleccionar--</option>");
+
+				{% for comDep in complejosDeportivos  %}
+
+						if("{{comDep['ubicodigo']}}" == idDistritoHorario){
+								$("#complejosDeportivo").append("<option value={{comDep['id']}} >{{comDep['nombre']}}</option>");
+						}
+				{% endfor %}
+			}
+
+			var cambiarComplejoDeportivo = (comDep)=>{
+
+				var idComplejoDeportivo = comDep.value;
+				
+				$("#vacantes").empty();
+				$("#turno").empty();
+				$("#rango-edad-horario").empty();
+				$("#rango-hora-horario").empty();
+
+				$("#disciplinaDeportiva").empty();
+				$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
+				$("#horario").empty();
+				$("#horario").append("<option value='' >--Seleccionar--</option>");
+
+				{% for disDep in disciplinasDeportivas  %}
+
+					if("{{disDep['idComplejoDeportivo']}}" == idComplejoDeportivo){
+						
+						var nombreDis = "{{ disDep['nombreDisciplina'] }} ";
+						$("#disciplinaDeportiva").append("<option value = {{disDep['id']}}>"+nombreDis.trim()+"</option>");
+
+					}
+				{% endfor %}		
+			}
 
 
-	function cambiarDisciplinaDeportiva(comDis){
-		
-		var idComplejoDisciplina = comDis.value;
+			var cambiarDisciplinaDeportiva = (comDis)=>{
+				
+				$("#horario").empty();
+				$("#horario").append("<option value='' >--Seleccionar--</option>");
 
-			$("#horario").empty();
-			$("#horario").append("<option value='' >--Seleccionar--</option>");
+				var idComplejoDisciplina = comDis.value;
+					$("#boton-next-final").attr("disabled", false);
+					$("#rango-hora-horario").empty();
+					$("#rango-edad-horario").empty();
+					$(".horario-otrasEdades").empty();
+					$("#turno").empty();
+					$("#vacantes").empty();
+							
+					var cantHorarios = 0;
+
+
+					{% for horario in horarios  %}
+
+						var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
+						var horaFin = "{{horario['horaFin']}}".substr(0,5);
+
+						if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
+								
+							$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
+
+	    					if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
+
+									localStorage.removeItem('idHorario');
+									sessionStorage.setItem("idHorario", "{{horario['id']}}");
+									
+									$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
+									cantHorarios = cantHorarios + $('#horario').length;
+
+								}else{
+
+									$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
+								}
+						}
+					{% endfor %}
+
+					if(cantHorarios == 0){
+						$("#rango-hora-horario").empty();
+						$("#rango-edad-horario").empty();
+						$("#turno").empty();
+						$("#vacantes").append("<strong> No hay vacantes disponibles. </strong>");
+					}
+
+				}
+
+
+		var cambiarHorario=  (horario)=>{
+
+			$("#horaInicio").empty();
+			$("#horaFin").empty();
+			$("#edadMinima").empty();
+			$("#edadMaxima").empty();
+			$("#vacantes").empty();
+			var idHorario = horario.value;
+
 			{% for horario in horarios  %}
 
 				var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
 				var horaFin = "{{horario['horaFin']}}".substr(0,5);
 
-				if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
-						
-					$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
-				}
+				if("{{horario['id']}}" == idHorario){
 
-			{% endfor %}
-		
-		}
-
-// HORARIO
-{#
-
-
----------------------
-if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
+					if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
 
 						localStorage.removeItem('idHorario');
 						sessionStorage.setItem("idHorario", "{{horario['id']}}");
+
+						$("#vacantes").empty();
+						$("#turno").empty();
+						$("#turno").append(" {{horario['turno']}} ");
+
+						$("#rango-hora-horario").empty();
+						$("#rango-hora-horario").append("  de  "+horaInicio+" a "+horaFin);
 						
-						$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
-						cantHorarios = cantHorarios + $('#horario').length;
+						$("#rango-edad-horario").empty();
+						$("#rango-edad-horario").append(" <strong> De {{horario['edadMinima']}} a {{horario['edadMaxima']}} años. </strong> ");
+					}		
+				}
 
-					}else{
-
-						$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
-						
-					} 
-----------------------------
-
-		if(cantHorarios == 0){
-				$("#rango-hora-horario").empty();
-				$("#rango-edad-horario").empty();
-				$("#turno").empty();
-				$("#vacantes").append("<strong> No hay vacantes disponibles. </strong>");
+			{% endfor %}
 		}
-			
-	}
+	</script>
 
-	function cambiarHorario(horario){
-
-		$("#horaInicio").empty();
-		$("#horaFin").empty();
-		$("#edadMinima").empty();
-		$("#edadMaxima").empty();
-		$("#vacantes").empty();
-		var idHorario = horario.value;
-
-		{% for horario in horarios  %}
-
-			var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
-			var horaFin = "{{horario['horaFin']}}".substr(0,5);
-
-			if("{{horario['id']}}" == idHorario){
-
-				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-
-					localStorage.removeItem('idHorario');
-					sessionStorage.setItem("idHorario", "{{horario['id']}}");
-
-					$("#vacantes").empty();
-					$("#turno").empty();
-					$("#turno").append(" {{horario['turno']}} ");
-
-					$("#rango-hora-horario").empty();
-					$("#rango-hora-horario").append("  de  "+horaInicio+" a "+horaFin);
-					
-					$("#rango-edad-horario").empty();
-					$("#rango-edad-horario").append(" <strong> De {{horario['edadMinima']}} a {{horario['edadMaxima']}} años. </strong> ");
-				}		
-			}
-
-		{% endfor %}
-	}
-	
-
-
-	function calcularEdad(fecha){
-	
-		if(validate_fecha(fecha)==true){
-			    
-			   
-			var values=fecha.split("-");
-			var dia = values[2];
-			var mes = values[1];
-			        var ano = values[0];
-			 
-		        // cogemos los valores actuales
-		        var fecha_hoy = new Date();
-		        var ahora_ano = fecha_hoy.getYear();
-		        var ahora_mes = fecha_hoy.getMonth()+1;
-		        var ahora_dia = fecha_hoy.getDate();
-			 
-			        // realizamos el calculo
-			        var edad = (ahora_ano + 1900) - ano;
-			        if ( ahora_mes < mes )
-			        {
-			            edad--;
-			        }
-			        if ((mes == ahora_mes) && (ahora_dia < dia))
-			        {
-			            edad--;
-			        }
-			        if (edad > 1900)
-			        {
-			            edad -= 1900;
-			        }
-			 
-			        // calculamos los meses
-			        var meses=0;
-			        if(ahora_mes>mes)
-			            meses=ahora_mes-mes;
-			        if(ahora_mes<mes)
-			            meses=12-(mes-ahora_mes);
-			        if(ahora_mes==mes && dia>ahora_dia)
-			            meses=11;
-			 
-			        // calculamos los dias
-			        var dias=0;
-			        if(ahora_dia>dia)
-			            dias=ahora_dia-dia;
-			        if(ahora_dia<dia)
-			        {
-			            ultimoDiaMes=new Date(ahora_ano, ahora_mes, 0);
-			            dias=ultimoDiaMes.getDate()-(dia-ahora_dia);
-			        }
-			    }
-
-			    return edad;
-			}	
-
-		$("#boton1").on('click',function(){
-
-             	var expreg = new RegExp("^[0-9]{8}$");
-               	var dniApoderadoPaso1 = $("#dniApoderado").val();	 
-               	var fechaApoderadoPaso1 = $("#fechaNacimiento").val();	
-
-           		var edadApoderado = calcularEdad(fechaApoderadoPaso1);
-
-               	console.log(expreg.test(dniApoderadoPaso1));
-
-                if($("#dniApoderado").val()=="" || !expreg.test(dniApoderadoPaso1)){
-                   alertify.error('<p style="color:white">Campo DNI incorrecto</p>'); 
-
-              	}else if($("#apellidoPaterno").val()==""){
-                   alertify.error('<p style="color:white">Se requiere el campo apellido paterno</p>'); 
-                }else if($("#apellidoMaterno").val()==""){
-                   alertify.error('<p style="color:white">Se requiere el campo apellido materno</p>'); 
-                }else if($("#nombre").val()==""){
-                  alertify.error('<p style="color:white">Se requiere el campo nombres</p>'); 
-                }else if(fechaApoderadoPaso1=="" || edadApoderado == undefined || edadApoderado < 18 || edadApoderado > 100 ){
-                	console.log(edadApoderado);
-                  alertify.error('<p style="color:white">Su fecha de Nacimiento no es la indicada</p>'); 
-                }else if($("#sexo").val()==2){
-                   alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
-                }else{
-                    sessionStorage.clear()
-                    //DATOS APODERADO
-                    sessionStorage.removeItem("dni-apoderado");
-                    sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
-
-                    sessionStorage.removeItem("apellidoPaterno-apoderado");
-                    sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
-
-                    sessionStorage.removeItem("apellidoMaterno-apoderado");
-                    sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
-
-                    sessionStorage.removeItem("nombre-apoderado");
-                    sessionStorage.setItem("nombre-apoderado", $("#nombre").val());
-
-                    sessionStorage.removeItem("fechaNacimiento-apoderado");
-                    sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
-
-                    sessionStorage.removeItem("sexo-apoderado");
-                    sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
-                    console.log("Edad apoderado => "+edadApoderado);
-                    //$("#proceso1").hide();
-                    //$("#proceso2").show();
-
-                    //$(".bar-inscripcion__1").removeClass('active');
-                    //$(".bar-inscripcion__2").addClass('active');	
-            }
-	});
-
-
-
-$("#boton-next-final").on('click',function(){
-
-	var disciplinaDeportiva = document.getElementById('disciplinaDeportiva').value;
-	var horario =document.getElementById('horario').value;
-	
-	if( disciplinaDeportiva=="" || horario==""){
-			alertify.error('<p style="color:white">Debe seleccionar Disciplina y/o Horario </p>'); 
-	}else{
-		
-		registrar();
-	}
-
-});
-
-$("#process4").show();
-
-function registrar(){
-
-	var dataRegisterApoderado={
-
-		//DATOS APODERADO
-		"dni" : sessionStorage.getItem('dni-apoderado'),
-		"apellidoPaterno" : sessionStorage.getItem('apellidoPaterno-apoderado'),
-		"apellidoMaterno" : sessionStorage.getItem('apellidoMaterno-apoderado'),
-		"nombre" : sessionStorage.getItem('nombre-apoderado'),
-		"fechaNacimiento" : sessionStorage.getItem('fechaNacimiento-apoderado'),
-		"sexo" : sessionStorage.getItem('sexo-apoderado'),
-		"distrito" : sessionStorage.getItem('distrito-apoderado'),
-		"direccion" : sessionStorage.getItem('direccion-apoderado'),
-		"telefono" : sessionStorage.getItem('telefono-apoderado'),
-		"correo" : sessionStorage.getItem('correo-apoderado'),
-
-		//HORARIO
-		'idHorario' : sessionStorage.getItem('idHorario'),
-
-		//DATOS HIJO
-		"dniParticipante" : sessionStorage.getItem('dni-participante'),
-		"apellidoPaternoParticipante" : sessionStorage.getItem('apellidoPaterno-participante'),
-		"apellidoMaternoParticipante" : sessionStorage.getItem('apellidoMaterno-partcipante'),
-		"nombreParticipante" : sessionStorage.getItem('nombre-partcipante'),
-		"fechaNacimientoParticipante" : sessionStorage.getItem('fechaNacimiento-partcipante'),
-		"sexoParticipante" : sessionStorage.getItem('sexo-partcipante'),
-		"parentesco" : sessionStorage.getItem('parentesco-partcipante'),
-		"tipoSeguro" : sessionStorage.getItem('tipoSeguro-partcipante'),
-		"discapacidad" :sessionStorage.getItem('flagDiscapacitado')
-	};
-
-	console.log("DATOS A REGISTRAR => ",dataRegisterApoderado);
-
-	$.ajax({
-
-		type:'POST',
-		dataType: "json",
-		url: "{{url('akademia_registrar')}}",
-		data: dataRegisterApoderado,
-		beforeSend: function(){	
-
-			$("#boton-next-final").attr("disabled", true);		
-		},
-
-		success: function(data){
-
-			$("#boton-next-final").attr("disabled", false);
-
-			if(data != 1){
-
-				$(".bar-inscripcion__4").removeClass('active');
-				$(".bar-inscripcion__5").addClass('active');
-				$("#process4").hide();
-				$("#process5").show();
-
-				var valor =JSON.parse(data)[0];
-				sessionStorage.removeItem("idInscripcion");
-				sessionStorage.setItem("idInscripcion",valor.id);
-
-				$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/ajax/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
-
-				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
-
-				$("#codigo-inscripcionRef").append(valor.id);
-				$("#nombre-ficha").append(valor.nombre);
-				$("#apellidoPaterni-ficha").append(valor.apellidoPaterno);
-				$("#apellidoMaterno-ficha").append(valor.apellidoMaterno);
-				$("#distrito-ficha").append(valor.distrito);
-				$("#domicilio-ficha").append(valor.direccion);
-				$("#fechaNacimiento-ficha").append(valor.fechaNacimiento);
-				$("#telefono-ficha").append(valor.telefono);
-				$("#dni-ficha").append(valor.dni);
-				$("#edad-ficha").append(sessionStorage.getItem("edad"));
-				$("#email-ficha").append(valor.correo);
-				$("#deporte-ficha").append(valor.nombreDisciplina);
-				$("#complejo-ficha").append(valor.nombreComplejo);
-				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
-				$("#nombrePadre-declaracion-jurada").append(valor.nombrePadre);
-				$("#codigo-inscripcion").val(valor.id);
-
-			    enviarEmailApoderado(valor.correo,valor.nombre,valor.id);
-
-			}else{
-
-				showAlertMessage('#alerta-error', "Lo sentimos, se agotaron las vacantes para este horario. ");
-				$("#boton-next-final").attr("disabled", true);
-				$("#process5").hide();
-
-			}			
-		
-		},
-
-		error: function(error){
-
-			console.log(error.responseText);			
-			console.log("Error - oh no!");
-		}
-			
-	});
-}
-
-
-
-function enviarEmailApoderado($correoApod,$nombre,$id){
-
-	var correoApoderado = {
-		"correo" : $correoApod,
-		"nombre" : $nombre,
-		"id" : $id,
-	};
-
-	$.ajax({
-		type:'POST',
-		dataType: 'json',
-		url: "{{url('akademia_sendemailapoderado')}}",
-		data: correoApoderado,
-
-		beforeSend: function(){
-			 alertify.warning('<p style="color:black">Enviando información al correo eléctrónico.</p>');
-		},
-		success: function(data){
-			 alertify.success('<p style="color:black">Correo enviando exitosamente.</p>');
-		},
-		error: function(error){
-			 alertify.error('<p style="color:white">Se produjo un problema al enviar la información a su correo electrónico.</p> ');
-		}	
-	});
-
-}#}
-
-</script>
-
+	<script src="{{asset('assets/vendor/js/googleMapsComplejo.js')}}"></script>
 
 {% endblock %}
 
