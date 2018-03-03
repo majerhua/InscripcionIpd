@@ -743,7 +743,6 @@
             }(jQuery));
 
         });
-
         
         var turno = document.getElementById('turno')
 		var diasElegidos = []
@@ -1025,7 +1024,10 @@
 									}else{
 										$("#7h"+dataHorario.id).text("Cerrado");
 									}
+
 									alertify.success('<p style="color:black">Horario Actualizado .</p>');
+									window.location.href = "{{url('akademia_horarios')}}";
+									
 								}else{
 									alertify.error('<p style="color:white">Error al actualizar los datos </p>'); 
 								}
