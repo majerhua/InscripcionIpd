@@ -29,6 +29,26 @@ class DefaultController extends Controller
       
         return $this->render('AkademiaBundle:Default:contador.html.twig' );
     }
+
+    public function registroFinalAction(Request $request,$estado){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $mdlDepartamentosFlag = $em->getRepository('AkademiaBundle:Departamento')->departamentosFlagAll($estado);
+        $mdlProvinciasFlag = $em->getRepository('AkademiaBundle:Provincia')->provinciasFlagAll($estado);
+        $mdlDistritosFlag = $em->getRepository('AkademiaBundle:Distrito')->distritosFlagAll($estado);
+        $mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
+        $mdlProvincias = $em->getRepository('AkademiaBundle:Provincia')->provinciasAll();
+        $mdlDistritos = $em->getRepository('AkademiaBundle:Distrito')->distritosAll();
+        
+        $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado);
+
+        $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado);
+
+        $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
+        
+        return $this->render('AkademiaBundle:Default:registroFinal.html.twig' , array('departamentosFlag' => $mdlDepartamentosFlag , "provinciasFlag" => $mdlProvinciasFlag ,'distritosFlag' => $mdlDistritosFlag,'departamentos'=>$mdlDepartamentos,'provincias'=>$mdlProvincias,'distritos'=>$mdlDistritos, 'complejosDeportivos' => $mdlComplejosDeportivosFlag, 'disciplinasDeportivas' => $mdlDisciplinasDeportivasFlag ,'horarios' => $mdlhorariosFlag ));     
+    }
     
     public function indexAction(Request $request){
         if($request->isXmlHttpRequest()){
