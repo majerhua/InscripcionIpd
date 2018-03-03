@@ -655,14 +655,14 @@
 		
 		/*VALIDAR NEGATIVOS*/
 		
-		jQuery('#hora-inicio, #hora-fin, #min-inicio, #min-fin, #edad-minima, #edad-maxima, #vacantes-horario').on('keypress', function (e) {
+		jQuery('#hora-inicio, #hora-fin, #min-inicio, #min-fin, #edad-minima, #edad-maxima, #vacantes-horario, #editar_vacantes_horario').on('keypress', function (e) {
 
-		    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47) {
+		    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47 || e.keyCode == 69 ) {
 		        return false;
 		    }
 		    soloNumeros(e.keyCode);
 		});
-
+		
 		function soloNumeros(e) {
 		    var key = window.Event ? e.which : e.keyCode
 		        return (key >= 48 && key <= 57)
@@ -1284,18 +1284,18 @@
 				success: function(data){
 					if(data == 1){
 
-						alertify.error('<p style="color:white">Se produjo un error! </p>');	
-						console.log(data);
-
+						alertify.success('<p style="color:white">Nueva disciplina creada exitosamente</p>');	
+						window.location.href = "{{url('akademia_horarios')}}";
+											
 					}else if(data == 2){
 
-						alertify.success('<p style="color:white">La disciplina fue creada exitosamente. </p>');	
+						alertify.success('<p style="color:white">Disciplina creada exitosamente</p>');	
 						window.location.href = "{{url('akademia_horarios')}}";
-					
+
 					}else{
 
-						alertify.error('<p style="color:white">Disciplina creada exitosamente</p>');	
-						window.location.href = "{{url('akademia_horarios')}}";
+						alertify.error('<p style="color:white">Se produjo un error al crear la nueva disciplina. </p>');	
+						console.log(data);
 					}
 				},
 

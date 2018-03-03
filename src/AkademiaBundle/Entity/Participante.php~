@@ -50,41 +50,6 @@ class Participante
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidoPaterno", type="string", length=255)
-     */
-    private $apellidoPaterno;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="apellidoMaterno", type="string", length=255)
-     */
-    private $apellidoMaterno;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=255)
-     */
-    private $nombre;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fechaNacimiento", type="datetime")
-     */
-    private $fechaNacimiento;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sexo", type="string", length=255)
-     */
-    private $sexo;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="parentesco", type="string", length=255)
      */
     private $parentesco;
@@ -99,28 +64,22 @@ class Participante
     /**
      * @var int
      *
-     * @ORM\Column(name="estado", type="integer")
-     */
-    private $estado;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="discapacitado", type="integer")
      */
-    private $discapacitado;
+    private $discapacitado; 
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="usuario_valida", type="string", length=255)
+     * Constructor
      */
-    private $usuarioValida;
+    public function __construct()
+    {
+        $this->inscripciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -152,123 +111,27 @@ class Participante
     }
 
     /**
-     * Set apellidoPaterno
+     * Set percodigo
      *
-     * @param string $apellidoPaterno
+     * @param integer $percodigo
      *
      * @return Participante
      */
-    public function setApellidoPaterno($apellidoPaterno)
+    public function setPercodigo($percodigo)
     {
-        $this->apellidoPaterno = $apellidoPaterno;
+        $this->percodigo = $percodigo;
 
         return $this;
     }
 
     /**
-     * Get apellidoPaterno
+     * Get percodigo
      *
-     * @return string
+     * @return integer
      */
-    public function getApellidoPaterno()
+    public function getPercodigo()
     {
-        return $this->apellidoPaterno;
-    }
-
-    /**
-     * Set apellidoMaterno
-     *
-     * @param string $apellidoMaterno
-     *
-     * @return Participante
-     */
-    public function setApellidoMaterno($apellidoMaterno)
-    {
-        $this->apellidoMaterno = $apellidoMaterno;
-
-        return $this;
-    }
-
-    /**
-     * Get apellidoMaterno
-     *
-     * @return string
-     */
-    public function getApellidoMaterno()
-    {
-        return $this->apellidoMaterno;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     *
-     * @return Participante
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
-     * Set fechaNacimiento
-     *
-     * @param \DateTime $fechaNacimiento
-     *
-     * @return Participante
-     */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->fechaNacimiento = $fechaNacimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaNacimiento
-     *
-     * @return \DateTime
-     */
-    public function getFechaNacimiento()
-    {
-        return $this->fechaNacimiento->format('Y-m-d');
-    }
-
-    /**
-     * Set sexo
-     *
-     * @param string $sexo
-     *
-     * @return Participante
-     */
-    public function setSexo($sexo)
-    {
-        $this->sexo = $sexo;
-
-        return $this;
-    }
-
-    /**
-     * Get sexo
-     *
-     * @return string
-     */
-    public function getSexo()
-    {
-        return $this->sexo;
+        return $this->percodigo;
     }
 
     /**
@@ -320,34 +183,27 @@ class Participante
     }
 
     /**
-     * Set apoderado
+     * Set discapacitado
      *
-     * @param \AkademiaBundle\Entity\Apoderado $apoderado
+     * @param integer $discapacitado
      *
      * @return Participante
      */
-    public function setApoderado(\AkademiaBundle\Entity\Apoderado $apoderado = null)
+    public function setDiscapacitado($discapacitado)
     {
-        $this->apoderado = $apoderado;
+        $this->discapacitado = $discapacitado;
 
         return $this;
     }
 
     /**
-     * Get apoderado
+     * Get discapacitado
      *
-     * @return \AkademiaBundle\Entity\Apoderado
+     * @return integer
      */
-    public function getApoderado()
+    public function getDiscapacitado()
     {
-        return $this->apoderado;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->inscripciones = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->discapacitado;
     }
 
     /**
@@ -385,99 +241,26 @@ class Participante
     }
 
     /**
-     * Set percodigo
+     * Set apoderado
      *
-     * @param integer $percodigo
-     *
-     * @return Participante
-     */
-    public function setPercodigo($percodigo)
-    {
-        $this->percodigo = $percodigo;
-
-        return $this;
-    }
-
-    /**
-     * Get percodigo
-     *
-     * @return integer
-     */
-    public function getPercodigo()
-    {
-        return $this->percodigo;
-    }
-
-    /**
-     * Set estado
-     *
-     * @param integer $estado
+     * @param \AkademiaBundle\Entity\Apoderado $apoderado
      *
      * @return Participante
      */
-    public function setEstado($estado)
+    public function setApoderado(\AkademiaBundle\Entity\Apoderado $apoderado = null)
     {
-        $this->estado = $estado;
+        $this->apoderado = $apoderado;
 
         return $this;
     }
 
     /**
-     * Get estado
+     * Get apoderado
      *
-     * @return integer
+     * @return \AkademiaBundle\Entity\Apoderado
      */
-    public function getEstado()
+    public function getApoderado()
     {
-        return $this->estado;
+        return $this->apoderado;
     }
-
-    /**
-     * Set discapacitado
-     *
-     * @param integer $discapacitado
-     *
-     * @return Participante
-     */
-    public function setDiscapacitado($discapacitado)
-    {
-        $this->discapacitado = $discapacitado;
-
-        return $this;
-    }
-
-    /**
-     * Get discapacitado
-     *
-     * @return integer
-     */
-    public function getDiscapacitado()
-    {
-        return $this->discapacitado;
-    }
-
-    /**
-     * Set usuarioValida
-     *
-     * @param string $usuarioValida
-     *
-     * @return Inscribete
-     */
-    public function setUsuarioValida($usuarioValida)
-    {
-        $this->usuarioValida = $usuarioValida;
-
-        return $this;
-    }
-
-    /**
-     * Get usuarioValida
-     *
-     * @return string
-     */
-    public function getUsuarioValida()
-    {
-        return $this->usuarioValida;
-    }
-
 }
