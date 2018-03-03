@@ -33,6 +33,7 @@
 		<div id="proceso1" class="proceso" style="margin-bottom: 60px;">	
 		    
 		    <h2>CP {{complejosDisciplinas[0]['nombreComplejo']}}</h2>
+		    
 			
 			<h4 style="color:grey">ADMINISTRACION DE HORARIOS</h4>
 			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
@@ -91,24 +92,24 @@
 											{% if horario['idDisciplina'] == complejosDisciplina['idDisciplina'] %}
 											
 												<tr> 
-													<td id="1{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
-													<td id="2{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
-													<td id="3{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']|date('H:i')}} - {{horario['horaFin']|date('H:i')}}</td> 
-													<td id="4{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
-													<td id="5{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
+													<td id="1h{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
+													<td id="2h{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
+													<td id="3h{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']|date('H:i')}} - {{horario['horaFin']|date('H:i')}}</td> 
+													<td id="4h{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
+													<td id="5h{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
 													{% if  horario['discapacidad'] == 0 %}
-														<td id="6{{horario['idHorario']}}" class="text-center"> No </td> 
+														<td id="6h{{horario['idHorario']}}" class="text-center"> No </td> 
 													{% else %}
-														<td id="6{{horario['idHorario']}}" class="text-center"> Si </td> 
+														<td id="6h{{horario['idHorario']}}" class="text-center"> Si </td> 
 													{% endif %}
 
 													{% if  horario['convocatoria'] == 1 %}
-														<td id="7{{horario['idHorario']}}" class="text-center">Abierta</td>
+														<td id="7h{{horario['idHorario']}}" class="text-center">Abierta</td>
 													{% else %}
-														<td id="7{{horario['idHorario']}}" class="text-center"> Cerrado </td> 
+														<td id="7h{{horario['idHorario']}}" class="text-center"> Cerrado </td> 
 													{% endif %}
 
-													<td id="8{{horario['idHorario']}}" class="text-center">{{horario['inscritos']}}</td>
+													<td id="8h{{horario['idHorario']}}" class="text-center">{{horario['inscritos']}}</td>
 
 													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px; color:white" ></i></button></td>
 
@@ -1012,17 +1013,17 @@
 									var dataHorario =JSON.parse(data)[0];
 									console.log(dataHorario);
 
-									$("#1"+dataHorario.id).empty();
-									$("#5"+dataHorario.id).empty();
-									$("#7"+dataHorario.id).empty();
+									$("#1h"+dataHorario.id).empty();
+									$("#5h"+dataHorario.id).empty();
+									$("#7h"+dataHorario.id).empty();
 
-									$("#1"+dataHorario.id).text(dataHorario.id);
-									$("#5"+dataHorario.id).text(dataHorario.vacantes);
+									$("#1h"+dataHorario.id).text(dataHorario.id);
+									$("#5h"+dataHorario.id).text(dataHorario.vacantes);
 
 									if(dataHorario.convocatoria == 1){
-										$("#7"+dataHorario.id).text("Abierto");
+										$("#7h"+dataHorario.id).text("Abierto");
 									}else{
-										$("#7"+dataHorario.id).text("Cerrado");
+										$("#7h"+dataHorario.id).text("Cerrado");
 									}
 									alertify.success('<p style="color:black">Horario Actualizado .</p>');
 								}else{
