@@ -962,7 +962,7 @@ class DefaultController extends Controller
             $codigoEdi = $ediCodigo[0]['edi_codigo'];
             
             $em = $this->getDoctrine()->getManager();
-            $data = $em->getRepository('AkademiaBundle:Horario')->getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados);
+            $data = $em->getRepository('AkademiaBundle:Horario')->getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados,$codigoEdi);
 
             if(!empty($data)){
 

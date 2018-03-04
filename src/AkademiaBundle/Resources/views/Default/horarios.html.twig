@@ -1183,7 +1183,7 @@
 
 										tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
 										tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
-										tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
+										tdhorario+='<td><a href="/academia/web/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
 										tdhorario+='</tr>';
 										$('#1'+idDisciplina).append(tdhorario);
 										$("#modal-crear").modal('hide');
