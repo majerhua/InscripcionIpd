@@ -4,6 +4,7 @@
 {% block body  %}
 
 <div class="proceso">
+
 	<div class="proceso-inscripcion__horarios" id="process4">
 		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
 			<div class="card">
@@ -97,152 +98,159 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="proceso" id="process5">
-		<div class="proceso row">
 
 		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')  %}
 
-			<div class="container-card col-xs-12 col-sm-8 col-md-6 col-ld-6">
+		<div class="row">
+
+			<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
+					<div class="card">
+						<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
+						<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
+						<hr>
+						
+						<div id="alerta-confirmacionFicha" class="alert alert-success collapse"></div>
+						<div id="alerta-errorFicha" class="alert alert-danger collapse"></div>
+
+						<div class="row">
+							<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" id="inscribirPreinscrito"><button id="btn-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
+
+							<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><button class="btn btn-default" style="margin: 5px;">Salir</button></a>-->
+						</div>
+						
+						<hr>
+						<div class="pdf_inscripcion__ficha row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
+									<p>Código de ficha</p>
+									<p>Nombre</p>
+									<p>Apellido Paterno</p>
+									<p>Apellido Materno</p>
+									<p>Distrito</p>
+									<p>Domicilio</p>
+									<p>Fecha Nacimiento</p>
+									<p>Teléfono</p>
+									<p>DNI</p>
+									<p>Edad</p>
+									<p>Email</p>
+									<p>Deporte</p>
+									<p>Complejo</p>
+									<p>Horario</p>
+								</div>
+
+								<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
+									<p id="codigo-inscripcionRef"></p>
+									<p id="nombre-ficha"></p>
+									<p id="apellidoPaterni-ficha"></p>
+									<p id="apellidoMaterno-ficha"></p>
+									<p id="distrito-ficha"></p>
+									<p id="domicilio-ficha"></p>
+									<p id="fechaNacimiento-ficha"></p>
+									<p id="telefono-ficha"></p>
+									<p id="dni-ficha"></p>
+									<p id="edad-ficha"></p>
+									<p id="email-ficha"></p>
+									<p id="deporte-ficha"></p>
+									<p id="complejo-ficha"></p>
+									<p id="horario-ficha"></p>
+									<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
+								</div>
+							</div>
+							
+						</div>
+						<hr>
+					</div>
+			</div>
+
+		</div>
+
+		{% else %}
+
+		<div class="row">
+
+			<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
+				<div class="card">
+					<p class="title-card text-center">PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
+					<hr>
+					<p class="text-center">
+						Acércate al complejo que eligiste para finalizar tu inscripción.
+					</p><br>
+					<p class="text-center" style="color: #BB2626">
+						<strong>NO SE RESERVAN VACANTES.</strong>
+					</p>
+					<div class="lista-requisitos"> 
+						<p><strong>OBLIGATORIO</strong></p>
+						<ol>
+							<li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado.</li>
+							<li>DNI del menor de edad y del apoderado (original y copia).</li>
+							<li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li>
+							<li>Foto tamaño carnet del menor de edad (actual). </li>
+						</ol>
+					</div>
+					<hr>
+					<div class="row">
+						<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
+
+						<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Declaración Jurada</button></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
 				<div class="card">
 					<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
 					<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
 					<hr>
 					
-					<div id="alerta-confirmacionFicha" class="alert alert-success collapse"></div>
-					<div id="alerta-errorFicha" class="alert alert-danger collapse"></div>
-
-					<div class="row">
-						<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" id="inscribirPreinscrito"><button id="btn-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
-
-						<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><button class="btn btn-default" style="margin: 5px;">Salir</button></a>-->
-					</div>
+					<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
+					<div id="alerta-error" class="alert alert-danger collapse"></div>
 					
-					<hr>
 					<div class="pdf_inscripcion__ficha row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
-								<p>Código de ficha</p>
-								<p>Nombre</p>
-								<p>Apellido Paterno</p>
-								<p>Apellido Materno</p>
-								<p>Distrito</p>
-								<p>Domicilio</p>
-								<p>Fecha Nacimiento</p>
-								<p>Teléfono</p>
-								<p>DNI</p>
-								<p>Edad</p>
-								<p>Email</p>
-								<p>Deporte</p>
-								<p>Complejo</p>
-								<p>Horario</p>
-							</div>
+						<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
 
-							<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
-								<p id="codigo-inscripcionRef"></p>
-								<p id="nombre-ficha"></p>
-								<p id="apellidoPaterni-ficha"></p>
-								<p id="apellidoMaterno-ficha"></p>
-								<p id="distrito-ficha"></p>
-								<p id="domicilio-ficha"></p>
-								<p id="fechaNacimiento-ficha"></p>
-								<p id="telefono-ficha"></p>
-								<p id="dni-ficha"></p>
-								<p id="edad-ficha"></p>
-								<p id="email-ficha"></p>
-								<p id="deporte-ficha"></p>
-								<p id="complejo-ficha"></p>
-								<p id="horario-ficha"></p>
-								<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
-							</div>
+							<p>Nombre</p>
+							<p>Apellido Paterno</p>
+							<p>Apellido Materno</p>
+							<p>Distrito</p>
+							<p>Domicilio</p>
+							<p>Fecha Nacimiento</p>
+							<p>Teléfono</p>
+							<p>DNI</p>
+							<p>Edad</p>
+							<p>Email</p>
+							<p>Deporte</p>
+							<p>Complejo</p>
+							<p>Horario</p>
 						</div>
-						
+
+						<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
+							<p id="nombre-ficha"></p>
+							<p id="apellidoPaterni-ficha"></p>
+							<p id="apellidoMaterno-ficha"></p>
+							<p id="distrito-ficha"></p>
+							<p id="domicilio-ficha"></p>
+							<p id="fechaNacimiento-ficha"></p>
+							<p id="telefono-ficha"></p>
+							<p id="dni-ficha"></p>
+							<p id="edad-ficha"></p>
+							<p id="email-ficha"></p>
+							<p id="deporte-ficha"></p>
+							<p id="complejo-ficha"></p>
+							<p id="horario-ficha"></p>
+							<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
+						</div>
 					</div>
 					<hr>
 				</div>
 			</div>
 
-		{% else %}
-
-		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
-			<div class="card">
-				<p class="title-card text-center">PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
-				<hr>
-				<p class="text-center">
-					Acércate al complejo que eligiste para finalizar tu inscripción.
-				</p><br>
-				<p class="text-center" style="color: #BB2626">
-					<strong>NO SE RESERVAN VACANTES.</strong>
-				</p>
-				<div class="lista-requisitos"> 
-					<p><strong>OBLIGATORIO</strong></p>
-					<ol>
-						<li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado.</li>
-						<li>DNI del menor de edad y del apoderado (original y copia).</li>
-						<li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li>
-						<li>Foto tamaño carnet del menor de edad (actual). </li>
-					</ol>
-				</div>
-				<hr>
-				<div class="row">
-					<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
-
-					<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Declaración Jurada</button></a>
-				</div>
-			</div>
 		</div>
 
-		<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
-			<div class="card">
-				<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
-				<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
-				<hr>
-				
-				<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
-				<div id="alerta-error" class="alert alert-danger collapse"></div>
-				
-				<div class="pdf_inscripcion__ficha row">
-					<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
-
-						<p>Nombre</p>
-						<p>Apellido Paterno</p>
-						<p>Apellido Materno</p>
-						<p>Distrito</p>
-						<p>Domicilio</p>
-						<p>Fecha Nacimiento</p>
-						<p>Teléfono</p>
-						<p>DNI</p>
-						<p>Edad</p>
-						<p>Email</p>
-						<p>Deporte</p>
-						<p>Complejo</p>
-						<p>Horario</p>
-					</div>
-
-					<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
-						<p id="nombre-ficha"></p>
-						<p id="apellidoPaterni-ficha"></p>
-						<p id="apellidoMaterno-ficha"></p>
-						<p id="distrito-ficha"></p>
-						<p id="domicilio-ficha"></p>
-						<p id="fechaNacimiento-ficha"></p>
-						<p id="telefono-ficha"></p>
-						<p id="dni-ficha"></p>
-						<p id="edad-ficha"></p>
-						<p id="email-ficha"></p>
-						<p id="deporte-ficha"></p>
-						<p id="complejo-ficha"></p>
-						<p id="horario-ficha"></p>
-						<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
-					</div>
-				</div>
-				<hr>
-			</div>
-		</div>
-
-		{% endif %}
-		
-		</div>
+		{% endif %}		
 	</div>
+
 </div>
 
 {#

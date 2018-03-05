@@ -63,7 +63,6 @@
 				<li data-target="#carousel-1" data-slide-to="5"	></li>
 				<li data-target="#carousel-1" data-slide-to="6"	></li>
 				<li data-target="#carousel-1" data-slide-to="7"	></li>
-				<li data-target="#carousel-1" data-slide-to="8"	></li>
 			</ol>
 			<!-- contenedor de los slide -->
 
@@ -372,6 +371,10 @@
 			</div>
 		</div>		
 	</div>
+
+	<div class="proceso">
+		<div id="loader" class="loader"></div>
+	</div>
 	
 <div class="proceso" id="ajaxproceso4">
 
@@ -532,6 +535,8 @@
 
 <script>
 
+	$('#loader').hide();
+
 	var pageHorario = (estado)=>{
 
 		var urlRegFinal = "{{url('akademia_registroFinal',{estado:'estadoReg'})}}";
@@ -544,9 +549,11 @@
 			url:urlRegFinal,
 			beforeSend:function(){
 				console.log("Enviando...");
+				$('#loader').show();
 			},
 			success:function(data){
 				$(containerPaso4).append(data);
+				$('#loader').hide();
 			},
 			error:function(error){
 				console.log(error);
