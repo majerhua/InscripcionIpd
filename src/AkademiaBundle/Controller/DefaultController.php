@@ -193,7 +193,6 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getRepository(Apoderado::class);
                         $apoderado = $em->find($idApoderado);
                         $apoderado->setPercodigo($percodigoApod);
-                       // $apoderado->setDistrito($distrito);
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         $idApod = $apoderado->getId();
@@ -201,8 +200,7 @@ class DefaultController extends Controller
                         $apoderado = new Apoderado();
                         $apoderado->setDni($dni);
                         $apoderado->setPercodigo($percodigoApod);
-                       // $apoderado->setDistrito($distrito);
-            
+                                  
                         $em = $this->getDoctrine()->getManager();
                         $em->persist($apoderado);
                         $em->flush();
@@ -252,6 +250,7 @@ class DefaultController extends Controller
                         $idParticipanteN= $participante->getId();      
                     } 
                 }else{
+                    
                     //si no existe apoderado en grpersona, registramos al usuario
                     $em = $this->getDoctrine()->getManager();
                     $datosParticipante = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dniParticipante,$apellidoPaternoParticipante,$apellidoMaternoParticipante, $nombreParticipante,$fechaNacimientoParticipante,$sexoParticipante,$telefono, $correo, $direccion,$distrito);
