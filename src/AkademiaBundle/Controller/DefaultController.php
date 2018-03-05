@@ -846,9 +846,10 @@ class DefaultController extends Controller
         $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios($idComplejo);
         $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
         $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
+        $Nombre = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->nombreComplejo($idComplejo);
 
 
-        return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
+        return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas, "nombre" => $Nombre)); 
     }
 
     public function actualizarHorarioAction(Request $request){
@@ -1033,6 +1034,7 @@ class DefaultController extends Controller
     public function beneficiariosAction(Request $request, $idHorario){
 
         $em = $this->getDoctrine()->getManager();
+
         $Horarios = $em->getRepository('AkademiaBundle:Horario')->getHorarioBeneficiario($idHorario);
         $Beneficiarios = $em->getRepository('AkademiaBundle:Horario')->getBeneficiarios($idHorario);
         $Asistencias = $em->getRepository('AkademiaBundle:Asistencia')->getMostrarAsistencia();
@@ -1040,6 +1042,7 @@ class DefaultController extends Controller
         $movAsis = $em->getRepository('AkademiaBundle:Movimientos')->getCantAsistencias(1,$idHorario);
         $movRet = $em->getRepository('AkademiaBundle:Movimientos')->getCantRetirados(3,$idHorario);
         $movEva = $em->getRepository('AkademiaBundle:Movimientos')->getCantEvaluados(3,$idHorario);
+     
 
         return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios, "asistencias" => $Asistencias, "categorias" => $Categorias, "asistentes" => $movAsis, "retirados" => $movRet, "seleccionados" => $movEva, "id" =>$idHorario));
     }
