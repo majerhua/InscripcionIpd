@@ -362,7 +362,7 @@
 									</div>
 								</div>
 							</li>	
-
+							<br>
 							<li class="list-group-item">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
@@ -459,7 +459,8 @@
 					var idCat = {{beneficiario['idCategoria']}};
 					var idAsis = {{beneficiario['idAsistencia']}};
 
-					if(idAsis == 4){
+					if(idAsis == 1){
+						
 						$("#asistenciaParticipante").val(0);
 
 					}else{
@@ -481,11 +482,11 @@
 
 				var cbx_asist = document.getElementById("asistenciaParticipante").value;
 
-				if(cbx_asist == 5){
+				if(cbx_asist == 2){
 
 					$("#cbx-categoria").show();
 
-				}else if (cbx_asist == 6){
+				}else if (cbx_asist == 3){
 					
 					$("#cbx-categoria").hide();
 				}else{
@@ -518,10 +519,6 @@
 			
 
 			if(asistencia != 0 && categoria != 0){
-
-				if(asistencia == 3){
-
-				}
 
 				console.log(asistencia, categoria, idFicha);
 				var dataBeneficiario = {

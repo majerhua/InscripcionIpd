@@ -839,11 +839,11 @@ class DefaultController extends Controller
         $Asistencias = $em->getRepository('AkademiaBundle:Asistencia')->getMostrarAsistencia();
         $Categorias = $em->getRepository('AkademiaBundle:Categoria')->getMostrarCategoria();
 
-        $movAsis = $em->getRepository('AkademiaBundle:Movimientos')->getCantAsistencias(1,$idHorario);
+        $movAsis = $em->getRepository('AkademiaBundle:Movimientos')->getCantAsistencias(2,$idHorario);
         $movRet = $em->getRepository('AkademiaBundle:Movimientos')->getCantRetirados(3,$idHorario);
-        $movEva = $em->getRepository('AkademiaBundle:Movimientos')->getCantEvaluados(3,$idHorario);
+        $movSel = $em->getRepository('AkademiaBundle:Movimientos')->getCantSeleccionados(2,$idHorario);
      
-        return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios, "asistencias" => $Asistencias, "categorias" => $Categorias, "asistentes" => $movAsis, "retirados" => $movRet, "seleccionados" => $movEva, "id" =>$idHorario));
+        return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios, "asistencias" => $Asistencias, "categorias" => $Categorias, "asistentes" => $movAsis, "retirados" => $movRet, "seleccionados" => $movSel, "id" =>$idHorario));
     }
     
     public function estadoBeneficiarioAction(Request $request){

@@ -69,7 +69,7 @@ class MovimientosRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function getCantEvaluados($idCategoria, $idHorario){
+    public function getCantSeleccionados($idCategoria, $idHorario){
     	$query = "SELECT count(*)seleccionados
                 FROM 
                 ACADEMIA.inscribete ins 
