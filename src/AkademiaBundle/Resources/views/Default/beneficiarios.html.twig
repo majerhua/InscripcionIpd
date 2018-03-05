@@ -40,7 +40,7 @@
 							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-										<strong>Código:</strong>
+										<strong>Cod-horario:</strong>
 									</div>
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 										{{horarios[0]['idHorario']}}
@@ -144,7 +144,7 @@
 									<table class="table"> 
 										<thead style="background:#F2F2F2; color:#585858"> 
 											<tr> 
-												<th class="text-center">Código</th>
+												<th class="text-center">Cod-alumno</th>
 												<th class="text-center">Nombre</th> 
 												<th class="text-center">DNI</th>
 												<th class="text-center">Edad</th> 
@@ -286,7 +286,7 @@
 							<li class="list-group-item">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-										<p><strong>Inscripción</strong></p>
+										<p><strong>Cod-inscripción</strong></p>
 									</div>
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 										<p id="idFicha"></p>
@@ -361,7 +361,19 @@
 										</select>
 									</div>
 								</div>
-							</li>		
+							</li>	
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+										<p><strong>Última modificación: </strong></p>
+									</div>
+									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+										<p id="fecha-modificacion" style="color:grey"></p>
+									</div>
+								</div>
+							</li>
+
 						</ul>
 					</div>
 				</div>
@@ -436,6 +448,7 @@
 					$("#dniParticipante").append("<p>{{beneficiario['dni']}}</p>");
 					$("#edadParticipante").append("<p>{{beneficiario['edad']}} años</p>");
 					$("#idFicha").append("<p>{{beneficiario['idInscribete']}}</p>")
+
 					
 					if ("{{beneficiario['sexo']}}" == 0){
 					 	$("#sexoParticipante").append("<p>Femenino</p>");	
@@ -455,6 +468,8 @@
 						$("#asistenciaParticipante").val(idAsis);
 						$("#categoriaParticipante").val(idCat);
 					}
+
+					$("#fecha-modificacion").append("<p>{{beneficiario['fechita']}}</p>")
 					
 				}
 

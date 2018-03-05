@@ -673,7 +673,11 @@ class DefaultController extends Controller
         $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios($idComplejo);
         $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
         $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
-        return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas)); 
+
+        $Nombre = $em2->getRepository('AkademiaBundle:ComplejoDeportivo')->nombreComplejo($idComplejo);
+
+        return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas, "nombre" => $Nombre)); 
+
     }
     public function actualizarHorarioAction(Request $request){
        
@@ -759,7 +763,9 @@ class DefaultController extends Controller
             $codigoEdi = $ediCodigo[0]['edi_codigo'];
             
             $em = $this->getDoctrine()->getManager();
-            $data = $em->getRepository('AkademiaBundle:Horario')->getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados);
+
+            $data = $em->getRepository('AkademiaBundle:Horario')->getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados,$codigoEdi);
+
             if(!empty($data)){
                 $mensaje = 1;
                 return new JsonResponse($mensaje);
@@ -816,13 +822,16 @@ class DefaultController extends Controller
     }
     public function beneficiariosAction(Request $request, $idHorario){
         $em = $this->getDoctrine()->getManager();
+
         $Horarios = $em->getRepository('AkademiaBundle:Horario')->getHorarioBeneficiario($idHorario);
         $Beneficiarios = $em->getRepository('AkademiaBundle:Horario')->getBeneficiarios($idHorario);
         $Asistencias = $em->getRepository('AkademiaBundle:Asistencia')->getMostrarAsistencia();
         $Categorias = $em->getRepository('AkademiaBundle:Categoria')->getMostrarCategoria();
-        $movAsis = $em->getRepository('AkademiaBundle:Movimientos')->getCantAsistencias(5,$idHorario);
-        $movRet = $em->getRepository('AkademiaBundle:Movimientos')->getCantRetirados(6,$idHorario);
-        $movEva = $em->getRepository('AkademiaBundle:Movimientos')->getCantEvaluados(6,$idHorario);
+
+        $movAsis = $em->getRepository('AkademiaBundle:Movimientos')->getCantAsistencias(1,$idHorario);
+        $movRet = $em->getRepository('AkademiaBundle:Movimientos')->getCantRetirados(3,$idHorario);
+        $movEva = $em->getRepository('AkademiaBundle:Movimientos')->getCantEvaluados(3,$idHorario);
+     
         return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios, "asistencias" => $Asistencias, "categorias" => $Categorias, "asistentes" => $movAsis, "retirados" => $movRet, "seleccionados" => $movEva, "id" =>$idHorario));
     }
     public function estadoBeneficiarioAction(Request $request){
@@ -835,7 +844,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $nuevoMovimiento = $em->getRepository('AkademiaBundle:Movimientos')->nuevoMovimiento($idCategoria, $idAsistencia, $idFicha,$usuario);
           
-            if($idAsistencia == 6){
+
+            if($idAsistencia == 3){
+
+
                 $em = $this->getDoctrine()->getManager();
                 $nuevoMovimiento = $em->getRepository('AkademiaBundle:Inscribete')->getBeneficiarioRetirado($idFicha);
             }

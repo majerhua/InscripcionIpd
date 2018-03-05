@@ -18,7 +18,7 @@ class DisciplinaDeportivaRepository extends \Doctrine\ORM\EntityRepository
                         from catastro.edificacionDisciplina edi 
                         inner join catastro.disciplina d on edi.dis_codigo = d.dis_codigo 
                         inner join catastro.edificacionesdeportivas ede on edi.ede_codigo = ede.ede_codigo
-                        where ede.ede_codigo = 11 and edi.edi_estado=1) t2
+                        where ede.ede_codigo = $idComplejo and edi.edi_estado=1) t2
                         on dis.dis_codigo = t2.dis_codigo 
                         where t2.dis_codigo IS NULL;";
 

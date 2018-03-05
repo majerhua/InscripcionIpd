@@ -32,7 +32,8 @@
 		</div>
 		<div id="proceso1" class="proceso" style="margin-bottom: 60px;">	
 		    
-		    <h2>CP {{complejosDisciplinas[0]['nombreComplejo']}}</h2>
+		    <h3>CP {{nombre[0]['nombreComplejo']}}</h3>
+		    
 			
 			<h4 style="color:grey">ADMINISTRACION DE HORARIOS</h4>
 			<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
@@ -91,24 +92,30 @@
 											{% if horario['idDisciplina'] == complejosDisciplina['idDisciplina'] %}
 											
 												<tr> 
-													<td id="1{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
-													<td id="2{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
-													<td id="3{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']|date('H:i')}} - {{horario['horaFin']|date('H:i')}}</td> 
-													<td id="4{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td> 
-													<td id="5{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
-													{% if  horario['discapacidad'] == 0 %}
-														<td id="6{{horario['idHorario']}}" class="text-center"> No </td> 
+													<td id="1h{{horario['idHorario']}}" class="text-center">{{horario['idHorario']}}</td> 
+													<td id="2h{{horario['idHorario']}}" class="text-center">{{horario['turno']}}</td> 
+													<td id="3h{{horario['idHorario']}}" class="text-center">{{horario['horaInicio']|date('H:i')}} - {{horario['horaFin']|date('H:i')}}</td> 
+
+													{% if  horario['edadMaxima'] != horario['edadMinima'] %}
+														<td id="4h{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} - {{horario['edadMaxima']}} años</td>
 													{% else %}
-														<td id="6{{horario['idHorario']}}" class="text-center"> Si </td> 
+														<td id="4h{{horario['idHorario']}}"class="text-center">{{horario['edadMinima']}} años</td>
+													{% endif %}
+ 
+													<td id="5h{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
+													{% if  horario['discapacidad'] == 0 %}
+														<td id="6h{{horario['idHorario']}}" class="text-center"> No </td> 
+													{% else %}
+														<td id="6h{{horario['idHorario']}}" class="text-center"> Si </td> 
 													{% endif %}
 
 													{% if  horario['convocatoria'] == 1 %}
-														<td id="7{{horario['idHorario']}}" class="text-center">Abierta</td>
+														<td id="7h{{horario['idHorario']}}" class="text-center">Abierta</td>
 													{% else %}
-														<td id="7{{horario['idHorario']}}" class="text-center"> Cerrado </td> 
+														<td id="7h{{horario['idHorario']}}" class="text-center"> Cerrado </td> 
 													{% endif %}
 
-													<td id="8{{horario['idHorario']}}" class="text-center">{{horario['inscritos']}}</td>
+													<td id="8h{{horario['idHorario']}}" class="text-center">{{horario['inscritos']}}</td>
 
 													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px; color:white" ></i></button></td>
 
@@ -189,7 +196,7 @@
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-				<h4 class="title-card" style="color:#d9534f">CP de {{complejosDisciplinas[0]['nombreComplejo']}}</h4>
+				<h4 class="title-card" style="color:#d9534f">CP de {{nombre[0]['nombreComplejo']}}</h4>
 			</div>
 			<div class="modal-body">
 					<div class="row">
@@ -338,7 +345,7 @@
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-				<h4 class="title-card">CP {{complejosDisciplinas[0]['nombreComplejo']}}</h4>
+				<h4 class="title-card">CP {{nombre[0]['nombreComplejo']}}</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -560,7 +567,7 @@
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-				<h4 class="title-card">CP {{complejosDisciplinas[0]['nombreComplejo']}}</h4>
+				<h4 class="title-card">CP {{nombre[0]['nombreComplejo']}}</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -742,7 +749,6 @@
             }(jQuery));
 
         });
-
         
         var turno = document.getElementById('turno')
 		var diasElegidos = []
@@ -1012,19 +1018,22 @@
 									var dataHorario =JSON.parse(data)[0];
 									console.log(dataHorario);
 
-									$("#1"+dataHorario.id).empty();
-									$("#5"+dataHorario.id).empty();
-									$("#7"+dataHorario.id).empty();
+									$("#1h"+dataHorario.id).empty();
+									$("#5h"+dataHorario.id).empty();
+									$("#7h"+dataHorario.id).empty();
 
-									$("#1"+dataHorario.id).text(dataHorario.id);
-									$("#5"+dataHorario.id).text(dataHorario.vacantes);
+									$("#1h"+dataHorario.id).text(dataHorario.id);
+									$("#5h"+dataHorario.id).text(dataHorario.vacantes);
 
 									if(dataHorario.convocatoria == 1){
-										$("#7"+dataHorario.id).text("Abierto");
+										$("#7h"+dataHorario.id).text("Abierto");
 									}else{
-										$("#7"+dataHorario.id).text("Cerrado");
+										$("#7h"+dataHorario.id).text("Cerrado");
 									}
+
 									alertify.success('<p style="color:black">Horario Actualizado .</p>');
+								//	window.location.href = "{{url('akademia_horarios')}}";
+									
 								}else{
 									alertify.error('<p style="color:white">Error al actualizar los datos </p>'); 
 								}
@@ -1159,28 +1168,40 @@
 										let horaFin = String(dataHorario.horaFin).split(":");
 										
 										tdhorario+='<tr>';
-										tdhorario+='<td id="1'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
-										tdhorario+='<td id="2'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
-										tdhorario+='<td id="3'+dataHorario.id+'" class="text-center">'+horaInicio[0]+':'+horaInicio[1]+' - '+horaFin[0]+':'+horaFin[1]+'</td>';
-										tdhorario+='<td id="4'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
-										tdhorario+='<td id="5'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
+										tdhorario+='<td id="1h'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
+										tdhorario+='<td id="2h'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
+										tdhorario+='<td id="3h'+dataHorario.id+'" class="text-center">'+horaInicio[0]+':'+horaInicio[1]+' - '+horaFin[0]+':'+horaFin[1]+'</td>';
+
+										if(dataHorario.edadMinima!=dataHorario.edadMaxima){
+
+											tdhorario+='<td id="4h'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
+
+										} else {
+
+											tdhorario+='<td id="4h'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+ ' años </td>';
+
+										}
+
+
+
+										tdhorario+='<td id="5h'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 										if (dataHorario.discapacitados == 0){
-											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">No</td>';
+											tdhorario+='<td id="6h'+dataHorario.id+'" class="text-center">No</td>';
 										}else{
-											tdhorario+='<td id="6'+dataHorario.id+'" class="text-center">Si</td>';
+											tdhorario+='<td id="6h'+dataHorario.id+'" class="text-center">Si</td>';
 										}
 										if (dataHorario.convocatoria == 0 )
 										{
-											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Cerrado </td>';
+											tdhorario+='<td id="7h'+dataHorario.id+'" class="text-center"> Cerrado </td>';
 										}
 										else
 										{
-											tdhorario+='<td id="7'+dataHorario.id+'" class="text-center"> Abierto </td>';
+											tdhorario+='<td id="7h'+dataHorario.id+'" class="text-center"> Abierto </td>';
 										}
 
-										tdhorario+='<td id="8'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
+										tdhorario+='<td id="8h'+dataHorario.id+'" class="text-center">'+ dataHorario.inscritos +'</td>';
 										tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
-										tdhorario+='<td><a href="/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
+										tdhorario+='<td><a href="/academia/web/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
 										tdhorario+='</tr>';
 										$('#1'+idDisciplina).append(tdhorario);
 										$("#modal-crear").modal('hide');
