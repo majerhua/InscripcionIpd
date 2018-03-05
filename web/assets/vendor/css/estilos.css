@@ -12,6 +12,45 @@ body{
 
 }
 
+
+/*ELIMINAR HORARIO*/
+
+#accordion input {
+	display: none;
+}
+#accordion label {
+	/*background: #eee;*/
+	border-radius: .25em;
+	cursor: pointer;
+	display: block;
+	margin-bottom: .125em;
+	padding: .25em 1em;
+	z-index: 20;
+}
+
+#accordion article {
+	/*background: #f7f7f7;*/
+	height:0px;
+	overflow:hidden;
+	z-index:10;
+}
+#accordion article p {
+	padding: 2em;
+}
+#accordion input:checked article {
+}
+#accordion input:checked ~ article {
+	border-bottom-left-radius: .25em;
+	border-bottom-right-radius: .25em;
+	height: auto;
+	margin-bottom: .125em;
+}
+
+
+
+
+	
+.placeholder::placeholder { color: #D8D8D8; }
 .bg {
 
     background-image: url("../../images/slider4.png");
@@ -669,4 +708,21 @@ a:hover{
 
 	margin-bottom: 10px;
 
+}
+
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #f25029; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

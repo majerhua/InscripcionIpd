@@ -40,6 +40,21 @@ class ComplejoDisciplina
      */
     private $id;
 
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="edi_estado", type="integer")
+     */
+    private $estado;
+
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="edi_usucrea", type="integer")
+     */
+    private $usuario;
+
+
 
     /**
      * Get id
@@ -138,5 +153,53 @@ class ComplejoDisciplina
     public function getHorarios()
     {
         return $this->horarios;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param integer $estado
+     *
+     * @return ComplejoDisciplina
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param integer $usuario
+     *
+     * @return ComplejoDisciplina
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return integer
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

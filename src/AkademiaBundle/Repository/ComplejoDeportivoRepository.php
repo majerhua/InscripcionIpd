@@ -14,7 +14,7 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 	public function getComplejosDeportivos()
 	{
 
-       $query = "select ede_codigo as id, ede_nombre as nombre ,ubicodigo , ede_direccion as direccion, ede_estado as estado, ede_discapacitado as discapacitado from CATASTRO.edificacionesdeportivas;";
+       $query = "SELECT ede_codigo as id, ede_nombre as nombre ,ubicodigo , ede_direccion as direccion, ede_estado as estado, ede_discapacitado as discapacitado from CATASTRO.edificacionesdeportivas;";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $complejosDeportivos = $stmt->fetchAll();
@@ -24,7 +24,11 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getComplejosDeportivosDiscapacitados()
 	{
-		$query = "select ede_codigo as id, ede_nombre as nombre ,ubicodigo, ede_direccion as direccion, ede_estado as estado,ede_discapacitado as discapacidad from CATASTRO.edificacionesdeportivas where ede_discapacitado='1'";
+
+		$query = "select ede_codigo as id, ede_nombre as nombre ,ubicodigo, ede_direccion as direccion, ede_estado as estado,ede_discapacitado as discapacidad from CATASTRO.edificacionesdeportivas where ede_discapacitado='1';";
+
+		$query = "SELECT ede_codigo as id, ede_nombre as nombre ,ubicodigo, ede_direccion as direccion, ede_estado as estado,ede_discapacitado as discapacidad from CATASTRO.edificacionesdeportivas where ede_discapacitado='1'";
+
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
 		$stmt->execute();
 		$complejosDeportivos = $stmt->fetchAll();
@@ -32,4 +36,32 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 		return $complejosDeportivos;
 	}
 
+	public function complejosDeportivosFlagAll($flagDis)
+	{
+		$query = "select distinct edde.ede_codigo as id, edde.ede_nombre as nombre ,edde.ubicodigo ,edde.ede_direccion as direccion, edde.ede_estado as estado,edde.ede_discapacitado as discapacitado from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde where hor.discapacitados='$flagDis' and hor.estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and hor.vacantes<>0 and hor.convocatoria=1;";
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+		$stmt->execute();
+		$complejosDeportivos = $stmt->fetchAll();
+		return $complejosDeportivos;
+	}
+
+	public function getEditarDiscapacitado($idComplejo, $usuario){
+	
+		$query = "UPDATE catastro.edificacionesdeportivas set ede_discapacitado = 1, ede_usumodi = $usuario, ede_fechamodi = getDate() where ede_codigo= $idComplejo";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+	
+	}
+
+
+	public function nombreComplejo($idComplejo){
+
+		$query = "SELECT b.ede_nombre as nombreComplejo from academia.usuario a inner join catastro.edificacionesdeportivas b on a.id_complejo = b.ede_codigo where a.id_complejo = $idComplejo";
+		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
+		$stmt->execute();
+		$nombre = $stmt->fetchAll();
+
+		return $nombre;
+
+	}
 }

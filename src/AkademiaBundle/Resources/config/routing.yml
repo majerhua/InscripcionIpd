@@ -1,3 +1,7 @@
+entradas_list:
+    path: /pruebas/entradas
+    defaults: { _controller: AppBundle:Pruebas:entradas}
+
 akademia_homepage:
     path:     /contador
     defaults: { _controller: AkademiaBundle:Default:index }
@@ -5,8 +9,14 @@ akademia_homepage:
 
 akademia_contador:
     path:     /
-    defaults: { _controller: AkademiaBundle:Default:contador }
+    defaults: { _controller: AkademiaBundle:Default:index }
     methods:  [GET,POST]
+
+akademia_registroFinal:
+    path:     /registrofinal/{estado}
+    defaults: { _controller: AkademiaBundle:Default:registroFinal }
+    methods:  [GET,POST]
+
 
 akademia_registrar:
     path:     /ajax/registrar
@@ -56,6 +66,11 @@ akademia_sendemailusuario:
 akademia_consulta:
     path:     /consulta
     defaults: { _controller: AkademiaBundle:Default:consulta}
+    methods:  [GET,POST]
+
+akademia_estadoBeneficiario:
+    path:     /estadoBeneficiario
+    defaults: { _controller: AkademiaBundle:Default:estadoBeneficiario}
     methods:  [GET,POST]
 
 akademia_mostrarcomplejos:

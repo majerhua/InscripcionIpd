@@ -22,62 +22,52 @@
             </div>
         </div>
     </nav>
+
+
+    <style type="text/css">
+
+    .horario-time{
+        margin: 0 3px;
+        border-style:solid ;
+    }
+
+    .horario-time p{
+        font-size: 100px;
+        
+    }
+
+    .horario-time > p{
+        font-size: 25px;
+    }
+
+    @media only screen and (max-width: 636px) {
+        .horario-time{
+            margin: 0;
+        }
+        .horario-time > strong p{
+            font-size: 40px;
+        }
+
+        .horario-time > p{
+            font-size: 0.8em;
+        }
+    }
+
+
+
+</style>
 </header>
 
-<div class="bg">
+ <div class="bg">
 
-    <div class="container text-center" style="background-color: rgba(0,0,0,0.8); height: 100%; width: 100%; margin: 0; padding-bottom: 60px;">
+    <div class="container text-center" style="background-color: rgba(0,0,0,0.8); height: 100%; width: 100%; margin: 0; padding-bottom: 150px;">
 
-        <strong><p style="font-size:65px; color: #FFFFFF; margin-top: 60px; margin-bottom: 20px;">LA ACADEMIA</p></strong>
-        <strong><p style="font-size: 30px; color: #DBA901;">Temporada Invierno 2018</p></strong>
-        <p style="font-size: 30px; color: #FFFFFF; margin-top: 40px; margin-bottom: 0px;">Inicio de Inscripciones: 05 de marzo</p>
-        <br>
+        <strong><p style="font-size: 70px; color: #FFFFFF; margin-top: 150px; margin-bottom: 50px;">La Academia</p></strong>
 
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center"></div>
+        <p style="font-size: 50px; color: #FFC107;">Temporada Invierno 2018</p>
 
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
+        <p style="font-size: 40px; color: #FFFFFF; margin-top: 30px; margin-bottom: 0px;">Inicio de inscripciones: Próximamente</p>
 
-            <div style="border-style: solid; margin-right: 3px;">
-
-            <strong><p id="dias" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Días</p>
-
-            </div>
-        </div>
-
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
-
-            <div style="border-style: solid; margin-right: 3px;">
-
-            <strong><p id="horas" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Horas</p>
-
-           </div>
-    
-        </div>
-
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
-
-            <div style="border-style: solid; margin-right: 3px;">
-
-            <strong><p id="minutos" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Minutos</p>
-
-            </div>
-        
-        </div>
-
-        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 text-center">
-
-            <div style="border-style: solid;">
-                
-            <strong><p id="segundos" style="font-size: 100px; color: #FFFFFF; margin-bottom: 0px;">00</p></strong>
-            <p style="font-size: 25px; color: #FFFFFF;">Segundos</p>
-
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center"></div>
 
     </div>
 
@@ -121,36 +111,6 @@
 
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
-
-<script type="text/javascript">
-
-    var countDownDate = new Date("Mar 5, 2018 8:00:00").getTime();
-   
-    var x = setInterval(function() {
-
-        var now = new Date().getTime();    
-        var distance = countDownDate - now;
-        
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        document.getElementById("dias").innerHTML = days;
-        document.getElementById("horas").innerHTML = hours;
-        document.getElementById("minutos").innerHTML = minutes;
-        document.getElementById("segundos").innerHTML = seconds;
-        
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("dias").innerHTML = 0;
-            document.getElementById("horas").innerHTML = 0;
-            document.getElementById("minutos").innerHTML = 0;
-            document.getElementById("segundos").innerHTML = 0;
-        }
-    }, 1000);
-
-</script>
 
 
 {% endblock %}

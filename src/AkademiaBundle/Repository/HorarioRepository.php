@@ -11,9 +11,18 @@ namespace AkademiaBundle\Repository;
 class HorarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function horariosFlagAll($flagDis)
+    {
+            $query = "SELECT * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1 and discapacitados='$flagDis';";
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+            $horarios = $stmt->fetchAll();
+            return $horarios;
+    }
+
         public function getHorarios(){
 
-                $query = "select * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1";
+                $query = "SELECT * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -23,7 +32,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getHorariosPromotores(){
                 
-                $query = "select * from ACADEMIA.horario where estado = 1";
+                $query = "SELECT * from ACADEMIA.horario where estado = 1";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -32,7 +41,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         public function getHorariosVacantes($idHorario){
-                $query = "select vacantes from ACADEMIA.horario where id = '$idHorario' ";
+                $query = "SELECT vacantes from ACADEMIA.horario where id = '$idHorario' ";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -42,7 +51,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getHorariosDiscapacitados(){
         
-                $query = "select * from ACADEMIA.horario where discapacitados = 1";
+                $query = "SELECT * from ACADEMIA.horario where discapacitados = 1";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -53,7 +62,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getHorariosComplejos($idcomplejo){
         
-                $query ="select rtrim(dis.dis_descripcion) as nombreDisciplina,
+                $query ="SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
                         dis.dis_codigo as idDisciplina,
                         hor.id as idHorario,
                         hor.turno as turno,
@@ -83,7 +92,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getHorariosIndividual($idHorario, $idDisciplina){
                 
-                $query = "select rtrim(dis.dis_descripcion) as nombreDisciplina,
+                $query = "SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
                         dis.dis_codigo as idDisciplina,
                         hor.id as idHorario,
                         hor.turno as turno,
@@ -110,7 +119,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getCapturarEdiCodigo($idComplejo, $idDisciplina){
 
-                $query="select edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
+                $query="SELECT edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -118,23 +127,23 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $horarios;
         }
 
-        public function getActualizarHorarios($idHorario, $vacantes, $convocatoria){
+        public function getActualizarHorarios($idHorario, $vacantes, $convocatoria, $usuario){
 
-                $query = "update academia.horario set convocatoria = $convocatoria, vacantes = $vacantes from academia.horario where id = $idHorario";
+                $query = "UPDATE academia.horario set convocatoria = $convocatoria, vacantes = $vacantes, usuario_modif = $usuario,fecha_modif = getDate() from academia.horario where id = $idHorario";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
 
         }
 
-        public function getOcultarHorario($idHorario){
-                $query = "update academia.horario set estado = 0 where id= $idHorario";
+        public function getOcultarHorario($idHorario, $usuario){
+                $query = "UPDATE academia.horario set estado = 0, usuario_elimina = $usuario, fecha_eliminacion = getDate() where id= $idHorario";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
         }
 
         public function getMostrarCambios($idHorario){
 
-                $query = "select * from academia.horario where id='$idHorario'";
+                $query = "SELECT * from academia.horario where id='$idHorario'";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -144,7 +153,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         }
         public function getActualizarVacantesHorarios($idHorario){
 
-                $query = "update academia.horario set vacantes = (vacantes - 1) where id = $idHorario and vacantes > 0";
+                $query = "UPDATE academia.horario set vacantes = (vacantes - 1) where id = $idHorario and vacantes > 0";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
 
@@ -152,7 +161,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getAcumularInscritos($idHorario){
 
-                $query = "update academia.horario set inscritos = (inscritos + 1) where id = $idHorario ";
+                $query = "UPDATE academia.horario set inscritos = (inscritos + 1) where id = $idHorario ";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
         
@@ -160,7 +169,7 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
 
         public function getHorarioBeneficiario($idHorario){
 
-                $query = "select rtrim(dis.dis_descripcion) as nombreDisciplina,
+                $query = "SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
                         dis.dis_codigo as idDisciplina,
                         hor.id as idHorario,
                         hor.turno as turno,
@@ -189,17 +198,30 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
         }
 
         public function getBeneficiarios($idHorario){
-                $query = "select (a.apellidoPaterno+' '+a.apellidoMaterno+' '+a.nombre) as nombre,
-                        a.id as idParticipante,
-                        a.dni as dni, (cast(datediff(dd,a.fechaNacimiento,GETDATE()) / 365.25 as int)) as edad,
-                        a.sexo as sexo, 
-                        a.estado as estadoParticipante,
-                        b.id as idHorario, 
-                        c.id as idInscribete,
-                        c.estado as estadoInscribete   
-                        from
-                        academia.inscribete c inner join academia.horario b on c.horario_id = b.id 
-                        inner join academia.participante a on c.participante_id = a.id where b.id = $idHorario and c.estado = 2";
+
+                $query ="SELECT (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
+                        par.id as idParticipante,
+                        per.perdni as dni, (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                        per.persexo as sexo,
+                        hor.id as idHorario, 
+                        ins.id as idInscribete,
+                        ins.estado as estadoInscribete,
+                        mov.categoria_id as idCategoria,
+                        mov.asistencia_id as idAsistencia,
+                        mov.fecha_modificacion as fechita
+                        FROM 
+                        ACADEMIA.inscribete ins 
+                        inner join 
+                        (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id
+                        FROM ACADEMIA.movimientos m
+                        GROUP BY m.inscribete_id) ids
+                        ON ins.id = ids.mov_ins_id
+                        inner join academia.horario hor on ins.horario_id = hor.id
+                        inner join academia.participante par on ins.participante_id = par.id
+                        inner join academia.movimientos mov on mov.id = ids.mov_id
+                        inner join grpersona per on per.percodigo = par.percodigo
+                        WHERE hor.id = $idHorario and ins.estado = 2";
+                
 
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
@@ -208,9 +230,9 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $beneficiarios;
         }
 
-        public function getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados){
+        public function getDiferenciarHorarios($turno,$edadMinima,$edadMaxima,$horaInicio,$horaFin,$discapacitados,$codigoEdi){
                
-                $query="select turno from academia.horario where turno ='$turno' and edadMinima=$edadMinima and edadMaxima=$edadMaxima and horaInicio='$horaInicio' and horaFin='$horaFin' and discapacitados=$discapacitados";
+                $query="SELECT turno from academia.horario where turno ='$turno' and edadMinima=$edadMinima and edadMaxima=$edadMaxima and horaInicio='$horaInicio' and horaFin='$horaFin' and discapacitados=$discapacitados and edi_codigo=$codigoEdi";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();
@@ -218,5 +240,6 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $horarios;
 
         }
+
 
 }
