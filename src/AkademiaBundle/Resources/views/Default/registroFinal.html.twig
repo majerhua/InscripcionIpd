@@ -103,10 +103,10 @@
 
 		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')  %}
 
-		<div class="row">
+		<div class="row proceso">
 
-			<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
-					<div class="card">
+			<div class="container-card col-xs-12 col-sm12 col-md-4 col-ld-5">
+				<div class="card">
 						<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
 						<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
 						<hr>
@@ -117,7 +117,6 @@
 						<div class="row">
 							<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" id="inscribirPreinscrito"><button id="btn-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
 
-							<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><button class="btn btn-default" style="margin: 5px;">Salir</button></a>-->
 						</div>
 						
 						<hr>
@@ -252,26 +251,6 @@
 	</div>
 
 </div>
-
-{#
-<div id="myModal" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">OTRAS EDADES</h4>
-			</div>
-			<div class="modal-body">
-				<div class="horario-otrasEdades" >
-				</div>
-			</div>
-			<div class="modal-footer">
-				<br>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>#}
 
 {% endblock %}
 

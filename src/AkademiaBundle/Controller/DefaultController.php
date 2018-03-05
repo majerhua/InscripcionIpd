@@ -849,6 +849,7 @@ class DefaultController extends Controller
     public function estadoBeneficiarioAction(Request $request){
        
         if($request->isXmlHttpRequest()){
+            
             $idFicha = $request->request->get('idFicha');
             $idAsistencia = $request->request->get('idAsistencia');
             $idCategoria = $request->request->get('idCategoria');
