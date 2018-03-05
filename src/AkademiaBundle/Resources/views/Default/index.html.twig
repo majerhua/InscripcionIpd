@@ -482,152 +482,7 @@
 	</div>
 </div>
 
-<div class="proceso">
-	<div class="proceso row" id="process5">
 
-		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')  %}
-
-			<div class="container-card col-xs-12 col-sm-8 col-md-6 col-ld-6">
-				<div class="card">
-					<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
-					<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
-					<hr>
-					
-					<div id="alerta-confirmacionFicha" class="alert alert-success collapse"></div>
-					<div id="alerta-errorFicha" class="alert alert-danger collapse"></div>
-
-					<div class="row">
-						<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right" id="inscribirPreinscrito"><button id="btn-inscripcion" class="btn btn-danger" style="margin: 5px;">Confirmar Inscripción</button></a>
-
-						<!--<a href="{{url('akademia_homepage')}}" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><button class="btn btn-default" style="margin: 5px;">Salir</button></a>-->
-					</div>
-					
-					<hr>
-					<div class="pdf_inscripcion__ficha row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
-								<p>Código de ficha</p>
-								<p>Nombre</p>
-								<p>Apellido Paterno</p>
-								<p>Apellido Materno</p>
-								<p>Distrito</p>
-								<p>Domicilio</p>
-								<p>Fecha Nacimiento</p>
-								<p>Teléfono</p>
-								<p>DNI</p>
-								<p>Edad</p>
-								<p>Email</p>
-								<p>Deporte</p>
-								<p>Complejo</p>
-								<p>Horario</p>
-							</div>
-
-							<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
-								<p id="codigo-inscripcionRef"></p>
-								<p id="nombre-ficha"></p>
-								<p id="apellidoPaterni-ficha"></p>
-								<p id="apellidoMaterno-ficha"></p>
-								<p id="distrito-ficha"></p>
-								<p id="domicilio-ficha"></p>
-								<p id="fechaNacimiento-ficha"></p>
-								<p id="telefono-ficha"></p>
-								<p id="dni-ficha"></p>
-								<p id="edad-ficha"></p>
-								<p id="email-ficha"></p>
-								<p id="deporte-ficha"></p>
-								<p id="complejo-ficha"></p>
-								<p id="horario-ficha"></p>
-								<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
-							</div>
-						</div>
-						
-					</div>
-					<hr>
-				</div>
-			</div>
-
-		{% else %}
-
-		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
-			<div class="card">
-				<p class="title-card text-center">PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
-				<hr>
-				<p class="text-center">
-					Acércate al complejo que eligiste para finalizar tu inscripción.
-				</p><br>
-				<p class="text-center" style="color: #BB2626">
-					<strong>NO SE RESERVAN VACANTES.</strong>
-				</p>
-				<div class="lista-requisitos"> 
-					<p><strong>OBLIGATORIO</strong></p>
-					<ol>
-						<li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado.</li>
-						<li>DNI del menor de edad y del apoderado (original y copia).</li>
-						<li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li>
-						<li>Foto tamaño carnet del menor de edad (actual). </li>
-					</ol>
-				</div>
-				<hr>
-				<div class="row">
-					<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href="" id="ancla-imprimir-fichaInscripcion"  target="_blank" ><button id="btn-imprimir-fichaInscripcion"  class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;" ></i> Imprimir Ficha</button></a>
-
-					<a class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center" href=""  id="ancla-imprimir-declaracion-jurada" target="_blank"><button id="btn-imprimir-declaracion-jurada" class="btn btn-danger" style="margin: 5px;"><i class="icon-print" style="font-size:1.3em;"></i> Imprimir Declaración Jurada</button></a>
-				</div>
-			</div>
-		</div>
-
-		<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
-			<div class="card">
-				<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
-				<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
-				<hr>
-				
-				<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
-				<div id="alerta-error" class="alert alert-danger collapse"></div>
-				
-				<div class="pdf_inscripcion__ficha row">
-					<div class="campos col-xs-4 col-sm-4 col-md-4 col-lg-4"> 	
-
-						<p>Nombre</p>
-						<p>Apellido Paterno</p>
-						<p>Apellido Materno</p>
-						<p>Distrito</p>
-						<p>Domicilio</p>
-						<p>Fecha Nacimiento</p>
-						<p>Teléfono</p>
-						<p>DNI</p>
-						<p>Edad</p>
-						<p>Email</p>
-						<p>Deporte</p>
-						<p>Complejo</p>
-						<p>Horario</p>
-					</div>
-
-					<div class="valores col-xs-8 col-sm-8 col-md-8 col-lg-8"> 
-						<p id="nombre-ficha"></p>
-						<p id="apellidoPaterni-ficha"></p>
-						<p id="apellidoMaterno-ficha"></p>
-						<p id="distrito-ficha"></p>
-						<p id="domicilio-ficha"></p>
-						<p id="fechaNacimiento-ficha"></p>
-						<p id="telefono-ficha"></p>
-						<p id="dni-ficha"></p>
-						<p id="edad-ficha"></p>
-						<p id="email-ficha"></p>
-						<p id="deporte-ficha"></p>
-						<p id="complejo-ficha"></p>
-						<p id="horario-ficha"></p>
-						<input type="hidden" name="codigo-inscripcion" id="codigo-inscripcion">
-					</div>
-				</div>
-				<hr>
-			</div>
-		</div>
-
-		{% endif %}
-		
-	</div>
-</div>
 
 </section>
 <br><br>
@@ -692,7 +547,6 @@
 			},
 			success:function(data){
 				$(containerPaso4).append(data);
-				//$(containerPaso4).append(data);
 			},
 			error:function(error){
 				console.log(error);
@@ -737,8 +591,8 @@
 	$('#cbx-discapacidad').on( 'click', function() {
 	    if($(this).is(':checked'))
 	    {
-	        sessionStorage.removeItem('flagDiscapacitado');
-	        sessionStorage.setItem('flagDiscapacitado',$(this).val());
+	    	sessionStorage.removeItem('flagDiscapacitado');
+      	sessionStorage.setItem('flagDiscapacitado',$(this).val());        
 	    }
 	});
 	function mayus(e) {
@@ -1014,7 +868,7 @@
 	$("#proceso2").hide();
 	$("#proceso3").hide();
 	$("#process4").hide();
-	$("#process5").hide();
+	
 	function isValidDate(day,month,year){
 					
 		var dteDate;
@@ -1218,6 +1072,7 @@ $("#boton3").on('click',function(){
 				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
 					$("#proceso3").hide();
 					//$("#process4").show();	
+					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
 					pageHorario(1);
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');	
@@ -1229,7 +1084,8 @@ $("#boton3").on('click',function(){
 				if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
 					$("#proceso3").hide();
 					//$("#process4").show();
-					pageHorario(1);	
+					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
+					pageHorario(0);	
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');		
 				}else{
@@ -1240,95 +1096,7 @@ $("#boton3").on('click',function(){
 		}
     }
 });
-$("#boton-next-final").on('click',function(){
-	var disciplinaDeportiva = document.getElementById('disciplinaDeportiva').value;
-	var horario =document.getElementById('horario').value;
-	
-	if( disciplinaDeportiva=="" || horario==""){
-			alertify.error('<p style="color:white">Debe seleccionar Disciplina y/o Horario </p>'); 
-	}else{
-		
-		registrar();
-	}
-});
-function registrar(){
-	var dataRegisterApoderado={
-		//DATOS APODERADO
-		"dni" : sessionStorage.getItem('dni-apoderado'),
-		"apellidoPaterno" : sessionStorage.getItem('apellidoPaterno-apoderado'),
-		"apellidoMaterno" : sessionStorage.getItem('apellidoMaterno-apoderado'),
-		"nombre" : sessionStorage.getItem('nombre-apoderado'),
-		"fechaNacimiento" : sessionStorage.getItem('fechaNacimiento-apoderado'),
-		"sexo" : sessionStorage.getItem('sexo-apoderado'),
-		"distrito" : sessionStorage.getItem('distrito-apoderado'),
-		"direccion" : sessionStorage.getItem('direccion-apoderado'),
-		"telefono" : sessionStorage.getItem('telefono-apoderado'),
-		"correo" : sessionStorage.getItem('correo-apoderado'),
-		//HORARIO
-		'idHorario' : sessionStorage.getItem('idHorario'),
-		//DATOS HIJO
-		"dniParticipante" : sessionStorage.getItem('dni-participante'),
-		"apellidoPaternoParticipante" : sessionStorage.getItem('apellidoPaterno-participante'),
-		"apellidoMaternoParticipante" : sessionStorage.getItem('apellidoMaterno-partcipante'),
-		"nombreParticipante" : sessionStorage.getItem('nombre-partcipante'),
-		"fechaNacimientoParticipante" : sessionStorage.getItem('fechaNacimiento-partcipante'),
-		"sexoParticipante" : sessionStorage.getItem('sexo-partcipante'),
-		"parentesco" : sessionStorage.getItem('parentesco-partcipante'),
-		"tipoSeguro" : sessionStorage.getItem('tipoSeguro-partcipante'),
-		"discapacidad" :sessionStorage.getItem('flagDiscapacitado')
-	};
-	console.log("DATOS A REGISTRAR => ",dataRegisterApoderado);
-	$.ajax({
-		type:'POST',
-		dataType: "json",
-		url: "{{url('akademia_registrar')}}",
-		data: dataRegisterApoderado,
-		beforeSend: function(){	
-			$("#boton-next-final").attr("disabled", true);		
-		},
-		success: function(data){
-			$("#boton-next-final").attr("disabled", false);
-			if(data != 1){
-				$(".bar-inscripcion__4").removeClass('active');
-				$(".bar-inscripcion__5").addClass('active');
-				$("#process4").hide();
-				$("#process5").show();
-				var valor =JSON.parse(data)[0];
-				sessionStorage.removeItem("idInscripcion");
-				sessionStorage.setItem("idInscripcion",valor.id);
-				$("#ancla-imprimir-fichaInscripcion").attr('href',"/academia/web/ajax/pdf/inscripcion/"+sessionStorage.getItem("idInscripcion"));
-				$("#ancla-imprimir-declaracion-jurada").attr('href',"/academia/web/ajax/pdf/declaracion-jurada/"+sessionStorage.getItem("idInscripcion"));
-				$("#codigo-inscripcionRef").append(valor.id);
-				$("#nombre-ficha").append(valor.pernombres);
-				$("#apellidoPaterni-ficha").append(valor.perapepaterno);
-				$("#apellidoMaterno-ficha").append(valor.perapematerno);
-				$("#distrito-ficha").append(valor.distrito);
-				$("#domicilio-ficha").append(valor.perdomdireccion);
-				$("#fechaNacimiento-ficha").append(valor.perfecnacimiento);
-				$("#telefono-ficha").append(valor.pertelefono);
-				$("#dni-ficha").append(valor.dni);
-				$("#edad-ficha").append(sessionStorage.getItem("edad"));
-				$("#email-ficha").append(valor.percorreo);
-				$("#deporte-ficha").append(valor.nombreDisciplina);
-				$("#complejo-ficha").append(valor.nombreComplejo);
-				$("#horario-ficha").append(valor.horaInicio+" a "+valor.horaFin);
-				$("#nombrePadre-declaracion-jurada").append(valor.nombrePadre);
-				$("#codigo-inscripcion").val(valor.id);
-			    enviarEmailApoderado(valor.percorreo,valor.nombrePadre,valor.id);
-			}else{
-				showAlertMessage('#alerta-error', "Lo sentimos, se agotaron las vacantes para este horario. ");
-				$("#boton-next-final").attr("disabled", true);
-				$("#process5").hide();
-			}			
-		
-		},
-		error: function(error){
-			console.log(error.responseText);			
-			console.log("Error - oh no!");
-		}
-			
-	});
-}
+
 $("#inscribirPreinscrito").on('click',function(){
 	var id = $('#codigo-inscripcion').val();
 	console.log(id);

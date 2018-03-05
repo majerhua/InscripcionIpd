@@ -101,7 +101,7 @@ class DefaultController extends Controller
    {
         if($request->isXmlHttpRequest()){
             $idHorario = $request->request->get('idHorario');
-            $usuario = $this->getUser()->getId();
+            //$usuario = $this->getUser()->getId();
         
             $em = $this->getDoctrine()->getManager();
             $vacantesHorario = $em->getRepository('AkademiaBundle:Horario')->getHorariosVacantes($idHorario);
