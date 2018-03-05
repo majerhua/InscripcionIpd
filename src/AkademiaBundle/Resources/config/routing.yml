@@ -10,7 +10,13 @@ akademia_homepage:
 akademia_contador:
     path:     /contador
     defaults: { _controller: AkademiaBundle:Default:contador }
+
+
+akademia_registroFinal:
+    path:     /registrofinal/{estado}
+    defaults: { _controller: AkademiaBundle:Default:registroFinal }
     methods:  [GET,POST]
+
 
 akademia_registrar:
     path:     /ajax/registrar

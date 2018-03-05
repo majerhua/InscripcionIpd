@@ -41,10 +41,20 @@ class DisciplinaDeportivaRepository extends \Doctrine\ORM\EntityRepository
 
         }
 
-        public function getEditarDiscapacitado($idDisciplina, $usuario){
+    public function disciplinasDeportivasFlagAll($flagDis)
+    {
+        $query = "select distinct eddis.edi_codigo as id, eddis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,edde.ede_discapacitado as discapacidad
+            from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde, CATASTRO.disciplina as dis where hor.discapacitados='$flagDis'  and dis_estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and dis.dis_codigo=eddis.dis_codigo and hor.estado=1 and hor.vacantes<>0 and hor.convocatoria=1;";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $disciplinasDeporivas = $stmt->fetchAll();
+        return $disciplinasDeporivas;
+    }
 
-                $query = "UPDATE catastro.disciplina set dis_discapacitado = 1, dis_usumodi = $usuario, dis_fechamodi = getDate() where dis_codigo= $idDisciplina";
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-        }
+    public function getEditarDiscapacitado($idDisciplina, $usuario){
+
+            $query = "UPDATE catastro.disciplina set dis_discapacitado = 1, dis_usumodi = $usuario, dis_fechamodi = getDate() where dis_codigo= $idDisciplina";
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+    }
 }

@@ -52,7 +52,6 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         return $codigo;
     }
 
-
     public function getActualizarApoderado($idApod, $idParticipante){
         $query = "UPDATE ACADEMIA.participante SET apoderado_id ='$idApod'  WHERE id='$idParticipante'; ";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -65,7 +64,5 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
     }
-
-
 }
 

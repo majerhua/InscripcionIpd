@@ -11,6 +11,15 @@ namespace AkademiaBundle\Repository;
 class HorarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
+    public function horariosFlagAll($flagDis)
+    {
+            $query = "SELECT * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1 and discapacitados='$flagDis';";
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+            $horarios = $stmt->fetchAll();
+            return $horarios;
+    }
+
         public function getHorarios(){
 
                 $query = "SELECT * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1";
