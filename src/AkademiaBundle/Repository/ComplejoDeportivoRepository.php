@@ -55,13 +55,11 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 
 
 	public function nombreComplejo($idComplejo){
-
 		$query = "SELECT b.ede_nombre as nombreComplejo from academia.usuario a inner join catastro.edificacionesdeportivas b on a.id_complejo = b.ede_codigo where a.id_complejo = $idComplejo";
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
 		$stmt->execute();
 		$nombre = $stmt->fetchAll();
 
 		return $nombre;
-
 	}
 }
