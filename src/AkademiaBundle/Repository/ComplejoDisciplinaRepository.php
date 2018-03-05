@@ -14,8 +14,7 @@ class ComplejoDisciplinaRepository extends \Doctrine\ORM\EntityRepository
 	public function getComplejoDisciplinas(){
 
        $query = "SELECT  edi_codigo as id, edidis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,ediComplejo.ede_discapacitado as discapacidad
-			from CATASTRO.edificacionDisciplina as edidis inner join CATASTRO.disciplina as dis on edidis.dis_codigo = dis.dis_codigo inner join CATASTRO.edificacionesdeportivas as ediComplejo 
-			on edidis.ede_codigo=ediComplejo.ede_codigo";
+			from CATASTRO.edificacionDisciplina as edidis inner join CATASTRO.disciplina as dis on edidis.dis_codigo = dis.dis_codigo inner join CATASTRO.edificacionesdeportivas as ediComplejo on edidis.ede_codigo=ediComplejo.ede_codigo";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $complejosDeportivos = $stmt->fetchAll();

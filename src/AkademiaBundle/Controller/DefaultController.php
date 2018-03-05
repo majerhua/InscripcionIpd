@@ -44,15 +44,26 @@ class DefaultController extends Controller
         $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado);
 
         $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado);
+        $Role = $this->getUser();
 
-        $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
-        
+
+        if($Role == null){
+            
+            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
+
+        }else{
+          
+            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->getHorariosPromotores();   
+        }
+
         return $this->render('AkademiaBundle:Default:registroFinal.html.twig' , array('departamentosFlag' => $mdlDepartamentosFlag , "provinciasFlag" => $mdlProvinciasFlag ,'distritosFlag' => $mdlDistritosFlag,'departamentos'=>$mdlDepartamentos,'provincias'=>$mdlProvincias,'distritos'=>$mdlDistritos, 'complejosDeportivos' => $mdlComplejosDeportivosFlag, 'disciplinasDeportivas' => $mdlDisciplinasDeportivasFlag ,'horarios' => $mdlhorariosFlag ));     
     }
     
     public function indexAction(Request $request){
         if($request->isXmlHttpRequest()){
+            
             $parentesco = $request->request->get('persona');
+            
             if($parentesco == "apoderado" || $parentesco == "hijo"){
                 $dni = $request->request->get('dni');
                 $refAp = $this->getDoctrine()->getManager();
@@ -73,7 +84,8 @@ class DefaultController extends Controller
                     return new JsonResponse($mensaje);
                 }
             }
-        }     
+        }   
+
         $em2 = $this->getDoctrine()->getManager();
         $mdlDitritoCD = $em2->getRepository('AkademiaBundle:Distrito')->getDitritosCD();
         $mdlProvinciasCD = $em2->getRepository('AkademiaBundle:Distrito')->getProvinciasCD();
@@ -83,28 +95,21 @@ class DefaultController extends Controller
         $mdlDistrito = $em2->getRepository('AkademiaBundle:Distrito')->getDistritos();
         $mdlComplejoDeportivo = $em2->getRepository('AkademiaBundle:ComplejoDeportivo')->getComplejosDeportivos();
         $mdlComplejoDisciplina = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejoDisciplinas();
-        $session = $this->isGranted('IS_AUTHENTICATED_ANONYMOUSLY');
-        $Role = $this->getUser();
-        if($Role == null){
-            $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorarios();
-        }else{
-            $mdlHorario = $em2->getRepository('AkademiaBundle:Horario')->getHorariosPromotores();   
-        }
+    
         
-        return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "horarios" => $mdlHorario,"departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD ));     
+        return $this->render('AkademiaBundle:Default:index.html.twig' , array("complejosDeportivo" => $mdlComplejoDeportivo , "complejosDisciplinas" => $mdlComplejoDisciplina , "departamentos" => $mdlDepartamento,"provincias" => $mdlProvincia ,"distritos" => $mdlDistrito ,'ditritosCD' => $mdlDitritoCD , "departamentosCD" => $mdlDepartamentosCD ,'provinciasCD' => $mdlProvinciasCD ));     
     }
+
     public function consultaAction(Request $request)
     {
         return $this->render('AkademiaBundle:Default:cuestions.html.twig');
     }
-   public function registrarAction(Request $request)
-   {
+
+    public function registrarAction(Request $request)
+    {
         if($request->isXmlHttpRequest()){
+            
             $idHorario = $request->request->get('idHorario');
-
-           // $usuario = $this->getUser()->getId();
-
-            //$usuario = $this->getUser()->getId();
 
             $em = $this->getDoctrine()->getManager();
             $vacantesHorario = $em->getRepository('AkademiaBundle:Horario')->getHorariosVacantes($idHorario);
@@ -381,10 +386,13 @@ class DefaultController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $data = $em->getRepository('AkademiaBundle:Inscribete')->getCantInscripciones($idParticipante);
                 $cantRegistros = $data[0]['cantidadRegistros'];
-                if((Int)$cantRegistros > 2){
+              //  var_dump($cantRegistros);
+
+                if($cantRegistros > 2){
                     
                     $mensaje = 4;
                     return new JsonResponse($mensaje);
+
                 }else{
                     if( $estadoFicha == 0){
                         $em = $this->getDoctrine()->getManager();
@@ -837,6 +845,7 @@ class DefaultController extends Controller
      
         return $this->render('AkademiaBundle:Default:beneficiarios.html.twig', array("horarios" => $Horarios, "beneficiarios" => $Beneficiarios, "asistencias" => $Asistencias, "categorias" => $Categorias, "asistentes" => $movAsis, "retirados" => $movRet, "seleccionados" => $movEva, "id" =>$idHorario));
     }
+    
     public function estadoBeneficiarioAction(Request $request){
        
         if($request->isXmlHttpRequest()){
@@ -844,12 +853,11 @@ class DefaultController extends Controller
             $idAsistencia = $request->request->get('idAsistencia');
             $idCategoria = $request->request->get('idCategoria');
             $usuario = $this->getUser()->getId();
+           
             $em = $this->getDoctrine()->getManager();
             $nuevoMovimiento = $em->getRepository('AkademiaBundle:Movimientos')->nuevoMovimiento($idCategoria, $idAsistencia, $idFicha,$usuario);
-          
 
             if($idAsistencia == 3){
-
 
                 $em = $this->getDoctrine()->getManager();
                 $nuevoMovimiento = $em->getRepository('AkademiaBundle:Inscribete')->getBeneficiarioRetirado($idFicha);

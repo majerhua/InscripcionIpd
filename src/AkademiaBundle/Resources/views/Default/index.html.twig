@@ -1097,46 +1097,7 @@ $("#boton3").on('click',function(){
     }
 });
 
-$("#inscribirPreinscrito").on('click',function(){
-	var id = $('#codigo-inscripcion').val();
-	console.log(id);
-	var dataFicha = {
-		"id" : id,
-	}
-	$.ajax({
-		type:'POST',
-		dataType: 'json',
-		url: "{{url('akademia_cambiarestado')}}",
-		data: dataFicha,
-		beforeSend: function(){	
-			$("#btn-inscripcion").attr("disabled", true);	
-		},
-		success: function(data){
-			if (data == 1){
-				
-				$("#btn-confirmar-inscripcion").attr("disabled", true);
-				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-confirmacionFicha', "Ficha inscrita exitosamente !");
-			
-			}else if( data == 2){
-				$("#btn-confirmar-inscripcion").attr("disabled", true);
-				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-errorFicha', "No existen vacantes disponibles para este Horario. ");
-			}else if( data == 3){
-				$("#btn-confirmar-inscripcion").attr("disabled", true);
-				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-errorFicha', "Este alumno ya se encuentra inscrito en esta disciplina. ");
-			}else if( data == 4){
-				$("#btn-confirmar-inscripcion").attr("disabled", true);
-				$('#input-codigo-inscripcion').focus();
-				showAlertMessage('#alerta-errorFicha', "El alumno excedió la cantidad de Inscripciones posibles.");
-			}
-		},
-		error: function(error){
-			console.log("Error en la captura de datos");
-		}
-    });
-});
+
 function enviarEmailApoderado($correoApod,$nombre,$id){
 	var correoApoderado = {
 		"correo" : $correoApod,

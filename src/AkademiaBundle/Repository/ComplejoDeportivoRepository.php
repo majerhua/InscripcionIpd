@@ -24,9 +24,6 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getComplejosDeportivosDiscapacitados()
 	{
-
-		$query = "select ede_codigo as id, ede_nombre as nombre ,ubicodigo, ede_direccion as direccion, ede_estado as estado,ede_discapacitado as discapacidad from CATASTRO.edificacionesdeportivas where ede_discapacitado='1';";
-
 		$query = "SELECT ede_codigo as id, ede_nombre as nombre ,ubicodigo, ede_direccion as direccion, ede_estado as estado,ede_discapacitado as discapacidad from CATASTRO.edificacionesdeportivas where ede_discapacitado='1'";
 
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -38,13 +35,15 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 
 	public function complejosDeportivosFlagAll($flagDis)
 	{
-		$query = "select distinct edde.ede_codigo as id, edde.ede_nombre as nombre ,edde.ubicodigo ,edde.ede_direccion as direccion, edde.ede_estado as estado,edde.ede_discapacitado as discapacitado from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde where hor.discapacitados='$flagDis' and hor.estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and hor.vacantes<>0 and hor.convocatoria=1;";
+		$query = "SELECT distinct edde.ede_codigo as id, edde.ede_nombre as nombre ,edde.ubicodigo ,edde.ede_direccion as direccion, edde.ede_estado as estado,edde.ede_discapacitado as discapacitado from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde where hor.discapacitados='$flagDis' and hor.estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and hor.vacantes<>0 and hor.convocatoria=1;";
+
 		$stmt = $this->getEntityManager()->getConnection()->prepare($query);
 		$stmt->execute();
 		$complejosDeportivos = $stmt->fetchAll();
 		return $complejosDeportivos;
 	}
 
+	
 	public function getEditarDiscapacitado($idComplejo, $usuario){
 	
 		$query = "UPDATE catastro.edificacionesdeportivas set ede_discapacitado = 1, ede_usumodi = $usuario, ede_fechamodi = getDate() where ede_codigo= $idComplejo";
