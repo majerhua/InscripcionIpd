@@ -98,7 +98,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
 
   public function getCantInscripciones($idParticipante){
 
-    $query = "SELECT count(*)as cantidadRegistros from academia.inscribete where participante_id = $idParticipante and estado = 2";
+    $query = "SELECT count(*) cantidadRegistros from academia.inscribete where participante_id = $idParticipante and estado = 2";
     $stmt = $this->getEntityManager()->getConnection()->prepare($query);
     $stmt->execute();
     $datos = $stmt->fetchAll();

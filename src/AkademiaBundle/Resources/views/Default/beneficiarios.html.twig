@@ -171,19 +171,19 @@
 														<td class="text-center"> Masculino </td>
 													{% endif %}
 
-													{% if beneficiario['idCategoria'] == 5 %}
+													{% if beneficiario['idCategoria'] == 1 %}
 														<td class="text-center" >No seleccionado</td>
-													{% elseif beneficiario['idCategoria'] == 6 %}
+													{% elseif beneficiario['idCategoria'] == 2 %}
 														<td class="text-center" >Seleccionado</td>
-													{% elseif beneficiario['idCategoria'] == 7 %}
+													{% elseif beneficiario['idCategoria'] == 3 %}
 														<td class="text-center">Evaluado</td>
 													{% endif %} 
 
-													{% if beneficiario['idAsistencia'] == 4 %}
+													{% if beneficiario['idAsistencia'] == 1 %}
 														<td class="text-center">Inscrito</td>
-													{% elseif beneficiario['idAsistencia'] == 5 %}
+													{% elseif beneficiario['idAsistencia'] == 2 %}
 														<td class="text-center">Asistente</td>
-													{% elseif beneficiario['idAsistencia'] == 6 %}
+													{% elseif beneficiario['idAsistencia'] == 3 %}
 														<td class="text-center">Retirado</td>
 													{% endif %}
 
@@ -336,7 +336,7 @@
 										<select class="form-control" id="asistenciaParticipante">
 											<option value="0">--Seleccionar--</option>
 											{% for asistencia in asistencias %}
-												{% if asistencia['id'] != 4 %}
+												{% if asistencia['id'] != 1 %}
 													<option value="{{asistencia['id']}}">{{asistencia['descripcion']}}</option>
 												{% endif %}
 											{% endfor %}
@@ -354,7 +354,7 @@
 										<select class="form-control" id="categoriaParticipante">
 											<option value="0">--Seleccionar--</option>
 											{% for categoria in categorias %}
-												{% if categoria['id'] != 7 %}
+												{% if categoria['id'] != 3 %}
 												<option value="{{categoria['id']}}">{{categoria['descripcion']}}</option>
 												{% endif %}
 											{% endfor %}

@@ -3,14 +3,14 @@ entradas_list:
     defaults: { _controller: AppBundle:Pruebas:entradas}
 
 akademia_homepage:
-    path:     /contador
+    path:     /
     defaults: { _controller: AkademiaBundle:Default:index }
     methods:  [GET,POST]
 
 akademia_contador:
-    path:     /
-    defaults: { _controller: AkademiaBundle:Default:index }
-    methods:  [GET,POST]
+    path:     /contador
+    defaults: { _controller: AkademiaBundle:Default:contador }
+
 
 akademia_registroFinal:
     path:     /registrofinal/{estado}

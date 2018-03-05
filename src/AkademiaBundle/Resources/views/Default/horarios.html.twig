@@ -103,6 +103,7 @@
 													{% endif %}
  
 													<td id="5h{{horario['idHorario']}}" class="text-center">{{horario['vacantes']}}</td> 
+
 													{% if  horario['discapacidad'] == 0 %}
 														<td id="6h{{horario['idHorario']}}" class="text-center"> No </td> 
 													{% else %}
@@ -1168,6 +1169,7 @@
 										let horaFin = String(dataHorario.horaFin).split(":");
 										
 										tdhorario+='<tr>';
+
 										tdhorario+='<td id="1h'+dataHorario.id+'" class="text-center">'+ dataHorario.id +'</td>';
 										tdhorario+='<td id="2h'+dataHorario.id+'" class="text-center">'+ dataHorario.turno +'</td>';
 										tdhorario+='<td id="3h'+dataHorario.id+'" class="text-center">'+horaInicio[0]+':'+horaInicio[1]+' - '+horaFin[0]+':'+horaFin[1]+'</td>';
@@ -1185,6 +1187,7 @@
 
 
 										tdhorario+='<td id="5h'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
+
 										if (dataHorario.discapacitados == 0){
 											tdhorario+='<td id="6h'+dataHorario.id+'" class="text-center">No</td>';
 										}else{
