@@ -26,6 +26,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
                 horario.horaInicio, 
                 horario.horaFin, 
                 horario.turno, 
+                horario.discapacitados,
                 personaParticipante.pernombres, 
                 personaParticipante.perapepaterno, 
                 personaParticipante.perapematerno, 

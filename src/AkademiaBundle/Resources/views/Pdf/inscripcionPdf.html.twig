@@ -85,7 +85,7 @@
                                 <tr>
                                     <td style="width:100px;    padding-bottom: 4px;"></td>
                                     <td  style="width:40%;    padding-bottom: 4px; font-weight:bold;"> Email:</td>
-                                    <td  style="width:40%;    padding-bottom: 4px;"> {{inscripcion[0]['percorreo']}}</td>
+                                    <td  style="width:40%;    padding-bottom: 4px;">{{inscripcion[0]['percorreo']}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:100px;    padding-bottom: 4px;"></td>
@@ -96,7 +96,19 @@
                                 <tr>
                                     <td style="width:100px;    padding-bottom: 4px;"></td>
                                     <td  style="width:40%;    padding-bottom: 4px; font-weight:bold;"> Disciplina deportiva:</td>
-                                    <td  style="width:40%;    padding-bottom: 4px;"> {{inscripcion[0]['nombreDisciplina']}}</td>
+                                    <td  style="width:40%;    padding-bottom: 4px;">{{inscripcion[0]['nombreDisciplina']}}</td>
+                                </tr>
+
+                                 <tr>
+                                    <td style="width:100px;    padding-bottom: 4px;"></td>
+                                    <td  style="width:40%;    padding-bottom: 4px; font-weight:bold;"> Discapacidad:</td>
+                                    
+                                    {% if inscripcion[0]['discapacitados']  == 0 %}
+                                        <td  style="width:40%;    padding-bottom: 4px;">No </td>
+                                    {% else %}
+                                        <td  style="width:40%;    padding-bottom: 4px;"> Si</td>
+                                    {% endif %}
+
                                 </tr>
 
                                 <tr>

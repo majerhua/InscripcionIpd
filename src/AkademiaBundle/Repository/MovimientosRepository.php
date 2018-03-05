@@ -18,9 +18,9 @@ class MovimientosRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
     }
 
-    public function RegistrarMovInicial($idFicha){
+    public function RegistrarMovInicial($idFicha, $usuario){
     	
-    	$query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id) values (1,1,$idFicha)";
+    	$query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id, usuario_valida) values (1,1,$idFicha,$usuario)";
     	$stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
     }

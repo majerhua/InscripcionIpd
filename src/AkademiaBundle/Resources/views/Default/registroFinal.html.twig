@@ -389,7 +389,7 @@
 								localStorage.removeItem('idHorario');
 								sessionStorage.setItem("idHorario", "{{horario['id']}}");
 								
-								$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
+								$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} " + " de "+horaInicio+" a "+horaFin+"</option>");
 								cantHorarios = cantHorarios + $('#horario').length;
 
 						}else{
@@ -556,7 +556,6 @@ $("#inscribirPreinscrito").on('click',function(){
 		},
 		success: function(data){
 			if (data == 1){
-				
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
 				showAlertMessage('#alerta-confirmacionFicha', "Ficha inscrita exitosamente !");
@@ -565,10 +564,12 @@ $("#inscribirPreinscrito").on('click',function(){
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
 				showAlertMessage('#alerta-errorFicha', "No existen vacantes disponibles para este Horario. ");
+			
 			}else if( data == 3){
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
 				showAlertMessage('#alerta-errorFicha', "Este alumno ya se encuentra inscrito en esta disciplina. ");
+			
 			}else if( data == 4){
 				$("#btn-confirmar-inscripcion").attr("disabled", true);
 				$('#input-codigo-inscripcion').focus();
