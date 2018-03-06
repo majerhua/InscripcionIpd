@@ -254,7 +254,7 @@
 		        <br>
 				<div class="form-group col s12">
                     <label for="direccion">Dirección</label>
-                    <input id="direccion" class="form-control"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
+                    <input id="direccion" class="form-control" maxlength="60"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
                 </div>
                 <br>
                 <div class="row">
@@ -265,7 +265,7 @@
 
 					<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
 	                    <label for="correo">Correo Electrónico </label>
-	                    <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico ">
+	                    <input id="correo" class="form-control" maxlength="30" type="email" name="correo" placeholder="Ingresar Correo Electrónico ">
 	                </div>
                 </div>
 				<hr>
@@ -464,8 +464,10 @@
 	jQuery('#dniApoderado, #dni-hijo').on('keypress', function (e) {
 
 	    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47 || e.keyCode == 69 ) {
+
 	        return false;
 	    }
+
 	    soloNumeros(e.keyCode);
 	});
 	
@@ -481,7 +483,16 @@
 		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
 			return false;
 		}
+
 		noCaracteresEspeciales(e.keyCode);
+	});
+
+	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keydown',function(e){
+
+		if(e.keyCode==86 && e.ctrlKey){
+			return false;
+		}
+
 	});
 
 	function noCaracteresEspeciales(e){
@@ -1086,8 +1097,10 @@ function enviarEmailApoderado($correoApod,$nombre,$id){
 		}	
 	});
 }
+
 $('.cargarDatosApoderado').hide();	
 $(".mensajeEdad").empty();
+	
 	function buscarDniApoderado(refDni){
 		if(refDni.value !=''){
 			datoDniPersona = {
@@ -1118,22 +1131,53 @@ $(".mensajeEdad").empty();
 			if(data != 1){
 				var dataApoderado = JSON.parse(data);
 				console.log("Busqueda DNI ==> ",dataApoderado);
+				
 					$(dataApoderado).each(function(index,valor){
-						if(valor.edad >=18){
-			                $("#apellidoPaterno").attr('readonly', true);
-			                $("#apellidoMaterno").attr('readonly', true);
-			                $("#nombre").attr('readonly', true);
-			                $("#fechaNacimiento").attr('readonly', true);
-			                $("#sexo").attr('readonly', true);
-			                $("#apellidoPaterno").val(valor.apellidoPaterno);
-			                $("#apellidoMaterno").val(valor.apellidoMaterno);
-			                $("#nombre").val(valor.nombre);
-			                $("#fechaNacimiento").val(valor.fechaNacimiento);
-			                if(valor.sexo == 1){
-			                    $("#sexo").val('1');	
-			                }else{
-			                    $("#sexo").val('0');
-			                }
+						if(valor.edad >=18 || valor.fechaNacimiento == null){
+
+							if (valor.apellidoMaterno != '') {
+				                $("#apellidoMaterno").val(valor.apellidoMaterno);
+				                $("#apellidoMaterno").attr('readonly', true);
+							}else{
+				                $("#apellidoMaterno").val('');
+				                $("#apellidoMaterno").attr('readonly', false);
+							}
+
+							if (valor.apellidoPaterno != '') {
+				                $("#apellidoPaterno").val(valor.apellidoPaterno);
+				                $("#apellidoPaterno").attr('readonly', true);
+							}else{
+				                $("#apellidoPaterno").val('');
+				                $("#apellidoPaterno").attr('readonly', false);
+							}
+
+							if (valor.nombre != '') {
+				                $("#nombre").val(valor.nombre);
+				                $("#nombre").attr('readonly', true);
+							}else{
+				                $("#nombre").val('');
+				                $("#nombre").attr('readonly', false);
+							}
+
+							if (valor.fechaNacimiento != null) {
+				                $("#fechaNacimiento").val(valor.fechaNacimiento);
+				                $("#fechaNacimiento").attr('readonly', true);
+							}else{
+				                $("#fechaNacimiento").val('');
+				                $("#fechaNacimiento").attr('readonly', false);
+							}
+
+							if (valor.sexo > 0 && valor.sexo < 2) {
+				                if(valor.sexo == 1){
+				                    $("#sexo").val('1');	
+				                }else{
+				                    $("#sexo").val('0');
+				                }
+				                $("#sexo").attr('readonly', true);
+							}else{
+				                $("#sexo").attr('readonly', false);
+							}
+
 			            }
 						else{
 						 	$(".mensajeEdad").empty();
@@ -1151,6 +1195,9 @@ $(".mensajeEdad").empty();
 			      
 						}
 					});	
+
+
+
 				}else{
 					$(".mensajeEdad").empty();
 		            $("#apellidoPaterno").val('');
@@ -1214,24 +1261,57 @@ $(".mensajeEdad").empty();
 				if(data != 1){
 					var dataHijo = JSON.parse(data);
 					console.log("Busqueda DNI ==> ",dataHijo);
+				
 						$(dataHijo).each(function(index,valor){
 							//if(valor.edad <= 17 ){
-                                $("#apellidoPaterno-hijo").attr('readonly', true);
-                                $("#apellidoMaterno-hijo").attr('readonly', true);
-                                $("#nombre-hijo").attr('readonly', true);
-                                $("#fechaNacimiento-hijo").attr('readonly', true);
-                                $("#sexo-hijo").attr('readonly', true);
-                                                                
-								$("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
-								$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
-								$("#nombre-hijo").val(valor.nombre);
-								$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
-								$("#sexo-hijo").val(valor.sexo);
+
+								if (valor.apellidoPaterno != '') {
+					                $("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
+					                $("#apellidoPaterno-hijo").attr('readonly', true);
+								}else{
+					                $("#apellidoPaterno-hijo").val('');
+					                $("#apellidoPaterno-hijo").attr('readonly', false);
+								}
+
+								if (valor.apellidoMaterno != '') {
+					                $("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
+					                $("#apellidoMaterno-hijo").attr('readonly', true);
+								}else{
+					                $("#apellidoMaterno-hijo").val('');
+					                $("#apellidoMaterno-hijo").attr('readonly', false);
+								}
+
+								if (valor.nombre != '') {
+					                $("#nombre-hijo").val(valor.nombre);
+					                $("#nombre-hijo").attr('readonly', true);
+								}else{
+					                $("#nombre-hijo").val('');
+					                $("#nombre-hijo").attr('readonly', false);
+								}
+
+								if (valor.fechaNacimiento != null) {
+					                $("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
+					                $("#fechaNacimiento-hijo").attr('readonly', true);
+								}else{
+					                $("#fechaNacimiento-hijo").val('');
+					                $("#fechaNacimiento-hijo").attr('readonly', false);
+								}
+
+								if (valor.sexo > 0  && valor.sexo < 2) {
+					                if(valor.sexo == 1){
+					                    $("#sexo-hijo").val('1');	
+					                }else{
+					                    $("#sexo-hijo").val('0');
+					                }
+					                $("#sexo-hijo").attr('readonly', true);
+								}else{
+					                $("#sexo-hijo").attr('readonly', false);
+								}
 								
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
-						});					
-					
+						});
+
 						$('.cargarDatosParticipante').hide();
 				}else{
 						sessionStorage.removeItem("edad");

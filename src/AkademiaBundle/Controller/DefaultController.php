@@ -157,7 +157,8 @@ class DefaultController extends Controller
                     $percodigoApod = $codigo[0]['percodigo'];
                    
                     $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoApod, $telefono, $correo, $direccion, intval($distrito));
+
+                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($apellidoPaterno, $apellidoMaterno, $nombre, $fechaNacimiento, $percodigoApod, $telefono, $correo, $direccion, intval($distrito),$sexo);
 
                     //Búsqueda en Academia.apoderado
                     $em = $this->getDoctrine()->getManager();
@@ -223,13 +224,15 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniPersona($dniParticipante);
                     $percodigoPart = $codigo[0]['percodigo'];
+                    
                     $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoPart, $telefono, $correo, $direccion, intval($distrito));
+
+                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($apellidoPaternoParticipante,$apellidoMaternoParticipante,$nombreParticipante,$fechaNacimientoParticipante, $percodigoPart, $telefono, $correo, $direccion, intval($distrito), $sexoParticipante);
+                    
                     // Búsqueda en academia.participantes 
                     $em = $this->getDoctrine()->getManager();
                     $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
         
-                   
                     if(!empty($IDParticipante)){      
                         $em = $this->getDoctrine()->getManager();
                         $codigo = $em->getRepository('AkademiaBundle:Participante')->maxDniAcademiaPart($dniParticipante);
@@ -631,7 +634,7 @@ class DefaultController extends Controller
         $pdf->writeHTML($html);
         $pdf->Output("compromisoIPD.pdf", 'I');
         exit;
-        
+
     }
     public function postAction(Request $request)
     {
