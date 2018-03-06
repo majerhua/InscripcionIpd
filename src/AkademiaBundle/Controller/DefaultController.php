@@ -46,17 +46,22 @@ class DefaultController extends Controller
         $Role = $this->getUser();
 
         if($Role == NULL){
-
-            var_dump($Role);
+            
             $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
 
         }else{
 
-            var_dump($Role);
             $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->getHorariosPromotores();   
         }
 
-        return $this->render('AkademiaBundle:Default:registroFinal.html.twig' , array('departamentosFlag' => $mdlDepartamentosFlag , "provinciasFlag" => $mdlProvinciasFlag ,'distritosFlag' => $mdlDistritosFlag,'departamentos'=>$mdlDepartamentos,'provincias'=>$mdlProvincias,'distritos'=>$mdlDistritos, 'complejosDeportivos' => $mdlComplejosDeportivosFlag, 'disciplinasDeportivas' => $mdlDisciplinasDeportivasFlag ,'horarios' => $mdlhorariosFlag ));     
+        if($estado == 1){
+
+            $mensaje = 'Sólo para participantes con discapacidad.';
+        }else{
+            $mensaje = '';
+        }
+
+        return $this->render('AkademiaBundle:Default:registroFinal.html.twig' , array('departamentosFlag' => $mdlDepartamentosFlag , "provinciasFlag" => $mdlProvinciasFlag ,'distritosFlag' => $mdlDistritosFlag,'departamentos'=>$mdlDepartamentos,'provincias'=>$mdlProvincias,'distritos'=>$mdlDistritos, 'complejosDeportivos' => $mdlComplejosDeportivosFlag, 'disciplinasDeportivas' => $mdlDisciplinasDeportivasFlag ,'horarios' => $mdlhorariosFlag, 'mensaje' => $mensaje ));     
     }
     
     public function indexAction(Request $request){
@@ -393,7 +398,7 @@ class DefaultController extends Controller
                 $cantRegistros = $data[0]['cantidadRegistros'];
                 
 
-                if(intval($cantRegistros) > 2){
+                if(intval($cantRegistros) >= 2){
                 
                     $mensaje = 4;
                     return new JsonResponse($mensaje);

@@ -26,7 +26,7 @@
                 
                 {% else %}
                 
-                	<li><a href="{{url('akademia_contador')}}">Inscripciones</a></li>
+                	<li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
 	            	<li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 					<li><a href="{{url('akademia_login')}}">Promotores</a></li>	            
 	            {% endif %}
@@ -132,8 +132,10 @@
 			</div>
 		{% else %}
 			<div class="container-titulo">		
-				<p>PRE - INSCRIPCIÓN 2018 I</p>
+				<p>PRE - INSCRIPCIÓN 2018 II</p>
+				<h4>Ciclo: Marzo - Diciembre</h4>
 			</div>
+			<br>
 			<div class="progreso_container">
 				<div class="progreso__barraInscripcion">
 					<div class="bar-inscripcion__1 active" >1</div>
@@ -258,16 +260,16 @@
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
-	                    <label for="correo">Correo Electrónico</label>
-	                    <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+	                    <label for="correo">Correo Electrónico </label>
+	                    <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico ">
 	                </div>
-                 </div>
+                </div>
 				<hr>
+			    <div class="container-boton-2 text-center">
+					<button class="btn btn-danger" id="boton2"> Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
+				</div>
+
 	    	</div>
-	    	
-		    <div class="container-boton-2 text-center">
-				<button class="btn btn-danger" id="boton2" >Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
-			</div>
 		</div>
 	</div>
 
@@ -347,11 +349,12 @@
                         </select>
                     </div>
 				</div>
-				<br>
+				
+				<hr>
             	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
 					<div class="row">
 						<div class="form-group col-xs-9 col-sm-9 col-md-9 col-ld-9">
-							<label>¿El participante presenta alguna condición especial?</label>
+							<p style="color:grey">¿El participante presenta alguna condición especial?</p>
 						</div>
 						<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3">  
 							<div class="input-group">
@@ -363,7 +366,7 @@
 						</div>
 					</div>
 				</div>
-				<br>
+				<hr>
 				<div class="container-boton-3 text-center">
 					<button class="btn btn-danger" id="boton3">Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i>
 					</button>
@@ -485,8 +488,6 @@
 	</div>
 </div>
 
-
-
 </section>
 <br><br>
 
@@ -599,7 +600,10 @@
 	    if($(this).is(':checked'))
 	    {
 	    	sessionStorage.removeItem('flagDiscapacitado');
-      	sessionStorage.setItem('flagDiscapacitado',$(this).val());        
+      		sessionStorage.setItem('flagDiscapacitado',$(this).val());        
+	    }else{
+	    	sessionStorage.removeItem('flagDiscapacitado');
+	    	$("#cbx-discapacidad").prop('checked', false);
 	    }
 	});
 	function mayus(e) {
@@ -1076,7 +1080,7 @@ $("#boton3").on('click',function(){
 		}
 		if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
 			if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
+				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 7){
 					$("#proceso3").hide();
 					//$("#process4").show();	
 					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
@@ -1084,7 +1088,7 @@ $("#boton3").on('click',function(){
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');	
 			    }else{
-			    	alertify.error('<p style="color:white">Sólo de 5 a 40 años. </p>'); 
+			    	alertify.error('<p style="color:white">Sólo de 7 a 40 años. </p>'); 
 			    }
 			}
 			else if(sessionStorage.getItem('flagDiscapacitado') == null ){
@@ -1220,7 +1224,12 @@ $(".mensajeEdad").empty();
 	
 	function buscarDniHijo(refDni){
 		if(refDni.value != ''){
+
+			$("#cbx-discapacidad").prop('checked', false);
+			sessionStorage.removeItem('flagDiscapacitado');
+
 			$(".mensajeEdadParticipante").empty();
+			
 			var datoDniPersona = {
 				'dni' : refDni.value,
 				"persona": 'hijo'

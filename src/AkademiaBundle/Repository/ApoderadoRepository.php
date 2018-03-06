@@ -11,8 +11,6 @@ namespace AkademiaBundle\Repository;
 class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 {
 
-
-
     public function busquedaApoderado($dni){
 
         $query = "SELECT dni,apellidoPaterno,apellidoMaterno,nombre,sexo,fechaNacimiento,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from ACADEMIA.apoderado where dni='$dni'";
@@ -23,7 +21,6 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
         return $dniApoderado;
 
     }
-
 
     public function getbuscarApoderado($dni){
 

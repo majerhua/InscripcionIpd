@@ -1,4 +1,3 @@
-
 {% extends '::base.html.twig' %}
 {% block title %}La Academia{% endblock %}
 {% block body  %}
@@ -83,7 +82,9 @@
 		        		<div id="turno"></div>
 		        		<div id="rango-hora-horario"></div>
 		        	</div>
-		        	<div id="vacantes"></div>
+		        	
+		        	<div id="vacantes"  style="color:grey; font-size:14px;"></div>
+		        	<div id="mensaje" style="color:grey; font-size:14px;"></div>
 		        </div>
 		        <br>
 		        <hr>
@@ -92,7 +93,7 @@
 		        		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Otras Edades</button>
 		        	</div>
 					<div class="form-group container-boton-final col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-						<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripción</button>
+						<button class="btn btn-danger" id="boton-next-final">Finalizar Pre-inscripción</button>
 					</div>	
 				</div>	
 			</div>
@@ -108,7 +109,7 @@
 			<div class="container-card col-xs-12 col-sm12 col-md-4 col-ld-5">
 				<div class="card">
 						<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
-						<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
+						<p class="title-card text-center">ACADEMIA IPD INVIERNO 2018</p>
 						<hr>
 						
 						<div id="alerta-confirmacionFicha" class="alert alert-success collapse"></div>
@@ -200,7 +201,7 @@
 			<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
 				<div class="card">
 					<p class="title-card text-center">FICHA DE INSCRIPCIÓN</p>
-					<p class="title-card text-center">ACADEMIA IPD VERANO 2018</p>
+					<p class="title-card text-center">ACADEMIA IPD INVIERNO 2018</p>
 					<hr>
 					
 					<div id="alerta-confirmacion" class="alert alert-success collapse"></div>
@@ -231,6 +232,7 @@
 							<p id="distrito-ficha"></p>
 							<p id="domicilio-ficha"></p>
 							<p id="fechaNacimiento-ficha"></p>
+							<br>
 							<p id="telefono-ficha"></p>
 							<p id="dni-ficha"></p>
 							<p id="edad-ficha"></p>
@@ -341,6 +343,7 @@
 			$("#turno").empty();
 			$("#rango-edad-horario").empty();
 			$("#rango-hora-horario").empty();
+			$("#mensaje").empty();	
 
 			$("#disciplinaDeportiva").empty();
 			$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
@@ -371,6 +374,7 @@
 				$(".horario-otrasEdades").empty();
 				$("#turno").empty();
 				$("#vacantes").empty();
+				$("#mensaje").empty();
 						
 				var cantHorarios = 0;
 
@@ -403,6 +407,7 @@
 					$("#rango-hora-horario").empty();
 					$("#rango-edad-horario").empty();
 					$("#turno").empty();
+					$("#mensaje").empty();
 					$("#vacantes").append("<strong> No hay vacantes disponibles. </strong>");
 				}
 
@@ -417,12 +422,14 @@
 			$("#edadMinima").empty();
 			$("#edadMaxima").empty();
 			$("#vacantes").empty();
+			$("#mensaje").empty();
 			var idHorario = horario.value;
 
 			{% for horario in horarios  %}
 
 				var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
 				var horaFin = "{{horario['horaFin']}}".substr(0,5);
+				var mensaje = "{{mensaje}}"
 
 				if("{{horario['id']}}" == idHorario){
 
@@ -436,7 +443,10 @@
 						$("#turno").append(" {{horario['turno']}} ");
 
 						$("#rango-hora-horario").empty();
-						$("#rango-hora-horario").append("  de  "+horaInicio+" a "+horaFin);
+						$("#rango-hora-horario").append(" : De  "+horaInicio+" a "+horaFin);
+
+						$("#mensaje").empty();
+						$("#mensaje").append(mensaje);
 						
 						$("#rango-edad-horario").empty();
 						$("#rango-edad-horario").append(" <strong> De {{horario['edadMinima']}} a {{horario['edadMaxima']}} años. </strong> ");
@@ -582,11 +592,7 @@ $("#inscribirPreinscrito").on('click',function(){
     });
 });
 
-
 	</script>
-
-
-
 
 	<script src="{{asset('assets/vendor/js/googleMapsComplejo.js')}}"></script>
 
