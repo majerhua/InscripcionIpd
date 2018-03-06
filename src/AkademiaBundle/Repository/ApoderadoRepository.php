@@ -97,7 +97,7 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 
     public function actualizarPersona($percodigoApod, $telefono, $correo, $direccion, $distrito){
 
-        $query = "UPDATE grpersona set pertelefono='$telefono', percorreo = '$correo', perdomdireccion = '$direccion', perubigeo = '$distrito' where percodigo = $percodigoApod";
+        $query = "UPDATE grpersona set pertelefono='$telefono', percorreo = '$correo', perdomdireccion = '$direccion', perubigeo = $distrito where percodigo = $percodigoApod";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();

@@ -170,7 +170,11 @@
                     </div>
 
 					<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
-                        <input id="dniApoderado" class="form-control" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate">
+                        <input id="dniApoderado" type="number" class="form-control" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate" 
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+					    type = "number"
+					    maxlength = "8"
+					    min = "1">
                         <span class="cargarDatosApoderado" >Actualizando....</span>
                         <span class="mensajeEdad" ></span>
                     </div>
@@ -294,7 +298,13 @@
                     </div>
 
 					<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
-                       <input class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo" placeholder="Ingresar DNI">
+                       <input id="dni-hijo" type="number" class="form-control" onblur="buscarDniHijo(this)" name="dni-hijo"  class="validate" 
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+					    type = "number"
+					    maxlength = "8"
+					    min = "1">
+
+
 		        	<span class="cargarDatosParticipante">Actualizando....</span>
 	          		<span class="mensajeEdadParticipante"></span>
                     </div>
@@ -380,93 +390,6 @@
 	</div>
 	
 <div class="proceso" id="ajaxproceso4">
-
-	{#<div class="proceso-inscripcion__horarios" id="process4">
-		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
-			<div class="card">
-				<p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p>
-				<hr>
-				<div class="complejo row">
-					<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-						<label class="text-left">Departamento</label>
-			            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this,0)">
-			                <option value="">--Seleccionar--</option>
-				            {% for departamentoCD in departamentosCD %}
-				            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
-				            {% endfor %}
-							
-			            </select>
-		        	</div>
-
-		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-		            	<label class="text-left">Provincia</label>
-		                <select  id="provinciaHorario" class="form-control"  name="provinciaHorario" onchange="cambiarProvinciaHorario(this,0)">
-		                    <option value="">--Seleccionar--</option>
-		                </select>               
-		            </div>
-
-		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-		            	<label class="text-left">Distrito</label>
-		                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-		                    <option value="">--Seleccionar--</option>
-		                </select> 
-		            </div>
-
-		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-		        		<label class="text-left">Complejo Deportivo</label>
-		            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-		                <option value="">--Seleccionar--</option>
-		            	</select>
-		        	</div>
-				</div>
-
-				<div class="mapa row">
-					<iframe  id="iframe_lugar" class= "well well-sm col-xs-12 col-sm-12" width="800" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q='Peru%20lima'&key=AIzaSyDv9gTXqhO_IlpmDDEpVyE2DHpYcsVKp80" allowfullscreen></iframe>
-				</div>
-		   </div>
-		</div>
-
-
-		<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
-			<div class="card">
-				<p class="title-card text-center">DEPORTES Y HORARIOS</p>
-				<hr>
-		        <div class="form-group container-select-deporte"  >
-		        	<label>Deporte: </label>
-		            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
-		                <option value="">--Seleccionar--</option>
-		            </select> 
-		        </div>
-		        <div class="form-group container-select-deporte"  >
-		        	<label>Horario: </label>
-		            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
-		                <option value="">--Seleccionar--</option>
-		            </select> 
-		        </div>
-		        <br>
-		        <div id="alerta-error" class="alert alert-danger collapse"></div>
-		        <br>
-		        <div class="form-group  container-horario-participante">
-		        	<div id="rango-edad-horario" ></div>
-		        	<div>
-		        		<div id="turno"></div>
-		        		<div id="rango-hora-horario"></div>
-		        	</div>
-		        	<div id="vacantes"></div>
-		        </div>
-		        <br>
-		        <hr>
-		        <div class="form-group row" >
-		        	<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-		        		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Otras Edades</button>
-		        	</div>
-					<div class="form-group container-boton-final col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-						<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripción</button>
-					</div>	
-				</div>	
-			</div>
-		</div>
-	</div>#}
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -535,6 +458,38 @@
 
 
 <script>
+
+	/*VALIDAR NEGATIVOS*/
+	
+	jQuery('#dniApoderado, #dni-hijo').on('keypress', function (e) {
+
+	    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47 || e.keyCode == 69 ) {
+	        return false;
+	    }
+	    soloNumeros(e.keyCode);
+	});
+	
+	function soloNumeros(e) {
+	    var key = window.Event ? e.which : e.keyCode
+	        return (key >= 48 && key <= 57)
+	}
+
+	// validar filtro de caracteres especiales
+
+	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keypress', function(e){
+
+		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
+			return false;
+		}
+		noCaracteresEspeciales(e.keyCode);
+	});
+
+	function noCaracteresEspeciales(e){
+		var key = window.Event ? e.which : e.keyCode
+	        return (key >= 64 && key <= 90)
+	}
+
+
 
 	$('#loader').hide();
 

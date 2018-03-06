@@ -133,6 +133,8 @@ class DefaultController extends Controller
                 $telefono = $request->request->get('telefono');
                 $correo = $request->request->get('correo');
                 $estado = $request->request->get('estado');
+                 //var_dump($distrito);
+
                 //DATOS PARTICIPANTE
                 $dniParticipante = $request->request->get('dniParticipante');
                 $apellidoPaternoParticipante = $request->request->get('apellidoPaternoParticipante');
@@ -153,8 +155,10 @@ class DefaultController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniPersona($dni);
                     $percodigoApod = $codigo[0]['percodigo'];
+                   
                     $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoApod, $telefono, $correo, $direccion, $distrito);
+                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoApod, $telefono, $correo, $direccion, intval($distrito));
+
                     //Búsqueda en Academia.apoderado
                     $em = $this->getDoctrine()->getManager();
                     $IDApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderado($dni);
@@ -220,7 +224,7 @@ class DefaultController extends Controller
                     $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniPersona($dniParticipante);
                     $percodigoPart = $codigo[0]['percodigo'];
                     $em = $this->getDoctrine()->getManager();
-                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoPart, $telefono, $correo, $direccion, $distrito);
+                    $em->getRepository('AkademiaBundle:Apoderado')->actualizarPersona($percodigoPart, $telefono, $correo, $direccion, intval($distrito));
                     // Búsqueda en academia.participantes 
                     $em = $this->getDoctrine()->getManager();
                     $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
@@ -605,6 +609,7 @@ class DefaultController extends Controller
             );         
         $pdf->writeHTML($html);
         $pdf->Output("compromisoIPD.pdf", 'I');
+        exit;
     }
     public function generarPdfDeclaracionJuradaAction(Request $request , $id)
     {
@@ -625,6 +630,7 @@ class DefaultController extends Controller
             );         
         $pdf->writeHTML($html);
         $pdf->Output("compromisoIPD.pdf", 'I');
+        exit;
         
     }
     public function postAction(Request $request)
