@@ -13,19 +13,24 @@ class ProvinciaRepository extends \Doctrine\ORM\EntityRepository
 
 	public function provinciasFlagAll($flagDis){
 
-	    $query = "select distinct ubidpto as idDepartamento,ubiprovincia as idProvincia from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde, grubigeo as ubi where hor.discapacitados='$flagDis' and hor.estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and ubi.ubicodigo=edde.ubicodigo and ubidistrito!='00' AND ubidpto!='00' AND ubiprovincia!='00' and hor.vacantes<>0 and hor.convocatoria=1;";
+	    $query = "SELECT distinct ubidpto as idDepartamento,ubiprovincia as idProvincia from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde, grubigeo as ubi where hor.discapacitados='$flagDis' and hor.estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and ubi.ubicodigo=edde.ubicodigo and ubidistrito!='00' AND ubidpto!='00' AND ubiprovincia!='00' and hor.vacantes<>0 and hor.convocatoria=1;";
+	    
 	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 	    $stmt->execute();
 	    $provincias = $stmt->fetchAll();
+	    
 	    return $provincias;
 	}
 	
 	public function provinciasAll(){
-    	$query = "select ubidpto as idDepartamento,ubiprovincia as idProvincia , ubinombre as nombreProvincia from grubigeo 
+		
+    	$query = "SELECT ubidpto as idDepartamento,ubiprovincia as idProvincia , ubinombre as nombreProvincia from grubigeo 
 				where ubidistrito='00' AND ubidpto!='00' AND ubiprovincia!='00';";
+	    
 	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 	    $stmt->execute();
 	    $provincias = $stmt->fetchAll();
+	    
 	    return $provincias;
 	
 	}

@@ -175,7 +175,7 @@
 					<p class="title-card text-center">PRE-INSCRIPCIÓN CONFIRMADA <i class="icon-checklist" style="font-size:1.4em;"></i></p>
 					<hr>
 					<p class="text-center">
-						Acércate al complejo que eligiste para finalizar tu inscripción.
+						A partir del miércoles<strong> 07 de Marzo</strong><br> acércate al complejo que eligiste para finalizar tu inscripción.
 					</p><br>
 					<p class="text-center" style="color: #BB2626">
 						<strong>NO SE RESERVAN VACANTES.</strong>
@@ -386,9 +386,7 @@
 
 					if("{{horario['edi_codigo']}}" == idComplejoDisciplina){
 							
-						//$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
-
-    					if(parseInt(sessionStorage.getItem("edad")) >= "{{horario['edadMinima']}}" && parseInt(sessionStorage.getItem("edad")) <= parseInt("{{horario['edadMaxima']}}")){
+    					if(parseInt(sessionStorage.getItem("edad")) >= parseInt("{{horario['edadMinima']}}") && parseInt(sessionStorage.getItem("edad")) <= parseInt("{{horario['edadMaxima']}}")){
 
 								localStorage.removeItem('idHorario');
 								sessionStorage.setItem("idHorario", "{{horario['id']}}");
