@@ -42,17 +42,8 @@ class DefaultController extends Controller
         $mdlDistritos = $em->getRepository('AkademiaBundle:Distrito')->distritosAll();
         $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado);
         $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado);
+        $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
         
-        $Role = $this->getUser();
-
-        if($Role == NULL){
-            
-            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
-
-        }else{
-
-            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->getHorariosPromotores();   
-        }
 
         if($estado == 1){
 
