@@ -163,7 +163,7 @@
 				<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
                         <select  class="form-control" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
-                            <option value="">--SELECCIONAR--</option>
+                            <option value="0">--SELECCIONAR--</option>
                             <option value="dni" >DNI</option>
                             <option value="carnet" >CARNET DE EXTRANJERÍA</option>
                         </select>
@@ -270,8 +270,8 @@
                 </div>
                 <br>
                 <div class="row">
-                	<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
-                		<span style="color:grey; font-size: 14px"> (*) Te recomendamos ingresar una cuenta de correo gmail. </span>
+                	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+                		<span style="color:grey; font-size: 14px"> (*) Te recomendamos ingresar un correo gmail para recibir el enlace de tu ficha y declaración jurada.</span>
                 	</div>
 	            </div>
 				<hr>
@@ -370,7 +370,7 @@
             	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
 					<div class="row">
 						<div class="form-group col-xs-9 col-sm-9 col-md-9 col-ld-9">
-							<p style="color:grey">¿El participante presenta alguna condición especial?</p>
+							<p style="color:grey">¿El participante presenta algún tipo de discapacidad física o mental?</p>
 						</div>
 						<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3">  
 							<div class="input-group">
@@ -381,7 +381,11 @@
 							</div>
 						</div>
 					</div>
+					<div id="advertencia" class="alert alert-danger collapse text-center">
+						<p style="font-size:14px">Sólo se mostrarán horarios dirigidos a personas con discapacidad.</p>
+					</div>	
 				</div>
+
 				<hr>
 				<div class="container-boton-3 text-center">
 					<button class="btn btn-danger" id="boton3">Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i>
@@ -465,6 +469,7 @@
 
 <script>
 
+
 	/*VALIDAR NEGATIVOS*/
 	
 	jQuery('#dniApoderado, #dni-hijo').on('keypress', function (e) {
@@ -535,49 +540,79 @@
 	}
 
 
+	$("#dniApoderado").hide();
+		
 	function modificarTexbox(){
-	    document.getElementById("dniApoderado").value="";
-	    switch(document.getElementById("tipo_documento").value) {
+	
+	    var tipoDoc = $("#tipo_documento").val();
+
+	    switch(tipoDoc) {
 	        case "dni":         
 	            document.getElementById("dniApoderado").setAttribute("maxlength", "8");
-	             $( "#dniApoderado" ).focus();
+	            $("#dniApoderado" ).show();
+	            $("#dniApoderado").focus();
 	        break;
 	        case "carnet":
 	            document.getElementById("dniApoderado").setAttribute("maxlength", "12");
-	            $( "#dniApoderado" ).focus();
+	            $("#dniApoderado" ).show();
+	            $("#dniApoderado").focus();
 	        break;
 	        default:
+
+	        	$("#dniApoderado").hide();
 	        	alertify.error('<p style="color:white">Seleccione el tipo de documento</p>'); 
     
 	    }
 	}	
+
+
+	$("#dni-hijo").hide();
+	
 	function modificarTexboxHijo(){
-	    document.getElementById("dni-hijo").value="";
-	    switch(document.getElementById("tipo_documentoHijo").value) {
+	   
+	   	var tipoDoc = $("#tipo_documentoHijo").val();
+
+	    switch(tipoDoc) {
 	        case "dni":         
 	            document.getElementById("dni-hijo").setAttribute("maxlength", "8");
-	             $( "#dni-hijo" ).focus();
+	            $("#dni-hijo").show();
+	            $("#dni-hijo").focus();
+
 	        break;
 	        case "carnet":
 	            document.getElementById("dni-hijo").setAttribute("maxlength", "12");
-	            $( "#dni-hijo" ).focus();
+	            $("#dni-hijo").show();
+	            $("#dni-hijo").focus();
 	        break;
 	        default:
+	        	$("#dni-hijo").hide();
 	        	alertify.error('<p style="color:white">Seleccione el tipo de documento</p>'); 
     
 	    }
 	}	
-	
+
+	/*MENSAJE DE DISCAPACIDAD*/
+
+	//$("#textoCbx").text('No');
+
 	$('#cbx-discapacidad').on( 'click', function() {
 	    if($(this).is(':checked'))
-	    {
+	    {	
+	    	//$("#textoCbx").text('Si');
+	    	$("#advertencia").show();
 	    	sessionStorage.removeItem('flagDiscapacitado');
       		sessionStorage.setItem('flagDiscapacitado',$(this).val());        
 	    }else{
+	    	//$("#textoCbx").text('No');
+	    	
+	    	$("#advertencia").hide();
 	    	sessionStorage.removeItem('flagDiscapacitado');
 	    	$("#cbx-discapacidad").prop('checked', false);
 	    }
 	});
+
+
+
 	function mayus(e) {
 	    e.value = e.value.toUpperCase();
 	}
@@ -1173,11 +1208,11 @@ $(".mensajeEdad").empty();
 				                $("#fechaNacimiento").attr('readonly', false);
 							}
 
-							if (valor.sexo > 0 && valor.sexo < 2) {
+							if (valor.sexo >= 0 && valor.sexo < 2) {
 				                if(valor.sexo == 1){
-				                    $("#sexo").val('1');	
+				                    $("#sexo").val(1);	
 				                }else{
-				                    $("#sexo").val('0');
+				                    $("#sexo").val(0);
 				                }
 				                $("#sexo").attr('readonly', true);
 							}else{
@@ -1233,8 +1268,13 @@ $(".mensajeEdad").empty();
 	function buscarDniHijo(refDni){
 		if(refDni.value != ''){
 
+			$("#advertencia").hide();
+			$("#parentesco").val("");
+			$("#tipoSeguro").val("");
 			$("#cbx-discapacidad").prop('checked', false);
 			sessionStorage.removeItem('flagDiscapacitado');
+
+
 
 			$(".mensajeEdadParticipante").empty();
 			
@@ -1303,12 +1343,13 @@ $(".mensajeEdad").empty();
 					                $("#fechaNacimiento-hijo").attr('readonly', false);
 								}
 
-								if (valor.sexo > 0  && valor.sexo < 2) {
+								if (valor.sexo >= 0  && valor.sexo < 2) {
 					                if(valor.sexo == 1){
-					                    $("#sexo-hijo").val('1');	
+					                    $("#sexo-hijo").val(1);	
 					                }else{
-					                    $("#sexo-hijo").val('0');
+					                    $("#sexo-hijo").val(0);
 					                }
+
 					                $("#sexo-hijo").attr('readonly', true);
 								}else{
 					                $("#sexo-hijo").attr('readonly', false);
@@ -1333,7 +1374,10 @@ $(".mensajeEdad").empty();
 			}
 		});
 		}
+
 	}
+
+
 	/*Muestra mensaje de alerta*/
 	function showAlertMessage(alert, mensaje){
 		$(alert).text(mensaje).show('fade');

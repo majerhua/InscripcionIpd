@@ -46,11 +46,20 @@ body{
 	margin-bottom: .125em;
 }
 
-
-
-
-	
 .placeholder::placeholder { color: #D8D8D8; }
+
+.colorBg{
+	/*background: #cb2f1d;*/
+	background: #FFFFFF;
+}
+.fondo{
+
+	background-image: url("../../images/slider4.png");
+	background-size: cover; 
+	width: 100%;
+	height: 70%;
+}
+
 .bg {
 
     background-image: url("../../images/slider4.png");

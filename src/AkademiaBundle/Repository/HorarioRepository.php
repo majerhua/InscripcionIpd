@@ -20,9 +20,9 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                 return $horarios;
         }
 
-        public function getHorariosPromotores(){
+        public function getHorariosPromotores($flagDis){
                 
-                $query = "SELECT * from ACADEMIA.horario where estado = 1";
+                $query = "SELECT * from ACADEMIA.horario where vacantes <> 0 and estado = 1 and discapacitados='$flagDis';";
                 $stmt = $this->getEntityManager()->getConnection()->prepare($query);
                 $stmt->execute();
                 $horarios = $stmt->fetchAll();

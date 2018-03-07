@@ -21,7 +21,19 @@ class ProvinciaRepository extends \Doctrine\ORM\EntityRepository
 	    
 	    return $provincias;
 	}
+
+	public function provinciasPromotor($flagDis){
+
+	    $query = "SELECT distinct ubidpto as idDepartamento,ubiprovincia as idProvincia from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde, grubigeo as ubi where hor.discapacitados='$flagDis' and hor.estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and ubi.ubicodigo=edde.ubicodigo and ubidistrito!='00' AND ubidpto!='00' AND ubiprovincia!='00' and hor.vacantes<>0 ";
+	    
+	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+	    $stmt->execute();
+	    $provincias = $stmt->fetchAll();
+	    
+	    return $provincias;
+	}
 	
+
 	public function provinciasAll(){
 		
     	$query = "SELECT ubidpto as idDepartamento,ubiprovincia as idProvincia , ubinombre as nombreProvincia from grubigeo 

@@ -23,6 +23,17 @@ class DepartamentoRepository extends \Doctrine\ORM\EntityRepository
 	
 	}
 
+
+    public function departamentosPromotor($flagDis){
+        $query = "SELECT distinct ubidpto as idDepartamento from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis,CATASTRO.edificacionesdeportivas AS edde, grubigeo as ubi where hor.discapacitados='$flagDis' and hor.estado=1
+            and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and ubi.ubicodigo=edde.ubicodigo
+            and ubidistrito!='00' AND ubidpto!='00' AND ubiprovincia!='00' and hor.vacantes<>0";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $departamentos = $stmt->fetchAll();
+        return $departamentos;
+    }
+
 	public function departamentosAll(){
 
     $query = "SELECT ubidpto as id ,ubinombre as nombre from grubigeo where ubiprovincia='00' and ubidistrito='00' AND  ubidpto!='00';";

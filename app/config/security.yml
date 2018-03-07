@@ -65,5 +65,3 @@ security:
         - {path: ^/consulta$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^(/inscritos|/consulta|/beneficiarios|/contador|/login|/registrofinal|/ajax|/), roles: ROLE_ADMIN}
-
-         

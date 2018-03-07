@@ -30,20 +30,37 @@ class DefaultController extends Controller
         return $this->render('AkademiaBundle:Default:contador.html.twig' );
     }
 
+
     public function registroFinalAction(Request $request,$estado){
 
-        $em = $this->getDoctrine()->getManager();
+        $Role = $this->getUser();
 
-        $mdlDepartamentosFlag = $em->getRepository('AkademiaBundle:Departamento')->departamentosFlagAll($estado);
-        $mdlProvinciasFlag = $em->getRepository('AkademiaBundle:Provincia')->provinciasFlagAll($estado);
-        $mdlDistritosFlag = $em->getRepository('AkademiaBundle:Distrito')->distritosFlagAll($estado);
-        $mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
-        $mdlProvincias = $em->getRepository('AkademiaBundle:Provincia')->provinciasAll();
-        $mdlDistritos = $em->getRepository('AkademiaBundle:Distrito')->distritosAll();
-        $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado);
-        $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado);
-        $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
-        
+        if($Role != NULL){
+
+            $em = $this->getDoctrine()->getManager();
+            $mdlDepartamentosFlag = $em->getRepository('AkademiaBundle:Departamento')->departamentosPromotor($estado);
+            $mdlProvinciasFlag = $em->getRepository('AkademiaBundle:Provincia')->provinciasPromotor($estado);
+            $mdlDistritosFlag = $em->getRepository('AkademiaBundle:Distrito')->distritosPromotor($estado);
+            $mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
+            $mdlProvincias = $em->getRepository('AkademiaBundle:Provincia')->provinciasAll();
+            $mdlDistritos = $em->getRepository('AkademiaBundle:Distrito')->distritosAll();
+            $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosPromotor($estado);
+            $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasPromotor($estado);
+            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->getHorariosPromotores($estado);
+            
+        }else{
+
+            $em = $this->getDoctrine()->getManager();
+            $mdlDepartamentosFlag = $em->getRepository('AkademiaBundle:Departamento')->departamentosFlagAll($estado);
+            $mdlProvinciasFlag = $em->getRepository('AkademiaBundle:Provincia')->provinciasFlagAll($estado);
+            $mdlDistritosFlag = $em->getRepository('AkademiaBundle:Distrito')->distritosFlagAll($estado);
+            $mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
+            $mdlProvincias = $em->getRepository('AkademiaBundle:Provincia')->provinciasAll();
+            $mdlDistritos = $em->getRepository('AkademiaBundle:Distrito')->distritosAll();
+            $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado);
+            $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado);
+            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
+        }
 
         if($estado == 1){
 
