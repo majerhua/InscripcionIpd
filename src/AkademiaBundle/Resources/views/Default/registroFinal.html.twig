@@ -568,6 +568,31 @@ function registrar(){
 	});
 }
 
+function enviarEmailApoderado($correoApod,$nombre,$id){
+
+	var correoApoderado = {
+		"correo" : $correoApod,
+		"nombre" : $nombre,
+		"id" : $id,
+	};
+	$.ajax({
+		type:'POST',
+		dataType: 'json',
+		url: "{{url('akademia_sendemailapoderado')}}",
+		data: correoApoderado,
+		beforeSend: function(){
+			
+		},
+		success: function(data){
+			 alertify.success('<p style="color:black">Correo enviando exitosamente.</p>');
+		},
+		error: function(error){
+			 alertify.error('<p style="color:white">Se produjo un problema al enviar la información a su correo electrónico.</p> ');
+		}	
+	});
+}
+
+
 $("#inscribirPreinscrito").on('click',function(){
 	var id = $('#codigo-inscripcion').val();
 	console.log(id);
