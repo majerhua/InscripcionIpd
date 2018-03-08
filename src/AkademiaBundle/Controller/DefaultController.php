@@ -225,10 +225,13 @@ class DefaultController extends Controller
                         $idApod = $apoderado->getId();                 
                     }
                 } 
+            
                 //REGISTRAR PARTICIPANTE
                 $em = $this->getDoctrine()->getManager();
                 $percodigoParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipantePersona($dniParticipante);
+            
                 if(!empty($percodigoParticipante)){
+            
                     $em = $this->getDoctrine()->getManager();
                     $codigo = $em->getRepository('AkademiaBundle:Apoderado')->maxDniPersona($dniParticipante);
                     $percodigoPart = $codigo[0]['percodigo'];
@@ -248,9 +251,13 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getRepository(Participante::class);
                         $participante = $em->find($idParticipante);
                         $participante->setPercodigo($percodigoPart);
+                       
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         $idParticipanteN = $participante->getId();
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod, $idParticipanteN);  
                        
                     }else{
                         
@@ -267,21 +274,25 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getManager();
                         $em->persist($participante);
                         $em->flush();
-                        $idParticipanteN= $participante->getId();      
+                        $idParticipanteN= $participante->getId();  
+
+                        
                     } 
+
                 }else{
                     
-                    //si no existe apoderado en grpersona, registramos al usuario
+                    //si no existe participante en grpersona, registramos al usuario
                     $em = $this->getDoctrine()->getManager();
                     $datosParticipante = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dniParticipante,$apellidoPaternoParticipante,$apellidoMaternoParticipante, $nombreParticipante,$fechaNacimientoParticipante,$sexoParticipante,$telefono, $correo, $direccion,$distrito);
                     //retornar el percodigo del nuevo registro
                     $em = $this->getDoctrine()->getManager();
                     $percodigoParticipante = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderadoPersona($dniParticipante);
                     $percodigoPart = $percodigoParticipante[0]['id'];
-                     // Búsqueda en academia.participantes 
+                    
+                    // Búsqueda en academia.participantes 
                     $em = $this->getDoctrine()->getManager();
                     $IDParticipante = $em->getRepository('AkademiaBundle:Participante')->getbuscarParticipante($dniParticipante);
-        
+            
                    
                     if(!empty($IDParticipante)){      
                         $em = $this->getDoctrine()->getManager();
@@ -290,9 +301,13 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getRepository(Participante::class);
                         $participante = $em->find($idParticipante);
                         $participante->setPercodigo($percodigoPart);
+                                   
                         $em = $this->getDoctrine()->getManager();
                         $em->flush();
                         $idParticipanteN = $participante->getId();
+
+                        $em = $this->getDoctrine()->getManager();
+                        $em->getRepository('AkademiaBundle:Participante')->getActualizarApoderado($idApod, $idParticipanteN);
                        
                     }else{
                         
@@ -310,6 +325,8 @@ class DefaultController extends Controller
                         $em->persist($participante);
                         $em->flush();
                         $idParticipanteN= $participante->getId();      
+
+                      
                     } 
                 }
                     $idHorario = $request->request->get('idHorario');

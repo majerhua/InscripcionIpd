@@ -9,13 +9,15 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
                 </button>                       
                 <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="logoAcademia" />                                      
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
-                	<!--<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>-->
+                	<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
                 	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>	
                     <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
@@ -1139,7 +1141,7 @@
 								success: function(data)
 								{
 									diasElegidos = [];
-								//	$("#btn-crear-horario").attr("data-dismiss","modal");				
+					
 									if (data == 1){
 										clearDataCrear();
 										alertify.error('<p style="color:white">Ya existe un horario con estas mismas características. </p>');
@@ -1165,10 +1167,9 @@
 
 											tdhorario+='<td id="4h'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+' - '+dataHorario.edadMaxima+ ' años </td>';
 
-										} else {
+										}else{
 
 											tdhorario+='<td id="4h'+dataHorario.id+'" class="text-center">'+ dataHorario.edadMinima+ ' años </td>';
-
 										}
 
 
@@ -1176,16 +1177,17 @@
 										tdhorario+='<td id="5h'+dataHorario.id+'" class="text-center">'+ dataHorario.vacantes +'</td>';
 
 										if (dataHorario.discapacitados == 0){
+											
 											tdhorario+='<td id="6h'+dataHorario.id+'" class="text-center">No</td>';
 										}else{
+											
 											tdhorario+='<td id="6h'+dataHorario.id+'" class="text-center">Si</td>';
 										}
-										if (dataHorario.convocatoria == 0 )
-										{
+										if (dataHorario.convocatoria == 0 ){
+											
 											tdhorario+='<td id="7h'+dataHorario.id+'" class="text-center"> Cerrado </td>';
-										}
-										else
-										{
+										}else{
+
 											tdhorario+='<td id="7h'+dataHorario.id+'" class="text-center"> Abierto </td>';
 										}
 
@@ -1193,6 +1195,7 @@
 										tdhorario+='<td><button title="Editar horario" type="button" id="'+dataHorario.id+'" onclick="editarHorario('+dataHorario.id+','+idDisciplina+')" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1.1em; margin-top:5px" ></i></button></td>';
 										tdhorario+='<td><a href="/academia/web/beneficiarios/'+dataHorario.id+'"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>';
 										tdhorario+='</tr>';
+										
 										$('#1'+idDisciplina).append(tdhorario);
 										$("#modal-crear").modal('hide');
 										clearDataCrear();

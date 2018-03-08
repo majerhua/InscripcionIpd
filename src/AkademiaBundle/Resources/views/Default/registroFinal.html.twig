@@ -476,8 +476,6 @@
 	
 
 $("#boton-next-final").on('click',function(){
-	$("#process4").hide();
-	$("#process5").show('slow');
 
 	var disciplinaDeportiva = document.getElementById('disciplinaDeportiva').value;
 	var horario =document.getElementById('horario').value;
@@ -486,6 +484,8 @@ $("#boton-next-final").on('click',function(){
 			alertify.error('<p style="color:white">Debe seleccionar Disciplina y/o Horario </p>'); 
 	}else{
 		
+		$("#process4").hide();
+		$("#process5").show('slow');	
 		registrar();
 	}
 });
@@ -561,7 +561,7 @@ function registrar(){
 		
 		},
 		error: function(error){
-			console.log(error.responseText);			
+
 			console.log("Error - oh no!");
 		}
 			
