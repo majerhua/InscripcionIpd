@@ -195,7 +195,7 @@ class DefaultController extends Controller
                     
                     //si no existe apoderado en grpersona, registramos al usuario
                     $em = $this->getDoctrine()->getManager();
-                    $datosApoderado = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,$distrito);
+                    $datosApoderado = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,intval($distrito));
                     //retornar el percodigo del nuevo registro
                     $em = $this->getDoctrine()->getManager();
                     $percodigoApoderado = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderadoPersona($dni);
@@ -261,7 +261,6 @@ class DefaultController extends Controller
                        
                     }else{
                         
-                        //Participantes nuevos academia.participante
                         $participante = new Participante();
                         $participante->setDni($dniParticipante);
                         $participante->setParentesco($parentesco);
@@ -276,14 +275,14 @@ class DefaultController extends Controller
                         $em->flush();
                         $idParticipanteN= $participante->getId();  
 
-                        
                     } 
 
                 }else{
                     
                     //si no existe participante en grpersona, registramos al usuario
                     $em = $this->getDoctrine()->getManager();
-                    $datosParticipante = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dniParticipante,$apellidoPaternoParticipante,$apellidoMaternoParticipante, $nombreParticipante,$fechaNacimientoParticipante,$sexoParticipante,$telefono, $correo, $direccion,$distrito);
+                    $datosParticipante = $em->getRepository('AkademiaBundle:Apoderado')->guardarPersona($dniParticipante,$apellidoPaternoParticipante,$apellidoMaternoParticipante, $nombreParticipante,$fechaNacimientoParticipante,$sexoParticipante,$telefono, $correo, $direccion,intval($distrito));
+                   
                     //retornar el percodigo del nuevo registro
                     $em = $this->getDoctrine()->getManager();
                     $percodigoParticipante = $em->getRepository('AkademiaBundle:Apoderado')->getbuscarApoderadoPersona($dniParticipante);

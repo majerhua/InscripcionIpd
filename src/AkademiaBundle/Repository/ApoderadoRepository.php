@@ -84,11 +84,11 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,$buscarDistrito){
+    public function guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,$distrito){
 
         $query = "INSERT into grpersona 
-                (perdni,perapepaterno,perapematerno,pernombres,perfecnacimiento,persexo,pertelefono,percorreo,perdomdireccion,perubigeo)
-                values('$dni','$apellidoPaterno','$apellidoMaterno','$nombre','$fechaNacimiento',$sexo,$telefono,'$correo','$direccion',$buscarDistrito)";
+            (perdni,perapepaterno,perapematerno,pernombres,perfecnacimiento,persexo,pertelefono,percorreo,perdomdireccion,perubigeo,perfechacrea)
+            values('$dni','$apellidoPaterno','$apellidoMaterno','$nombre','$fechaNacimiento',$sexo,$telefono,'$correo','$direccion',$distrito, getdate())";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -97,7 +97,7 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 
     public function actualizarPersona($apellidoPaterno,$apellidoMaterno,$nombre,$fechaNacimiento, $percodigoApod, $telefono, $correo, $direccion, $distrito, $sexo){
 
-        $query = "UPDATE grpersona set perapepaterno='$apellidoPaterno', perapematerno='$apellidoMaterno', pernombres='$nombre', perfecnacimiento='$fechaNacimiento', pertelefono='$telefono', percorreo = '$correo', perdomdireccion = '$direccion', perubigeo = $distrito, persexo = '$sexo' where percodigo = $percodigoApod";
+        $query = "UPDATE grpersona set perapepaterno='$apellidoPaterno', perapematerno='$apellidoMaterno', pernombres='$nombre', perfecnacimiento='$fechaNacimiento', pertelefono='$telefono', percorreo = '$correo', perdomdireccion = '$direccion', perubigeo = $distrito, persexo = '$sexo', perfechamodi = getdate() where percodigo = $percodigoApod";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
