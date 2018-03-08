@@ -262,6 +262,7 @@
 
 		$("#process5").hide();
 
+		var departamentoHorario = document.querySelector("#departamentoHorario");
 		var cambiarDepartamentoHorario = (depHor)=>{
 
 			var valDepHor = depHor.value;
@@ -316,6 +317,25 @@
 				{% endfor %}
 			  {% endfor %}
 		}
+
+		for (let i = 0; i < departamentoHorario.length; i++) {
+			if(parseInt(departamentoHorario[i].value) == parseInt(sessionStorage.getItem('horIdDepartamento')) ){
+
+				departamentoHorario[i].setAttribute('selected','selected');
+				cambiarDepartamentoHorario(departamentoHorario);
+				var provinciaHorario = document.querySelector("#provinciaHorario");
+				
+				for (let j = 0; j < provinciaHorario.length; j++) {
+					if(parseInt(provinciaHorario[j].value) == parseInt(sessionStorage.getItem('horIdProvincia')) ){
+						provinciaHorario[j].setAttribute('selected','selected');
+						console.log("Provincia Horario ==>",provinciaHorario[j]);
+						cambiarProvinciaHorario(provinciaHorario);
+					}					
+				}
+			}
+		}
+
+
 
 		var cambiarDistritoHorario =  (disHor)=>{
 

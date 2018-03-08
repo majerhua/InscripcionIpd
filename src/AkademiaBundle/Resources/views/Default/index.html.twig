@@ -179,7 +179,9 @@
                         <span class="mensajeEdad" ></span>
                     </div>
 				</div>
-				<br>      
+				<br>  
+				<div id="alerta-digitar" class="alert alert-danger collapse"></div>
+
 				<div class="form-group col s12">
 				  <label for="apellidoPaterno">Apellido Paterno</label>
 		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
@@ -492,7 +494,9 @@
 	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keypress', function(e){
 
 		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
+			showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
 			return false;
+
 		}
 
 		noCaracteresEspeciales(e.keyCode);
@@ -635,7 +639,11 @@
 	});
 	#}
 	function cambiarDepartamento(departamento){
+		
 		idDepartamento = departamento.value;
+		sessionStorage.removeItem('horIdDepartamento');
+        sessionStorage.setItem('horIdDepartamento',idDepartamento);
+
 		$("#provincia").empty();
 		$("#distrito").empty();
 		$("#provincia").append("<option value='' >--Seleccionar--</option>");
@@ -649,7 +657,11 @@
 		{% endfor %}
 	}
 	function cambiarProvincia(provincia){
+		
 		idProvincia = provincia.value;
+		sessionStorage.removeItem('horIdProvincia');
+        sessionStorage.setItem('horIdProvincia',idProvincia);
+
 		idDepartamento = $(provincia[1]).attr('data-departamento');
 		$("#distrito").empty();
 		$("#distrito").append("<option value='' >--Seleccionar--</option>");
@@ -1158,6 +1170,7 @@ $(".mensajeEdad").empty();
 				$('.cargarDatosApoderado').show();
 			},
 			success: function(data){
+
 	 		$("#apellidoPaterno").val('');
             $("#apellidoMaterno").val('');
             $("#nombre").val('');
@@ -1176,37 +1189,38 @@ $(".mensajeEdad").empty();
 					$(dataApoderado).each(function(index,valor){
 						if(valor.edad >=18 || valor.fechaNacimiento == null){
 
-							if (valor.apellidoMaterno != '') {
-				                $("#apellidoMaterno").val(valor.apellidoMaterno);
-				                $("#apellidoMaterno").attr('readonly', true);
+							
+							if(valor.apellidoPaterno.indexOf("'") != -1){
+								var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
+								$("#apellidoPaterno").val(apellidoPaterno);
 							}else{
-				                $("#apellidoMaterno").val('');
-				                $("#apellidoMaterno").attr('readonly', false);
+								$("#apellidoPaterno").val(valor.apellidoPaterno);
+							}
+							
+
+							if (valor.apellidoMaterno.indexOf("'") != -1){
+								var apellidoMaterno= valor.apellidoMaterno.replace("'", ' ');
+				                $("#apellidoMaterno").val(apellidoMaterno);
+				              
+							}else{
+				               $("#apellidoMaterno").val(valor.apellidoMaterno);
+				              
 							}
 
-							if (valor.apellidoPaterno != '') {
-				                $("#apellidoPaterno").val(valor.apellidoPaterno);
-				                $("#apellidoPaterno").attr('readonly', true);
+							if (valor.nombre.indexOf("'") != -1) {
+								var nombre= valor.nombre.replace("'", ' ');
+				                $("#nombre").val(nombre);
 							}else{
-				                $("#apellidoPaterno").val('');
-				                $("#apellidoPaterno").attr('readonly', false);
-							}
-
-							if (valor.nombre != '') {
-				                $("#nombre").val(valor.nombre);
-				                $("#nombre").attr('readonly', true);
-							}else{
-				                $("#nombre").val('');
-				                $("#nombre").attr('readonly', false);
+				               $("#nombre").val(valor.nombre);
+				              
 							}
 
 							if (valor.fechaNacimiento != null) {
 				                $("#fechaNacimiento").val(valor.fechaNacimiento);
-				                $("#fechaNacimiento").attr('readonly', true);
 							}else{
 				                $("#fechaNacimiento").val('');
-				                $("#fechaNacimiento").attr('readonly', false);
 							}
+
 
 							if (valor.sexo >= 0 && valor.sexo < 2) {
 				                if(valor.sexo == 1){
@@ -1214,13 +1228,9 @@ $(".mensajeEdad").empty();
 				                }else{
 				                    $("#sexo").val(0);
 				                }
-				                $("#sexo").attr('readonly', true);
-							}else{
-				                $("#sexo").attr('readonly', false);
 							}
 
-			            }
-						else{
+			            }else{
 						 	$(".mensajeEdad").empty();
 			             	$(".mensajeEdad").append("(*Usted es menor de edad)");
 			             	$("#apellidoPaterno").attr('readonly', true);
