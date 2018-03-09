@@ -709,10 +709,10 @@ class DefaultController extends Controller
                         '<a href="http://appweb.ipd.gob.pe/academia/web/ajax/pdf/declaracion-jurada/'.$id.'"> Declaración Jurada </a>'.
                         '<br>'.
                         '<p>Acércate al complejo que eligiste para finalizar tu inscripción.</p>'.
-                        '<br><br>'.
+                        '<br>'.
                         '<p>NO SE RESERVAN VACANTES</p>'.
-                        '<br><br>'.
-                        '<h3><OBLIGATORIO</h3>'.
+                        '<br>'.
+                        '<h2><OBLIGATORIO</h2>'.
                         '<ol><li>Presentar ficha de inscripción y declaración jurada firmada y con la huella dactilar del apoderado</li><li>DNI del menor de edad y del apoderado (original y copia).</li><li>Presentar ficha de seguro activo (SIS, EsSalud, o privado).</li><li>Foto tamaño carnet del menor de edad (actual).</li></ol>'.
                         '</body>'.
                         '</html>'
