@@ -504,13 +504,13 @@
 		noCaracteresEspeciales(e.keyCode);
 	});
 
-	/*jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keydown',function(e){
+	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keydown',function(e){
 
 		if(e.keyCode==86 && e.ctrlKey){
 			return false;
 		}
 
-	});*/
+	});
 
 	function noCaracteresEspeciales(e){
 		var key = window.Event ? e.which : e.keyCode
