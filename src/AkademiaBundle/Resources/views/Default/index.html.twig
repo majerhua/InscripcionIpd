@@ -195,6 +195,7 @@
 				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar apellido paterno ..." >
 	          			<span class="focus-border"></span>
 	      			</div>
+
 				</div>
 				
 				<div class="form-group col s12">
@@ -203,6 +204,7 @@
 		            	<input id="apellidoMaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar apellido materno ..." >
 		            	<span class="focus-border"></span>
 		        	</div>
+
 				</div>
 	      						      						
 	    		<div class="form-group col s12">
@@ -309,7 +311,7 @@
                 <br>
                 <div class="row">
                 	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
-                		<span class="text parpadea"> (*) Te recomendamos ingresar un correo gmail para recibir el enlace de tu ficha y declaración jurada.</span>
+                		<span class="text parpadea"> (*) Te recomendamos ingresar un correo gmail para enviarte los enlaces de tu ficha y la  declaración jurada.</span>
                 	</div>
 	            </div>
 				<hr>
@@ -542,7 +544,7 @@
 
 <script>
 
-
+	
 	/*VALIDAR NEGATIVOS*/
 	
 	jQuery('#dniApoderado, #dni-hijo').on('keypress', function (e) {
@@ -560,12 +562,13 @@
 	        return (key >= 48 && key <= 57)
 	}
 
+	
 	// validar filtro de caracteres especiales
 
-	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keypress', function(e){
+	jQuery('#correo').on('keypress', function(e){
 
 		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
-			showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
+			//showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
 			return false;
 
 		}
@@ -584,6 +587,52 @@
 	function noCaracteresEspeciales(e){
 		var key = window.Event ? e.which : e.keyCode
 	        return (key >= 64 && key <= 90)
+	}
+
+
+	$(document).ready(function () {
+		disablePaste('#dniApoderado');
+		disablePaste('#apellidoPaterno');
+		disablePaste('#apellidoMaterno'); 
+		disablePaste('#nombre');
+		disablePaste('#dni-hijo');
+		disablePaste('#apellidoPaterno-hijo');
+		disablePaste('#apellidoMaterno-hijo'); 
+		disablePaste('#nombre-hijo'); 
+		disablePaste('#direccion'); 
+		disablePaste('#telefono'); 
+		disablePaste('#correo'); 
+	});
+
+	function disablePaste(input){
+		$(input).bind('copy paste', function (e) {
+	       e.preventDefault();
+	    });
+	}
+
+	function filtro(string, tipo){
+
+		var filtro = '';
+
+		switch(tipo){
+			case 'letras': 
+			filtro = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+			break;
+			case 'letrasNumeros': 
+			filtro = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789';
+			break;
+			case 'numeros': 
+			filtro = '0123456789';
+			break;
+		}
+	    
+	    var out = '';
+		
+	    for (var i=0; i<string.length; i++)
+	       if (filtro.indexOf(string.charAt(i)) != -1) 
+	         out += string.charAt(i);
+		
+	    return out.toUpperCase();;
 	}
 
 
@@ -670,9 +719,9 @@
 
 	//$("#textoCbx").text('No');
 
-	var cont=0;
+	var cont = 0;
 	$('#cbx-discapacidad').on( 'click', function() {
-	    /*if($(this).is(':checked'))
+	   /* if($(this).is(':checked'))
 	    {	
 	    	//$("#textoCbx").text('Si');
 	    	$("#advertencia").show();
@@ -696,7 +745,11 @@
 	    	$("#cbx-discapacidad").prop('checked', false);
 	    	cont=0;
 	    }
+
+
 	});
+
+	
 
 
 
@@ -847,25 +900,30 @@
                     sessionStorage.clear()
                 
                     //DATOS APODERADO
+
                     sessionStorage.removeItem("dni-apoderado");
-                    sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
                     sessionStorage.removeItem("apellidoPaterno-apoderado");
-                    sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
                     sessionStorage.removeItem("apellidoMaterno-apoderado");
-                    sessionStorage.setItem("apellidoMaterno-apoderado" , $("#apellidoMaterno").val());
                     sessionStorage.removeItem("nombre-apoderado");
-                    sessionStorage.setItem("nombre-apoderado", $("#nombre").val());
                     sessionStorage.removeItem("fechaNacimiento-apoderado");
-                    sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
                     sessionStorage.removeItem("sexo-apoderado");
+
+					sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
+					sessionStorage.setItem('apellidoMaterno-apoderado',$("#apellidoMaterno").val());
+					sessionStorage.setItem('nombre-apoderado',$("#nombre").val());
+					sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
+                    sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
                     sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
+
                     console.log("Edad apoderado => "+edadApoderado);
+                    
                     $("#proceso1").hide();
                     $("#proceso2").show();
                     $(".bar-inscripcion__1").removeClass('active');
                     $(".bar-inscripcion__2").addClass('active');	
             }
 	});
+
 	$("#boton2").on('click',function(){
 		
 				//var $direccionApoderado = $("#direccion");	
@@ -888,13 +946,15 @@
                 }else{
                     
                     sessionStorage.removeItem("distrito-apoderado");
-                    sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
-                    sessionStorage.removeItem("direccion-apoderado");
-                    sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
                     sessionStorage.removeItem("telefono-apoderado");
-                    sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
                     sessionStorage.removeItem("correo-apoderado");
+                    sessionStorage.removeItem("direccion-apoderado");
+
+                    sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
+                    sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
+                    sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
                     sessionStorage.setItem("correo-apoderado", $("#correo").val());
+                
 
                     $("#departamentoHorario").val($("#departamento").val());
                     $("#provinciaHorario").val($("#provincia").val());
@@ -934,23 +994,26 @@ $("#boton3").on('click',function(){
     	//DATOS PARTICIPANTE
 
         sessionStorage.removeItem("dni-participante");
-        sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
         sessionStorage.removeItem("apellidoPaterno-participante");
-        sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
         sessionStorage.removeItem("apellidoMaterno-partcipante");
-        sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
         sessionStorage.removeItem("nombre-partcipante");
-        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
         sessionStorage.removeItem("fechaNacimiento-partcipante");
-        sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
         sessionStorage.removeItem("sexo-partcipante");
-        sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
         sessionStorage.removeItem("parentesco-partcipante");
-        sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
         sessionStorage.removeItem("tipoSeguro-partcipante");
-        sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
 		sessionStorage.removeItem('edad');
-		sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
+		
+		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+        sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+        sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+        sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+        sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
+        sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
+
+		
         console.log("EDAD SESION"+sessionStorage.getItem("edad"));
         console.log("Edad SESION ==> "+sessionStorage.getItem("edad"));
 		
@@ -1028,39 +1091,13 @@ $(".mensajeEdad").empty();
 					$(dataApoderado).each(function(index,valor){
 						if(valor.edad >=18 || valor.fechaNacimiento == null){
 
-							
-							if(valor.apellidoPaterno.indexOf("'") != -1){
-								var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
-								$("#apellidoPaterno").val(apellidoPaterno);
-							}else{
-								$("#apellidoPaterno").val(valor.apellidoPaterno);
-							}
-							
-
-							if (valor.apellidoMaterno.indexOf("'") != -1){
-								var apellidoMaterno= valor.apellidoMaterno.replace("'", ' ');
-				                $("#apellidoMaterno").val(apellidoMaterno);
-				              
-							}else{
-				               $("#apellidoMaterno").val(valor.apellidoMaterno);
-				              
-							}
-
-							if (valor.nombre.indexOf("'") != -1) {
-								var nombre= valor.nombre.replace("'", ' ');
-				                $("#nombre").val(nombre);
-							}else{
-				               $("#nombre").val(valor.nombre);
-				              
-							}
-
-							if (valor.fechaNacimiento != null) {
-				                $("#fechaNacimiento").val(valor.fechaNacimiento);
-							}else{
-				                $("#fechaNacimiento").val('');
-							}
-
-
+						
+							$('#apellidoPaterno').val(filtro(valor.apellidoPaterno, 'letras'));
+							$("#apellidoMaterno").val(filtro(valor.apellidoMaterno,'letras'));
+							$("#nombre").val(filtro(valor.nombre,'letras'));
+							$("#fechaNacimiento").val(valor.fechaNacimiento);
+						
+						
 							if (valor.sexo >= 0 && valor.sexo < 2) {
 				                if(valor.sexo == 1){
 				                    $("#sexo").val(1);	
@@ -1160,35 +1197,11 @@ $(".mensajeEdad").empty();
 				
 						$(dataHijo).each(function(index,valor){
 
-								if (valor.apellidoPaterno.indexOf("'") != -1 ) {
-									var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
-									$("#apellidoPaterno-hijo").val(apellidoPaterno);					               
-								}else{
 
-					                $("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
-								}
-
-								if (valor.apellidoMaterno.indexOf("'") != -1 ) {
-					            	var apellidoMaterno = valor.apellidoMaterno.replace("'", ' ');
-					            	$("#apellidoMaterno-hijo").val(apellidoMaterno);
-					              
-								}else{
-									$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
-					                
-								}
-
-								if (valor.nombre.indexOf("'") != -1 ) {
-
-									var nombre = valor.nombre.replace("'", ' ');
-					            	$("#apellidoMaterno-hijo").val(nombre);
-					       			        
-								}else{
-									
-									$("#nombre-hijo").val(valor.nombre);
-					       
-								}
-
-					            $("#fechaNacimiento-hijo").val(valor.fechaNacimiento); 
+							$("#apellidoPaterno-hijo").val(filtro(valor.apellidoPaterno, 'letras'));
+							$("#apellidoMaterno-hijo").val(filtro(valor.apellidoMaterno,'letras'));
+							$("#nombre-hijo").val(filtro(valor.nombre,'letras'));
+					        $("#fechaNacimiento-hijo").val(valor.fechaNacimiento); 
 
 								if (valor.sexo >= 0  && valor.sexo < 2) {
 					                if(valor.sexo == 1){
@@ -1196,7 +1209,7 @@ $(".mensajeEdad").empty();
 					                }else{
 					                    $("#sexo-hijo").val(0);
 					                }
-								}
+								} 
 								
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
@@ -1218,7 +1231,6 @@ $(".mensajeEdad").empty();
 
 	}
 
-
 	/*Muestra mensaje de alerta*/
 	function showAlertMessage(alert, mensaje){
 		$(alert).text(mensaje).show('fade');
@@ -1226,6 +1238,7 @@ $(".mensajeEdad").empty();
 			hideAlertMessage(alert);	
 		}, 2000);
 	}
+
 	/*Oculta mensaje de alerta*/
 	function hideAlertMessage(alert){
 		$(alert).hide('fade');		
