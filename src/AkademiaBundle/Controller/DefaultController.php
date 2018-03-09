@@ -429,7 +429,7 @@ class DefaultController extends Controller
                 $cantRegistros = $data[0]['cantidadRegistros'];
                 
 
-                if(intval($cantRegistros) >= 2){
+                if(intval($cantRegistros) >= 1){
                 
                     $mensaje = 4;
                     return new JsonResponse($mensaje);
