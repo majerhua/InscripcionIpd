@@ -9,6 +9,7 @@
 	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
 	        </button>                       
 	        <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
 	    </div>
@@ -26,7 +27,7 @@
                 
                 {% else %}
                 
-                	<li><a href="{{url('akademia_contador')}}">Inscripciones</a></li>
+                	<li><a href="{{url('akademia_homepage')}}">Inscripciones</a></li>
 	            	<li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 					<li><a href="{{url('akademia_login')}}">Promotores</a></li>	            
 	            {% endif %}
@@ -132,8 +133,10 @@
 			</div>
 		{% else %}
 			<div class="container-titulo">		
-				<p>PRE - INSCRIPCIÓN 2018 I</p>
+				<p>PRE - INSCRIPCIÓN 2018 II</p>
+				<h4>Ciclo: Marzo - Diciembre</h4>
 			</div>
+			<br>
 			<div class="progreso_container">
 				<div class="progreso__barraInscripcion">
 					<div class="bar-inscripcion__1 active" >1</div>
@@ -160,49 +163,74 @@
 
 				<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
-                        <select  class="form-control" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
-                            <option value="">--SELECCIONAR--</option>
-                            <option value="dni" >DNI</option>
-                            <option value="carnet" >CARNET DE EXTRANJERÍA</option>
-                        </select>
+						<div>
+                        	<select  class="effect-3" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
+                            	<option value="0">--Seleccionar--</option>
+                            	<option value="dni" >DNI</option>
+                            	<option value="carnet" >Carnet de extranjería</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
 
 					<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
-                        <input id="dniApoderado" class="form-control" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate">
-                        <span class="cargarDatosApoderado" >Actualizando....</span>
-                        <span class="mensajeEdad" ></span>
+						<div>
+                        	<input id="dniApoderado" type="number" class="effect-3" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate" 
+                        	oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+					    	type = "number"
+					    	maxlength = "8"
+					    	min = "1" placeholder="Ingresar DNI ..."  >
+                        	<span class="cargarDatosApoderado" >Actualizando....</span>
+                        	<span class="mensajeEdad" ></span>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
 				</div>
-				<br>      
-				<div class="form-group col s12">
-				  <label for="apellidoPaterno">Apellido Paterno</label>
-		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+				<br>  
+				<div id="alerta-digitar" class="alert alert-danger collapse"></div>
 
+				<div class="form-group col s12">
+				 	<label for="apellidoPaterno">Apellido Paterno</label>
+  					<div>
+				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar apellido paterno ..." >
+	          			<span class="focus-border"></span>
+	      			</div>
 				</div>
 				
 				<div class="form-group col s12">
 				    <label for="apellidoMaterno" >Apellido Materno</label>
-		            <input id="apellidoMaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+				    <div>
+		            	<input id="apellidoMaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar apellido materno ..." >
+		            	<span class="focus-border"></span>
+		        	</div>
 				</div>
 	      						      						
 	    		<div class="form-group col s12">
 	    			<label for="nombre">Nombres</label>
-	          		<input id="nombre" maxlength="50" class="form-control"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  >
+	    			<div>
+	          			<input id="nombre" maxlength="50" class="effect-3"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  placeholder="Ingresar nombre ...">
+	          			<span class="focus-border"></span>
+	          		</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
 						<label for="fechaNacimiento">Fecha de Nacimiento</label>
-			          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
-			          					
+						<div>
+			          		<input class="effect-3"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
+			          		<span class="focus-border"></span>
+			          	</div>				
 					</div>
 					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
 						<label>Sexo</label>
-					    <select id="sexo" class="form-control"  name="sexo" >
-					    	<option value="2"selected>--SELECCIONAR--</option>
-					      	<option value="1">Masculino</option>
-					      	<option value="0">Femenino</option>
-					    </select>
+						<div>
+					    	<select id="sexo" class="effect-3"  name="sexo" >
+					    		<option value="2"selected>--Seleccionar--</option>
+					      		<option value="1">Masculino</option>
+					      		<option value="0">Femenino</option>
+					    	</select>
+					    	<span class="focus-border"></span>
+					    </div>
 					</div>
 				</div>
 				<hr>
@@ -219,55 +247,76 @@
 		  		<p class="title-card">DIRECCIÓN </p><hr>
 		        <div class="form-group col s12">
 					<label>Departamento</label>
-		        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
-		            	<option value="0">--Seleccionar--</option>
-		            
-			            {% for departamento in departamentos %}
-			            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
-			            {% endfor %}
-
-		        	</select> 
+					<div>
+		        		<select id="departamento" class="effect-3"  name="departamento"  onchange="cambiarDepartamento(this)">
+            				<option value="0">--Seleccionar--</option>
+			            	{% for departamento in departamentos %}
+			            		<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+			            	{% endfor %} 
+		        		</select>
+		        		<span class="focus-border"></label> 
+		        	</div>
 		    	</div>
 		    	<br>
 		    	<div class="row">
 			    	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 			        	<label>Provincia</label>
-			            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
-			                <option value="0">--Seleccionar--</option>
-			            </select>               
+			        	<div>
+			            	<select  id="provincia" class="effect-3"  name="provincia" onchange="cambiarProvincia(this)">
+			                	<option value="0">--Seleccionar--</option>
+			            	</select>
+			            	<span class="focus-border"></span>          
+			            </div>     
 			        </div>
 
 
 			        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 			        	<label>Distrito</label>
-			            <select id="distrito" name="distrito"  class="form-control">
-			                <option value="0">--Seleccionar--</option>
-			            </select> 
+			        	<div>
+			            	<select id="distrito" name="distrito"  class="effect-3">
+			                	<option value="0">--Seleccionar--</option>
+			            	</select>
+			            	<span class="focus-border"></span>
+		            	</div> 
 			        </div>
 		    	</div>
 		        <br>
 				<div class="form-group col s12">
                     <label for="direccion">Dirección</label>
-                    <input id="direccion" class="form-control"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
+                    <div>
+                    	<input id="direccion" class="effect-3" maxlength="60"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección">
+                    	<span class="focus-border"></span>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
-	                <div class="form-group col-xs-12 col-sm-12 col-md-4 col-ld-4">
+	                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 						<label for="telefono">Teléfono</label>
-			          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+						<div>
+			          		<input id="telefono" class="effect-3" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+			          		<span class="focus-border"></span>
+			          	</div>
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
-	                    <label for="correo">Correo Electrónico</label>
-	                    <input id="correo" class="form-control" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
+	                    <label for="correo">Correo Electrónico </label>
+	                    <div>
+	                    	<input id="correo" class="effect-3" maxlength="30" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+	                    	<span class="focus-border"></span>
+	                	</div>
 	                </div>
-                 </div>
+                </div>
+                <br>
+                <div class="row">
+                	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+                		<span class="text parpadea"> (*) Te recomendamos ingresar un correo gmail para recibir el enlace de tu ficha y declaración jurada.</span>
+                	</div>
+	            </div>
 				<hr>
+			    <div class="container-boton-2 text-center">
+					<button class="btn btn-danger" id="boton2"> Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
+				</div>
 	    	</div>
-	    	
-		    <div class="container-boton-2 text-center">
-				<button class="btn btn-danger" id="boton2" >Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
-			</div>
 		</div>
 	</div>
 
@@ -284,74 +333,117 @@
 				</div>
 	  			<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
-                        <select  class="form-control" type="text"  id="tipo_documentoHijo"  name="tipo_documentoHijo" onchange="modificarTexboxHijo()">
-                            <option value="">--SELECCIONAR--</option>
-                            <option value="dni" >DNI</option>
-                            <option value="carnet" >CARNET DE EXTRANJERÍA</option>
-                        </select>
+						<div>
+                        	<select  class="effect-3" type="text"  id="tipo_documentoHijo"  name="tipo_documentoHijo" onchange="modificarTexboxHijo()">
+                            	<option value="">--Seleccionar--</option>
+                            	<option value="dni" >DNI</option>
+                            	<option value="carnet" >Carnet de extranjería</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
 
 					<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
-                       <input class="form-control" type="text"  id="dni-hijo" onblur="buscarDniHijo(this)"  name="dni-hijo" placeholder="Ingresar DNI">
+
+						<div>
+                       		<input id="dni-hijo" type="number" class="effect-3" onblur="buscarDniHijo(this)" name="dni-hijo"  class="validate" 
+                        	oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+					    	type = "number"
+					    	maxlength = "8"
+					    	min = "1">
+					    	<span class="focus-border"></span>
+						</div>
+
 		        	<span class="cargarDatosParticipante">Actualizando....</span>
 	          		<span class="mensajeEdadParticipante"></span>
                     </div>
 				</div>
-				<br>
+
 				<div class="form-group">
 					<label for="apellidoPaternoHijo">Apellido Paterno</label>
-	          		 <input  class="form-control" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+					<div>
+	          		 	<input  class="effect-3" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+	          		 	<span class="focus-border"></span>
+	          		</div>
 				</div>
 				
 			 	<div class="form-group">
                     <label for="apellidoMaterno-hijo">Apellido Materno</label>
-                    <input  class="form-control" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
+                    <div>
+                    	<input  class="effect-3" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno">
+                    	<span class="focus-border"></span>
+                	</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="nombre-hijo">Nombre</label>
-                    <input  class="form-control" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres"  >
+                    <div>
+                    	<input  class="effect-3" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres">
+                    	<span class="focus-border"></span>
+                	</div>
                 </div>
-                <br>
+
 				<div class="row">
+
 				 	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                         <label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
-                        <input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+                        <div>
+                        	<input  class="effect-3" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
                         <label for="sexo-hijo">Sexo</label>
-                        <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-                           	<option value="2" selected>--SELECCIONAR--</option>
-					      	<option value="1">Masculino</option>
-					      	<option value="0">Femenino</option>
-                        </select>
+                        <div>
+                        	<select  class="effect-3" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+                           		<option value="2" selected>--Seleccionar--</option>
+					      		<option value="1">Masculino</option>
+					      		<option value="0">Femenino</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
+				</div>
+
+				<div class="row" >
+
 				    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
                         <label for="parentesco">Parentesco</label>
-                        <select id="parentesco" class="form-control" type="text"  name="parentesco">
-                            <option value="">--SELECCIONAR--</option>
-                            <option value="hijo" >HIJA(O)</option>
-                            <option value="sobrino">SOBRINA(O)</option>
-                            <option value="nieto">NIETA(O)</option>
-                            <option value="otros">OTROS</option>
-                        </select>
+                        <div>
+                        	<select id="parentesco" class="effect-3" type="text"  name="parentesco">
+                            	<option value="">--Seleccionar--</option>
+                            	<option value="hijo" >Hija(O)</option>
+                            	<option value="sobrino">Sobrina(O)</option>
+                            	<option value="nieto">Nieta(O)</option>
+                            	<option value="otros">Otro</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                         <label for="tipoSeguro">Tipo de Seguro</label>
-                        <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
-                        	<option value="">--SELECCIONAR--</option>
-                            <option value="EsSALUD" >EsSALUD</option>
-                            <option value="SIS" >SIS</option>
-                            <option value="PRIVADO" >PRIVADO</option>
-                            <option value="OTROS" >OTROS</option>
-                        </select>
+                        <div>
+                        	<select id="tipoSeguro" class="effect-3" type="text"  name="tipoSeguro">
+                        		<option value="">--Seleccionar--</option>
+                           	 	<option value="EsSALUD" >EsSalud</option>
+                            	<option value="SIS" >SIS</option>
+                            	<option value="PRIVADO" >Privado</option>
+                           	 	<option value="OTROS" >Otros</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
 				</div>
-				<br>
+				
+				<hr>
             	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
 					<div class="row">
 						<div class="form-group col-xs-9 col-sm-9 col-md-9 col-ld-9">
-							<label>¿El participante presenta alguna condición especial?</label>
+							<p style="color:grey">¿El participante presenta algún tipo de discapacidad física o mental?</p>
 						</div>
 						<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3">  
 							<div class="input-group">
@@ -362,8 +454,12 @@
 							</div>
 						</div>
 					</div>
+					<div id="advertencia" class="alert alert-danger collapse text-center">
+						<p style="font-size:14px">Sólo se mostrarán horarios dirigidos a personas con discapacidad.</p>
+					</div>	
 				</div>
-				<br>
+
+				<hr>
 				<div class="container-boton-3 text-center">
 					<button class="btn btn-danger" id="boton3">Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i>
 					</button>
@@ -377,93 +473,6 @@
 	</div>
 	
 <div class="proceso" id="ajaxproceso4">
-
-	{#<div class="proceso-inscripcion__horarios" id="process4">
-		<div class="container-card col-xs-12 col-sm-12 col-md-8 col-lg-7">
-			<div class="card">
-				<p class="title-card text-center">ELIGE UN COMPLEJO DEPORTIVO</p>
-				<hr>
-				<div class="complejo row">
-					<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-						<label class="text-left">Departamento</label>
-			            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this,0)">
-			                <option value="">--Seleccionar--</option>
-				            {% for departamentoCD in departamentosCD %}
-				            	<option value="{{departamentoCD['id']}}" >{{departamentoCD['nombre']}}</option>
-				            {% endfor %}
-							
-			            </select>
-		        	</div>
-
-		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-		            	<label class="text-left">Provincia</label>
-		                <select  id="provinciaHorario" class="form-control"  name="provinciaHorario" onchange="cambiarProvinciaHorario(this,0)">
-		                    <option value="">--Seleccionar--</option>
-		                </select>               
-		            </div>
-
-		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-		            	<label class="text-left">Distrito</label>
-		                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-		                    <option value="">--Seleccionar--</option>
-		                </select> 
-		            </div>
-
-		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
-		        		<label class="text-left">Complejo Deportivo</label>
-		            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-		                <option value="">--Seleccionar--</option>
-		            	</select>
-		        	</div>
-				</div>
-
-				<div class="mapa row">
-					<iframe  id="iframe_lugar" class= "well well-sm col-xs-12 col-sm-12" width="800" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q='Peru%20lima'&key=AIzaSyDv9gTXqhO_IlpmDDEpVyE2DHpYcsVKp80" allowfullscreen></iframe>
-				</div>
-		   </div>
-		</div>
-
-
-		<div class="container-card col-xs-12 col-sm-12 col-md-4 col-lg-5">
-			<div class="card">
-				<p class="title-card text-center">DEPORTES Y HORARIOS</p>
-				<hr>
-		        <div class="form-group container-select-deporte"  >
-		        	<label>Deporte: </label>
-		            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
-		                <option value="">--Seleccionar--</option>
-		            </select> 
-		        </div>
-		        <div class="form-group container-select-deporte"  >
-		        	<label>Horario: </label>
-		            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
-		                <option value="">--Seleccionar--</option>
-		            </select> 
-		        </div>
-		        <br>
-		        <div id="alerta-error" class="alert alert-danger collapse"></div>
-		        <br>
-		        <div class="form-group  container-horario-participante">
-		        	<div id="rango-edad-horario" ></div>
-		        	<div>
-		        		<div id="turno"></div>
-		        		<div id="rango-hora-horario"></div>
-		        	</div>
-		        	<div id="vacantes"></div>
-		        </div>
-		        <br>
-		        <hr>
-		        <div class="form-group row" >
-		        	<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-		        		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Otras Edades</button>
-		        	</div>
-					<div class="form-group container-boton-final col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-						<button class="btn btn-danger" id="boton-next-final">Finalizar Inscripción</button>
-					</div>	
-				</div>	
-			</div>
-		</div>
-	</div>#}
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -484,8 +493,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 </section>
 <br><br>
@@ -535,6 +542,52 @@
 
 <script>
 
+
+	/*VALIDAR NEGATIVOS*/
+	
+	jQuery('#dniApoderado, #dni-hijo').on('keypress', function (e) {
+
+	    if (e.keyCode == 101 || e.keyCode == 45 || e.keyCode == 46 || e.keyCode == 43 || e.keyCode == 44 || e.keyCode == 47 || e.keyCode == 69 ) {
+
+	        return false;
+	    }
+
+	    soloNumeros(e.keyCode);
+	});
+	
+	function soloNumeros(e) {
+	    var key = window.Event ? e.which : e.keyCode
+	        return (key >= 48 && key <= 57)
+	}
+
+	// validar filtro de caracteres especiales
+
+	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keypress', function(e){
+
+		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
+			showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
+			return false;
+
+		}
+
+		noCaracteresEspeciales(e.keyCode);
+	});
+
+	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keydown',function(e){
+
+		if(e.keyCode==86 && e.ctrlKey){
+			return false;
+		}
+
+	});
+
+	function noCaracteresEspeciales(e){
+		var key = window.Event ? e.which : e.keyCode
+	        return (key >= 64 && key <= 90)
+	}
+
+
+
 	$('#loader').hide();
 
 	var pageHorario = (estado)=>{
@@ -544,8 +597,9 @@
 		var containerPaso4 = document.querySelector("#ajaxproceso4");
 	 
 		$.ajax({
-			type:'GET',
+			type:'POST',
 			url:urlRegFinal,
+			data:{'edadBeneficiario':sessionStorage.getItem("edad")},
 			beforeSend:function(){
 				console.log("Enviando...");
 				$('#loader').show();
@@ -561,69 +615,101 @@
 	}
 
 
+	$("#dniApoderado").hide();
+		
 	function modificarTexbox(){
-	    document.getElementById("dniApoderado").value="";
-	    switch(document.getElementById("tipo_documento").value) {
+	
+	    var tipoDoc = $("#tipo_documento").val();
+
+	    switch(tipoDoc) {
 	        case "dni":         
 	            document.getElementById("dniApoderado").setAttribute("maxlength", "8");
-	             $( "#dniApoderado" ).focus();
+	            $("#dniApoderado" ).show();
+	            $("#dniApoderado").focus();
 	        break;
 	        case "carnet":
 	            document.getElementById("dniApoderado").setAttribute("maxlength", "12");
-	            $( "#dniApoderado" ).focus();
+	            $("#dniApoderado" ).show();
+	            $("#dniApoderado").focus();
 	        break;
 	        default:
+
+	        	$("#dniApoderado").hide();
 	        	alertify.error('<p style="color:white">Seleccione el tipo de documento</p>'); 
     
 	    }
 	}	
+
+
+	$("#dni-hijo").hide();
+	
 	function modificarTexboxHijo(){
-	    document.getElementById("dni-hijo").value="";
-	    switch(document.getElementById("tipo_documentoHijo").value) {
+	   
+	   	var tipoDoc = $("#tipo_documentoHijo").val();
+
+	    switch(tipoDoc) {
 	        case "dni":         
 	            document.getElementById("dni-hijo").setAttribute("maxlength", "8");
-	             $( "#dni-hijo" ).focus();
+	            $("#dni-hijo").show();
+	            $("#dni-hijo").focus();
+
 	        break;
 	        case "carnet":
 	            document.getElementById("dni-hijo").setAttribute("maxlength", "12");
-	            $( "#dni-hijo" ).focus();
+	            $("#dni-hijo").show();
+	            $("#dni-hijo").focus();
 	        break;
 	        default:
+	        	$("#dni-hijo").hide();
 	        	alertify.error('<p style="color:white">Seleccione el tipo de documento</p>'); 
     
 	    }
 	}	
-	
+
+	/*MENSAJE DE DISCAPACIDAD*/
+
+	//$("#textoCbx").text('No');
+
+	var cont=0;
 	$('#cbx-discapacidad').on( 'click', function() {
-	    if($(this).is(':checked'))
-	    {
+	    /*if($(this).is(':checked'))
+	    {	
+	    	//$("#textoCbx").text('Si');
+	    	$("#advertencia").show();
 	    	sessionStorage.removeItem('flagDiscapacitado');
-      	sessionStorage.setItem('flagDiscapacitado',$(this).val());        
+      		sessionStorage.setItem('flagDiscapacitado',$(this).val());        
+	    }else{
+	    	//$("#textoCbx").text('No');
+	    	
+	    	$("#advertencia").hide();
+	    	sessionStorage.removeItem('flagDiscapacitado');
+	    	$("#cbx-discapacidad").prop('checked', false);
+	    }*/
+
+	    sessionStorage.removeItem('flagDiscapacitado');
+	    if(cont==0){
+	    	$("#advertencia").show();
+      		sessionStorage.setItem('flagDiscapacitado',$(this).val());
+	    	cont++;
+	    }else{
+	    	$("#advertencia").hide();
+	    	$("#cbx-discapacidad").prop('checked', false);
+	    	cont=0;
 	    }
 	});
+
+
+
 	function mayus(e) {
 	    e.value = e.value.toUpperCase();
 	}
-	{#
-	var complejo = document.getElementById('complejosDeportivo');
-	complejo.addEventListener('change',
-		function(){
-			var selectedOption = this.options[complejo.selectedIndex];
-			var departamento = document.getElementById('departamentoHorario');	
-			var provincia = document.getElementById('provinciaHorario');
-			var distrito = document.getElementById('distritoHorario');
-			var depa = departamento.options[departamento.selectedIndex].text;
-			var prov = provincia.options[provincia.selectedIndex].text;
-			var dist = distrito.options[distrito.selectedIndex].text;
-			
-			var direccion = depa+' '+prov+' '+dist+'IPD COMPLEJO DEPORTIVO '+ selectedOption.text;
-			var search = "https://www.google.com/maps/embed/v1/search?q='peru%20"+direccion+"'&key=AIzaSyDv9gTXqhO_IlpmDDEpVyE2DHpYcsVKp80";
-			
-			$("#iframe_lugar").attr('src',search);
-	});
-	#}
+
 	function cambiarDepartamento(departamento){
+		
 		idDepartamento = departamento.value;
+		sessionStorage.removeItem('horIdDepartamento');
+        sessionStorage.setItem('horIdDepartamento',idDepartamento);
+
 		$("#provincia").empty();
 		$("#distrito").empty();
 		$("#provincia").append("<option value='' >--Seleccionar--</option>");
@@ -637,7 +723,11 @@
 		{% endfor %}
 	}
 	function cambiarProvincia(provincia){
+		
 		idProvincia = provincia.value;
+		sessionStorage.removeItem('horIdProvincia');
+        sessionStorage.setItem('horIdProvincia',idProvincia);
+
 		idDepartamento = $(provincia[1]).attr('data-departamento');
 		$("#distrito").empty();
 		$("#distrito").append("<option value='' >--Seleccionar--</option>");
@@ -649,227 +739,9 @@
 			}
 		{% endfor %}
 	}
+
 // HORARIO
-{#
-	function cambiarDepartamentoHorario(departamentoHorario,cod){
-        if (cod==0){
-            var idDepartamentoHorario = departamentoHorario.value;
-        }else{
-            var idDepartamentoHorario = departamentoHorario;
-        }
-                
-		$("#provinciaHorario").empty();
-		$("#distritoHorario").empty();
-		$("#provinciaHorario").append("<option value='' >--Seleccionar--</option>");
-		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
-		$("#complejosDeportivo").empty();
-		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		{% for provinciaCD in provinciasCD  %}
-			if("{{provinciaCD['idDepartamento']}}" == idDepartamentoHorario){
-				console.log("{{provinciaCD['nombreProvincia']}}");
-				console.log("{{provinciaCD['idProvincia']}}");
-				
-				$("#provinciaHorario").append("<option value={{provinciaCD['idProvincia']}}  data-departamento={{provinciaCD['idDepartamento']}} >{{provinciaCD['nombreProvincia']}}</option>");
-				
-			}
-		{% endfor %}
-	}#}
-	{#
-	function cambiarProvinciaHorario(provinciaHorario,cod){
-       
-        if (cod==0){
-            var idProvinciaHorario = provinciaHorario.value;
-            idDepartamentoHorario = $(provinciaHorario[1]).attr('data-departamento');
-        }else{
-            var idProvinciaHorario = provinciaHorario;
-            idDepartamentoHorario = cod;
-        }
-		
-		$("#distritoHorario").empty();
-		$("#distritoHorario").append("<option value='' >--Seleccionar--</option>");
-		$("#complejosDeportivo").empty();
-		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-	
-			{% for ditritoCD in ditritosCD  %}
-	                     
-				if("{{ditritoCD['idProvincia']}}" == idProvinciaHorario  && {{ditritoCD['idDepartamento']}} == idDepartamentoHorario){
-					$("#distritoHorario").append("<option value={{ditritoCD['idDistrito']}} >{{ditritoCD['nombreDistrito']}}</option>");	
-	                         
-				}
-			{% endfor %}			
-		
-	}
-#}
-{#
-	function cambiarDistritoHorario(distritoHorario){
-		var idDistritoHorario = distritoHorario.value;
-		$("#complejosDeportivo").empty();
-		$("#complejosDeportivo").append("<option value='' >--Seleccionar--</option>");
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-			{% for complejoDeportivo in complejosDeportivo  %}
-				if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1 && "{{complejoDeportivo['discapacitado']}}" == sessionStorage.getItem('flagDiscapacitado')){
-					
-						$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
-				}else {
-					$("#disciplinaDeportiva").empty();
-					$("#horario").empty();
-					$("#vacantes").empty();
-					$("#turno").empty();
-					$("#rango-edad-horario").empty();
-					$("#rango-hora-horario").empty();
-				}
-			{% endfor %}
-		}
-		if(sessionStorage.getItem('flagDiscapacitado') != '1' ){
-			{% for complejoDeportivo in complejosDeportivo  %}
-			
-				if("{{complejoDeportivo['ubicodigo']}}" == idDistritoHorario  && "{{complejoDeportivo['estado']}}" == 1){
-			
-						$("#complejosDeportivo").append("<option value={{complejoDeportivo['id']}} >{{complejoDeportivo['nombre']}}</option>");
-				}else {
-					$("#disciplinaDeportiva").empty();
-					$("#horario").empty();
-					$("#vacantes").empty();
-					$("#turno").empty();
-					$("#rango-edad-horario").empty();
-					$("#rango-hora-horario").empty();
-				}
-			{% endfor %}
-						
-		}
-	}
-	#}
 
-	{#
-	function cambiarComplejoDeportivo(complejoDeportivo){
-		var idComplejoDeportivo = complejoDeportivo.value;
-		$("#disciplinaDeportiva").empty();
-		$("#horario").empty();
-		$("#vacantes").empty();
-		$("#turno").empty();
-		$("#rango-edad-horario").empty();
-		$("#rango-hora-horario").empty();
-		$("#disciplinaDeportiva").empty();
-		$("#disciplinaDeportiva").append("<option value='' >--Seleccionar--</option>");
-		
-		if(sessionStorage.getItem('flagDiscapacitado') == '1'){
-			{% for complejoDisciplina in complejosDisciplinas  %}
-				if("{{complejoDisciplina['idComplejoDeportivo']}}" == idComplejoDeportivo && "{{complejoDisciplina['discapacidad']}}" == 1){
-					
-					var nombreDis = "{{ complejoDisciplina['nombreDisciplina'] }} ";
-					$("#disciplinaDeportiva").append("<option value = {{complejoDisciplina['id']}}>"+nombreDis.trim()+"</option>");
-				}
-			{% endfor %}
-		}
-			if(sessionStorage.getItem('flagDiscapacitado') != '1' ){
-			{% for complejoDisciplina in complejosDisciplinas  %}
-				if("{{complejoDisciplina['idComplejoDeportivo']}}" == idComplejoDeportivo ){
-					
-					var nombreDis = "{{ complejoDisciplina['nombreDisciplina'] }} ";
-					$("#disciplinaDeportiva").append("<option value = {{complejoDisciplina['id']}}>"+nombreDis.trim()+"</option>");
-				}
-			{% endfor %}
-		}
-		
-	}
-
-	#}
-
-	{#
-	function cambiarDisciplinaDeportiva(complejoDisciplina){
-		
-		$("#boton-next-final").attr("disabled", false);
-		var idComplejoDisciplina = complejoDisciplina.value;
-		$("#horario").empty();
-		$(".horario-otrasEdades").empty();
-		$("#horario").append("<option value='' >--Seleccionar--</option>");
-		$("#rango-hora-horario").empty();
-		$("#rango-edad-horario").empty();
-		$("#turno").empty();
-		$("#vacantes").empty();
-				
-		var cantHorarios = 0;
-		if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-			{% for horario in horarios  %}
-				var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
-				var horaFin = "{{horario['horaFin']}}".substr(0,5);
-				if("{{horario['edi_codigo']}}" == idComplejoDisciplina && "{{horario['discapacitados']}}" == 1 ){
-					if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-						localStorage.removeItem('idHorario');
-						sessionStorage.setItem("idHorario", "{{horario['id']}}");
-						
-						$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
-						cantHorarios = cantHorarios + $('#horario').length;
-					}else{
-						$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
-						
-					}
-				}
-			{% endfor %}
-		}
-		if(sessionStorage.getItem('flagDiscapacitado') != 1){
-			{% for horario in horarios  %}
-				var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
-				var horaFin = "{{horario['horaFin']}}".substr(0,5);
-				if("{{horario['edi_codigo']}}" == idComplejoDisciplina  && "{{horario['discapacitados']}}" == 0 ){
-					if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-						localStorage.removeItem('idHorario');
-						sessionStorage.setItem("idHorario", "{{horario['id']}}");
-						
-						$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} de   "+horaInicio+" a "+horaFin+"</option>");
-						cantHorarios = cantHorarios + $('#horario').length;
-					}else{
-						$(".horario-otrasEdades").append("{{horario['edadMinima']}} a {{horario['edadMaxima']}} años  "+horaInicio+"  a  "+horaFin+" am. {{horario['turno']}}<br>");
-						
-					}
-				}
-			{% endfor %}
-		}
-		
-		if(cantHorarios == 0){
-				$("#rango-hora-horario").empty();
-				$("#rango-edad-horario").empty();
-				$("#turno").empty();
-				$("#vacantes").append("<strong> No hay vacantes disponibles. </strong>");
-		}
-			
-	}
-
-	#}
-	{#
-	function cambiarHorario(horario){
-		$("#horaInicio").empty();
-		$("#horaFin").empty();
-		$("#edadMinima").empty();
-		$("#edadMaxima").empty();
-		$("#vacantes").empty();
-		var idHorario = horario.value;
-		{% for horario in horarios  %}
-			var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
-			var horaFin = "{{horario['horaFin']}}".substr(0,5);
-			if("{{horario['id']}}" == idHorario){
-				if(sessionStorage.getItem("edad") >= {{horario.edadMinima}} && sessionStorage.getItem("edad") <= {{horario.edadMaxima}}){
-					localStorage.removeItem('idHorario');
-					sessionStorage.setItem("idHorario", "{{horario['id']}}");
-					$("#vacantes").empty();
-					$("#turno").empty();
-					$("#turno").append(" {{horario['turno']}} ");
-					$("#rango-hora-horario").empty();
-					$("#rango-hora-horario").append("  de  "+horaInicio+" a "+horaFin);
-					
-					$("#rango-edad-horario").empty();
-					$("#rango-edad-horario").append(" <strong> De {{horario['edadMinima']}} a {{horario['edadMaxima']}} años. </strong> ");
-				}		
-			}
-		{% endfor %}
-	}
-	#}
 	$("#proceso1").show();
 	$("#proceso2").hide();
 	$("#proceso3").hide();
@@ -898,64 +770,66 @@
 		}
 		return false;
 	}
+	
 	function calcularEdad(fecha){
 	
 		if(validate_fecha(fecha)==true){
-			    
-			   
+		       
 			var values=fecha.split("-");
 			var dia = values[2];
 			var mes = values[1];
-			        var ano = values[0];
-			 
-		        // cogemos los valores actuales
-		        var fecha_hoy = new Date();
-		        var ahora_ano = fecha_hoy.getYear();
-		        var ahora_mes = fecha_hoy.getMonth()+1;
-		        var ahora_dia = fecha_hoy.getDate();
-			 
-			        // realizamos el calculo
-			        var edad = (ahora_ano + 1900) - ano;
-			        if ( ahora_mes < mes )
-			        {
-			            edad--;
-			        }
-			        if ((mes == ahora_mes) && (ahora_dia < dia))
-			        {
-			            edad--;
-			        }
-			        if (edad > 1900)
-			        {
-			            edad -= 1900;
-			        }
-			 
-			        // calculamos los meses
-			        var meses=0;
-			        if(ahora_mes>mes)
-			            meses=ahora_mes-mes;
-			        if(ahora_mes<mes)
-			            meses=12-(mes-ahora_mes);
-			        if(ahora_mes==mes && dia>ahora_dia)
-			            meses=11;
-			 
-			        // calculamos los dias
-			        var dias=0;
-			        if(ahora_dia>dia)
-			            dias=ahora_dia-dia;
-			        if(ahora_dia<dia)
-			        {
-			            ultimoDiaMes=new Date(ahora_ano, ahora_mes, 0);
-			            dias=ultimoDiaMes.getDate()-(dia-ahora_dia);
-			        }
-			    }
-			    return edad;
-			}	
+			var ano = values[0];
+		 
+	        // cogemos los valores actuales
+	        var fecha_hoy = new Date();
+	        var ahora_ano = fecha_hoy.getYear();
+	        var ahora_mes = fecha_hoy.getMonth()+1;
+	        var ahora_dia = fecha_hoy.getDate();
+		 
+	        // realizamos el calculo
+	        var edad = (ahora_ano + 1900) - ano;
+	        if ( ahora_mes < mes ){
+	            edad--;
+	        }
+
+	        if ((mes == ahora_mes) && (ahora_dia < dia)){
+	            edad--;
+	        }
+
+	        if (edad > 1900){
+	            edad -= 1900;
+	        }
+		 
+		        // calculamos los meses
+		        var meses=0;
+		        if(ahora_mes>mes)
+		            meses=ahora_mes-mes;
+		        if(ahora_mes<mes)
+		            meses=12-(mes-ahora_mes);
+		        if(ahora_mes==mes && dia>ahora_dia)
+		            meses=11;
+		 
+		        // calculamos los dias
+		        var dias=0;
+		        if(ahora_dia>dia)
+		            dias=ahora_dia-dia;
+		        if(ahora_dia<dia){
+		            ultimoDiaMes=new Date(ahora_ano, ahora_mes, 0);
+		            dias=ultimoDiaMes.getDate()-(dia-ahora_dia);
+		        }
+		    }
+		    return edad;
+		}	
+
 		$("#boton1").on('click',function(){
+             	
              	var expreg = new RegExp("^[0-9]{8}$");
                	var dniApoderadoPaso1 = $("#dniApoderado").val();	 
                	var fechaApoderadoPaso1 = $("#fechaNacimiento").val();	
            		var edadApoderado = calcularEdad(fechaApoderadoPaso1);
+               	
                	console.log(expreg.test(dniApoderadoPaso1));
+               
                 if($("#dniApoderado").val()=="" || !expreg.test(dniApoderadoPaso1)){
                    alertify.error('<p style="color:white">Campo DNI incorrecto</p>'); 
               	}else if($("#apellidoPaterno").val()==""){
@@ -971,6 +845,7 @@
                    alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
                 }else{
                     sessionStorage.clear()
+                
                     //DATOS APODERADO
                     sessionStorage.removeItem("dni-apoderado");
                     sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
@@ -993,20 +868,25 @@
 	});
 	$("#boton2").on('click',function(){
 		
+				//var $direccionApoderado = $("#direccion");	
+
 				var expregTelefono = new RegExp("^([0-9]{9}|[0-9]{7})$");
 				var expregEmail = new RegExp("^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$");
-                
+				//var expregDireccion = new RegExp("^([a-zA-Z]|[0-9])+$");
                 var telefonoApoderadoPaso2 = $("#telefono").val();
                 var correoApoderadoPaso2 = $("#correo").val();
+
+
                 if($("#distrito").val()==0){
                    alertify.error('<p style="color:white">Debe seleccionar el campo distrito</p>'); 
-                }else if($("#direccion").val()==0){
-                   alertify.error('<p style="color:white">Debe seleccionar el campo dirección</p>'); 
+                }else if($("#direccion").val()==0 /*|| !expregDireccion.test($direccionApoderado.val())*/ ){
+                   alertify.error('<p style="color:white">Campo Direccion Incorrecto</p>'); 
                 }else if( telefonoApoderadoPaso2 =="" || !expregTelefono.test(telefonoApoderadoPaso2)){
                    alertify.error('<p style="color:white">Campo Telefono incorrecto</p>'); 
                 }else if(correoApoderadoPaso2 =="" || !expregEmail.test(correoApoderadoPaso2) ){
                   alertify.error('<p style="color:white">Campo Correo incorrecto</p>'); 
                 }else{
+                    
                     sessionStorage.removeItem("distrito-apoderado");
                     sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
                     sessionStorage.removeItem("direccion-apoderado");
@@ -1015,11 +895,10 @@
                     sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
                     sessionStorage.removeItem("correo-apoderado");
                     sessionStorage.setItem("correo-apoderado", $("#correo").val());
+
                     $("#departamentoHorario").val($("#departamento").val());
-                    //cambiarDepartamentoHorario($("#departamento").val(),1);
                     $("#provinciaHorario").val($("#provincia").val());
-                    //cambiarProvinciaHorario($("#provincia").val(),$("#departamento").val());
-                    {#$("#distritoHorario").val($("#distrito").val());#}
+                   
                     
                     $("#proceso2").hide();
                     $("#proceso3").show();
@@ -1028,10 +907,13 @@
                 }
                 
 	});
+
 $("#boton3").on('click',function(){
+	
 	var expregDni = new RegExp("^[0-9]{8}$");
 	var dniHijoPaso3 = $("#dni-hijo").val();
-     if(dniHijoPaso3 =="" || !expregDni.test(dniHijoPaso3)){
+    
+    if(dniHijoPaso3 =="" || !expregDni.test(dniHijoPaso3)){
        alertify.error('<p style="color:white">Campo DNI incorrecto</p>'); 
     }else if($("#apellidoPaterno-hijo").val()==""){
        alertify.error('<p style="color:white">Se requiere el campo apellido paterno</p>'); 
@@ -1048,50 +930,55 @@ $("#boton3").on('click',function(){
     }else if($("#tipoSeguro").val()==""){
        alertify.error('<p style="color:white">Debe seleccionar el campo tipo de seguro</p>');              
     }else{
-        //DATOS APODERADO
-	        sessionStorage.removeItem("dni-participante");
-	        sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
-	        sessionStorage.removeItem("apellidoPaterno-participante");
-	        sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
-	        sessionStorage.removeItem("apellidoMaterno-partcipante");
-	        sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
-	        sessionStorage.removeItem("nombre-partcipante");
-	        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
-	        sessionStorage.removeItem("fechaNacimiento-partcipante");
-	        sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
-	        sessionStorage.removeItem("sexo-partcipante");
-	        sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
-	        sessionStorage.removeItem("parentesco-partcipante");
-	        sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
-	        sessionStorage.removeItem("tipoSeguro-partcipante");
-	        sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
-			sessionStorage.removeItem('edad');
-			sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
-	        console.log("EDAD SESION"+sessionStorage.getItem("edad"));
-	            console.log("Edad SESION ==> "+sessionStorage.getItem("edad"));
+    
+    	//DATOS PARTICIPANTE
+
+        sessionStorage.removeItem("dni-participante");
+        sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+        sessionStorage.removeItem("apellidoPaterno-participante");
+        sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+        sessionStorage.removeItem("apellidoMaterno-partcipante");
+        sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+        sessionStorage.removeItem("nombre-partcipante");
+        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
+        sessionStorage.removeItem("fechaNacimiento-partcipante");
+        sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
+        sessionStorage.removeItem("sexo-partcipante");
+        sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
+        sessionStorage.removeItem("parentesco-partcipante");
+        sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
+        sessionStorage.removeItem("tipoSeguro-partcipante");
+        sessionStorage.setItem("tipoSeguro-partcipante", $("#tipoSeguro").val());
+		sessionStorage.removeItem('edad');
+		sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
+        console.log("EDAD SESION"+sessionStorage.getItem("edad"));
+        console.log("Edad SESION ==> "+sessionStorage.getItem("edad"));
+		
 		if(sessionStorage.getItem("edad")  == null || sessionStorage.getItem('edad')  == undefined){
 			var edadParticipante = calcularEdad($("#fechaNacimiento-hijo").val());
 			console.log("EDAD CALCULAR FRONTED ==> "+sessionStorage.getItem("edad"));
 		}
+
 		if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
 			if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 5){
+				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 7){
+					
 					$("#proceso3").hide();
-					//$("#process4").show();	
 					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
 					pageHorario(1);
+
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');	
 			    }else{
-			    	alertify.error('<p style="color:white">Sólo de 5 a 40 años. </p>'); 
+			    	alertify.error('<p style="color:white">Sólo de 7 a 40 años. </p>'); 
 			    }
-			}
-			else if(sessionStorage.getItem('flagDiscapacitado') == null ){
+			}else if(sessionStorage.getItem('flagDiscapacitado') == null ){
 				if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
+					
 					$("#proceso3").hide();
-					//$("#process4").show();
 					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
 					pageHorario(0);	
+			
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');		
 				}else{
@@ -1103,31 +990,9 @@ $("#boton3").on('click',function(){
     }
 });
 
-
-function enviarEmailApoderado($correoApod,$nombre,$id){
-	var correoApoderado = {
-		"correo" : $correoApod,
-		"nombre" : $nombre,
-		"id" : $id,
-	};
-	$.ajax({
-		type:'POST',
-		dataType: 'json',
-		url: "{{url('akademia_sendemailapoderado')}}",
-		data: correoApoderado,
-		beforeSend: function(){
-			 alertify.warning('<p style="color:black">Enviando información al correo eléctrónico.</p>');
-		},
-		success: function(data){
-			 alertify.success('<p style="color:black">Correo enviando exitosamente.</p>');
-		},
-		error: function(error){
-			 alertify.error('<p style="color:white">Se produjo un problema al enviar la información a su correo electrónico.</p> ');
-		}	
-	});
-}
 $('.cargarDatosApoderado').hide();	
 $(".mensajeEdad").empty();
+	
 	function buscarDniApoderado(refDni){
 		if(refDni.value !=''){
 			datoDniPersona = {
@@ -1144,6 +1009,7 @@ $(".mensajeEdad").empty();
 				$('.cargarDatosApoderado').show();
 			},
 			success: function(data){
+
 	 		$("#apellidoPaterno").val('');
             $("#apellidoMaterno").val('');
             $("#nombre").val('');
@@ -1158,24 +1024,53 @@ $(".mensajeEdad").empty();
 			if(data != 1){
 				var dataApoderado = JSON.parse(data);
 				console.log("Busqueda DNI ==> ",dataApoderado);
+				
 					$(dataApoderado).each(function(index,valor){
-						if(valor.edad >=18){
-			                $("#apellidoPaterno").attr('readonly', true);
-			                $("#apellidoMaterno").attr('readonly', true);
-			                $("#nombre").attr('readonly', true);
-			                $("#fechaNacimiento").attr('readonly', true);
-			                $("#sexo").attr('readonly', true);
-			                $("#apellidoPaterno").val(valor.apellidoPaterno);
-			                $("#apellidoMaterno").val(valor.apellidoMaterno);
-			                $("#nombre").val(valor.nombre);
-			                $("#fechaNacimiento").val(valor.fechaNacimiento);
-			                if(valor.sexo == 1){
-			                    $("#sexo").val('1');	
-			                }else{
-			                    $("#sexo").val('0');
-			                }
-			            }
-						else{
+						if(valor.edad >=18 || valor.fechaNacimiento == null){
+
+							
+							if(valor.apellidoPaterno.indexOf("'") != -1){
+								var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
+								$("#apellidoPaterno").val(apellidoPaterno);
+							}else{
+								$("#apellidoPaterno").val(valor.apellidoPaterno);
+							}
+							
+
+							if (valor.apellidoMaterno.indexOf("'") != -1){
+								var apellidoMaterno= valor.apellidoMaterno.replace("'", ' ');
+				                $("#apellidoMaterno").val(apellidoMaterno);
+				              
+							}else{
+				               $("#apellidoMaterno").val(valor.apellidoMaterno);
+				              
+							}
+
+							if (valor.nombre.indexOf("'") != -1) {
+								var nombre= valor.nombre.replace("'", ' ');
+				                $("#nombre").val(nombre);
+							}else{
+				               $("#nombre").val(valor.nombre);
+				              
+							}
+
+							if (valor.fechaNacimiento != null) {
+				                $("#fechaNacimiento").val(valor.fechaNacimiento);
+							}else{
+				                $("#fechaNacimiento").val('');
+							}
+
+
+							if (valor.sexo >= 0 && valor.sexo < 2) {
+				                if(valor.sexo == 1){
+				                    $("#sexo").val(1);	
+				                }else{
+				                    $("#sexo").val(0);
+				                }
+							}
+
+			            }else{
+
 						 	$(".mensajeEdad").empty();
 			             	$(".mensajeEdad").append("(*Usted es menor de edad)");
 			             	$("#apellidoPaterno").attr('readonly', true);
@@ -1191,7 +1086,9 @@ $(".mensajeEdad").empty();
 			      
 						}
 					});	
+
 				}else{
+
 					$(".mensajeEdad").empty();
 		            $("#apellidoPaterno").val('');
 		            $("#apellidoMaterno").val('');
@@ -1204,6 +1101,7 @@ $(".mensajeEdad").empty();
 		            $("#fechaNacimiento").attr('readonly', false);
 		            $("#sexo").attr('readonly', false);
 		        }
+
 				$('.cargarDatosApoderado').hide();
 				
 			},
@@ -1219,7 +1117,17 @@ $(".mensajeEdad").empty();
 	
 	function buscarDniHijo(refDni){
 		if(refDni.value != ''){
+
+			$("#advertencia").hide();
+			$("#parentesco").val("");
+			$("#tipoSeguro").val("");
+			$("#cbx-discapacidad").prop('checked', false);
+			sessionStorage.removeItem('flagDiscapacitado');
+
+
+
 			$(".mensajeEdadParticipante").empty();
+			
 			var datoDniPersona = {
 				'dni' : refDni.value,
 				"persona": 'hijo'
@@ -1249,40 +1157,68 @@ $(".mensajeEdad").empty();
 				if(data != 1){
 					var dataHijo = JSON.parse(data);
 					console.log("Busqueda DNI ==> ",dataHijo);
+				
 						$(dataHijo).each(function(index,valor){
-							//if(valor.edad <= 17 ){
-                                $("#apellidoPaterno-hijo").attr('readonly', true);
-                                $("#apellidoMaterno-hijo").attr('readonly', true);
-                                $("#nombre-hijo").attr('readonly', true);
-                                $("#fechaNacimiento-hijo").attr('readonly', true);
-                                $("#sexo-hijo").attr('readonly', true);
-                                                                
-								$("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
-								$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
-								$("#nombre-hijo").val(valor.nombre);
-								$("#fechaNacimiento-hijo").val(valor.fechaNacimiento);
-								$("#sexo-hijo").val(valor.sexo);
+
+								if (valor.apellidoPaterno.indexOf("'") != -1 ) {
+									var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
+									$("#apellidoPaterno-hijo").val(apellidoPaterno);					               
+								}else{
+
+					                $("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
+								}
+
+								if (valor.apellidoMaterno.indexOf("'") != -1 ) {
+					            	var apellidoMaterno = valor.apellidoMaterno.replace("'", ' ');
+					            	$("#apellidoMaterno-hijo").val(apellidoMaterno);
+					              
+								}else{
+									$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
+					                
+								}
+
+								if (valor.nombre.indexOf("'") != -1 ) {
+
+									var nombre = valor.nombre.replace("'", ' ');
+					            	$("#apellidoMaterno-hijo").val(nombre);
+					       			        
+								}else{
+									
+									$("#nombre-hijo").val(valor.nombre);
+					       
+								}
+
+					            $("#fechaNacimiento-hijo").val(valor.fechaNacimiento); 
+
+								if (valor.sexo >= 0  && valor.sexo < 2) {
+					                if(valor.sexo == 1){
+					                    $("#sexo-hijo").val(1);	
+					                }else{
+					                    $("#sexo-hijo").val(0);
+					                }
+								}
 								
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
-						});					
-					
+						});
+
 						$('.cargarDatosParticipante').hide();
 				}else{
 						sessionStorage.removeItem("edad");
 						$(".mensajeEdadParticpante").empty();
 						$('.cargarDatosParticipante').hide();
-					//	$(".mensajeEdadParticipante").append("(*Usted es mayor de edad. )");
-                                                
+                               
 				}
-				
 			},
 			error: function(error){
 				console.log(error);
 			}
 		});
 		}
+
 	}
+
+
 	/*Muestra mensaje de alerta*/
 	function showAlertMessage(alert, mensaje){
 		$(alert).text(mensaje).show('fade');

@@ -11,8 +11,6 @@ namespace AkademiaBundle\Repository;
 class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
 {
 
-
-
     public function busquedaApoderado($dni){
 
         $query = "SELECT dni,apellidoPaterno,apellidoMaterno,nombre,sexo,fechaNacimiento,(cast(datediff(dd,fechaNacimiento,GETDATE()) / 365.25 as int)) as edad from ACADEMIA.apoderado where dni='$dni'";
@@ -23,7 +21,6 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
         return $dniApoderado;
 
     }
-
 
     public function getbuscarApoderado($dni){
 
@@ -87,20 +84,20 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,$buscarDistrito){
+    public function guardarPersona($dni,$apellidoPaterno,$apellidoMaterno, $nombre,$fechaNacimiento,$sexo,$telefono, $correo, $direccion,$distrito){
 
         $query = "INSERT into grpersona 
-                (perdni,perapepaterno,perapematerno,pernombres,perfecnacimiento,persexo,pertelefono,percorreo,perdomdireccion,perubigeo)
-                values('$dni','$apellidoPaterno','$apellidoMaterno','$nombre','$fechaNacimiento',$sexo,$telefono,'$correo','$direccion',$buscarDistrito)";
+            (perdni,perapepaterno,perapematerno,pernombres,perfecnacimiento,persexo,pertelefono,percorreo,perdomdireccion,perubigeo,perfechacrea)
+            values('$dni','$apellidoPaterno','$apellidoMaterno','$nombre','$fechaNacimiento',$sexo,$telefono,'$correo','$direccion',$distrito, getdate())";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
 
     }
 
-    public function actualizarPersona($percodigoApod, $telefono, $correo, $direccion, $distrito){
+    public function actualizarPersona($apellidoPaterno,$apellidoMaterno,$nombre,$fechaNacimiento, $percodigoApod, $telefono, $correo, $direccion, $distrito, $sexo){
 
-        $query = "UPDATE grpersona set pertelefono='$telefono', percorreo = '$correo', perdomdireccion = '$direccion', perubigeo = '$distrito' where percodigo = $percodigoApod";
+        $query = "UPDATE grpersona set perapepaterno='$apellidoPaterno', perapematerno='$apellidoMaterno', pernombres='$nombre', perfecnacimiento='$fechaNacimiento', pertelefono='$telefono', percorreo = '$correo', perdomdireccion = '$direccion', perubigeo = $distrito, persexo = '$sexo', perfechamodi = getdate() where percodigo = $percodigoApod";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();

@@ -9,6 +9,8 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                    
             </button>                       
             <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                                      
         </div>
@@ -17,7 +19,7 @@
             <br>
             <ul class="nav navbar-nav navbar-right">
                 
-                <li><a href="{{url('akademia_contador')}}">Inicio</a></li>
+                <li><a href="{{url('akademia_homepage')}}">Inicio</a></li>
                 <li><a href="{{url('akademia_consulta')}}">Consultas</a></li>
 
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')   %} 

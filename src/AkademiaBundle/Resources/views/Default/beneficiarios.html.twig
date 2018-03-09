@@ -9,6 +9,8 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
                 </button>                       
                 <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                              
             </div>
@@ -362,7 +364,7 @@
 									</div>
 								</div>
 							</li>	
-
+							<br>
 							<li class="list-group-item">
 								<div class="row">
 									<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
@@ -459,7 +461,8 @@
 					var idCat = {{beneficiario['idCategoria']}};
 					var idAsis = {{beneficiario['idAsistencia']}};
 
-					if(idAsis == 4){
+					if(idAsis == 1){
+						
 						$("#asistenciaParticipante").val(0);
 
 					}else{
@@ -481,11 +484,11 @@
 
 				var cbx_asist = document.getElementById("asistenciaParticipante").value;
 
-				if(cbx_asist == 5){
+				if(cbx_asist == 2){
 
 					$("#cbx-categoria").show();
 
-				}else if (cbx_asist == 6){
+				}else if (cbx_asist == 3){
 					
 					$("#cbx-categoria").hide();
 				}else{
@@ -511,17 +514,22 @@
 
 		$("#btn-actualizarEstado").on("click", function(){
 
-			var asistencia = $("#asistenciaParticipante").val();
-			var categoria = $("#categoriaParticipante").val();
-			var idFicha = $("#idFicha").text();
-
 			
+			var asistencia = $("#asistenciaParticipante").val();
+			
+			if(asistencia == 3){
 
-			if(asistencia != 0 && categoria != 0){
+				var asistencia = 3;
+				var categoria = 1;
+				var idFicha = $("#idFicha").text();
 
-				if(asistencia == 3){
+			}else{
 
-				}
+				var asistencia = $("#asistenciaParticipante").val();
+				var categoria = $("#categoriaParticipante").val();
+				var idFicha = $("#idFicha").text();
+			}
+			//if(asistencia != 0 && categoria != 0){
 
 				console.log(asistencia, categoria, idFicha);
 				var dataBeneficiario = {
@@ -541,6 +549,7 @@
 					},
 
 					success: function(data){
+
 						if(data == 1){
 
 							alertify.success('<p style="color:white">Beneficiario Actualizado</p>');
@@ -560,12 +569,12 @@
 					},
 				});
 
-			}else{
+			//}else{
 
-				$("#btn-actualizarEstado").attr("data-dismiss", "");
-				showAlertMessage('#alerta-error', "Debe seleccionar todas las opciones.");
+			//	$("#btn-actualizarEstado").attr("data-dismiss", "");
+			//	showAlertMessage('#alerta-error', "Debe seleccionar todas las opciones.");
 					
-			}
+		//	}
 
 
 
