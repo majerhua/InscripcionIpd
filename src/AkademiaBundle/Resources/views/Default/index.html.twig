@@ -517,8 +517,23 @@
 	        return (key >= 64 && key <= 90)
 	}
 
-	
 
+	$(document).ready(function () {
+		disablePaste('#apellidoPaterno');
+		disablePaste('#apellidoMaterno'); 
+		disablePaste('#nombre');
+		disablePaste('#apellidoPaterno-hijo');
+		disablePaste('#apellidoMaterno-hijo'); 
+		disablePaste('#nombre-hijo'); 
+		disablePaste('#direccion'); 
+		disablePaste('#correo'); 
+	});
+
+	function disablePaste(input){
+		$(input).bind('copy paste', function (e) {
+	       e.preventDefault();
+	    });
+	}
 
 	function filtro(string, tipo){
 
