@@ -34,6 +34,7 @@ class DefaultController extends Controller
     public function registroFinalAction(Request $request,$estado){
 
         $Role = $this->getUser();
+        $edadBeneficiario =$request->request->get('edadBeneficiario');
 
         if($Role != NULL){
 
@@ -57,9 +58,9 @@ class DefaultController extends Controller
             $mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
             $mdlProvincias = $em->getRepository('AkademiaBundle:Provincia')->provinciasAll();
             $mdlDistritos = $em->getRepository('AkademiaBundle:Distrito')->distritosAll();
-            $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado);
-            $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado);
-            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado);
+            $mdlComplejosDeportivosFlag = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejosDeportivosFlagAll($estado,$edadBeneficiario);
+            $mdlDisciplinasDeportivasFlag = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinasDeportivasFlagAll($estado,$edadBeneficiario);
+            $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->horariosFlagAll($estado,$edadBeneficiario);
         }
 
         if($estado == 1){

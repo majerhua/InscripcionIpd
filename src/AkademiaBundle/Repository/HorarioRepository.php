@@ -11,111 +11,110 @@ namespace AkademiaBundle\Repository;
 class HorarioRepository extends \Doctrine\ORM\EntityRepository
 {
 
-        public function horariosFlagAll($flagDis)
-        {
-                $query = "SELECT * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1 and discapacitados='$flagDis';";
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
-                return $horarios;
-        }
+    public function horariosFlagAll($flagDis,$edadBeneficiario)
+    {
+        $query = "SELECT * from ACADEMIA.horario where convocatoria= 1  and vacantes <> 0 and estado = 1 and discapacitados='$flagDis' and '$edadBeneficiario'<=edadMaxima and '$edadBeneficiario'>=edadMinima;";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
+        return $horarios;
+    }
 
-        public function getHorariosPromotores($flagDis){
-                
-                $query = "SELECT * from ACADEMIA.horario where vacantes <> 0 and estado = 1 and discapacitados='$flagDis';";
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
+    public function getHorariosPromotores($flagDis){
+            
+        $query = "SELECT * from ACADEMIA.horario where vacantes <> 0 and estado = 1 and discapacitados='$flagDis';";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
 
-                return $horarios;
-        }
+        return $horarios;
+    }
 
-        public function getHorariosVacantes($idHorario){
-                $query = "SELECT vacantes from ACADEMIA.horario where id = '$idHorario' ";
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
+    public function getHorariosVacantes($idHorario){
+        $query = "SELECT vacantes from ACADEMIA.horario where id = '$idHorario' ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
 
-                return $horarios;
-        }
+        return $horarios;
+    }
 
-        public function getHorariosDiscapacitados(){
-        
-                $query = "SELECT * from ACADEMIA.horario where discapacitados = 1";
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
+    public function getHorariosDiscapacitados(){
+    
+            $query = "SELECT * from ACADEMIA.horario where discapacitados = 1";
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+            $horarios = $stmt->fetchAll();
 
-                return $horarios;
+            return $horarios;
 
-        }
+    }
 
-        public function getHorariosComplejos($idcomplejo){
-        
-                $query ="SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
-                        dis.dis_codigo as idDisciplina,
-                        hor.id as idHorario,
-                        hor.turno as turno,
-                        hor.inscritos as inscritos,
-                        hor.estado as estadoHorario,
-                        hor.discapacitados as discapacidad,
-                        hor.edadMinima as edadMinima,
-                        hor.edadMaxima as edadMaxima,
-                        hor.horaInicio as horaInicio, 
-                        hor.horaFin as horaFin, 
-                        hor.vacantes as vacantes,
-                        hor.convocatoria as convocatoria,
-                        edi.edi_codigo as edi_codigo
-                        from 
-                        ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
-                        inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
-                        inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
-                        where ede.ede_codigo =$idcomplejo and dis.dis_estado = 1 and hor.estado = 1";
+    public function getHorariosComplejos($idcomplejo){
+    
+            $query ="SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
+                    dis.dis_codigo as idDisciplina,
+                    hor.id as idHorario,
+                    hor.turno as turno,
+                    hor.inscritos as inscritos,
+                    hor.estado as estadoHorario,
+                    hor.discapacitados as discapacidad,
+                    hor.edadMinima as edadMinima,
+                    hor.edadMaxima as edadMaxima,
+                    hor.horaInicio as horaInicio, 
+                    hor.horaFin as horaFin, 
+                    hor.vacantes as vacantes,
+                    hor.convocatoria as convocatoria,
+                    edi.edi_codigo as edi_codigo
+                    from 
+                    ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
+                    inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
+                    inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
+                    where ede.ede_codigo =$idcomplejo and dis.dis_estado = 1 and hor.estado = 1";
 
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $stmt->execute();
+            $horarios = $stmt->fetchAll();
 
-                return $horarios;
+            return $horarios;
+    }
 
-        }
+    public function getHorariosIndividual($idHorario, $idDisciplina){
+            
+        $query = "SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
+                dis.dis_codigo as idDisciplina,
+                hor.id as idHorario,
+                hor.turno as turno,
+                hor.discapacitados as discapacidad,
+                hor.edadMinima as edadMinima,
+                hor.edadMaxima as edadMaxima,
+                hor.horaInicio as horaInicio, 
+                hor.horaFin as horaFin, 
+                hor.vacantes as vacantes,
+                hor.convocatoria as convocatoria,
+                edi.edi_codigo as edi_codigo
+                from 
+                ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
+                inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
+                inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
+                where dis.dis_codigo =$idDisciplina and hor.id = $idHorario";
 
-        public function getHorariosIndividual($idHorario, $idDisciplina){
-                
-                $query = "SELECT rtrim(dis.dis_descripcion) as nombreDisciplina,
-                        dis.dis_codigo as idDisciplina,
-                        hor.id as idHorario,
-                        hor.turno as turno,
-                        hor.discapacitados as discapacidad,
-                        hor.edadMinima as edadMinima,
-                        hor.edadMaxima as edadMaxima,
-                        hor.horaInicio as horaInicio, 
-                        hor.horaFin as horaFin, 
-                        hor.vacantes as vacantes,
-                        hor.convocatoria as convocatoria,
-                        edi.edi_codigo as edi_codigo
-                        from 
-                        ACADEMIA.horario as hor inner join CATASTRO.edificacionDisciplina as edi on hor.edi_codigo = edi.edi_codigo
-                        inner join CATASTRO.disciplina as dis on edi.dis_codigo = dis.dis_codigo
-                        inner join CATASTRO.edificacionesdeportivas as ede on edi.ede_codigo = ede.ede_codigo
-                        where dis.dis_codigo =$idDisciplina and hor.id = $idHorario";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
 
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
+        return $horarios;
+    }
 
-                return $horarios;
-        }
+    public function getCapturarEdiCodigo($idComplejo, $idDisciplina){
 
-        public function getCapturarEdiCodigo($idComplejo, $idDisciplina){
+        $query="SELECT edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $horarios = $stmt->fetchAll();
 
-                $query="SELECT edi_codigo from catastro.edificacionDisciplina where ede_codigo = $idComplejo and dis_codigo = $idDisciplina";
-                $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-                $stmt->execute();
-                $horarios = $stmt->fetchAll();
-
-                return $horarios;
-        }
+        return $horarios;
+    }
 
         public function getActualizarHorarios($idHorario, $vacantes, $convocatoria, $usuario){
 

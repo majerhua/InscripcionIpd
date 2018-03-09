@@ -12,41 +12,53 @@
 				<div class="complejo row">
 					<div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
 						<label class="text-left">Departamento</label>
-			            <select id="departamentoHorario" class="form-control"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
-			                <option value="">--Seleccionar--</option>
-			                {% for  dep in  departamentos  %}
-												{% for depFlag in departamentosFlag %}
+						<div>
+			            	<select id="departamentoHorario" class="effect-3"  name="departamentoHorario" onchange="cambiarDepartamentoHorario(this)">
+			                	<option value="">--Seleccionar--</option>
+			                	{% for  dep in  departamentos  %}
+									{% for depFlag in departamentosFlag %}
 													
-													{%  if dep['id'] == depFlag['idDepartamento'] %}
+										{%  if dep['id'] == depFlag['idDepartamento'] %}
 
-														<option value="{{dep['id']}}">{{dep['nombre']}}</option>
+											<option value="{{dep['id']}}">{{dep['nombre']}}</option>
 
-													{% endif %}
+										{% endif %}
 
-												{% endfor %}
-			                {% endfor %}	
-			            </select>
+									{% endfor %}
+			                	{% endfor %}	
+			            	</select>
+			            	<span class="focus-border"></span>
+			        	</div>
 		        	</div>
 
 		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		            	<label class="text-left">Provincia</label>
-		                <select  id="provinciaHorario" class="form-control"  name="provinciaHorario" onchange="cambiarProvinciaHorario(this)">
-		                    <option value="">--Seleccionar--</option>
-		                </select>               
+		            	<div>
+		                	<select  id="provinciaHorario" class="effect-3"  name="provinciaHorario" onchange="cambiarProvinciaHorario(this)">
+		                    	<option value="">--Seleccionar--</option>
+		                	</select>
+		                	<span class="focus-border"></span>
+		                </div>               
 		            </div>
 
 		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		            	<label class="text-left">Distrito</label>
-		                <select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="form-control">
-		                    <option value="">--Seleccionar--</option>
-		                </select> 
+		            	<div>
+		                	<select id="distritoHorario" name="distritoHorario" onchange="cambiarDistritoHorario(this)"  class="effect-3">
+		                    	<option value="">--Seleccionar--</option>
+		                	</select> 
+		                	<span class="focus-border"></span>
+		            	</div>
 		            </div>
 
 		            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		        		<label class="text-left">Complejo Deportivo</label>
-		            	<select id="complejosDeportivo" name="complejosDeportivo" class="form-control" onchange="cambiarComplejoDeportivo(this)">
-		                <option value="">--Seleccionar--</option>
-		            	</select>
+		        		<div>
+		            		<select id="complejosDeportivo" name="complejosDeportivo" class="effect-3" onchange="cambiarComplejoDeportivo(this)">
+		                		<option value="">--Seleccionar--</option>
+		            		</select>
+		            		<span class="focus-border"></span>
+		            	</div>
 		        	</div>
 				</div>
 
@@ -63,15 +75,21 @@
 				<hr>
 		        <div class="form-group container-select-deporte"  >
 		        	<label>Deporte: </label>
-		            <select id="disciplinaDeportiva" name="disciplinaDeportiva" class="form-control" onchange="cambiarDisciplinaDeportiva(this)" >
-		                <option value="">--Seleccionar--</option>
-		            </select> 
+		        	<div>
+		            	<select id="disciplinaDeportiva" name="disciplinaDeportiva" class="effect-3" onchange="cambiarDisciplinaDeportiva(this)" >
+		                	<option value="">--Seleccionar--</option>
+		            	</select>
+		            	<span class="focus-border"></span> 
+		        	</div>
 		        </div>
 		        <div class="form-group container-select-deporte"  >
 		        	<label>Horario: </label>
-		            <select id="horario" name="horario" class="form-control" onchange="cambiarHorario(this)" >
-		                <option value="">--Seleccionar--</option>
-		            </select> 
+		        	<div>
+		            	<select id="horario" name="horario" class="effect-3" onchange="cambiarHorario(this)" >
+		                	<option value="">--Seleccionar--</option>
+		            	</select>
+		            	<span class="focus-border"></span> 
+		        	</div>
 		        </div>
 		        <br>
 		        <div id="alerta-error" class="alert alert-danger collapse"></div>
@@ -398,7 +416,6 @@
 						
 				var cantHorarios = 0;
 
-
 				{% for horario in horarios  %}
 
 					var horaInicio ="{{horario['horaInicio']}}".substr(0,5);
@@ -413,6 +430,7 @@
 								
 								$("#horario").append("<option value={{horario['id']}} > {{horario['turno']}} " + " de "+horaInicio+" a "+horaFin+"</option>");
 								cantHorarios = cantHorarios + $('#horario').length;
+
 
 						}else{
 
@@ -489,6 +507,7 @@ $("#boton-next-final").on('click',function(){
 		registrar();
 	}
 });
+
 function registrar(){
 	var dataRegisterApoderado={
 		//DATOS APODERADO
@@ -558,13 +577,10 @@ function registrar(){
 				$("#boton-next-final").attr("disabled", true);
 				$("#process5").hide();
 			}			
-		
 		},
 		error: function(error){
-
 			console.log("Error - oh no!");
 		}
-			
 	});
 }
 
@@ -575,6 +591,7 @@ function enviarEmailApoderado($correoApod,$nombre,$id){
 		"nombre" : $nombre,
 		"id" : $id,
 	};
+
 	$.ajax({
 		type:'POST',
 		dataType: 'json',

@@ -41,10 +41,10 @@ class DisciplinaDeportivaRepository extends \Doctrine\ORM\EntityRepository
 
         }
 
-    public function disciplinasDeportivasFlagAll($flagDis)
+    public function disciplinasDeportivasFlagAll($flagDis,$edadBeneficiario)
     {
         $query = "SELECT distinct eddis.edi_codigo as id, eddis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,edde.ede_discapacitado as discapacidad
-            from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde, CATASTRO.disciplina as dis where hor.discapacitados='$flagDis'  and dis_estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and dis.dis_codigo=eddis.dis_codigo and hor.estado=1 and hor.vacantes<>0 and hor.convocatoria=1;";
+            from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis, CATASTRO.edificacionesdeportivas AS edde, CATASTRO.disciplina as dis where hor.discapacitados='$flagDis'  and dis_estado=1 and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and dis.dis_codigo=eddis.dis_codigo and hor.estado=1 and hor.vacantes<>0 and hor.convocatoria=1 and '$edadBeneficiario'<=hor.edadMaxima and '$edadBeneficiario'>=hor.edadMinima;";
         
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();

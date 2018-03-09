@@ -163,55 +163,74 @@
 
 				<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
-                        <select  class="form-control" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
-                            <option value="0">--Seleccionar--</option>
-                            <option value="dni" >DNI</option>
-                            <option value="carnet" >Carnet de extranjería</option>
-                        </select>
+						<div>
+                        	<select  class="effect-3" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
+                            	<option value="0">--Seleccionar--</option>
+                            	<option value="dni" >DNI</option>
+                            	<option value="carnet" >Carnet de extranjería</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
 
 					<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
-                        <input id="dniApoderado" type="number" class="form-control" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate" 
-                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-					    type = "number"
-					    maxlength = "8"
-					    min = "1">
-                        <span class="cargarDatosApoderado" >Actualizando....</span>
-                        <span class="mensajeEdad" ></span>
+						<div>
+                        	<input id="dniApoderado" type="number" class="effect-3" onblur="buscarDniApoderado(this)" name="dniApoderado"  class="validate" 
+                        	oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+					    	type = "number"
+					    	maxlength = "8"
+					    	min = "1" placeholder="Ingresar DNI ..."  >
+                        	<span class="cargarDatosApoderado" >Actualizando....</span>
+                        	<span class="mensajeEdad" ></span>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
 				</div>
 				<br>  
 				<div id="alerta-digitar" class="alert alert-danger collapse"></div>
 
 				<div class="form-group col s12">
-				  <label for="apellidoPaterno">Apellido Paterno</label>
-		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
-
+				 	<label for="apellidoPaterno">Apellido Paterno</label>
+  					<div>
+				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar apellido paterno ..." >
+	          			<span class="focus-border"></span>
+	      			</div>
 				</div>
 				
 				<div class="form-group col s12">
 				    <label for="apellidoMaterno" >Apellido Materno</label>
-		            <input id="apellidoMaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+				    <div>
+		            	<input id="apellidoMaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar apellido materno ..." >
+		            	<span class="focus-border"></span>
+		        	</div>
 				</div>
 	      						      						
 	    		<div class="form-group col s12">
 	    			<label for="nombre">Nombres</label>
-	          		<input id="nombre" maxlength="50" class="form-control"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  >
+	    			<div>
+	          			<input id="nombre" maxlength="50" class="effect-3"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  placeholder="Ingresar nombre ...">
+	          			<span class="focus-border"></span>
+	          		</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
 						<label for="fechaNacimiento">Fecha de Nacimiento</label>
-			          	<input class="form-control"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
-			          					
+						<div>
+			          		<input class="effect-3"  id="fechaNacimiento" type="date"  id="fechaNacimiento"  name="fechaNacimiento">
+			          		<span class="focus-border"></span>
+			          	</div>				
 					</div>
 					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
 						<label>Sexo</label>
-					    <select id="sexo" class="form-control"  name="sexo" >
-					    	<option value="2"selected>--Seleccionar--</option>
-					      	<option value="1">Masculino</option>
-					      	<option value="0">Femenino</option>
-					    </select>
+						<div>
+					    	<select id="sexo" class="effect-3"  name="sexo" >
+					    		<option value="2"selected>--Seleccionar--</option>
+					      		<option value="1">Masculino</option>
+					      		<option value="0">Femenino</option>
+					    	</select>
+					    	<span class="focus-border"></span>
+					    </div>
 					</div>
 				</div>
 				<hr>
@@ -228,47 +247,63 @@
 		  		<p class="title-card">DIRECCIÓN </p><hr>
 		        <div class="form-group col s12">
 					<label>Departamento</label>
-		        	<select id="departamento" class="form-control"  name="departamento"  onchange="cambiarDepartamento(this)" >
-		            	<option value="0">--Seleccionar--</option>
-		            
-			            {% for departamento in departamentos %}
-			            	<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
-			            {% endfor %}
-
-		        	</select> 
+					<div>
+		        		<select id="departamento" class="effect-3"  name="departamento"  onchange="cambiarDepartamento(this)">
+            				<option value="0">--Seleccionar--</option>
+			            	{% for departamento in departamentos %}
+			            		<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
+			            	{% endfor %} 
+		        		</select>
+		        		<span class="focus-border"></label> 
+		        	</div>
 		    	</div>
 		    	<br>
 		    	<div class="row">
 			    	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 			        	<label>Provincia</label>
-			            <select  id="provincia" class="form-control"  name="provincia" onchange="cambiarProvincia(this)">
-			                <option value="0">--Seleccionar--</option>
-			            </select>               
+			        	<div>
+			            	<select  id="provincia" class="effect-3"  name="provincia" onchange="cambiarProvincia(this)">
+			                	<option value="0">--Seleccionar--</option>
+			            	</select>
+			            	<span class="focus-border"></span>          
+			            </div>     
 			        </div>
 
 
 			        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 			        	<label>Distrito</label>
-			            <select id="distrito" name="distrito"  class="form-control">
-			                <option value="0">--Seleccionar--</option>
-			            </select> 
+			        	<div>
+			            	<select id="distrito" name="distrito"  class="effect-3">
+			                	<option value="0">--Seleccionar--</option>
+			            	</select>
+			            	<span class="focus-border"></span>
+		            	</div> 
 			        </div>
 		    	</div>
 		        <br>
 				<div class="form-group col s12">
                     <label for="direccion">Dirección</label>
-                    <input id="direccion" class="form-control" maxlength="60"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
+                    <div>
+                    	<input id="direccion" class="effect-3" maxlength="60"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección">
+                    	<span class="focus-border"></span>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
-	                <div class="form-group col-xs-12 col-sm-12 col-md-4 col-ld-4">
+	                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 						<label for="telefono">Teléfono</label>
-			          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+						<div>
+			          		<input id="telefono" class="effect-3" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+			          		<span class="focus-border"></span>
+			          	</div>
 					</div>
 
-					<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
+					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 	                    <label for="correo">Correo Electrónico </label>
-	                    <input id="correo" class="form-control" maxlength="30" type="email" name="correo" placeholder="Ingresar Correo Electrónico ">
+	                    <div>
+	                    	<input id="correo" class="effect-3" maxlength="30" type="email" name="correo" placeholder="Ingresar Correo Electrónico">
+	                    	<span class="focus-border"></span>
+	                	</div>
 	                </div>
                 </div>
                 <br>
@@ -281,7 +316,6 @@
 			    <div class="container-boton-2 text-center">
 					<button class="btn btn-danger" id="boton2"> Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i></button>
 				</div>
-
 	    	</div>
 		</div>
 	</div>
@@ -299,74 +333,110 @@
 				</div>
 	  			<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
-                        <select  class="form-control" type="text"  id="tipo_documentoHijo"  name="tipo_documentoHijo" onchange="modificarTexboxHijo()">
-                            <option value="">--Seleccionar--</option>
-                            <option value="dni" >DNI</option>
-                            <option value="carnet" >Carnet de extranjería</option>
-                        </select>
+						<div>
+                        	<select  class="effect-3" type="text"  id="tipo_documentoHijo"  name="tipo_documentoHijo" onchange="modificarTexboxHijo()">
+                            	<option value="">--Seleccionar--</option>
+                            	<option value="dni" >DNI</option>
+                            	<option value="carnet" >Carnet de extranjería</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
 
 					<div class="form-group col-xs-6 col-sm-7 col-md-7 col-ld-7">
-                       <input id="dni-hijo" type="number" class="form-control" onblur="buscarDniHijo(this)" name="dni-hijo"  class="validate" 
-                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-					    type = "number"
-					    maxlength = "8"
-					    min = "1">
 
+						<div>
+                       		<input id="dni-hijo" type="number" class="effect-3" onblur="buscarDniHijo(this)" name="dni-hijo"  class="validate" 
+                        	oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+					    	type = "number"
+					    	maxlength = "8"
+					    	min = "1">
+					    	<span class="focus-border"></span>
+						</div>
 
 		        	<span class="cargarDatosParticipante">Actualizando....</span>
 	          		<span class="mensajeEdadParticipante"></span>
                     </div>
 				</div>
-				<br>
+
 				<div class="form-group">
 					<label for="apellidoPaternoHijo">Apellido Paterno</label>
-	          		 <input  class="form-control" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+					<div>
+	          		 	<input  class="effect-3" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+	          		 	<span class="focus-border"></span>
+	          		</div>
 				</div>
 				
 			 	<div class="form-group">
                     <label for="apellidoMaterno-hijo">Apellido Materno</label>
-                    <input  class="form-control" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
+                    <div>
+                    	<input  class="effect-3" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno">
+                    	<span class="focus-border"></span>
+                	</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="nombre-hijo">Nombre</label>
-                    <input  class="form-control" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres"  >
+                    <div>
+                    	<input  class="effect-3" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres">
+                    	<span class="focus-border"></span>
+                	</div>
                 </div>
-                <br>
+
 				<div class="row">
+
 				 	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                         <label for="fechaNacimiento-hijo">Fecha Nacimiento</label>
-                        <input  class="form-control" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+                        <div>
+                        	<input  class="effect-3" type="date"  id="fechaNacimiento-hijo"  name="fechaNacimiento-hijo">
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
                         <label for="sexo-hijo">Sexo</label>
-                        <select  class="form-control" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-                           	<option value="2" selected>--Seleccionar--</option>
-					      	<option value="1">Masculino</option>
-					      	<option value="0">Femenino</option>
-                        </select>
+                        <div>
+                        	<select  class="effect-3" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+                           		<option value="2" selected>--Seleccionar--</option>
+					      		<option value="1">Masculino</option>
+					      		<option value="0">Femenino</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
+				</div>
+
+				<div class="row" >
+
 				    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
                         <label for="parentesco">Parentesco</label>
-                        <select id="parentesco" class="form-control" type="text"  name="parentesco">
-                            <option value="">--Seleccionar--</option>
-                            <option value="hijo" >Hija(O)</option>
-                            <option value="sobrino">Sobrina(O)</option>
-                            <option value="nieto">Nieta(O)</option>
-                            <option value="otros">Otro</option>
-                        </select>
+                        <div>
+                        	<select id="parentesco" class="effect-3" type="text"  name="parentesco">
+                            	<option value="">--Seleccionar--</option>
+                            	<option value="hijo" >Hija(O)</option>
+                            	<option value="sobrino">Sobrina(O)</option>
+                            	<option value="nieto">Nieta(O)</option>
+                            	<option value="otros">Otro</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                         <label for="tipoSeguro">Tipo de Seguro</label>
-                        <select id="tipoSeguro" class="form-control" type="text"  name="tipoSeguro">
-                        	<option value="">--Seleccionar--</option>
-                            <option value="EsSALUD" >EsSalud</option>
-                            <option value="SIS" >SIS</option>
-                            <option value="PRIVADO" >Privado</option>
-                            <option value="OTROS" >Otros</option>
-                        </select>
+                        <div>
+                        	<select id="tipoSeguro" class="effect-3" type="text"  name="tipoSeguro">
+                        		<option value="">--Seleccionar--</option>
+                           	 	<option value="EsSALUD" >EsSalud</option>
+                            	<option value="SIS" >SIS</option>
+                            	<option value="PRIVADO" >Privado</option>
+                           	 	<option value="OTROS" >Otros</option>
+                        	</select>
+                        	<span class="focus-border"></span>
+                    	</div>
                     </div>
+
 				</div>
 				
 				<hr>
@@ -528,8 +598,9 @@
 	 
 		$.ajax({
 
-			type:'GET',
+			type:'POST',
 			url:urlRegFinal,
+			data:{'edadBeneficiario':sessionStorage.getItem("edad")},
 			beforeSend:function(){
 				console.log("Enviando...");
 				$('#loader').show();
@@ -600,8 +671,9 @@
 
 	//$("#textoCbx").text('No');
 
+	var cont=0;
 	$('#cbx-discapacidad').on( 'click', function() {
-	    if($(this).is(':checked'))
+	    /*if($(this).is(':checked'))
 	    {	
 	    	//$("#textoCbx").text('Si');
 	    	$("#advertencia").show();
@@ -613,6 +685,17 @@
 	    	$("#advertencia").hide();
 	    	sessionStorage.removeItem('flagDiscapacitado');
 	    	$("#cbx-discapacidad").prop('checked', false);
+	    }*/
+
+	    sessionStorage.removeItem('flagDiscapacitado');
+	    if(cont==0){
+	    	$("#advertencia").show();
+      		sessionStorage.setItem('flagDiscapacitado',$(this).val());
+	    	cont++;
+	    }else{
+	    	$("#advertencia").hide();
+	    	$("#cbx-discapacidad").prop('checked', false);
+	    	cont=0;
 	    }
 	});
 
@@ -786,15 +869,19 @@
 	});
 	$("#boton2").on('click',function(){
 		
+				//var $direccionApoderado = $("#direccion");	
+
 				var expregTelefono = new RegExp("^([0-9]{9}|[0-9]{7})$");
 				var expregEmail = new RegExp("^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$");
+				//var expregDireccion = new RegExp("^([a-zA-Z]|[0-9])+$");
                 var telefonoApoderadoPaso2 = $("#telefono").val();
                 var correoApoderadoPaso2 = $("#correo").val();
 
+
                 if($("#distrito").val()==0){
                    alertify.error('<p style="color:white">Debe seleccionar el campo distrito</p>'); 
-                }else if($("#direccion").val()==0){
-                   alertify.error('<p style="color:white">Debe seleccionar el campo dirección</p>'); 
+                }else if($("#direccion").val()==0 /*|| !expregDireccion.test($direccionApoderado.val())*/ ){
+                   alertify.error('<p style="color:white">Campo Direccion Incorrecto</p>'); 
                 }else if( telefonoApoderadoPaso2 =="" || !expregTelefono.test(telefonoApoderadoPaso2)){
                    alertify.error('<p style="color:white">Campo Telefono incorrecto</p>'); 
                 }else if(correoApoderadoPaso2 =="" || !expregEmail.test(correoApoderadoPaso2) ){
@@ -1000,8 +1087,6 @@ $(".mensajeEdad").empty();
 			      
 						}
 					});	
-
-
 
 				}else{
 
