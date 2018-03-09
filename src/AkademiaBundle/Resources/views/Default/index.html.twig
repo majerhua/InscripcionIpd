@@ -185,18 +185,18 @@
 
 				<div class="form-group col s12">
 				  <label for="apellidoPaterno">Apellido Paterno</label>
-		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
+		          <input id="apellidoPaterno" maxlength="50" class="form-control" onkeyup="this.value = filtro(this.value, 'letras')"  id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate">
 
 				</div>
 				
 				<div class="form-group col s12">
 				    <label for="apellidoMaterno" >Apellido Materno</label>
-		            <input id="apellidoMaterno" maxlength="50" class="form-control" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
+		            <input id="apellidoMaterno" maxlength="50" class="form-control" onkeyup="this.value = filtro(this.value, 'letras')" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate">
 				</div>
 	      						      						
 	    		<div class="form-group col s12">
 	    			<label for="nombre">Nombres</label>
-	          		<input id="nombre" maxlength="50" class="form-control"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  >
+	          		<input id="nombre" maxlength="50" class="form-control"  onkeyup="this.value = filtro(this.value, 'letras')" type="text"  id="nombre"  name="nombre"  >
 				</div>
 				<br>
 				<div class="row">
@@ -257,24 +257,24 @@
 		        <br>
 				<div class="form-group col s12">
                     <label for="direccion">Dirección</label>
-                    <input id="direccion" class="form-control" maxlength="60"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección" >
+                    <input id="direccion" class="form-control" maxlength="60"  type="text" name="direccion" onkeyup="this.value = filtro(this.value, 'letrasNumeros')" placeholder="Ingresar la dirección" >
                 </div>
                 <br>
                 <div class="row">
 	                <div class="form-group col-xs-12 col-sm-12 col-md-4 col-ld-4">
 						<label for="telefono">Teléfono</label>
-			          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+			          	<input id="telefono" class="form-control" maxlength="9" type="text" onkeyup="this.value = filtro(this.value, 'numeros')" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
 					</div>
 
 					<div class="form-group col-xs-12 col-sm-12 col-md-8 col-ld-8">
 	                    <label for="correo">Correo Electrónico </label>
-	                    <input id="correo" class="form-control" maxlength="30" type="email" name="correo" placeholder="Ingresar Correo Electrónico ">
+	                    <input id="correo" class="form-control" maxlength="30" type="email" name="correo" placeholder=" Tu-correo@gmail.com ">
 	                </div>
                 </div>
                 <br>
                 <div class="row">
                 	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
-                		<span class="text parpadea"> (*) Te recomendamos ingresar un correo gmail para recibir el enlace de tu ficha y declaración jurada.</span>
+                		<span class="text parpadea"> (*) Te recomendamos ingresar un correo gmail para enviarte los enlaces de tu ficha y la  declaración jurada.</span>
                 	</div>
 	            </div>
 				<hr>
@@ -321,17 +321,17 @@
 				<br>
 				<div class="form-group">
 					<label for="apellidoPaternoHijo">Apellido Paterno</label>
-	          		 <input  class="form-control" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+	          		 <input  class="form-control" type="text"  id="apellidoPaterno-hijo" onkeyup="this.value = filtro(this.value, 'letras')"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
 				</div>
 				
 			 	<div class="form-group">
                     <label for="apellidoMaterno-hijo">Apellido Materno</label>
-                    <input  class="form-control" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
+                    <input  class="form-control" type="text"  id="apellidoMaterno-hijo" onkeyup="this.value = filtro(this.value, 'letras')" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno"   >
                 </div>
                 
                 <div class="form-group">
                     <label for="nombre-hijo">Nombre</label>
-                    <input  class="form-control" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres"  >
+                    <input  class="form-control" type="text"  id="nombre-hijo" onkeyup="this.value = filtro(this.value, 'letras')" name="nombre-hijo"  placeholder="Ingresar Nombres"  >
                 </div>
                 <br>
 				<div class="row">
@@ -472,7 +472,7 @@
 
 <script>
 
-
+	
 	/*VALIDAR NEGATIVOS*/
 	
 	jQuery('#dniApoderado, #dni-hijo').on('keypress', function (e) {
@@ -490,12 +490,13 @@
 	        return (key >= 48 && key <= 57)
 	}
 
+	
 	// validar filtro de caracteres especiales
 
-	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keypress', function(e){
+	jQuery('#correo').on('keypress', function(e){
 
 		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
-			showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
+			//showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
 			return false;
 
 		}
@@ -503,17 +504,45 @@
 		noCaracteresEspeciales(e.keyCode);
 	});
 
-	jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keydown',function(e){
+	/*jQuery('#apellidoPaterno,#apellidoMaterno,#nombre,#apellidoPaterno-hijo,#apellidoMaterno-hijo,#nombre-hijo,#direccion,#correo').on('keydown',function(e){
 
 		if(e.keyCode==86 && e.ctrlKey){
 			return false;
 		}
 
-	});
+	});*/
 
 	function noCaracteresEspeciales(e){
 		var key = window.Event ? e.which : e.keyCode
 	        return (key >= 64 && key <= 90)
+	}
+
+	
+
+
+	function filtro(string, tipo){
+
+		var filtro = '';
+
+		switch(tipo){
+			case 'letras': 
+			filtro = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+			break;
+			case 'letrasNumeros': 
+			filtro = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789';
+			break;
+			case 'numeros': 
+			filtro = '0123456789';
+			break;
+		}
+	    
+	    var out = '';
+		
+	    for (var i=0; i<string.length; i++)
+	       if (filtro.indexOf(string.charAt(i)) != -1) 
+	         out += string.charAt(i);
+		
+	    return out.toUpperCase();;
 	}
 
 
@@ -634,9 +663,9 @@
 
 
 
-	function mayus(e) {
+	/*function mayus(e) {
 	    e.value = e.value.toUpperCase();
-	}
+	}*/
 
 	function cambiarDepartamento(departamento){
 		
@@ -789,36 +818,9 @@
                     sessionStorage.removeItem("fechaNacimiento-apoderado");
                     sessionStorage.removeItem("sexo-apoderado");
 
-                    var apellidoPat = $("#apellidoPaterno").val();
-                    var apellidoMat = $("#apellidoMaterno").val();
-                    var nombreApod = $("#nombre").val();
-
-
-           			if(apellidoPat.indexOf("'") != -1){
-						var apeApod = apellidoPat.replace("'", ' ');
-						sessionStorage.setItem('apellidoPaterno-apoderado',apeApod);
-						
-					}else{
-						sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
-					}
-
-
-					if(apellidoMat.indexOf("'") != -1){
-						var apeMatApod = apellidoMat.replace("'", ' ');
-						sessionStorage.setItem('apellidoMaterno-apoderado',apeMatApod);
-						
-					}else{
-						sessionStorage.setItem('apellidoMaterno-apoderado',$("#apellidoMaterno").val());
-					}
-
-					if(nombreApod.indexOf("'") != -1){
-						var nombreApoderado = nombreApod.replace("'", ' ');
-						sessionStorage.setItem('nombre-apoderado',nombreApoderado);
-						
-					}else{
-						sessionStorage.setItem('nombre-apoderado',$("#nombre").val());
-					}
-
+					sessionStorage.setItem('apellidoPaterno-apoderado',$("#apellidoPaterno").val());
+					sessionStorage.setItem('apellidoMaterno-apoderado',$("#apellidoMaterno").val());
+					sessionStorage.setItem('nombre-apoderado',$("#nombre").val());
 					sessionStorage.setItem('dni-apoderado',$("#dniApoderado").val());
                     sessionStorage.setItem("fechaNacimiento-apoderado", $("#fechaNacimiento").val());
                     sessionStorage.setItem("sexo-apoderado", $("#sexo").val());
@@ -855,19 +857,10 @@
                     sessionStorage.removeItem("direccion-apoderado");
 
                     sessionStorage.setItem("distrito-apoderado", $("#distrito").val());
+                    sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
                     sessionStorage.setItem("telefono-apoderado", $("#telefono").val());
                     sessionStorage.setItem("correo-apoderado", $("#correo").val());
-
-                    var direccion = $("#direccion").val();
-
-           			if(direccion.indexOf("'") != -1){
-						var direccionApoderado = direccion.replace("'", ' ');
-						sessionStorage.setItem("direccion-apoderado", direccionApoderado);
-						
-					}else{
-						sessionStorage.setItem("direccion-apoderado", $("#direccion").val());
-					}
-                 
+                
 
                     $("#departamentoHorario").val($("#departamento").val());
                     $("#provinciaHorario").val($("#provincia").val());
@@ -916,8 +909,10 @@ $("#boton3").on('click',function(){
         sessionStorage.removeItem("tipoSeguro-partcipante");
 		sessionStorage.removeItem('edad');
 		
-
 		sessionStorage.setItem("dni-participante", $("#dni-hijo").val());
+		sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
+		sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
+        sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
         sessionStorage.setItem("fechaNacimiento-partcipante", $("#fechaNacimiento-hijo").val());
         sessionStorage.setItem("sexo-partcipante", $("#sexo-hijo").val());
         sessionStorage.setItem("parentesco-partcipante", $("#parentesco").val());
@@ -925,35 +920,6 @@ $("#boton3").on('click',function(){
         sessionStorage.setItem("edad", calcularEdad($("#fechaNacimiento-hijo").val()));
 
 		
-		var apePatHijo = $("#apellidoPaterno-hijo").val();
-		var apeMatHijo = $("#apellidoMaterno-hijo").val();
-		var nombreHijo = $("#nombre-hijo").val();
-
-
-		if(apePatHijo.indexOf("'") != -1){
-			var apeHijo = apePatHijo.replace("'", ' ');
-			sessionStorage.setItem('apellidoPaterno-participante',apeHijo);
-			
-		}else{
-			sessionStorage.setItem("apellidoPaterno-participante", $("#apellidoPaterno-hijo").val());
-			
-		}
-
-		if(apeMatHijo.indexOf("'") != -1){
-			var apeMaternoHijo = apeMatHijo.replace("'", ' ');
-			sessionStorage.setItem("apellidoMaterno-partcipante", apeMaternoHijo);			
-		}else{
-			sessionStorage.setItem("apellidoMaterno-partcipante", $("#apellidoMaterno-hijo").val());
-		}
-
-		if(nombreHijo.indexOf("'") != -1){
-			var NombreHijoP = nombreHijo.replace("'", ' ');
-			sessionStorage.setItem("nombre-partcipante", NombreHijoP);			
-		}else{
-			sessionStorage.setItem("nombre-partcipante", $("#nombre-hijo").val());
-		}
-
-
         console.log("EDAD SESION"+sessionStorage.getItem("edad"));
         console.log("Edad SESION ==> "+sessionStorage.getItem("edad"));
 		
@@ -1031,39 +997,13 @@ $(".mensajeEdad").empty();
 					$(dataApoderado).each(function(index,valor){
 						if(valor.edad >=18 || valor.fechaNacimiento == null){
 
-							
-							if(valor.apellidoPaterno.indexOf("'") != -1){
-								var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
-								$("#apellidoPaterno").val(apellidoPaterno);
-							}else{
-								$("#apellidoPaterno").val(valor.apellidoPaterno);
-							}
-							
-
-							if (valor.apellidoMaterno.indexOf("'") != -1){
-								var apellidoMaterno= valor.apellidoMaterno.replace("'", ' ');
-				                $("#apellidoMaterno").val(apellidoMaterno);
-				              
-							}else{
-				               $("#apellidoMaterno").val(valor.apellidoMaterno);
-				              
-							}
-
-							if (valor.nombre.indexOf("'") != -1) {
-								var nombre= valor.nombre.replace("'", ' ');
-				                $("#nombre").val(nombre);
-							}else{
-				               $("#nombre").val(valor.nombre);
-				              
-							}
-
-							if (valor.fechaNacimiento != null) {
-				                $("#fechaNacimiento").val(valor.fechaNacimiento);
-							}else{
-				                $("#fechaNacimiento").val('');
-							}
-
-
+						
+							$('#apellidoPaterno').val(filtro(valor.apellidoPaterno, 'letras'));
+							$("#apellidoMaterno").val(filtro(valor.apellidoMaterno,'letras'));
+							$("#nombre").val(filtro(valor.nombre,'letras'));
+							$("#fechaNacimiento").val(valor.fechaNacimiento);
+						
+						
 							if (valor.sexo >= 0 && valor.sexo < 2) {
 				                if(valor.sexo == 1){
 				                    $("#sexo").val(1);	
@@ -1089,8 +1029,6 @@ $(".mensajeEdad").empty();
 			      
 						}
 					});	
-
-
 
 				}else{
 
@@ -1165,35 +1103,11 @@ $(".mensajeEdad").empty();
 				
 						$(dataHijo).each(function(index,valor){
 
-								if (valor.apellidoPaterno.indexOf("'") != -1 ) {
-									var apellidoPaterno = valor.apellidoPaterno.replace("'", ' ');
-									$("#apellidoPaterno-hijo").val(apellidoPaterno);					               
-								}else{
 
-					                $("#apellidoPaterno-hijo").val(valor.apellidoPaterno);
-								}
-
-								if (valor.apellidoMaterno.indexOf("'") != -1 ) {
-					            	var apellidoMaterno = valor.apellidoMaterno.replace("'", ' ');
-					            	$("#apellidoMaterno-hijo").val(apellidoMaterno);
-					              
-								}else{
-									$("#apellidoMaterno-hijo").val(valor.apellidoMaterno);
-					                
-								}
-
-								if (valor.nombre.indexOf("'") != -1 ) {
-
-									var nombre = valor.nombre.replace("'", ' ');
-					            	$("#apellidoMaterno-hijo").val(nombre);
-					       			        
-								}else{
-									
-									$("#nombre-hijo").val(valor.nombre);
-					       
-								}
-
-					            $("#fechaNacimiento-hijo").val(valor.fechaNacimiento); 
+							$("#apellidoPaterno-hijo").val(filtro(valor.apellidoPaterno, 'letras'));
+							$("#apellidoMaterno-hijo").val(filtro(valor.apellidoMaterno,'letras'));
+							$("#nombre-hijo").val(filtro(valor.nombre,'letras'));
+					        $("#fechaNacimiento-hijo").val(valor.fechaNacimiento); 
 
 								if (valor.sexo >= 0  && valor.sexo < 2) {
 					                if(valor.sexo == 1){
@@ -1201,7 +1115,7 @@ $(".mensajeEdad").empty();
 					                }else{
 					                    $("#sexo-hijo").val(0);
 					                }
-								}
+								} 
 								
 								sessionStorage.removeItem("edad");	
 								sessionStorage.setItem("edad",valor.edad);
@@ -1223,7 +1137,6 @@ $(".mensajeEdad").empty();
 
 	}
 
-
 	/*Muestra mensaje de alerta*/
 	function showAlertMessage(alert, mensaje){
 		$(alert).text(mensaje).show('fade');
@@ -1231,6 +1144,7 @@ $(".mensajeEdad").empty();
 			hideAlertMessage(alert);	
 		}, 2000);
 	}
+
 	/*Oculta mensaje de alerta*/
 	function hideAlertMessage(alert){
 		$(alert).hide('fade');		
