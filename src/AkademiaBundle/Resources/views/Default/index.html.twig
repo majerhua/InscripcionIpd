@@ -600,8 +600,9 @@
 
 	//$("#textoCbx").text('No');
 
+	var cont = 0;
 	$('#cbx-discapacidad').on( 'click', function() {
-	    if($(this).is(':checked'))
+	   /* if($(this).is(':checked'))
 	    {	
 	    	//$("#textoCbx").text('Si');
 	    	$("#advertencia").show();
@@ -613,8 +614,23 @@
 	    	$("#advertencia").hide();
 	    	sessionStorage.removeItem('flagDiscapacitado');
 	    	$("#cbx-discapacidad").prop('checked', false);
+	    }*/
+
+	    sessionStorage.removeItem('flagDiscapacitado');
+	    if(cont==0){
+	    	$("#advertencia").show();
+      		sessionStorage.setItem('flagDiscapacitado',$(this).val());
+	    	cont++;
+	    }else{
+	    	$("#advertencia").hide();
+	    	$("#cbx-discapacidad").prop('checked', false);
+	    	cont=0;
 	    }
+
+
 	});
+
+	
 
 
 
