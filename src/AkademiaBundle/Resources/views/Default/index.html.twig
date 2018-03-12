@@ -192,7 +192,7 @@
 				<div class="form-group col s12">
 				 	<label for="apellidoPaterno">Apellido Paterno</label>
   					<div>
-				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar apellido paterno ..." >
+				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="this.value = filtro(this.value, 'letras')" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar apellido paterno ..." >
 	          			<span class="focus-border"></span>
 	      			</div>
 
@@ -201,7 +201,7 @@
 				<div class="form-group col s12">
 				    <label for="apellidoMaterno" >Apellido Materno</label>
 				    <div>
-		            	<input id="apellidoMaterno" maxlength="50" class="effect-3" onkeyup="mayus(this)" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar apellido materno ..." >
+		            	<input id="apellidoMaterno" maxlength="50" class="effect-3"  onkeyup="this.value = filtro(this.value, 'letras')" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar apellido materno ..." >
 		            	<span class="focus-border"></span>
 		        	</div>
 
@@ -210,7 +210,7 @@
 	    		<div class="form-group col s12">
 	    			<label for="nombre">Nombres</label>
 	    			<div>
-	          			<input id="nombre" maxlength="50" class="effect-3"  onkeyup="mayus(this)" type="text"  id="nombre"  name="nombre"  placeholder="Ingresar nombre ...">
+	          			<input id="nombre" maxlength="50" class="effect-3"  onkeyup="this.value = filtro(this.value, 'letras')" type="text"  id="nombre"  name="nombre"  placeholder="Ingresar nombre ...">
 	          			<span class="focus-border"></span>
 	          		</div>
 				</div>
@@ -286,7 +286,7 @@
 				<div class="form-group col s12">
                     <label for="direccion">Dirección</label>
                     <div>
-                    	<input id="direccion" class="effect-3" maxlength="60"  type="text" name="direccion" onkeyup="mayus(this)" placeholder="Ingresar la dirección">
+                    	<input id="direccion" class="effect-3" maxlength="60"  type="text" name="direccion" onkeyup="this.value = filtro(this.value, 'letrasNumeros')" placeholder="Ingresar la dirección">
                     	<span class="focus-border"></span>
                     </div>
                 </div>
@@ -295,7 +295,7 @@
 	                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 						<label for="telefono">Teléfono</label>
 						<div>
-			          		<input id="telefono" class="effect-3" maxlength="9" type="text" onkeyup="mayus(this)" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
+			          		<input id="telefono" class="effect-3" maxlength="9" type="text" onkeyup="this.value = filtro(this.value, 'numeros')" id="telefono"  name="telefono" placeholder="Ingresar Telefono" >
 			          		<span class="focus-border"></span>
 			          	</div>
 					</div>
@@ -364,7 +364,7 @@
 				<div class="form-group">
 					<label for="apellidoPaternoHijo">Apellido Paterno</label>
 					<div>
-	          		 	<input  class="effect-3" type="text"  id="apellidoPaterno-hijo" onkeyup="mayus(this)"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
+	          		 	<input  class="effect-3" type="text"  id="apellidoPaterno-hijo" onkeyup="this.value = filtro(this.value, 'letras')"  name="apellidoPaterno-hijo"  placeholder="Ingresar Apellido Paterno" >
 	          		 	<span class="focus-border"></span>
 	          		</div>
 				</div>
@@ -372,7 +372,7 @@
 			 	<div class="form-group">
                     <label for="apellidoMaterno-hijo">Apellido Materno</label>
                     <div>
-                    	<input  class="effect-3" type="text"  id="apellidoMaterno-hijo" onkeyup="mayus(this)" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno">
+                    	<input  class="effect-3" type="text"  id="apellidoMaterno-hijo" onkeyup="this.value = filtro(this.value, 'letras')" name="apellidoMaterno-hijo" placeholder="Ingresar Apellido Materno">
                     	<span class="focus-border"></span>
                 	</div>
                 </div>
@@ -380,7 +380,7 @@
                 <div class="form-group">
                     <label for="nombre-hijo">Nombre</label>
                     <div>
-                    	<input  class="effect-3" type="text"  id="nombre-hijo" onkeyup="mayus(this)" name="nombre-hijo"  placeholder="Ingresar Nombres">
+                    	<input  class="effect-3" type="text"  id="nombre-hijo" onkeyup="this.value = filtro(this.value, 'letras')" name="nombre-hijo"  placeholder="Ingresar Nombres">
                     	<span class="focus-border"></span>
                 	</div>
                 </div>
@@ -570,7 +570,6 @@
 		if(e.keyCode >= 33  && e.keyCode <= 45 || e.keyCode >=58 && e.keyCode <= 63  || e.keyCode >= 123 && e.keyCode <= 255 ){
 			//showAlertMessage('#alerta-digitar', "No se permiten caracteres especiales");
 			return false;
-
 		}
 
 		noCaracteresEspeciales(e.keyCode);
