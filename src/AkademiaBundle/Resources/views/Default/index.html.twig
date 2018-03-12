@@ -180,10 +180,10 @@
 					    	type = "number"
 					    	maxlength = "8"
 					    	min = "1" placeholder="Ingresar DNI ..."  >
-                        	<span class="cargarDatosApoderado" >Actualizando....</span>
-                        	<span class="mensajeEdad" ></span>
-                        	<span class="focus-border"></span>
+					    	<span class="focus-border"></span>
                     	</div>
+                    	<span class="cargarDatosApoderado" >Actualizando....</span>
+                    	<span class="mensajeEdad" id="mensajeEdad"></span>
                     </div>
 				</div>
 				<br>  
@@ -1054,7 +1054,7 @@ $("#boton3").on('click',function(){
 });
 
 $('.cargarDatosApoderado').hide();	
-$(".mensajeEdad").empty();
+$("#mensajeEdad").empty();
 	
 	function buscarDniApoderado(refDni){
 		if(refDni.value !=''){
@@ -1068,7 +1068,7 @@ $(".mensajeEdad").empty();
 			url: "{{url('akademia_homepage')}}",
 			data: datoDniPersona,
 			beforeSend: function(){
-				$(".mensajeEdad").empty();
+				$("#mensajeEdad").empty();
 				$('.cargarDatosApoderado').show();
 			},
 			success: function(data){
@@ -1108,13 +1108,26 @@ $(".mensajeEdad").empty();
 
 			            }else{
 
-						 	$(".mensajeEdad").empty();
-			             	$(".mensajeEdad").append("(*Usted es menor de edad)");
+						 	$("#mensajeEdad").empty();
+			             	$("#mensajeEdad").append("(*Usted es menor de edad)");
+			             	$("#mensajeEdad").removeClass("mensajeEdad");
+			             	$("#mensajeEdad").addClass("mensajeEdadError");
+
 			             	$("#apellidoPaterno").attr('readonly', true);
+			             	$("#apellidoPaterno").attr('disabled', true);
+
 			                $("#apellidoMaterno").attr('readonly', true);
+			                $("#apellidoMaterno").attr('disabled', true);
+
 			                $("#nombre").attr('readonly', true);
+			                $("#nombre").attr('disabled', true);
+
 			                $("#fechaNacimiento").attr('readonly', true);
+			                $("#fechaNacimiento").attr('disabled', true);
+
 			                $("#sexo").attr('readonly', true);
+			                $("#sexo").attr('disabled', true);
+
 			             	$("#apellidoPaterno").val('');
 			             	$("#apellidoMaterno").val('');
 			             	$("#nombre").val('');
@@ -1126,17 +1139,29 @@ $(".mensajeEdad").empty();
 
 				}else{
 
-					$(".mensajeEdad").empty();
+					$("#mensajeEdad").removeClass("mensajeEdadError");
+	             	$("#mensajeEdad").addClass("mensajeEdad");
+					$("#mensajeEdad").empty();
+
 		            $("#apellidoPaterno").val('');
 		            $("#apellidoMaterno").val('');
 		            $("#nombre").val('');
 		            $("#fechaNacimiento").val('');
 		            $("#sexo").val(2);
 		            $("#apellidoPaterno").attr('readonly', false);
+		            $("#apellidoPaterno").removeAttr('disabled');
+
 		            $("#apellidoMaterno").attr('readonly', false);
+		            $("#apellidoMaterno").removeAttr('disabled');
+
 		            $("#nombre").attr('readonly', false);
+		            $("#nombre").removeAttr('disabled');
+
 		            $("#fechaNacimiento").attr('readonly', false);
+		            $("#fechaNacimiento").removeAttr('disabled');
+
 		            $("#sexo").attr('readonly', false);
+		            $("#sexo").removeAttr('disabled');
 		        }
 
 				$('.cargarDatosApoderado').hide();
@@ -1175,7 +1200,7 @@ $(".mensajeEdad").empty();
 			url: "{{url('akademia_homepage')}}",
 			data: datoDniPersona,
 			beforeSend: function(){
-                $(".mensajeEdad").empty();
+                $("#mensajeEdad").empty();
 				$('.cargarDatosParticipante').show();
 			},
 			success: function(data){
@@ -1196,7 +1221,6 @@ $(".mensajeEdad").empty();
 					console.log("Busqueda DNI ==> ",dataHijo);
 				
 						$(dataHijo).each(function(index,valor){
-
 
 							$("#apellidoPaterno-hijo").val(filtro(valor.apellidoPaterno, 'letras'));
 							$("#apellidoMaterno-hijo").val(filtro(valor.apellidoMaterno,'letras'));

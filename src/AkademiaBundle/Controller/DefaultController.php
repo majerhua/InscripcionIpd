@@ -35,10 +35,10 @@ class DefaultController extends Controller
 
         $Role = $this->getUser();
         $edadBeneficiario =$request->request->get('edadBeneficiario');
+        $em = $this->getDoctrine()->getManager();
 
         if($Role != NULL){
-
-            $em = $this->getDoctrine()->getManager();
+            
             $mdlDepartamentosFlag = $em->getRepository('AkademiaBundle:Departamento')->departamentosPromotor($estado);
             $mdlProvinciasFlag = $em->getRepository('AkademiaBundle:Provincia')->provinciasPromotor($estado);
             $mdlDistritosFlag = $em->getRepository('AkademiaBundle:Distrito')->distritosPromotor($estado);
@@ -50,8 +50,7 @@ class DefaultController extends Controller
             $mdlhorariosFlag = $em->getRepository('AkademiaBundle:Horario')->getHorariosPromotores($estado);
             
         }else{
-
-            $em = $this->getDoctrine()->getManager();
+    
             $mdlDepartamentosFlag = $em->getRepository('AkademiaBundle:Departamento')->departamentosFlagAll($estado);
             $mdlProvinciasFlag = $em->getRepository('AkademiaBundle:Provincia')->provinciasFlagAll($estado);
             $mdlDistritosFlag = $em->getRepository('AkademiaBundle:Distrito')->distritosFlagAll($estado);

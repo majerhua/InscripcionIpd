@@ -660,10 +660,13 @@ body{
 }
 
 .mensajeEdad{
-
 	font-size: 12px;
 	color: green;
+}
 
+.mensajeEdadError{
+	color:red;
+	font-size: 12px;
 }
 
 .mensajeEdadParticipante{
