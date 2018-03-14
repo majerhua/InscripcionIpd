@@ -121,27 +121,13 @@
                                     <td style="width:40%;    padding-bottom: 2px; color:#AF1313; font-weight:bold;">Código de Registro: {{inscripcion[0]['id']}}</td>
                                     
                                 </tr>
+                                <br>
                                 <tr>
-                                    <td style="width:120px;"></td>
-                                    <td style="width:40%;  padding-bottom: 2px;"></td>
-                                    <td style="">
-                                       <p style="font-size:10px;" > Lima, {{ "now"|date("d") }} de {{ "now"|date("m")|replace({
-                                            '01'  : 'Enero',
-                                            '02'  : 'Febrero',
-                                            '03'  : 'Marzo',
-                                            '04'  : 'Abril',
-                                            '05'  : 'Mayo',
-                                            '06'  : 'Junio',
-                                            '07'  : 'Julio',
-                                            '08'  : 'Agosto',
-                                            '09'  : 'Setiembre',
-                                            '10'  : 'Octubre',
-                                            '11'  : 'Noviembre',
-                                            '12'  : 'Diciembre'
-                                        }) }} del {{ "now"|date("Y") }}</p>
+                                    <td style="width:150px;"></td>
+                                    <td style="width:50%;  padding-bottom: 2px;"></td>
+                                    <td style="">{{inscripcion[0]['fechaModif']|date('d/m/Y')}}
                                     </td>
                                 </tr>
-
             </tbody>
         </table>      
      

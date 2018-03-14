@@ -18,6 +18,7 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
       $query = "SELECT 
                 inscribete.id as id, 
                 inscribete.estado as estado, 
+                inscribete.fecha_registro as fechaModif,
                 personaApoderado.perapematerno as apellidoMaternoApoderado,
                 apoderado.dni as dniApoderado,
                 personaApoderado.perapepaterno as apellidoPaternoApoderado,
@@ -32,7 +33,8 @@ class InscribeteRepository extends \Doctrine\ORM\EntityRepository
                 personaParticipante.perapematerno, 
                 participante.dni, 
                 personaApoderado.perdomdireccion,
-                personaApoderado.percorreo, 
+                personaApoderado.percorreo,
+
                 personaApoderado.pertelefono,
                 grubigeo.ubinombre as distrito,
                 

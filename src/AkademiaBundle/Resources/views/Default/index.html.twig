@@ -1021,7 +1021,7 @@ $("#boton3").on('click',function(){
 
 		if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
 			if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 7){
+				if(sessionStorage.getItem("edad") <= 59 && sessionStorage.getItem("edad")> 6){
 					
 					$("#proceso3").hide();
 					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
@@ -1030,7 +1030,7 @@ $("#boton3").on('click',function(){
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');	
 			    }else{
-			    	alertify.error('<p style="color:white">Sólo de 7 a 40 años. </p>'); 
+			    	alertify.error('<p style="color:white">Sólo de 6 a 59 años. </p>'); 
 			    }
 			}else if(sessionStorage.getItem('flagDiscapacitado') == null ){
 				if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
@@ -1075,12 +1075,24 @@ $("#mensajeEdad").empty();
             $("#nombre").val('');
             $("#fechaNacimiento").val('');
             $("#sexo").val(2);
-            $("#apellidoPaterno").attr('readonly', false);
-            $("#apellidoMaterno").attr('readonly', false);
-            $("#nombre").attr('readonly', false);
-            $("#fechaNacimiento").attr('readonly', false);
-            $("#sexo").attr('readonly', false);
-				
+
+	     	$("#apellidoPaterno").attr('readonly', false);
+	     	$("#apellidoPaterno").attr('disabled', false);
+
+	        $("#apellidoMaterno").attr('readonly', false);
+	        $("#apellidoMaterno").attr('disabled', false);
+
+	        $("#nombre").attr('readonly', false);
+	        $("#nombre").attr('disabled', false);
+
+	        $("#fechaNacimiento").attr('readonly', false);
+	        $("#fechaNacimiento").attr('disabled', false);
+
+	        $("#sexo").attr('readonly', false);
+	        $("#sexo").attr('disabled', false);
+
+
+            	
 			if(data != 1){
 				var dataApoderado = JSON.parse(data);
 				console.log("Busqueda DNI ==> ",dataApoderado);
@@ -1114,16 +1126,16 @@ $("#mensajeEdad").empty();
 			             	$("#apellidoPaterno").attr('disabled', true);
 
 			                $("#apellidoMaterno").attr('readonly', true);
-			                $("#apellidoMaterno").attr('disabled', true);
+			             	$("#apellidoMaterno").attr('disabled', true);
 
 			                $("#nombre").attr('readonly', true);
-			                $("#nombre").attr('disabled', true);
+			             	$("#nombre").attr('disabled', true);
 
 			                $("#fechaNacimiento").attr('readonly', true);
-			                $("#fechaNacimiento").attr('disabled', true);
+			             	$("#fechaNacimiento").attr('disabled', true);
 
 			                $("#sexo").attr('readonly', true);
-			                $("#sexo").attr('disabled', true);
+			             	$("#sexo").attr('disabled', true);
 
 			             	$("#apellidoPaterno").val('');
 			             	$("#apellidoMaterno").val('');
@@ -1145,20 +1157,6 @@ $("#mensajeEdad").empty();
 		            $("#nombre").val('');
 		            $("#fechaNacimiento").val('');
 		            $("#sexo").val(2);
-		            $("#apellidoPaterno").attr('readonly', false);
-		            $("#apellidoPaterno").removeAttr('disabled');
-
-		            $("#apellidoMaterno").attr('readonly', false);
-		            $("#apellidoMaterno").removeAttr('disabled');
-
-		            $("#nombre").attr('readonly', false);
-		            $("#nombre").removeAttr('disabled');
-
-		            $("#fechaNacimiento").attr('readonly', false);
-		            $("#fechaNacimiento").removeAttr('disabled');
-
-		            $("#sexo").attr('readonly', false);
-		            $("#sexo").removeAttr('disabled');
 		        }
 
 				$('.cargarDatosApoderado').hide();
