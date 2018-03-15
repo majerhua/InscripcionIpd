@@ -34,6 +34,7 @@ class DefaultController extends Controller
     public function registroFinalAction(Request $request,$estado){
 
         $Role = $this->getUser();
+
         $edadBeneficiario =$request->request->get('edadBeneficiario');
         $em = $this->getDoctrine()->getManager();
 
@@ -73,6 +74,18 @@ class DefaultController extends Controller
     }
     
     public function indexAction(Request $request){
+        /*
+        $Role = $this->getUser()->getIdPerfil();
+        echo $Role;
+        var_dump($Role);
+        if(empty($Role)){
+            echo "1";
+        }else{
+            echo "2";
+        }
+
+        exit;
+        */
         if($request->isXmlHttpRequest()){
             
             $parentesco = $request->request->get('persona');

@@ -17,11 +17,9 @@
 			                	<option value="">--Seleccionar--</option>
 			                	{% for  dep in  departamentos  %}
 									{% for depFlag in departamentosFlag %}
-													
+
 										{%  if dep['id'] == depFlag['idDepartamento'] %}
-
 											<option value="{{dep['id']}}">{{dep['nombre']}}</option>
-
 										{% endif %}
 
 									{% endfor %}
@@ -314,7 +312,6 @@
 					if ( "{{pro['idDepartamento']}}" == "{{proFlag['idDepartamento']}}" && "{{pro['idProvincia']}}" == "{{proFlag['idProvincia']}}" &&  "{{proFlag['idDepartamento']}}" == valDepHor ){
 
 						$("#provinciaHorario").append("<option value={{proFlag['idProvincia']}}  data-departamento={{pro['idDepartamento']}} >{{pro['nombreProvincia']}}</option>");
-
 					}
 
 				{% endfor %}

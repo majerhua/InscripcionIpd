@@ -136,6 +136,7 @@ akademia_login_check:
 akademia_logout:
     path:    /logout
 
+
 akademia_evaluados:
     path:     /evaluados
     defaults: { _controller: AkademiaBundle:Talentos:evaluados}
@@ -150,3 +151,16 @@ akademia_guardarTalento:
     path:     /ajax/guardarTalento
     defaults: { _controller: AkademiaBundle:Talentos:guardarTalento }
     methods:  [GET,POST]
+
+##INCIO EXPORTAR DATA ##
+akademia_export:
+   path:    /export
+   defaults: {_controller: AkademiaBundle:ExportacionData:export}
+   methods: [GET,POST]
+
+akademia_exportData:
+   path:    /exportData
+   defaults: {_controller: AkademiaBundle:ExportacionData:exportData}
+   methods: [GET,POST]
+#FIN 
+

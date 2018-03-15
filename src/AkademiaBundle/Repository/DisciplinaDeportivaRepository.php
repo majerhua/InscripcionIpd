@@ -52,6 +52,31 @@ class DisciplinaDeportivaRepository extends \Doctrine\ORM\EntityRepository
         return $disciplinasDeporivas;
     }
 
+
+    public function disciplinaDeportivaExport(){
+
+        $query = "SELECT distinct ede.ede_codigo as idComplejoDeportivo,dis.dis_codigo idDisciplina , rtrim(dis.dis_descripcion) as nombreDisciplina
+            FROM ACADEMIA.inscribete AS ins
+            inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+            GROUP BY m.inscribete_id) ids ON ins.id = ids.mov_ins_id
+            inner join ACADEMIA.movimientos mov on mov.id = ids.mov_id 
+            inner join ACADEMIA.participante par on par.id = ins.participante_id
+            inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
+            inner join grpersona grApod on grApod.percodigo = apod.percodigo
+            inner join grubigeo ubi on ubi.ubicodigo = grApod.perubigeo
+            inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+            inner join ACADEMIA.horario hor on hor.id=ins.horario_id
+            inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+            inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+            inner join CATASTRO.disciplina dis on dis.dis_codigo = edi.dis_codigo
+            WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0";
+        
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $disciplinasDeporivas = $stmt->fetchAll();
+        return $disciplinasDeporivas;
+    }
+
     public function disciplinasDeportivasPromotor($flagDis)
     {
         $query = "SELECT distinct eddis.edi_codigo as id, eddis.ede_codigo as idComplejoDeportivo, rtrim(dis.dis_descripcion) as nombreDisciplina, dis.dis_codigo as idDisciplina ,edde.ede_discapacitado as discapacidad
