@@ -2,15 +2,55 @@
 {% block title %}Exportacion{% endblock %}
 
 {% block body  %}
-	<br>
-	<br>
-	{% set meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'] %}
-	{% set cont = 1 %}	
+
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                              
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section>
+<br>
+<br>
+{% set meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'] %}
+{% set cont = 1 %}	
+
+<div class="proceso">
+
+	<div style="width:93%">
+		<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+	</div>
+	<h2 class="text-center">Módulo de exportación</h2>
+	<h4 style="color:grey">EXPORTACION EN FORMATO CSV</h4>
 
 
-<div class="container">
+	<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
+		<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+		<p>Este modulo es para exportacion jsdhfjshdf asjhdajsdjahsdas jashdjashdasjhd ashdjashdsajdhas eirqr78asfj asyrufa </p>
+	</div>
+
+	<hr>
 	<div class="row">
-		<div class="form-group col-md-4">
+
+		<div class="form-group col-md-6">
 			<label>Año</label>
 			<select class="form-control" id="select-ano" >
 				<option value="2018">2018</option>
@@ -18,7 +58,8 @@
 				<option value="2020" >2020</option>
 			</select>
 		</div>
-		<div class="form-group col-md-3"  id="container-departamento">
+		<div class="form-group col-md-6"  id="container-departamento">
+			
 			<label>Departamentos</label>
 			<select class="form-control"  id="select-departamento" onchange="cambiarDepartamentoExport(this)" >
 				{% if app.user.idPerfil == 2 %}	
@@ -34,7 +75,7 @@
 	    	</select>
 		</div>
 
-		<div class="form-group col-md-3" id="container-complejo" >
+		<div class="form-group col-md-6" id="container-complejo" >
 			<label>Complejo</label>
 			<select class="form-control" id="select-complejo" onchange="cambiarComplejoDeportivoExport(this)" > 
 				{% if app.user.idPerfil == 2 %}	
@@ -43,42 +84,75 @@
 			</select>
 		</div>
 
-	</div>
-</div>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label>Mes</label>
+					<select class="form-control" id="select-mes" >
 
-<div class="container">
-	<div class="row">
-		<div class="form-group col-md-3">
-			<label>Mes</label>
-				<select class="form-control" id="select-mes" >
+					<option value="">--Seleccionar--</option>
+					{% for mes in meses %}
+						<option value="{{cont}}">{{mes}}</option>
+						{% set cont = cont + 1 %}
+					{% endfor %}
+				</select>
+			</div>
 
-				<option value="">--Seleccionar--</option>
-				{% for mes in meses %}
-					<option value="{{cont}}">{{mes}}</option>
-					{% set cont = cont + 1 %}
-				{% endfor %}
-			</select>
+		
+
+			<div class="form-group col-md-6">
+				<label>Disciplina</label>
+				<select class="form-control" id="select-disciplina">
+					<option value="">--Seleccionar--</option>
+				</select>
+			</div>		
+
 		</div>
 
-	
-
-		<div class="form-group col-md-3">
-			<label>Disciplina</label>
-			<select class="form-control" id="select-disciplina">
-				<option value="">--Seleccionar--</option>
-			</select>
-		</div>		
+		<div class="row" >
+			<div class="form-group col-md-6">
+				<button class="btn btn-primary" id="export-data"> Exportar Data Beneficiarios</button>
+			</div>		
+		</div>
 
 	</div>
 </div>
 
-<div class="container" >
-	<div class="row" >
-		<div class="form-group col-md-6">
-			<button class="btn btn-primary" id="export-data"> Exportar Data Beneficiarios</button>
-		</div>		
+<hr>
+</section>
+<br>
+<br>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
 	</div>
-</div>
+</footer>
 
 
 

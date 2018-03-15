@@ -136,7 +136,6 @@ akademia_login_check:
 akademia_logout:
     path:    /logout
 
-
 akademia_evaluados:
     path:     /evaluados
     defaults: { _controller: AkademiaBundle:Talentos:evaluados}

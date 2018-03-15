@@ -29,8 +29,12 @@
 		<p class="text-right" style="color:grey" >Sesión iniciada: {{ app.user.username}} </p>
 	</div>
 	<div class="container text-center" style="margin-top: 10px; margin-bottom: 30px;">
-		
-		<h1>CP {{nombre[0]['nombreComplejo']}}</h1>
+		{% if is_granted('ROLE_ANALISTA') %}	
+			<h1>LA ACADEMIA IPD </h1>
+	
+		{% else %}
+			<h1>CP {{nombre[0]['nombreComplejo']}}</h1>
+		{% endif %}
 		<h4 style="color:grey">PANEL DE ADMINISTRACIÓN</h4>
 		<hr>
 		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
@@ -39,6 +43,8 @@
 		</div>
 
 		<div class="row text-center">	
+			
+			{% if is_granted('ROLE_ADMIN') %}	
 			<div id="option-beneficiarios" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
 				<a href="{{url('akademia_homepage')}}">
 					<div class="card">
@@ -69,7 +75,7 @@
 			</div>
 
 			<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
-				<a href="#">
+				<a href="{{url('akademia_exportData')}}">
 					<div class="card">
 						<img src="{{ asset('assets/images/icon_data.png') }}" width="120" height="120">
 						<p class="title-card">Exportación de datos </p>
@@ -85,7 +91,25 @@
 					</div>
 				</a>
 			</div>	
+			{% else %}
+				<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+					<a href="{{url('akademia_exportData')}}">
+						<div class="card">
+							<img src="{{ asset('assets/images/icon_data.png') }}" width="120" height="120">
+							<p class="title-card">Exportación de datos </p>
+						</div>
+					</a>
+				</div>	
 
+				<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+					<a href="{{url('akademia_evaluados')}}">
+						<div class="card">
+							<img src="{{ asset('assets/images/talento.png') }}" width="120" height="120">
+							<p class="title-card">Detección de talentos</p>
+						</div>
+					</a>
+				</div>	
+			{% endif %}
 		</div>
 	</div>
 
