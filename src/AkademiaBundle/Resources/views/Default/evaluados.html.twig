@@ -1,0 +1,195 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="logoAcademia" />                            	          
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                	 <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
+                    <li><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.4em; color:white" ></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section  class="proceso-inscripcion">
+
+	<div style="width:93%">
+		<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+	</div>
+
+	<div class="proceso" style="margin-bottom: 60px;">
+		<h2>Detección de Talentos</h2>
+		<h4 style="color:grey">RELACIÓN DE EVALUADOS</h4>
+	
+		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
+			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+			<p>Módulo para el seguimiento de talentos con beneficiarios pre seleccionados.</p>
+		</div>
+
+		{% set cont = 0 %}
+		<div class="container-card col-xs-12 col-sm-12 col-md-11 col-lg-11">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="input-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							 	<span class="input-group-addon">Buscar</span>
+							  	<input class="filtrar form-control" ident-buscar="{{cont}}"  type="text" placeholder=" ingresa los campos a buscar ">
+							</div>
+							<br>
+							<div class="panel panel-default" style="overflow-x:auto;">
+								<table class="table"> 
+
+									<thead style="background:#cb2f1d; color:#F2F2F2;"> 
+										<tr> 
+											<th class="text-center">Inscripción</th>
+											<th class="text-center">DNI</th> 
+											<th class="text-center">Nombre</th> 
+											<th class="text-center">Edad</th>
+											<th class="text-center">Sexo</th> 
+											<th class="text-center">Complejo</th> 
+											<th class="text-center">Disciplina</th> 
+											<th></th> 
+										</tr>
+									</thead> 
+
+									<tbody class="buscar" style="color:#494343"> 
+										{% for seleccionado in seleccionados %}
+										
+										<tr class="text-center"> 
+											
+											<td>{{seleccionado['idInscribete']}}</td>
+											<td>{{seleccionado['dni']}}</td> 
+											<td>{{seleccionado['nombre']}}</td> 
+											<td>{{seleccionado['edad']}} años</td> 
+
+											{% if  seleccionado['sexo'] == 0 %}
+												<td>Femenino</td> 	
+											{% else %}
+												<td>Masculino</td> 
+											{% endif %}
+											
+											<td>{{seleccionado['nombreComplejo']}}</td>
+											
+											
+											<td>{{seleccionado['nombreDisciplina']}}</td>
+
+											
+											<td><a href="/talentos/{{seleccionado['idParticipante']}}" title="Más detalles" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
+											
+										</tr>
+										
+										{% set cont = cont + 1 %}
+										{% endfor %}
+ 
+									</tbody> 
+								</table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<br>
+		<br>
+	</div>
+</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+<script type="text/javascript">
+
+	/*FILTROS */
+	$(document).ready(function () {
+        (function ($) {
+
+        	var jsFiltrar = document.querySelectorAll('.filtrar');
+        	var jsBuscar = document.querySelectorAll('.buscar');
+
+        	for (var i = 0; i < jsFiltrar.length; i++) {
+
+        		$(jsFiltrar[i]).keyup(function () {
+
+        			var idfil = $(this).attr('ident-buscar');
+
+                    var rex = new RegExp($(this).val(),'i');
+                    $(jsBuscar[idfil]).children('tr').hide();
+                    $(jsBuscar[idfil]).children('tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+            	})
+        	}  
+
+        }(jQuery));
+
+    });
+
+	/* MOSTRAR MENSAJE DE ALERTA */
+	function showAlertMessage(alert, mensaje){
+		$(alert).text(mensaje).show('fade');
+		setTimeout(function(){
+			hideAlertMessage(alert);	
+		}, 2000);
+	}
+
+	/* OCULTAR ALERTA*/
+	function hideAlertMessage(alert){
+		$(alert).hide('fade');
+
+	}
+
+
+</script>
+
+{% endblock %}

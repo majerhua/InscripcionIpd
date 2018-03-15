@@ -1,0 +1,151 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="logoAcademia" />                            	          
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>				
+                <ul class="nav navbar-nav navbar-right">
+                
+                    <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="btn icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section  id="inscribete"  class="proceso-inscripcion">
+	<div style="width:93%">
+		<p class="text-right" style="color:grey" >Sesión iniciada: {{ app.user.username}} </p>
+	</div>
+	<div class="container text-center" style="margin-top: 10px; margin-bottom: 30px;">
+		
+		<h1>CP {{nombre[0]['nombreComplejo']}}</h1>
+		<h4 style="color:grey">PANEL DE ADMINISTRACIÓN</h4>
+		<hr>
+		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
+			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+			<p> Utilizar las siguiente herramientas para administrar su complejo deportivo, horarios, beneficiarios, pre- inscripción directa, etc.</p>
+		</div>
+
+		<div class="row text-center">	
+			<div id="option-beneficiarios" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<a href="{{url('akademia_homepage')}}">
+					<div class="card">
+						<img src="{{ asset('assets/images/preinscripcion-directa.png') }}" width="120" height="120">
+						<p class="title-card">Pre-Inscripción directa</p>
+					</div>
+				</a>
+			</div>
+
+			<div id="option-validacion" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<a href="{{url('akademia_inscritos')}}">
+					<div class="card">
+
+						<img src="{{ asset('assets/images/icon_confirmar.png') }}" width="120" height="120">
+						<p class="title-card">Validar Inscripción</p>
+					</div>
+				</a>
+			</div>
+
+			<div id="option-horarios" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<a href="{{url('akademia_horarios')}}">
+					<div class="card">
+
+						<img src="{{ asset('assets/images/icon_horarios.png') }}" width="120" height="120">
+						<p class="title-card">Administración de horarios</p>
+					</div>
+				</a>
+			</div>
+
+			<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<a href="#">
+					<div class="card">
+						<img src="{{ asset('assets/images/icon_data.png') }}" width="120" height="120">
+						<p class="title-card">Exportación de datos </p>
+					</div>
+				</a>
+			</div>	
+
+			<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<a href="{{url('akademia_evaluados')}}">
+					<div class="card">
+						<img src="{{ asset('assets/images/talento.png') }}" width="120" height="120">
+						<p class="title-card">Detección de talentos</p>
+					</div>
+				</a>
+			</div>	
+
+		</div>
+	</div>
+
+	<hr>
+</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+{% endblock %}
+
+{% block javascripts %}
+
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+<script type="text/javascript">
+
+	/*Muestra mensaje de alerta*/
+	function showAlertMessage(alert, mensaje){
+		$(alert).text(mensaje).show('fade');
+		setTimeout(function(){
+			hideAlertMessage(alert);	
+		}, 3000);
+	}
+
+	/*Oculta mensaje de alerta*/
+	function hideAlertMessage(alert){
+		$(alert).hide('fade');		
+	}
+
+</script>
+
+{% endblock %}

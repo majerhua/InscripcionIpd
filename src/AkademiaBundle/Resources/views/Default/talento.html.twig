@@ -1,0 +1,931 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+
+<header>
+	 <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                              
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li title="Horarios"><a href="{{url('akademia_evaluados')}}"><i class="icon-arrow-left" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section >
+	<br>
+	<div style="width:93%">
+		<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+	</div>
+
+	<div class="proceso">
+
+		<h3 class="text-center" style="color:#08298A">{{talento[0]['nombre']}} </h3>
+		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
+	
+		<h4 style="color:grey">DEPORTISTA EN EVALUACIÓN</h4>
+
+
+		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
+			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+			<p>Módulo para realizar un seguimiento del talento seleccionado. Crea nuevos controles que hagan referencia a la evolución de sus indicadores. </p>
+		</div>
+
+		<div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="card row">
+
+				{% if talento[0]['sexo'] == 0 %}
+					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">				
+						<img src="{{ asset('assets/images/woman.png')}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
+					</div>
+				{% else %}
+					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">				
+						<img src="{{ asset('assets/images/man.png')}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
+					</div>
+				{% endif %}
+
+				<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">				
+					
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11 text-right">				
+							<button title="Editar" id="boton" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#modal-editar_participante"><i class="icon-pencil-square-o"></i></button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">				
+							<div class="row">
+								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>DNI: </p></strong>
+								</div>						
+
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
+									<p id="deportista_dni">{{talento[0]['dni']}}</p>
+								</div>						
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">				
+							<div class="row">
+								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>Edad: </p></strong>
+								</div>						
+
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
+									<p id="deportista_edad"> {{talento[0]['edad']}} años</p>
+								</div>						
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">				
+							<div class="row">
+								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>Disciplina: </p></strong>
+								</div>						
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
+									<p id="deportista_disciplina">{{talento[0]['nombreDisciplina']}}</p>
+								</div>						
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">				
+
+							<div class="row">
+
+								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>Complejo: </p></strong>
+								</div>						
+
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
+									<p id="deportista_complejo_deportivo"> {{talento[0]['nombreComplejo']}}</p>
+								</div>						
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">				
+							<div class="row">
+								<div class=" col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>Ficha técnica: </p></strong>
+								</div>						
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
+									<img id="deportista_ficha_tecnica"  src="{{talento[0]['foto']}}"  >				
+								</div>						
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">				
+							<div class="row">
+
+								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>Video Youtube:</p></strong>
+								</div>						
+
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
+									<p id="deportista_video_youtube">{{talento[0]['link']}}</p>
+								</div>						
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			
+			<h4 style="color:grey">HISTORIAL DE MEDICIONES FISICAS DEL DEPORTISTA</h4>
+
+			<div class="card">		
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="panel panel-default" style="overflow-x:auto;">
+									<table class="table"> 
+										<thead style="background:#cb2f1d; color:#F2F2F2;"> 
+											<tr> 
+												
+												<th>Fecha</th> 
+												<th>Peso</th> 
+												<th>Talla</th>
+												<th>50m</th> 
+												<th>Flexib.<br>Tronco</th> 
+												<th>Equilib.</th> 
+												<th>Flex. Brazo</th> 
+												<th>Salto Horiz.</th> 
+												<th>Salto Verti.</th> 
+												<th>Lanz. Pelota</th>
+												<th>Abdom.</th>
+												<th>Prensa Dinam.</th>
+												<th>1000m</th>
+												<th></th>
+											</tr>
+											<tr>
+												<td></td>
+												<td>kg</td>
+												<td>cm</td>
+												<td>seg</td>
+												<td>cm</td>
+												<td>Rpt./1 min</td>
+												<td>Rpt./30 seg</td>
+												<td>s/c cm</td>
+												<td>s/i cm</td>
+												<td>m</td>
+												<td>Rpt./30 seg</td>
+												<td>(kg)</td>
+												<td>(seg)</td>
+												<td></td>
+											</tr>
+
+										</thead> 
+
+										<tbody class="text-center"> 
+
+											<tr> 
+												<td>13/04/2018</td> 
+												<td>58</td> 
+												<td>168</td> 
+												<td>8.12</td> 	
+												<td>23.52</td>
+												<td>13</td>
+												<td>12</td>
+												<td>149.52</td>
+												<td>22.54</td>
+												<td>24</td>
+												<td>16</td>
+												<td>20.4</td>
+												<td>267.24</td>
+
+										
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
+											</tr> 
+
+											<tr> 
+												<td>13/04/2018</td> 
+												<td>58</td> 
+												<td>168</td> 
+												<td>8.12</td> 	
+												<td>23.52</td>
+												<td>13</td>
+												<td>12</td>
+												<td>149.52</td>
+												<td>22.54</td>
+												<td>24</td>
+												<td>16</td>
+												<td>20.4</td>
+												<td>267.24</td>
+										
+												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
+											</tr> 
+											
+										</tbody> 
+									</table>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+								<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-nueva-medida">Registrar nueva medida</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br>
+
+</section>
+
+<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+				<br>
+				<br>
+				<br>
+				<img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>La Academia</h4>
+				<p class="footerTex">
+					Dirección:Calle Madre de Dios N° 463
+				</p>
+				<p class="footerTex">
+					Teléfono: 204-8420 /anexo 1302
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<br><br>
+				<h4>Enlaces de Interés</h4>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+				<p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+				<p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+			</div>
+		</div>
+		<br>
+    	<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+	</div>
+</footer>
+
+<!-- MODAL EDITAR INFO PARTICIPANTE -->
+
+
+<div id="modal-editar_participante" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<form id="uploadimage" enctype="multipart/form-data" method="POST">
+			<div class="modal-content">
+				<div class="modal-header text-center">
+					<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+					<h4 id="deportista_editar_nombre" class="title-card">{{talento[0]['nombre']}}</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="row">
+
+						{% if talento[0]['sexo'] == 0 %}
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">				
+								<img  id="img-foto-perfil" src="{{ asset('assets/images/woman.png')}}" width="150" height="150" style="margin-bottom: 10px;">
+							</div>
+						{% else %}
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">				
+								<img  id="img-foto-perfil" src="{{ asset('assets/images/man.png')}}" width="150" height="150" style="margin-bottom: 10px;">
+							</div>
+						{% endif %}
+						<p id="idPart" style="color:white; font-size:12px"> {{talento[0]['idParticipante']}}</p>
+										
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<ul class="list-group">
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+											<p><strong>Video Youtube</strong></p>
+										</div>
+										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+											<input id="deportista_editar_video_youtube" class="form-control" name="video_youtube" type="text" placeholder=" www.youtube.com/jir931qXG">
+										</div>
+									</div>
+								</li>
+								
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+											<p><strong>Ficha técnica</strong></p>
+										</div>
+
+										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+											<input type="file" name="files[]" multiple id="file" class="form-control" placeholder="ficha_tecnica.jpg">
+										</div>
+									 	
+									</div>
+								</li>
+							
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+											<p><strong>Comentarios:</strong></p>
+										</div>
+										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+											<textarea id="deportista_editar_comentarios" name="comentarios" maxlength="300" class="form-control" rows="5" id="comment"></textarea>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button id="btn_guardar_editar_deportista" type="submit" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
+
+
+<!-- MODAL NUEVA MEDIDA -->
+
+<div id="modal-nueva-medida" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+				<h4 class="title-card">Registrar nuevas medidas</h4>
+				<br>
+				<div class="row text-center">
+					<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<p><strong>Fecha de evaluación:</strong></p>
+					</div>
+					<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
+						<input class="form-control"  id="fechaRegistro" type="date"  id="fechaRegistro"  name="fechaRegistro">
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<ul class="list-group">
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Peso</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="56 Kg">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Talla</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="168 cm">
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>50 met</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="8 seg">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Flexib. Tronco</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="14 cm">
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Equilibrio</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Flexion Brazo</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Salto Horizontal</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="149.52 cm">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Salto Vertical</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="22.54 cm">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Lanzam. Pelota</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="25 m">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Abdominales</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Prensa Dinam.</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20.4 kg">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">	
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>1000 met.</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="267.4 seg">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL EDITAR MEDIDA -->
+
+<div id="modal-editar-medida" class="modal fade" role="dialog">
+
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			
+			<div class="modal-header text-center">
+				
+				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+				
+				<h4 class="title-card">Editar medidas</h4>
+
+				<br>
+
+				<div class="row text-center">
+
+					<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							<p><strong>Fecha de evaluación:</strong></p>
+					</div>
+
+					<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
+						<input class="form-control"  id="fechaRegistro" type="date"  id="fechaRegistro"  name="fechaRegistro">
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="modal-body">
+
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+						<ul class="list-group">
+
+							<li class="list-group-item">
+
+								<div class="row">
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										
+										<div class="row">
+											
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<p><strong>Peso</strong></p>
+
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="56 Kg">
+
+											</div>
+
+										</div>
+
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										
+										<div class="row">
+											
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<p><strong>Talla</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="168 cm">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>50 met</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="8 seg">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Flexib. Tronco</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="14 cm">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Equilibrio</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+
+											</div>
+
+										</div>
+
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Flexion Brazo</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Salto Horizontal</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="149.52 cm">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Salto Vertical</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" tyçpe="number" min="0" class="validate" placeholder="22.54 cm">
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Lanzam. Pelota</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="25 m">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Abdominales</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>Prensa Dinam.</strong></p>
+											</div>
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20.4 kg">
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+										<div class="row">
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<p><strong>1000 met.</strong></p>
+											</div>
+
+											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="267.4 seg">
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+	
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+
+<script type="text/javascript">
+	
+
+	/* MOSTRAR MENSAJE DE ALERTA */
+	function showAlertMessage(alert, mensaje){
+		$(alert).text(mensaje).show('fade');
+		setTimeout(function(){
+			hideAlertMessage(alert);	
+		}, 2000);
+	}
+
+	/* COULTAR ALERTA*/
+	function hideAlertMessage(alert){
+		$(alert).hide('fade');
+
+	}
+
+
+	/*GUARDAR DATOS */
+
+
+	/*$(function(){
+        $("input[name='file']").on("change", function(){
+            
+            var formData = new FormData($("#uploadimage")[0]);
+            var ruta = "imagen-ajax.php";
+            $.ajax({
+                url:"{{url('akademia_guardarTalento')}}" ,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $("#respuesta").html(datos);
+                }
+            });
+        });
+     });*/
+
+
+	$('#btn_guardar_editar_deportista').on( 'click', function() {
+
+		//$("#uploadimage").unbind('submit').bind('submit', function(){
+   		
+   			var formulario = $("#uploadimage")[0];
+   			console.log(formulario);
+
+			let idParticipante = $("#idPart").text();
+			let link = $("#deportista_editar_video_youtube").val();
+	  		let ficha = $('#file');  
+	    	let imgFicha= ficha[0].files;   
+	    	let comentarios = $("#deportista_editar_comentarios").val();
+
+			//let ficha = new FormData($("#uploadimage")[0]);;
+			
+			//console.log(ficha, link, idParticipante);
+			var formData =  new FormData(formulario);
+
+		 	formData.append('idPart',idParticipante);
+		 	formData.append('link',link);
+		 	formData.append('comentarios',comentarios);
+	    	formData.append('archivo[]',imgFicha);
+
+		    $.ajax({
+
+				type:'POST',
+				url: "{{url('akademia_guardarTalento')}}",
+				data: formData,
+				cache: false,
+	            contentType: false,
+	            processData: false,
+
+				beforeSend: function(){				
+					
+				},
+
+				success: function (data){
+					if(data == 1){
+						console.log("elemento guardado");
+					}
+				},
+				error: function(data){
+					console.log(data);
+				}
+			});
+
+
+   		})
+   		//$(".text-danger").remove();
+   		
+   		
+		 
+		
+
+		/*var dataTalento = {
+			"idParticipante" : idParticipante,
+			"link" : link,
+			"ficha" : ficha,
+			"comentarios" : comentarios
+		};*/
+
+	//});
+
+
+
+</script>
+
+{% endblock %}
