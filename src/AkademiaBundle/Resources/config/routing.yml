@@ -131,3 +131,14 @@ akademia_login_check:
 akademia_logout:
     path:    /logout
 
+##INCIO EXPORTAR DATA ##
+akademia_export:
+   path:    /export
+   defaults: {_controller: AkademiaBundle:ExportacionData:export}
+   methods: [GET,POST]
+
+akademia_exportData:
+   path:    /exportData
+   defaults: {_controller: AkademiaBundle:ExportacionData:exportData}
+   methods: [GET,POST]
+#FIN 

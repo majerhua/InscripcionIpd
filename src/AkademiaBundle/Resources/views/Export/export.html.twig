@@ -1,0 +1,159 @@
+{% extends '::base.html.twig' %}
+{% block title %}Exportacion{% endblock %}
+
+{% block body  %}
+	<br>
+	<br>
+	{% set meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'] %}
+	{% set cont = 1 %}	
+
+
+<div class="container">
+	<div class="row">
+		<div class="form-group col-md-4">
+			<label>Año</label>
+			<select class="form-control" id="select-ano" >
+				<option value="2018">2018</option>
+				<option value="2019">2019</option>
+				<option value="2020" >2020</option>
+			</select>
+		</div>
+		<div class="form-group col-md-3"  id="container-departamento">
+			<label>Departamentos</label>
+			<select class="form-control"  id="select-departamento" onchange="cambiarDepartamentoExport(this)" >
+				{% if app.user.idPerfil == 2 %}	
+					<option value="">--Seleccionar--</option>
+				{% endif %}
+	        	{% for  dep in  departamentosAll  %}
+					{% for depFlag in departamentosExport %}
+						{%  if dep['id'] == depFlag['idDepartamento'] %}
+							<option value="{{dep['id']}}">{{dep['nombre']}}</option>
+						{% endif %}
+					{% endfor %}
+	        	{% endfor %}	
+	    	</select>
+		</div>
+
+		<div class="form-group col-md-3" id="container-complejo" >
+			<label>Complejo</label>
+			<select class="form-control" id="select-complejo" onchange="cambiarComplejoDeportivoExport(this)" > 
+				{% if app.user.idPerfil == 2 %}	
+					<option value="">--Seleccionar--</option>
+				{% endif %}
+			</select>
+		</div>
+
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="form-group col-md-3">
+			<label>Mes</label>
+				<select class="form-control" id="select-mes" >
+
+				<option value="">--Seleccionar--</option>
+				{% for mes in meses %}
+					<option value="{{cont}}">{{mes}}</option>
+					{% set cont = cont + 1 %}
+				{% endfor %}
+			</select>
+		</div>
+
+	
+
+		<div class="form-group col-md-3">
+			<label>Disciplina</label>
+			<select class="form-control" id="select-disciplina">
+				<option value="">--Seleccionar--</option>
+			</select>
+		</div>		
+
+	</div>
+</div>
+
+<div class="container" >
+	<div class="row" >
+		<div class="form-group col-md-6">
+			<button class="btn btn-primary" id="export-data"> Exportar Data Beneficiarios</button>
+		</div>		
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+
+<script>
+
+		
+	const $exportData = $("#export-data");
+	const $selectAno = $("#select-ano");
+	const $selectMes = $("#select-mes");
+	const $selectDepartamento = $("#select-departamento");
+	const $selectComplejo = $("#select-complejo");
+	const $selectDisciplina = $("#select-disciplina");
+	const $containerDepartamento = $("#container-departamento");
+	const $containerComplejo = $("#container-complejo");
+
+	$exportData.on('click',function(){
+		location.href='export?ano='+$selectAno.val()+'&mes='+$selectMes.val()+'&departamento='+$selectDepartamento.val()+'&complejo='+$selectComplejo.val()+'&disciplina='+$selectDisciplina.val();
+		console.log('export?ano='+$selectAno.val()+'&mes='+$selectMes.val()+'&departamento='+$selectDepartamento.val()+'&complejo='+$selectComplejo.val()+'&disciplina='+$selectDisciplina.val());
+	});
+
+	const cambiarDepartamentoExport =  (depExp)=>{
+
+		var idDepartamento = depExp.value;
+		
+		$selectComplejo.empty();
+		$selectDisciplina.empty();
+
+		{% if app.user.idPerfil == 2 %}	
+			$selectComplejo.append("<option value='' >--Seleccionar--</option>");
+		{% endif %}
+		$selectDisciplina.append("<option value='' >--Seleccionar--</option>");
+		
+		{% for comDep in ComplejoDeportivoExport  %}
+				if("{{comDep['idDepartamento']}}" == idDepartamento){
+						$selectComplejo.append("<option value={{comDep['id']}} >{{comDep['nombre']}}</option>");
+				}
+		{% endfor %}
+	}
+
+	const cambiarComplejoDeportivoExport = (comDepExp)=>{
+
+		var idComplejoDeportivo = comDepExp.value;
+
+		$selectDisciplina.empty();
+		$selectDisciplina.append("<option value='' >--Seleccionar--</option>");
+		{% for disDep in DisciplinaDeportivaExport  %}
+
+			if("{{disDep['idComplejoDeportivo']}}" == idComplejoDeportivo){
+				var nombreDis = "{{ disDep['nombreDisciplina'] }} ";
+				$selectDisciplina.append("<option value = {{disDep['idDisciplina']}}>"+nombreDis.trim()+"</option>");
+			}
+		{% endfor %}		
+	}
+
+
+	{% if app.user.idPerfil == 1 %}
+		let obIdDepartamento = {'value': $selectDepartamento.val() };
+		cambiarDepartamentoExport(obIdDepartamento);
+
+		let obIdComplejo = {'value': $selectComplejo.val() };
+		cambiarComplejoDeportivoExport(obIdComplejo);		
+	{% endif %}
+
+	{% if app.user.idPerfil == 1 %}
+		 $containerDepartamento.css('visibility','hidden');
+		 $containerComplejo.css('visibility','hidden');
+	{% endif %}
+
+</script>
+
+{% endblock %}

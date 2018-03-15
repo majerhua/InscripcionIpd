@@ -939,28 +939,22 @@
 					};
 
 					$.ajax({
-
 						type:'POST',
 						dataType: "json",
 						url: "{{url('akademia_ocultarHorario')}}",
 						data: dataOcultarHorario,
-
 						beforeSend: function(){				
 
 						},
-
 						success: function(data){
-
 							if(data == 1){
 								console.log(data);
 								window.location.href = "{{url('akademia_horarios')}}";
 							}
 						},
-
 						error: function(error){
 							console.log(error);
 						}
-
 					});
 
 				  }

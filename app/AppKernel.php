@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AkademiaBundle\AkademiaBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             //new Realestate\MssqlBundle\RealestateMssqlBundle(),
         ];
 

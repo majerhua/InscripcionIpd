@@ -11,6 +11,51 @@ namespace AkademiaBundle\Repository;
 class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 {
 
+
+	public function complejoDeportivoExport(){
+       $query = "SELECT distinct ubiDpto.ubidpto idDepartamento ,ede.ede_codigo id, ede.ede_nombre nombre
+    				FROM ACADEMIA.inscribete AS ins
+    				inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+				    GROUP BY m.inscribete_id) ids ON ins.id = ids.mov_ins_id
+				    inner join ACADEMIA.movimientos mov on mov.id = ids.mov_id 
+				    inner join ACADEMIA.participante par on par.id = ins.participante_id
+				    inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
+				    inner join grpersona grApod on grApod.percodigo = apod.percodigo
+				    inner join grubigeo ubi on ubi.ubicodigo = grApod.perubigeo
+					inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+					inner join ACADEMIA.horario hor on hor.id=ins.horario_id
+					inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+				    inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+					WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0;";
+				           $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+           $stmt->execute();
+           $complejosDeportivos = $stmt->fetchAll();
+           return $complejosDeportivos;		
+	}
+
+
+
+	public function complejoDeportivoExportFind($id){
+       $query = "SELECT distinct ubiDpto.ubidpto idDepartamento ,ede.ede_codigo id, ede.ede_nombre nombre
+    				FROM ACADEMIA.inscribete AS ins
+    				inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+				    GROUP BY m.inscribete_id) ids ON ins.id = ids.mov_ins_id
+				    inner join ACADEMIA.movimientos mov on mov.id = ids.mov_id 
+				    inner join ACADEMIA.participante par on par.id = ins.participante_id
+				    inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
+				    inner join grpersona grApod on grApod.percodigo = apod.percodigo
+				    inner join grubigeo ubi on ubi.ubicodigo = grApod.perubigeo
+					inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+					inner join ACADEMIA.horario hor on hor.id=ins.horario_id
+					inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+				    inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+					WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0 AND ede.ede_codigo='$id' ";
+           $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+           $stmt->execute();
+           $complejosDeportivos = $stmt->fetchAll();
+           return $complejosDeportivos;		
+	}
+
 	public function getComplejosDeportivos()
 	{
 
