@@ -27,7 +27,6 @@ use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
-
 class TalentosController extends controller
 {
 	public function evaluadosAction(Request $request){
@@ -63,21 +62,23 @@ class TalentosController extends controller
 			//$nombre = $_FILES[$imgficha]['name'];
 			//$tipo = $_FILES['archivo']['type'];
 			//$tamanio = $_FILES['archivo']['size'];
+			$file = $request->files();
+	    	$fileResolucion = $file->get("archivo");
 			
 
-            $fileFicha = $request->files->get('archivo');
-            var_dump($fileFicha);
+            //$fileFicha = $request->files->get('archivo');
+           // var_dump($fileFicha);
 
-	        if (!empty($fileFicha)){
+	        if (!empty($fileResolucion)){
 		        $nombreFicha = date('YmdHis');
-		        $fileNombre = $nombreFicha . '.' . $fileFicha->guessExtension();
+		        $fileNombre = $nombreFicha . '.' . $fileResolucion->getExtension();
 		        $ruta = "bundles/upload/";
 		        $fileResolucion->move($ruta, $fileNombre);
-		        var_dump($fileNombre);
+		        var_dump($fileResolucion);
 		    }else{
 
 		        $fileNombre="";
-		        var_dump($fileNombre);
+		        var_dump($fileResolucion);
 		    }
 
 		    var_dump($request->files->all());
