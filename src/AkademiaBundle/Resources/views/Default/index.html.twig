@@ -20,10 +20,12 @@
 
 	            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}	
 	            	
-	            	<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>
+	            	<!--<li><a href="{{url('akademia_homepage')}}">Inscripción directa</a></li>
                 	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
                 	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
-                    <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
+                    <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>-->
+                    <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
                 
                 {% else %}
                 
@@ -37,7 +39,7 @@
 	</nav>
 	{% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
 	<br>
-	<div style="width:91%">
+	<div style="width:93%">
 		<p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
 	</div>
 	<div class="proceso text-center">
@@ -164,10 +166,10 @@
 				<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
 						<div>
-                        	<select  class="effect-3" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
-                            	<option value="0">--Seleccionar--</option>
-                            	<option value="dni" >DNI</option>
-                            	<option value="carnet" >Carnet de extranjería</option>
+                        	<select  class="effect-3 text" type="text"  id="tipo_documento"  name="tipo_documento" onchange="modificarTexbox()">
+                            	<option value="0"> -- Seleccionar -- </option>
+                            	<option value="dni" > DNI</option>
+                            	<option value="carnet" > Carnet de extranjería</option>
                         	</select>
                         	<span class="focus-border"></span>
                     	</div>
@@ -192,21 +194,21 @@
 				<div class="form-group col s12">
 				 	<label for="apellidoPaterno">Apellido Paterno</label>
   					<div>
-				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="this.value = filtro(this.value, 'letras')" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder="Ingresar apellido paterno ..." >
+				    	<input id="apellidoPaterno" maxlength="50" class="effect-3" onkeyup="this.value = filtro(this.value, 'letras')" id="apellidoPaterno"  name="apellidoPaterno" type="text" class="validate" placeholder=" Ingresar apellido paterno ..." >
 	          			<span class="focus-border"></span>
 	      			</div>
 
 				</div>
-				
+				<br>
 				<div class="form-group col s12">
 				    <label for="apellidoMaterno" >Apellido Materno</label>
 				    <div>
-		            	<input id="apellidoMaterno" maxlength="50" class="effect-3"  onkeyup="this.value = filtro(this.value, 'letras')" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder="Ingresar apellido materno ..." >
+		            	<input id="apellidoMaterno" maxlength="50" class="effect-3"  onkeyup="this.value = filtro(this.value, 'letras')" type="text" id="apellidoMaterno"  name="apellidoMaterno" class="validate" placeholder=" Ingresar apellido materno ..." >
 		            	<span class="focus-border"></span>
 		        	</div>
 
 				</div>
-	      						      						
+	      		<br>		      						
 	    		<div class="form-group col s12">
 	    			<label for="nombre">Nombres</label>
 	    			<div>
@@ -226,8 +228,8 @@
 					<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
 						<label>Sexo</label>
 						<div>
-					    	<select id="sexo" class="effect-3"  name="sexo" >
-					    		<option value="2"selected>--Seleccionar--</option>
+					    	<select id="sexo" class="effect-3 text"  name="sexo" >
+					    		<option value="2"selected>-- Seleccionar --</option>
 					      		<option value="1">Masculino</option>
 					      		<option value="0">Femenino</option>
 					    	</select>
@@ -250,8 +252,8 @@
 		        <div class="form-group col s12">
 					<label>Departamento</label>
 					<div>
-		        		<select id="departamento" class="effect-3"  name="departamento"  onchange="cambiarDepartamento(this)">
-            				<option value="0">--Seleccionar--</option>
+		        		<select id="departamento" class="effect-3 text"  name="departamento"  onchange="cambiarDepartamento(this)">
+            				<option value="0">-- Seleccionar --</option>
 			            	{% for departamento in departamentos %}
 			            		<option value="{{departamento['id']}}" >{{departamento['nombre']}}</option>
 			            	{% endfor %} 
@@ -264,8 +266,8 @@
 			    	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 			        	<label>Provincia</label>
 			        	<div>
-			            	<select  id="provincia" class="effect-3"  name="provincia" onchange="cambiarProvincia(this)">
-			                	<option value="0">--Seleccionar--</option>
+			            	<select  id="provincia" class="effect-3 text"  name="provincia" onchange="cambiarProvincia(this)">
+			                	<option value="0">-- Seleccionar --</option>
 			            	</select>
 			            	<span class="focus-border"></span>          
 			            </div>     
@@ -275,8 +277,8 @@
 			        <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
 			        	<label>Distrito</label>
 			        	<div>
-			            	<select id="distrito" name="distrito"  class="effect-3">
-			                	<option value="0">--Seleccionar--</option>
+			            	<select id="distrito" name="distrito"  class="effect-3 text">
+			                	<option value="0">-- Seleccionar --</option>
 			            	</select>
 			            	<span class="focus-border"></span>
 		            	</div> 
@@ -311,7 +313,7 @@
                 <br>
                 <div class="row">
                 	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
-                		<span class="text parpadea"> (*) Te recomendamos ingresar un correo gmail para enviarte los enlaces de tu ficha y la  declaración jurada.</span>
+                		<span class="texto parpadea"> (*) Te recomendamos ingresar un correo gmail para enviarte los enlaces de tu ficha y la  declaración jurada.</span>
                 	</div>
 	            </div>
 				<hr>
@@ -333,11 +335,13 @@
 						<label for="">Tipo de Documento</label>
 					</div>
 				</div>
+
 	  			<div class="row">
 					<div class="form-group col-xs-6 col-sm-5 col-md-5 col-ld-5">
+						
 						<div>
-                        	<select  class="effect-3" type="text"  id="tipo_documentoHijo"  name="tipo_documentoHijo" onchange="modificarTexboxHijo()">
-                            	<option value="">--Seleccionar--</option>
+                        	<select  class="effect-3 text" type="text"  id="tipo_documentoHijo"  name="tipo_documentoHijo" onchange="modificarTexboxHijo()">
+                            	<option value="">-- Seleccionar --</option>
                             	<option value="dni" >DNI</option>
                             	<option value="carnet" >Carnet de extranjería</option>
                         	</select>
@@ -360,7 +364,7 @@
 	          		<span class="mensajeEdadParticipante"></span>
                     </div>
 				</div>
-
+				<br>
 				<div class="form-group">
 					<label for="apellidoPaternoHijo">Apellido Paterno</label>
 					<div>
@@ -368,7 +372,7 @@
 	          		 	<span class="focus-border"></span>
 	          		</div>
 				</div>
-				
+				<br>
 			 	<div class="form-group">
                     <label for="apellidoMaterno-hijo">Apellido Materno</label>
                     <div>
@@ -376,7 +380,7 @@
                     	<span class="focus-border"></span>
                 	</div>
                 </div>
-                
+                <br>
                 <div class="form-group">
                     <label for="nombre-hijo">Nombre</label>
                     <div>
@@ -384,7 +388,7 @@
                     	<span class="focus-border"></span>
                 	</div>
                 </div>
-
+                <br>
 				<div class="row">
 
 				 	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
@@ -398,8 +402,8 @@
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6 ">
                         <label for="sexo-hijo">Sexo</label>
                         <div>
-                        	<select  class="effect-3" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-                           		<option value="2" selected>--Seleccionar--</option>
+                        	<select  class="effect-3 text" type="text"  id="sexo-hijo"  name="sexo-hijo" >
+                           		<option value="2" selected>-- Seleccionar --</option>
 					      		<option value="1">Masculino</option>
 					      		<option value="0">Femenino</option>
                         	</select>
@@ -408,17 +412,17 @@
                     </div>
 
 				</div>
-
+				<br>
 				<div class="row" >
 
 				    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6" >
                         <label for="parentesco">Parentesco</label>
                         <div>
-                        	<select id="parentesco" class="effect-3" type="text"  name="parentesco">
-                            	<option value="">--Seleccionar--</option>
-                            	<option value="hijo" >Hija(O)</option>
-                            	<option value="sobrino">Sobrina(O)</option>
-                            	<option value="nieto">Nieta(O)</option>
+                        	<select id="parentesco" class="effect-3 text" type="text"  name="parentesco">
+                            	<option value="">-- Seleccionar --</option>
+                            	<option value="hijo" >Hijo(a)</option>
+                            	<option value="sobrino">Sobrino(a)</option>
+                            	<option value="nieto">Nieto(a)</option>
                             	<option value="otros">Otro</option>
                         	</select>
                         	<span class="focus-border"></span>
@@ -428,7 +432,7 @@
                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-ld-6">
                         <label for="tipoSeguro">Tipo de Seguro</label>
                         <div>
-                        	<select id="tipoSeguro" class="effect-3" type="text"  name="tipoSeguro">
+                        	<select id="tipoSeguro" class="effect-3 text" type="text"  name="tipoSeguro">
                         		<option value="">--Seleccionar--</option>
                            	 	<option value="EsSALUD" >EsSalud</option>
                             	<option value="SIS" >SIS</option>
@@ -445,7 +449,7 @@
             	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
 					<div class="row">
 						<div class="form-group col-xs-9 col-sm-9 col-md-9 col-ld-9">
-							<p style="color:grey">¿El participante presenta algún tipo de discapacidad física o mental?</p>
+							<p style="color:#424242; font-size:14px">¿El participante presenta algún tipo de discapacidad física o mental?</p>
 						</div>
 						<div class="form-group col-xs-3 col-sm-3 col-md-3 col-ld-3">  
 							<div class="input-group">
@@ -461,7 +465,7 @@
 					</div>	
 				</div>
 
-				<hr>
+				<br>
 				<div class="container-boton-3 text-center">
 					<button class="btn btn-danger" id="boton3">Continuar <i class="icon-sign-in" style="font-size:1.3em; margin-top:3px" ></i>
 					</button>
@@ -1023,7 +1027,7 @@ $("#boton3").on('click',function(){
 
 		if( sessionStorage.getItem("edad") != null || sessionStorage.getItem("edad")!=undefined ){
 			if(sessionStorage.getItem('flagDiscapacitado') == '1' ){
-				if(sessionStorage.getItem("edad") <= 40 && sessionStorage.getItem("edad")> 7){
+				if(sessionStorage.getItem("edad") <= 59 && sessionStorage.getItem("edad")> 6){
 					
 					$("#proceso3").hide();
 					console.log("Val flagDiscapacitado ==>",sessionStorage.getItem('flagDiscapacitado'));
@@ -1032,8 +1036,9 @@ $("#boton3").on('click',function(){
 					$(".bar-inscripcion__3").removeClass('active');
 					$(".bar-inscripcion__4").addClass('active');	
 			    }else{
-			    	alertify.error('<p style="color:white">Sólo de 7 a 40 años. </p>'); 
+			    	alertify.error('<p style="color:white">Sólo de 6 a 59 años. </p>'); 
 			    }
+
 			}else if(sessionStorage.getItem('flagDiscapacitado') == null ){
 				if(sessionStorage.getItem("edad") < 18 && sessionStorage.getItem("edad")> 5){
 					

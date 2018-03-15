@@ -17,17 +17,17 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
-                	<!--<li><a href="{{url('akademia_homepage')}}">Pre Inscripción</a></li>-->
-                	<li><a href="{{url('akademia_inscritos')}}">Inscritos</a></li>
-                	<li><a href="{{url('akademia_horarios')}}">Horarios</a></li>
-                    <li><a href="{{url('akademia_logout')}}">Cerrar sesión</a></li>
+                    
+                    <li title="Horarios"><a href="{{url('akademia_horarios')}}"><i class="icon-arrow-left" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
-<section  id=""  class="proceso-inscripcion">
+<section class="proceso-inscripcion">
 		<div id="proceso1" class="proceso" style="margin-bottom: 60px;">
 			<h2>CP {{horarios[0]['nombreComplejo']}}</h2>
 			<div id="ficha-participante-container" class="container-card col-xs-12 col-sm-10 col-md-10 col-lg-10">	
@@ -191,6 +191,7 @@
 
 													<td><button type="button" title="Editar datos" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar" onclick="editarParticipante({{beneficiario['idParticipante']}})"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px; color:white" ></button></td>
 												</tr> 
+												
 											{% set cont = cont + 1 %}
 											{% endfor %}								
 										</tbody> 
@@ -410,7 +411,7 @@
 
 		});
 
-			/*FILTROS */
+		/*FILTROS */
 		$(document).ready(function () {
             (function ($) {
 
@@ -568,15 +569,6 @@
 						console.log(data);
 					},
 				});
-
-			//}else{
-
-			//	$("#btn-actualizarEstado").attr("data-dismiss", "");
-			//	showAlertMessage('#alerta-error', "Debe seleccionar todas las opciones.");
-					
-		//	}
-
-
 
 		});
 

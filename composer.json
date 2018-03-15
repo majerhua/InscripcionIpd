@@ -32,7 +32,8 @@
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
         "knplabs/knp-paginator-bundle": "2.5.*",        
-        "whiteoctober/tcpdf-bundle": "^1.0"
+        "whiteoctober/tcpdf-bundle": "^1.0",
+        "symfony/http-foundation": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

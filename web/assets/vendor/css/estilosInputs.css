@@ -1,27 +1,13 @@
-h2 {
-        
-    font-weight: 400;
-    font-size: 20px;
-    text-align: center;
-    position: relative;
-}
-h2:before {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 22px;
-    
-    height: 1px;
-}
-h2 i {
-    font-style: normal;
-    background: #fff;
-    position: relative;
-    padding: 10px;
-}
-:focus{outline: none;}
 
+.text{ 
+    font-family: helvetica;
+    color:grey;
+    font-size: 14px;
+
+ }
+ 
 /* necessary to give position: relative to parent. */
+
 input[type="date"]{font-size: 14px; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
 input[type="email"]{font-size: 14px; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
 input[type="number"]{font-size: 14px; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
@@ -34,22 +20,19 @@ select{
 
 input[type="text"]{font-size: 14px; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px;}
 focus{outline: none;}
-.effect-3{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;}
+
+.effect-3 {border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;}
 .effect-3 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; z-index: 99;}
 .effect-3 ~ .focus-border:before, 
-.effect-3 ~ .focus-border:after{content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 100%; background-color: #424242; transition: 0.4s;}
+.effect-3 ~ .focus-border:after{content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 100%; background-color: #5882FA; transition: 0.4s;}
 .effect-3 ~ .focus-border:after{left: auto; right: 0;}
 .effect-3:focus ~ .focus-border:before, 
 .effect-3:focus ~ .focus-border:after{width: 50%; transition: 0.4s;}
 
-.form-group{
-
+.form-group>div{
+    height: auto;
+	position: relative; width:100%;
 }
-
-	.form-group>div{
-        height: auto;
-		position: relative; width:100%;
-	}
 
 
 
