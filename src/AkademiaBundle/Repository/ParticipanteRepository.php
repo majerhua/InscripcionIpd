@@ -111,7 +111,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 par.id as idParticipante,
                 par.dni as dni, 
                 par.link as link,
-                par.ficha as foto,
+                par.ficha_ruta as foto,
                 par.comentarios as comentarios,
                 (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
                 per.persexo as sexo,

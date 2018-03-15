@@ -4,17 +4,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AkademiaBundle\Entity\Apoderado;
-use AkademiaBundle\Entity\Departamento;
-use AkademiaBundle\Entity\Provincia;
 use AkademiaBundle\Entity\ComplejoDeportivo;
 use AkademiaBundle\Entity\DisciplinaDeportiva;
-use AkademiaBundle\Entity\Distrito;
 use AkademiaBundle\Entity\Persona;
 use AkademiaBundle\Entity\Participante;
-use AkademiaBundle\Entity\Post;
-use AkademiaBundle\Entity\Inscribete;
 use AkademiaBundle\Entity\ComplejoDisciplina;
-use AkademiaBundle\Entity\Horario;
 use AkademiaBundle\Entity\Usuarios;
 use AkademiaBundle\Component\Security\Authentication\authenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -25,6 +19,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\FileBag; 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 class TalentosController extends controller
@@ -62,24 +57,25 @@ class TalentosController extends controller
 			//$nombre = $_FILES[$imgficha]['name'];
 			//$tipo = $_FILES['archivo']['type'];
 			//$tamanio = $_FILES['archivo']['size'];
-			$file = $request->files();
-	    	$fileResolucion = $file->get("archivo");
-			
 
-            //$fileFicha = $request->files->get('archivo');
+			//$file = $request->files->get('archivo');
+	    //	$fileResolucion = $file->get("archivo");
+			
+        //    $fileFicha = $request->files->get('archivo');
            // var_dump($fileFicha);
 
-	        if (!empty($fileResolucion)){
-		        $nombreFicha = date('YmdHis');
-		        $fileNombre = $nombreFicha . '.' . $fileResolucion->getExtension();
-		        $ruta = "bundles/upload/";
-		        $fileResolucion->move($ruta, $fileNombre);
-		        var_dump($fileResolucion);
-		    }else{
+	     /*   if (!empty($fileFicha)){
+		        $nombreFicha = date('YmdHis').'.png';
+		       // $fileNombre = $nombreFicha . '.' . $imgficha->guessExtension();
+		        $ruta = "images/upload/";
+		        $fileResolucion->move($ruta, $nombreFicha);
+		      //  $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+		       // var_dump($fileResolucion);
+		    //}else{
 
-		        $fileNombre="";
-		        var_dump($fileResolucion);
-		    }
+		      //  $fileNombre="";
+		       // var_dump($fileNombre);
+		    }*/
 
 		    var_dump($request->files->all());
             //$file = $request->files();

@@ -163,7 +163,7 @@
 								<div class="panel panel-default" style="overflow-x:auto;">
 									<table class="table"> 
 										<thead style="background:#cb2f1d; color:#F2F2F2;"> 
-											<tr> 
+											<tr class="text-center"> 
 												
 												<th>Fecha</th> 
 												<th>Peso</th> 
@@ -176,11 +176,11 @@
 												<th>Salto Verti.</th> 
 												<th>Lanz. Pelota</th>
 												<th>Abdom.</th>
-												<th>Prensa Dinam.</th>
+												
 												<th>1000m</th>
 												<th></th>
 											</tr>
-											<tr>
+											<tr class="text-center">
 												<td></td>
 												<td>kg</td>
 												<td>cm</td>
@@ -192,7 +192,7 @@
 												<td>s/i cm</td>
 												<td>m</td>
 												<td>Rpt./30 seg</td>
-												<td>(kg)</td>
+												
 												<td>(seg)</td>
 												<td></td>
 											</tr>
@@ -213,27 +213,9 @@
 												<td>22.54</td>
 												<td>24</td>
 												<td>16</td>
-												<td>20.4</td>
+												
 												<td>267.24</td>
 
-										
-												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
-											</tr> 
-
-											<tr> 
-												<td>13/04/2018</td> 
-												<td>58</td> 
-												<td>168</td> 
-												<td>8.12</td> 	
-												<td>23.52</td>
-												<td>13</td>
-												<td>12</td>
-												<td>149.52</td>
-												<td>22.54</td>
-												<td>24</td>
-												<td>16</td>
-												<td>20.4</td>
-												<td>267.24</td>
 										
 												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
 											</tr> 
@@ -400,7 +382,7 @@
 												<p><strong>Peso</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="56 Kg">
+												<input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
 											</div>
 										</div>
 									</div>
@@ -411,7 +393,7 @@
 												<p><strong>Talla</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="168 cm">
+												<input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
 											</div>
 										</div>
 									</div>
@@ -428,7 +410,7 @@
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="8 seg">
+												<input id="crear_50m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
 											</div>
 										</div>
 									</div>
@@ -439,7 +421,7 @@
 												<p><strong>Flexib. Tronco</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="14 cm">
+												<input id="crear_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
 											</div>
 										</div>
 									</div>
@@ -455,7 +437,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+												<input id="crear_equilibrio" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
 
 											</div>
 										</div>
@@ -468,7 +450,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="crear_flexion" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
 
 											</div>
 										</div>
@@ -484,7 +466,7 @@
 												<p><strong>Salto Horizontal</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="149.52 cm">
+												<input id="crear_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
 											</div>
 										</div>
 									</div>
@@ -497,7 +479,7 @@
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="22.54 cm">
+												<input id="crear_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="22.54 cm">
 
 											</div>
 										</div>
@@ -513,7 +495,7 @@
 												<p><strong>Lanzam. Pelota</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="25 m">
+												<input id="crear_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
 											</div>
 										</div>
 									</div>
@@ -524,7 +506,7 @@
 												<p><strong>Abdominales</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
 											</div>
 										</div>
 									</div>
@@ -532,18 +514,6 @@
 							</li>
 							<li class="list-group-item">
 								<div class="row">
-									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-										<div class="row">
-											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Prensa Dinam.</strong></p>
-											</div>
-
-											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20.4 kg">
-											</div>
-										</div>
-									</div>
 
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">	
 										<div class="row">
@@ -551,7 +521,7 @@
 												<p><strong>1000 met.</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="267.4 seg">
+												<input id="crear_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
 
 											</div>
 										</div>
@@ -565,7 +535,7 @@
 			<div class="modal-footer">
 
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+				<button type="button" id="crearIndicador" class="btn btn-danger" data-dismiss="modal">Guardar</button>
 
 			</div>
 		</div>
@@ -837,6 +807,38 @@
 
 	}
 
+	/*CREAR UNA NUEVA MEDIDA*/
+
+    $('#crearIndicador').on('click',function(){
+
+    	let peso = $('#crear_peso').val();
+    	let talla = $('#crear_talla').val();
+    	let ind50mt = $('#crear_50m').val();
+    	let flexTronco = $('#crear_flexTronco').val();
+    	let equilibrio = $('#crear_equilibrio').val();
+    	let flexBrazo = $('#crear_flexion').val();
+    	let saltoH = $('#crear_saltoH').val();
+    	let saltoV = $('#crear_saltoV').val();
+    	let lazamiento = $('#crear_lanzamientoP').val();
+    	let abdominales = $('#crear_abdominales').val();
+    	let milmt = $('#crear_milmt').val();
+
+  		var data = {
+  			"peso" : $peso,
+  			"talla" : $talla,
+  			"ind50mt" : $ind50mt,
+  			"flexTronco" : $flexTronco,
+  			"equilibrio" :$equilibrio,
+  			"flexBrazo" : $flexBrazo,
+  			"saltoH" : $saltoH
+  		}
+    	
+
+    	
+    	
+
+    	
+    });
 
 	/*GUARDAR DATOS */
 
@@ -859,6 +861,7 @@
             });
         });
      });*/
+
 
 
 	$('#btn_guardar_editar_deportista').on( 'click', function() {
