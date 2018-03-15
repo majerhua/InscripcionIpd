@@ -634,7 +634,7 @@ class DefaultController extends Controller
         $pdf->writeHTMLCell(
                     $w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true
             );         
-        $pdf->writeHTML($html);
+        $pdf->writeHTML($html); 
         $pdf->Output("compromisoIPD.pdf", 'I');
         exit;
     }
@@ -722,6 +722,7 @@ class DefaultController extends Controller
             return new JsonResponse("Enviado");
         }
     }
+
     public function loginAction(Request $request){
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -732,21 +733,36 @@ class DefaultController extends Controller
                 'error' => $error,
             ));
     }
+
+
+    public function panelAction(Request $request){
+
+        $idComplejo = $this->getUser()->getIdComplejo();
+        $em = $this->getDoctrine()->getManager();
+        $Nombre = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->nombreComplejo($idComplejo);
+
+        return $this->render('AkademiaBundle:Default:menuprincipal.html.twig', array("nombre"=>$Nombre));
+    }
+
+
     public function inscritosAction(Request $request){
         return $this->render('AkademiaBundle:Default:inscritos.html.twig');
     }
+    
     public function horariosAction(Request $request){
+
         $idComplejo = $this->getUser()->getIdComplejo();
+
         $em2 = $this->getDoctrine()->getManager();
         $ComplejoDisciplinas = $em2->getRepository('AkademiaBundle:ComplejoDisciplina')->getComplejosDisciplinasHorarios($idComplejo);
         $Horarios = $em2->getRepository('AkademiaBundle:Horario')->getHorariosComplejos($idComplejo);
         $Disciplinas = $em2->getRepository('AkademiaBundle:DisciplinaDeportiva')->getDisciplinasDiferentes($idComplejo);
-
         $Nombre = $em2->getRepository('AkademiaBundle:ComplejoDeportivo')->nombreComplejo($idComplejo);
-
+       
         return $this->render('AkademiaBundle:Default:horarios.html.twig', array("complejosDisciplinas" => $ComplejoDisciplinas , "horarios" => $Horarios, "disciplinas" => $Disciplinas, "nombre" => $Nombre)); 
 
     }
+    
     public function actualizarHorarioAction(Request $request){
        
         if($request->isXmlHttpRequest())
