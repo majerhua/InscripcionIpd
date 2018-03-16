@@ -37,7 +37,9 @@ class TalentosController extends controller
 
     	$fc = $this->getDoctrine()->getManager();
     	$talento = $fc->getRepository('AkademiaBundle:Participante')->getMostrarTalento($idParticipante);
-    	return $this->render('AkademiaBundle:Default:talento.html.twig',array('talento' => $talento ));
+    	$controles = $fc->getRepository('AkademiaBundle:Participante')->getMostrarControles($idParticipante);
+    	$numControl = $fc->getRepository('AkademiaBundle:Participante')->getNumeroControl($idParticipante);
+    	return $this->render('AkademiaBundle:Default:talento.html.twig',array('talento' => $talento, 'controles' => $controles, 'numeros' =>$numControl));
     }
 
     public function guardarTalentoAction(Request $request){
@@ -109,6 +111,61 @@ class TalentosController extends controller
 	        */
     	}
 
+    }
+
+
+    public function nuevoControlAction(Request $request){
+    	if($request->isXmlHttpRequest()){
+
+    		$fc = $this->getDoctrine()->getManager();
+
+    		$usuario = $this->getUser()->getId();
+	   
+    		$peso = $request->get('peso');
+  			$talla = $request->get('talla');
+  			$ind50mt = $request->get('ind50mt');
+  			$flexTronco = $request->get('flexTronco');
+  			$equilibrio = $request->get('equilibrio');
+  			$flexBrazo = $request->get('flexBrazo');
+  			$saltoH = $request->get('saltoH');
+  			$saltoV = $request->get('saltoV');
+  			$lanzamiento = $request->get('lanzamiento');
+  			$abdominales = $request->get('abdominales');
+  			$milmt = $request->get('milmt');
+  			$idParticipante = $request->get('idParticipante');
+  			$fechaDato = $request->get('fechaDato');
+  			$fechaHoy = date('d-m-Y');
+  			var_dump($fechaHoy);
+
+  			$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControl($fechaDato, $idParticipante, $fechaHoy, $usuario);
+
+  			if($nuevoControl == 1){
+
+  				$idControl = $fc->getRepository('AkademiaBundle:Participante')->retornoIdControl($idParticipante);
+  				$idNuevoControl = $idControl[0]['id'];
+
+  				if(!empty($idNuevoControl)){
+  				
+  					$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario);
+  				
+  					$mensaje = 1;
+  					return new JsonResponse($mensaje);
+
+  				}else{
+
+  					$mensaje = 3;
+  					return new JsonResponse($mensaje);
+  				}
+
+  			}else{
+
+  				$mensaje = 2;
+                return new JsonResponse($mensaje);
+  			}
+
+  			
+
+    	}	
     }
 
 	public function GuardarResolucionAction(Request $request){

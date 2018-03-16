@@ -714,20 +714,15 @@
 		/*FILTROS */
 		$(document).ready(function () {
 
-			tableDataTable =  document.querySelectorAll(".table-dataTable");
-			$('#table_example').DataTable();
-			
             (function ($) {
 
             	var jsFiltrar = document.querySelectorAll('.filtrar');
             	var jsBuscar = document.querySelectorAll('.buscar');
 
             	for (var i = 0; i < jsFiltrar.length; i++) {
-
             		$(jsFiltrar[i]).keyup(function () {
 
             			var idfil = $(this).attr('ident-buscar');
-
 	                    var rex = new RegExp($(this).val(),'i');
 	                    $(jsBuscar[idfil]).children('tr').hide();
 	                    $(jsBuscar[idfil]).children('tr').filter(function () {

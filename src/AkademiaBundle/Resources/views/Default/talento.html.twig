@@ -37,6 +37,7 @@
 
 		<h3 class="text-center" style="color:#08298A">{{talento[0]['nombre']}} </h3>
 		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
+		<input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
 	
 		<h4 style="color:grey">DEPORTISTA EN EVALUACIÓN</h4>
 
@@ -192,7 +193,6 @@
 												<td>s/i cm</td>
 												<td>m</td>
 												<td>Rpt./30 seg</td>
-												
 												<td>(seg)</td>
 												<td></td>
 											</tr>
@@ -201,25 +201,21 @@
 
 										<tbody class="text-center"> 
 
-											<tr> 
-												<td>13/04/2018</td> 
-												<td>58</td> 
-												<td>168</td> 
-												<td>8.12</td> 	
-												<td>23.52</td>
-												<td>13</td>
-												<td>12</td>
-												<td>149.52</td>
-												<td>22.54</td>
-												<td>24</td>
-												<td>16</td>
-												
-												<td>267.24</td>
+											{% for numero in numeros %}
+											<tr>
+												<td>{{numero['fecha']|date('d/m/Y')}}</td>
+												{% for control in controles %}
+													
+													{% if control['control_id'] == numero['id'] %}
 
-										
+														<td>{{control['valor']}}</td> 
+
+													{% endif %}
+
+												{% endfor %}
 												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
-											</tr> 
-											
+											</tr>
+											{% endfor %}											
 										</tbody> 
 									</table>
 								</div>
@@ -358,20 +354,22 @@
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-				<h4 class="title-card">Registrar nuevas medidas</h4>
-				<br>
-				<div class="row text-center">
-					<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
-						<p><strong>Fecha de evaluación:</strong></p>
-					</div>
-					<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
-						<input class="form-control"  id="fechaRegistro" type="date"  id="fechaRegistro"  name="fechaRegistro">
-					</div>
-				</div>
+				<h4 class="title-card" style="color:#2D2D52">REGISTRAR MEDIDAS</h4>
+				
 			</div>
 
 			<div class="modal-body">
 				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="row text-center">
+							<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<p><strong>Fecha de evaluación:</strong></p>
+							</div>
+							<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
+								<input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
+							</div>
+						</div>
+					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<ul class="list-group">
 							<li class="list-group-item">
@@ -543,84 +541,55 @@
 </div>
 
 <!-- MODAL EDITAR MEDIDA -->
-
 <div id="modal-editar-medida" class="modal fade" role="dialog">
-
 	<div class="modal-dialog">
-
 		<!-- Modal content-->
 		<div class="modal-content">
-			
 			<div class="modal-header text-center">
-				
 				<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-				
-				<h4 class="title-card">Editar medidas</h4>
-
-				<br>
-
-				<div class="row text-center">
-
-					<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
-							<p><strong>Fecha de evaluación:</strong></p>
-					</div>
-
-					<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
-						<input class="form-control"  id="fechaRegistro" type="date"  id="fechaRegistro"  name="fechaRegistro">
-					</div>
-
-				</div>
-
+				<h4 class="title-card" style="color:#2D2D52">ACTUALIZAR MEDIDAS</h4>
 			</div>
 
 			<div class="modal-body">
-
 				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="row text-center">
+							<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<p><strong>Fecha de evaluación:</strong></p>
+							</div>
+							<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
+								<input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
+							</div>
+						</div>
+					</div>
 
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
 						<ul class="list-group">
-
 							<li class="list-group-item">
-
 								<div class="row">
-
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-										
 										<div class="row">
-											
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
 												<p><strong>Peso</strong></p>
-
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="56 Kg">
-
+												<input id="editar_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
 											</div>
-
 										</div>
-
 									</div>
 
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-										
 										<div class="row">
-											
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
 												<p><strong>Talla</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="168 cm">
-
+												<input id="editar_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
 											</div>
 										</div>
 									</div>
 								</div>
+
 							</li>
 
 							<li class="list-group-item">
@@ -632,8 +601,7 @@
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="8 seg">
+												<input id="editar_50m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
 											</div>
 										</div>
 									</div>
@@ -643,10 +611,8 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Flexib. Tronco</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="14 cm">
-
+												<input id="editar_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
 											</div>
 										</div>
 									</div>
@@ -660,14 +626,12 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Equilibrio</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+
+												<input id="editar_equilibrio" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
 
 											</div>
-
 										</div>
-
 									</div>
 
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -675,9 +639,10 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Flexion Brazo</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+
+												<input id="editar_flexion" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+
 											</div>
 										</div>
 									</div>
@@ -691,9 +656,8 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Salto Horizontal</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="149.52 cm">
+												<input id="editar_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
 											</div>
 										</div>
 									</div>
@@ -703,9 +667,10 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Salto Vertical</strong></p>
 											</div>
+
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" tyçpe="number" min="0" class="validate" placeholder="22.54 cm">
+												<input id="editar_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="22.54 cm">
 
 											</div>
 										</div>
@@ -720,9 +685,8 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Lanzam. Pelota</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="25 m">
+												<input id="editar_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
 											</div>
 										</div>
 									</div>
@@ -732,9 +696,8 @@
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>Abdominales</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="editar_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
 											</div>
 										</div>
 									</div>
@@ -742,25 +705,15 @@
 							</li>
 							<li class="list-group-item">
 								<div class="row">
-									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-										<div class="row">
-											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Prensa Dinam.</strong></p>
-											</div>
-											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-inicio-horario" class="form-control" name="hora-inicio-horario" type="number" min="0" class="validate" placeholder="20.4 kg">
-											</div>
-										</div>
-									</div>
 
-									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">	
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>1000 met.</strong></p>
 											</div>
-
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_hora-fin-horario" class="form-control" name="hora-fin-horario" type="number" min="0" class="validate" placeholder="267.4 seg">
+												<input id="editar_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
+
 											</div>
 										</div>
 									</div>
@@ -770,16 +723,15 @@
 					</div>
 				</div>
 			</div>
-	
 			<div class="modal-footer">
+
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+				<button type="button" id="editarIndicador" class="btn btn-danger" data-dismiss="modal">Actualizar</button>
+
 			</div>
 		</div>
 	</div>
 </div>
-
-
 
 {% endblock %}
 
@@ -788,6 +740,7 @@
 
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 
 
 <script type="text/javascript">
@@ -819,19 +772,67 @@
     	let flexBrazo = $('#crear_flexion').val();
     	let saltoH = $('#crear_saltoH').val();
     	let saltoV = $('#crear_saltoV').val();
-    	let lazamiento = $('#crear_lanzamientoP').val();
+    	let lanzamiento = $('#crear_lanzamientoP').val();
     	let abdominales = $('#crear_abdominales').val();
     	let milmt = $('#crear_milmt').val();
+    	let idParticipante = $('#idPartTalento').val();
+    	let fechaDato = $('#fechaRegistro').val();
 
-  		var data = {
-  			"peso" : $peso,
-  			"talla" : $talla,
-  			"ind50mt" : $ind50mt,
-  			"flexTronco" : $flexTronco,
-  			"equilibrio" :$equilibrio,
-  			"flexBrazo" : $flexBrazo,
-  			"saltoH" : $saltoH
+
+  		var valorIndicadores = {
+  			"peso" : peso,
+  			"talla" : talla,
+  			"ind50mt" : ind50mt,
+  			"flexTronco" : flexTronco,
+  			"equilibrio" :equilibrio,
+  			"flexBrazo" : flexBrazo,
+  			"saltoH" : saltoH,
+  			"saltoV" : saltoV,
+  			"lanzamiento" : lanzamiento,
+  			"abdominales" : abdominales,
+  			"milmt" : milmt,
+  			"idParticipante" : idParticipante,
+  			"fechaDato" : fechaDato,
   		}
+
+  		$.ajax({
+
+  			type:'POST',
+  			dataType: 'json',
+			url: "{{url('akademia_nuevoControl')}}",
+			data: valorIndicadores,
+
+			beforeSend: function(){				
+				
+			},
+
+			success: function(data){
+
+				if(data == 1){
+
+					alert("control creado exitosamente");
+					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+					
+										
+				}else if(data == 2){
+
+					alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');	
+					console.log(data);
+
+				}else{
+
+					alertify.error('<p style="color:white">no existen valor de indicadores </p>');	
+					console.log(data);
+				}
+
+
+			},
+
+			error: function(data){
+
+			}
+
+  		});
     	
 
     	

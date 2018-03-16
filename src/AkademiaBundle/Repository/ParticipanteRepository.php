@@ -135,6 +135,28 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function getMostrarControles($idParticipante){
+
+        $query = "EXEC dbo.mostrarIndicadoresControl $idParticipante";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $controles = $stmt->fetchAll();
+
+        return $controles;
+
+    }
+
+    public function getNumeroControl($idParticipante){
+        $query = "SELECT distinct(control_id) as id, co.fecha as fecha FROM ACADEMIA.indicador_control ic
+                  INNER JOIN ACADEMIA.control co on ic.control_id = co.id where co.id_participante = $idParticipante";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $num = $stmt->fetchAll();
+
+        return $num;
+
+    }
+
     public function guardarTalento($idParticipante, $link, $imgficha, $comentarios){
 
         $query = "UPDATE academia.participante  SET link= '$link',ficha='$imgficha',comentarios='$comentarios' WHERE id=$idParticipante";
@@ -142,6 +164,39 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
 
     }
+
+    public function nuevoControl($fecha,$idParticipante,$fechaHoy,$usuario){
+        
+        $query = "EXEC dbo.InsertarControl '$fecha',$idParticipante,'$fechaHoy',1,$usuario";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $control = 1;
+        return $control;
+        
+    }
+
+    public function retornoIdControl($idParticipante){
+
+        $query = "SELECT max(id) as id from academia.control where id_participante = $idParticipante";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $control = $stmt->fetchAll();
+
+        return $control;
+
+    }
+
+    public function nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario){
+
+        $query = "EXEC dbo.InsertarIndicadoresControl $peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $control = 1;
+        return $control;
+    }
+
+
 
 
 }
