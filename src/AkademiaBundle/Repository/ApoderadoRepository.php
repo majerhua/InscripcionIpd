@@ -111,5 +111,6 @@ class ApoderadoRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
         
     }
+    
 
 }

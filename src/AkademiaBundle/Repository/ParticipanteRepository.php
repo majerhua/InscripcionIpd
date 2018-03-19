@@ -195,8 +195,17 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $control = 1;
         return $control;
     }
+    
+    public function listarControlInd($idParticipante, $idControl){
+        
+        $query = "SELECT ic.indicador_id, ic.control_id, ic.valor,co.id_participante,CONVERT(varchar,co.fecha,105) fecha FROM ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id where co.id_participante = $idParticipante and ic.control_id = $idControl";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $datos = $stmt->fetchAll();
 
-
+        return $datos;
+        
+    }
 
 
 }

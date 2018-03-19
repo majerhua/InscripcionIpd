@@ -168,6 +168,39 @@ class TalentosController extends controller
     	}	
     }
 
+    public function mostrarControlesIndAction(Request $request){
+
+    	if($request->isXmlHttpRequest()){
+
+    		$fc = $this->getDoctrine()->getManager();
+    		$idParticipante = $request->get('idParticipante');
+    		$idControl = $request->get('idControl');
+
+    		$datos = $fc->getRepository('AkademiaBundle:Participante')->listarControlInd($idParticipante, $idControl);
+
+			if(!empty($datos)){
+            
+                $encoders = array(new JsonEncoder());
+                $normalizer = new ObjectNormalizer();
+                $normalizer->setCircularReferenceLimit(1);
+                $normalizer->setCircularReferenceHandler(function ($object) {
+                    return $object->getId();
+                });
+                $normalizers = array($normalizer);
+                $serializer = new Serializer($normalizers, $encoders);
+                $jsonContent = $serializer->serialize($datos,'json');
+                return new JsonResponse($jsonContent);   
+            
+            }else{
+
+                $mensaje = 1;
+                return new JsonResponse($mensaje);
+            }
+
+    	}
+
+    }
+
 	public function GuardarResolucionAction(Request $request){
 	    
 	    //$session = new Session();

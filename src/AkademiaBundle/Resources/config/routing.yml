@@ -151,6 +151,11 @@ akademia_guardarTalento:
     defaults: { _controller: AkademiaBundle:Talentos:guardarTalento }
     methods:  [GET,POST]
 
+akademia_mostrarControlesInd:
+    path:     /ajax/mostrarControlesInd
+    defaults: { _controller: AkademiaBundle:Talentos:mostrarControlesInd}
+    methods:  [GET,POST]
+
 akademia_nuevoControl:
     path:     /ajax/control
     defaults: { _controller: AkademiaBundle:Talentos:nuevoControl}  

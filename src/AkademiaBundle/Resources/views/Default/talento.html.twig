@@ -202,19 +202,19 @@
 										<tbody class="text-center"> 
 
 											{% for numero in numeros %}
-											<tr>
-												<td>{{numero['fecha']|date('d/m/Y')}}</td>
-												{% for control in controles %}
-													
-													{% if control['control_id'] == numero['id'] %}
+												<tr>
+													<td>{{numero['fecha']|date('d/m/Y')}}</td>
+													{% for control in controles %}
+														
+														{% if control['control_id'] == numero['id'] %}
 
-														<td>{{control['valor']}}</td> 
+															<td>{{control['valor']}}</td> 
 
-													{% endif %}
+														{% endif %}
 
-												{% endfor %}
-												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
-											</tr>
+													{% endfor %}
+													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;" onclick="listarControlInd({{numero['id']}})"></i></button></td>
+												</tr>
 											{% endfor %}											
 										</tbody> 
 									</table>
@@ -558,7 +558,7 @@
 								<p><strong>Fecha de evaluación:</strong></p>
 							</div>
 							<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
-								<input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
+								<input class="form-control"  id="fechaaaa" type="date"  name="fechaRegistro">
 							</div>
 						</div>
 					</div>
@@ -573,7 +573,7 @@
 												<p><strong>Peso</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+												<input id="1d" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
 											</div>
 										</div>
 									</div>
@@ -584,7 +584,7 @@
 												<p><strong>Talla</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+												<input id="2d" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
 											</div>
 										</div>
 									</div>
@@ -601,7 +601,7 @@
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_50m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+												<input id="3d" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
 											</div>
 										</div>
 									</div>
@@ -612,7 +612,7 @@
 												<p><strong>Flexib. Tronco</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
+												<input id="4d" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
 											</div>
 										</div>
 									</div>
@@ -628,7 +628,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="editar_equilibrio" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+												<input id="5d" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
 
 											</div>
 										</div>
@@ -641,7 +641,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="editar_flexion" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="6d" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
 
 											</div>
 										</div>
@@ -657,7 +657,7 @@
 												<p><strong>Salto Horizontal</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+												<input id="7d" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
 											</div>
 										</div>
 									</div>
@@ -670,7 +670,7 @@
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="editar_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="22.54 cm">
+												<input id="8d" class="form-control" type="number" min="0" class="validate" placeholder="22.54 cm">
 
 											</div>
 										</div>
@@ -686,7 +686,7 @@
 												<p><strong>Lanzam. Pelota</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
+												<input id="9d" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
 											</div>
 										</div>
 									</div>
@@ -697,7 +697,7 @@
 												<p><strong>Abdominales</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="10d" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
 											</div>
 										</div>
 									</div>
@@ -712,7 +712,7 @@
 												<p><strong>1000 met.</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
+												<input id="11d" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
 
 											</div>
 										</div>
@@ -912,22 +912,61 @@
 			});
 
 
-   		})
-   		//$(".text-danger").remove();
-   		
-   		
-		 
-		
+   		});
 
-		/*var dataTalento = {
-			"idParticipante" : idParticipante,
-			"link" : link,
-			"ficha" : ficha,
-			"comentarios" : comentarios
-		};*/
+		function listarControlInd(idcontrol){
 
-	//});
+			let idParticipante = $('#idPartTalento').val();
+			
+			var data = {
+	  			"idParticipante" : idParticipante,
+	  			"idControl" : idcontrol,
+	  		}
 
+	  		$.ajax({
+
+		  		type:'POST',
+	  			dataType: 'json',
+				url: "{{url('akademia_mostrarControlesInd')}}",
+				data: data,
+
+				beforeSend: function(){				
+					
+				},
+				success: function(data){
+					if(data != 1){
+
+						var valor =JSON.parse(data);
+
+						/*for (let j = 0; j < provinciaHorario.length; j++) {
+							if(parseInt(provinciaHorario[j].value) == parseInt(sessionStorage.getItem('horIdProvincia')) ){
+								provinciaHorario[j].setAttribute('selected','selected');
+								console.log("Provincia Horario ==>",provinciaHorario[j]);
+								cambiarProvinciaHorario(provinciaHorario);
+							}					
+						}
+
+						for(let j = 0; j < 11; j++){
+							
+						}*/
+						$("#5d").append(valor.fecha);
+						console.log(data);
+
+					}else{
+
+						alertify.error('<p style="color:white">Se produjo un error al cargar los datos </p>'); 
+					}
+
+				},
+				error: function(data){
+
+				},
+
+	  		})
+
+
+
+		}
 
 
 </script>
