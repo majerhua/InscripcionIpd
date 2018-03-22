@@ -161,6 +161,22 @@ akademia_nuevoControl:
     defaults: { _controller: AkademiaBundle:Talentos:nuevoControl}  
     methods:  [GET,POST]
 
+akademia_actualizarIndicador:
+    path:     /ajax/actualizarControl
+    defaults: { _controller: AkademiaBundle:Talentos:actualizarControl}
+    methods:  [GET,POST]
+
+akademia_mostrarTalentos:
+    path:     /ajax/mostrarTalentos
+    defaults: { _controller: AkademiaBundle:Talentos:mostrarTalentos}
+    methods:  [GET,POST]
+
+akademia_mostrarDetalleTalento:
+    path:     /detalle/{idParticipante}
+    defaults: { _controller: AkademiaBundle:Talentos:mostrarDetalleTalento}
+    methods:  [GET,POST]
+
+
 ##INCIO EXPORTAR DATA ##
 akademia_export:
    path:    /export

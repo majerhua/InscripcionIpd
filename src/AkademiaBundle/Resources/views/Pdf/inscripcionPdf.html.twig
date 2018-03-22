@@ -123,11 +123,33 @@
                                 </tr>
                                 <br>
                                 <tr>
+                                    <td style="width:110px;"></td>
+                                    <td style="width:50%;  padding-bottom: 2px;"></td>
+
+                                    <td>
+                                       <p style="font-size:10px;" > {{ inscripcion[0]['fechaModif']|date("d") }} de {{ inscripcion[0]['fechaModif']|date("m")|replace({
+                                            '01'  : 'Enero',
+                                            '02'  : 'Febrero',
+                                            '03'  : 'Marzo',
+                                            '04'  : 'Abril',
+                                            '05'  : 'Mayo',
+                                            '06'  : 'Junio',
+                                            '07'  : 'Julio',
+                                            '08'  : 'Agosto',
+                                            '09'  : 'Setiembre',
+                                            '10'  : 'Octubre',
+                                            '11'  : 'Noviembre',
+                                            '12'  : 'Diciembre'
+                                        }) }} del {{ inscripcion[0]['fechaModif']|date("Y") }}</p>
+                                    </td>
+                                </tr>
+                               
+                                <!--<tr>
                                     <td style="width:150px;"></td>
                                     <td style="width:50%;  padding-bottom: 2px;"></td>
                                     <td style="">{{inscripcion[0]['fechaModif']|date('d/m/Y')}}
                                     </td>
-                                </tr>
+                                </tr>-->
             </tbody>
         </table>      
      

@@ -694,7 +694,7 @@ class DefaultController extends Controller
             $nombre = $request->request->get('nombre');
             $email= $request->request->get('email');
             $mensaje=$request->request->get('message');
-            $correo = 'coordinaciondpt@gmail.com';
+            $correo = 'consultasacademiaipd@gmail.com';
             $subject = 'La Academia - Comentarios de '.$nombre;
             $message = 'Hemos recibido un nuevo comentario y/o sugerencia de la web LA ACADEMIA'. "\r\n" ."\r\n".'NOMBRE: '.$nombre. "\r\n" ."\r\n".'CORREO ELECTRÓNICO: '.$email ."\r\n"."\r\n".'COMENTARIO: '."\r\n"."\r\n". $mensaje ;
             $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .

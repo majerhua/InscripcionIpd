@@ -51,7 +51,7 @@
 		    </tr>
 		     <tr>
 		        <td colspan="2" style="text-align: right;">
-		           <p style="font-size:10px;" > Lima, {{ "now"|date("d") }} de {{ "now"|date("m")|replace({
+		           <p style="font-size:10px;" > {{ inscripcion[0]['fechaModif']|date("d") }} de {{ inscripcion[0]['fechaModif']|date("m")|replace({
 		                '01'  : 'Enero',
 		                '02'  : 'Febrero',
 		                '03'  : 'Marzo',
@@ -64,7 +64,7 @@
 		                '10'  : 'Octubre',
 		                '11'  : 'Noviembre',
 		                '12'  : 'Diciembre'
-		            }) }} del {{ "now"|date("Y") }}</p>
+		            }) }} del {{ inscripcion[0]['fechaModif']|date("Y") }}</p>
 		        </td>
 		    </tr>
 		    <br/>

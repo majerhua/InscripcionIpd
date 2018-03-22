@@ -33,7 +33,7 @@
 
 	<div class="proceso" style="margin-bottom: 60px;">
 		<h2>Detección de Talentos</h2>
-		<h4 style="color:grey">RELACIÓN DE EVALUADOS</h4>
+		<h4 style="color:grey">RELACIÓN DE EVALUADOS Y SELECCIONADOS</h4>
 	
 		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
 			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
@@ -63,6 +63,7 @@
 											<th class="text-center">Sexo</th> 
 											<th class="text-center">Complejo</th> 
 											<th class="text-center">Disciplina</th> 
+											<th class="text-center">Categoría</th>
 											<th></th> 
 										</tr>
 									</thead> 
@@ -83,11 +84,14 @@
 												<td>Masculino</td> 
 											{% endif %}
 											
-											<td>{{seleccionado['nombreComplejo']}}</td>
-											
-											
+											<td>{{seleccionado['nombreComplejo']}}</td>											
 											<td>{{seleccionado['nombreDisciplina']}}</td>
-
+											
+											{% if  seleccionado['idCategoria'] == 2 %}
+												<td>Seleccionado</td>
+											{% elseif seleccionado['idCategoria'] == 3 %}
+												<td>Evaluado</td>
+											{% endif %}
 											
 											<td><a href="/talentos/{{seleccionado['idParticipante']}}" title="Más detalles" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
 											

@@ -67,7 +67,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     public function getMostrarSeleccionados(){
         
-        $query = "SELECT 
+        $query = "  SELECT 
                 (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
                 par.id as idParticipante,
                 per.perdni as dni, 
@@ -93,8 +93,8 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 inner join academia.movimientos mov on mov.id = ids.mov_id
                 WHERE 
                 ins.estado = 2 and 
-                mov.categoria_id = 2 and 
-                mov.asistencia_id = 2";
+                mov.asistencia_id = 2
+                and (  mov.categoria_id = 2 or mov.categoria_id= 3 )";
                 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -195,16 +195,67 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $control = 1;
         return $control;
     }
+
     
+    public function actualizarControlIndicador($fechaDato,$peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idControl){
+
+        $query = "EXEC dbo.actualizarIndicadorControl '$fechaDato',$peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idControl";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $control = 1;
+        return $control;
+
+    }
+
     public function listarControlInd($idParticipante, $idControl){
         
-        $query = "SELECT ic.indicador_id, ic.control_id, ic.valor,co.id_participante,CONVERT(varchar,co.fecha,105) fecha FROM ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id where co.id_participante = $idParticipante and ic.control_id = $idControl";
+        $query = "SELECT ic.indicador_id, ic.control_id, ic.valor,co.id_participante,CONVERT(date,co.fecha,111) as fecha FROM ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id where co.id_participante = $idParticipante and ic.control_id = $idControl";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $datos = $stmt->fetchAll();
+    
+        return $datos;    
+    }
+
+    public function listarTalentos(){
+
+        $query ="SELECT 
+                (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
+                par.id as idParticipante,
+                per.perdni as dni, 
+                (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                per.persexo as sexo,
+                ins.id as idInscribete,
+                mov.categoria_id as idCategoria,
+                mov.asistencia_id as idAsistencia,
+                mov.fecha_modificacion as fechita,
+                dis.dis_descripcion as nombreDisciplina,
+                ede.ede_nombre as nombreComplejo
+                FROM 
+                ACADEMIA.inscribete ins 
+                inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id
+                FROM ACADEMIA.movimientos m
+                GROUP BY m.inscribete_id) ids ON ins.id = ids.mov_ins_id
+                inner join academia.horario hor on ins.horario_id = hor.id
+                inner join catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                inner join catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
+                inner join academia.participante par on ins.participante_id = par.id
+                inner join grpersona per on per.percodigo = par.percodigo
+                inner join academia.movimientos mov on mov.id = ids.mov_id
+                WHERE 
+                ins.estado = 2 and 
+                mov.categoria_id = 4 and 
+                mov.asistencia_id = 2";
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $datos = $stmt->fetchAll();
 
         return $datos;
-        
+
+
     }
 
 

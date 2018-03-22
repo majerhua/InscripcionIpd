@@ -84,7 +84,7 @@
 				</a>
 			</div>	
 
-			<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+			<div id="option-deteccion" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
 				<a href="{{url('akademia_evaluados')}}">
 					<div class="card">
 						<img src="{{ asset('assets/images/talento.png') }}" width="120" height="120">
@@ -92,8 +92,17 @@
 					</div>
 				</a>
 			</div>	
+
+			<div id="option-talentos" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<a href="{{url('akademia_mostrarTalentos')}}">
+					<div class="card">
+						<img src="{{ asset('assets/images/talent.png') }}" width="120" height="120">
+						<p class="title-card">Talentos</p>
+					</div>
+				</a>
+			</div>
 			{% else %}
-				<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<div id="option-exportacion" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
 					<a href="{{url('akademia_exportData')}}">
 						<div class="card">
 							<img src="{{ asset('assets/images/icon_data.png') }}" width="120" height="120">
@@ -102,14 +111,14 @@
 					</a>
 				</div>	
 
-				<div id="option-exportar" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
+				<div id="option-deteccion" class="col col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center">
 					<a href="{{url('akademia_evaluados')}}">
 						<div class="card">
 							<img src="{{ asset('assets/images/talento.png') }}" width="120" height="120">
 							<p class="title-card">Detección de talentos</p>
 						</div>
 					</a>
-				</div>	
+				</div>
 			{% endif %}
 		</div>
 	</div>
