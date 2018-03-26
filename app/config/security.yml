@@ -61,6 +61,7 @@ security:
     access_control:
         - {path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/registrofinal, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/control, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/ajax, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/consulta$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}

@@ -1,0 +1,4 @@
+services:
+#    api_rest_full_academia.example:
+#        class: ApiRestFullAcademiaBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
