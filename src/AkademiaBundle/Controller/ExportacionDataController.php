@@ -152,13 +152,33 @@ class ExportacionDataController extends Controller
       $em = $this->getDoctrine()->getManager();
 
     	if($perfil == 2){
-    		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExport();		
+    		
+        $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExport();		
     		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExport();
     
     	}else if($perfil == 1) {
 
-    		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);
-    		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
+    		$data = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind($idComplejo);
+
+        if(!empty($data)){
+            $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind($idComplejo);
+        }else{
+            $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);
+        }
+
+        $data2 = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind($idComplejo);
+
+        if(!empty($data2)){
+          $mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind($idComplejo);
+        }else{
+          $mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
+        }
+
+
+
+
+
+    	//	$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
     	}
 
     	$mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
