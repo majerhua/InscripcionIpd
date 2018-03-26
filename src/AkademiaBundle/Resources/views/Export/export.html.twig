@@ -49,112 +49,6 @@
 
 	<hr>
 
-	<div class="proceso">
-			<div class="container-card col-xs-12 col-sm-8 col-md-5 col-lg-5">
-				<div class="card">	
-					<p class="title-card">Parámetros de exportación</p>
-
-					<div class="alert alert-warning">
-
-						<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-
-						<p>Puedes seleccionar cualquiera de los siguientes parámetros para exportar la data, solo el año es obligatorio</p>
-
-					</div>
-
-					<hr>
-
-					<div class="row">
-						<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-							<label>Año</label>
-							<select class="form-control" id="select-ano" >
-								<option value="2018">2018</option>
-								<option value="2019">2019</option>
-								<option value="2020" >2020</option>
-							</select>
-
-						</div>
-
-						<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-							<label>Mes</label>
-							<select class="form-control" id="select-mes" >
-
-								<option value="">--Seleccionar--</option>
-								{% for mes in meses %}
-								<option value="{{cont}}">{{mes}}</option>
-								{% set cont = cont + 1 %}
-								{% endfor %}
-							</select>
-
-						</div>
-					</div>
-
-					<div class="row" id="container-analista">
-
-					<br>
-
-						<div class="form-group col-md-6"  id="container-departamento">
-							
-							<label>Departamentos</label>
-							<select class="form-control"  id="select-departamento" onchange="cambiarDepartamentoExport(this)" >
-								{% if app.user.idPerfil == 2 %}	
-									<option value="">--Seleccionar--</option>
-								{% endif %}
-					        	{% for  dep in  departamentosAll  %}
-									{% for depFlag in departamentosExport %}
-										{%  if dep['id'] == depFlag['idDepartamento'] %}
-											<option value="{{dep['id']}}">{{dep['nombre']}}</option>
-										{% endif %}
-									{% endfor %}
-					        	{% endfor %}	
-					    	</select>
-						</div>
-
-						<!--<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<label>Departamentos</label>
-							<select class="form-control"  id="select-departamento" onchange="cambiarDepartamentoExport(this)" >
-								<option value="">--Seleccionar--</option>
-								{% for  dep in  departamentosAll  %}
-									{% for depFlag in departamentosExport %}
-										{%  if dep['id'] == depFlag['idDepartamento'] %}
-										<option value="{{dep['id']}}">{{dep['nombre']}}</option>
-										{% endif %}
-									{% endfor %}
-								{% endfor %}	
-							</select>
-						</div>-->
-
-						<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<label>Complejo</label>
-							<select class="form-control" id="select-complejo" onchange="cambiarComplejoDeportivoExport(this)" > 
-								{% if app.user.idPerfil == 2 %}	
-								<option value="">--Seleccionar--</option>
-								{% endif %}
-							</select>
-						</div>
-					</div>
-
-					<br>
-
-					<div class="row">
-						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<label>Disciplina</label>
-							<select class="form-control" id="select-disciplina">
-								<option value="">--Seleccionar--</option>
-							</select>
-						</div>
-					</div>
-					<hr>
-
-					<div class="container-boton-1 text-center">
-						<button class="btn btn-danger" id="export-data"> Exportar Data Beneficiarios</button>
-					</div>
-				</div>		   
-			</div>
-		</div>
-
 	<!--<div class="row">
 
 		<div class="form-group col-md-6">
@@ -222,6 +116,112 @@
 		</div>
 
 	</div>-->
+
+
+	<div class="proceso">
+			<div class="container-card col-xs-12 col-sm-8 col-md-5 col-lg-5">
+				<div class="card">	
+					<p class="title-card">Parámetros de exportación</p>
+					<div class="alert alert-success">
+						<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+						<p>Puedes seleccionar cualquiera de los siguientes parámetros para exportar la data, solo el año es obligatorio</p>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+							<label>Año</label>
+							<select class="form-control" id="select-ano" >
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020" >2020</option>
+							</select>
+
+						</div>
+
+						<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+							<label>Mes</label>
+							<select class="form-control" id="select-mes" >
+
+								<option value="">--Seleccionar--</option>
+								{% for mes in meses %}
+								<option value="{{cont}}">{{mes}}</option>
+								{% set cont = cont + 1 %}
+								{% endfor %}
+							</select>
+
+						</div>
+					</div>
+
+					<div class="row" id="container-analista" >
+
+						<br>
+
+						<div class="form-group col-md-6"  id="container-departamento">
+							
+							<label>Departamentos</label>
+							<select class="form-control"  id="select-departamento" onchange="cambiarDepartamentoExport(this)" >
+								{% if app.user.idPerfil == 2 %}	
+									<option value="">--Seleccionar--</option>
+								{% endif %}
+					        	{% for  dep in  departamentosAll  %}
+									{% for depFlag in departamentosExport %}
+										{%  if dep['id'] == depFlag['idDepartamento'] %}
+											<option value="{{dep['id']}}">{{dep['nombre']}}</option>
+										{% endif %}
+									{% endfor %}
+					        	{% endfor %}	
+					    	</select>
+						</div>
+
+						<!--<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<label>Departamentos</label>
+							<select class="form-control"  id="select-departamento" onchange="cambiarDepartamentoExport(this)" >
+								<option value="">--Seleccionar--</option>
+								{% for  dep in  departamentosAll  %}
+									{% for depFlag in departamentosExport %}
+										{%  if dep['id'] == depFlag['idDepartamento'] %}
+										<option value="{{dep['id']}}">{{dep['nombre']}}</option>
+										{% endif %}
+									{% endfor %}
+								{% endfor %}	
+							</select>
+						</div>-->
+
+						<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<label>Complejo</label>
+							<select class="form-control" id="select-complejo" onchange="cambiarComplejoDeportivoExport(this)" > 
+								{% if app.user.idPerfil == 2 %}	
+								<option value="">--Seleccionar--</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>Disciplina</label>
+							<select class="form-control" id="select-disciplina">
+								<option value="">--Seleccionar--</option>
+							</select>
+						</div>
+					</div>
+					<hr>
+
+					<div class="container-boton-1 text-center">
+						<button class="btn btn-danger" id="export-data"> Exportar Data Beneficiarios</button>
+					</div>
+				</div>		   
+			</div>
+		</div>
+
+
+
+
+
 </div>
 
 <hr>
@@ -285,6 +285,7 @@
 
 	$exportData.on('click',function(){
 		location.href='export?ano='+$selectAno.val()+'&mes='+$selectMes.val()+'&departamento='+$selectDepartamento.val()+'&complejo='+$selectComplejo.val()+'&disciplina='+$selectDisciplina.val();
+		
 		console.log('export?ano='+$selectAno.val()+'&mes='+$selectMes.val()+'&departamento='+$selectDepartamento.val()+'&complejo='+$selectComplejo.val()+'&disciplina='+$selectDisciplina.val());
 	});
 
@@ -335,7 +336,7 @@
 
 		$containerAnalista.hide();
 		//$containerDepartamento.css('visibility','hidden');
-		// $containerComplejo.css('visibility','hidden');
+		//$containerComplejo.css('visibility','hidden');
 	{% endif %}
 
 </script>

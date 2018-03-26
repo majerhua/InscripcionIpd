@@ -56,6 +56,22 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
            return $complejosDeportivos;		
 	}
 
+
+
+	public function complejoDeportivoExportFind2($id){
+       $query = " SELECT distinct ubiDpto.ubidpto idDepartamento, ede.ede_codigo id , ede.ede_nombre nombre
+        FROM 
+            grubigeo ubiDpto 
+
+        inner join CATASTRO.edificacionesdeportivas ede on ede.ubicodigo = ubiDpto.ubicodigo
+        WHERE  ede.ede_codigo='$id';";
+
+           $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+           $stmt->execute();
+           $complejosDeportivos = $stmt->fetchAll();
+           return $complejosDeportivos;		
+	}
+
 	public function getComplejosDeportivos()
 	{
 

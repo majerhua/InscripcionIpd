@@ -157,8 +157,8 @@ class ExportacionDataController extends Controller
     
     	}else if($perfil == 1) {
 
-    		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind($idComplejo);
-    		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind($idComplejo);
+    		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);
+    		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
     	}
 
     	$mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
