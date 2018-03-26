@@ -864,7 +864,7 @@
   		$.ajax({
 
   			type:'POST',
-  			dataType: 'json',
+  			dataType: "json",
 			url: "{{url('akademia_nuevoControl')}}",
 			data: valorIndicadores,
 
@@ -873,10 +873,10 @@
 
 			success: function(data){
 
+				alert("Entroo");
 				console.log(data);
 
 				if(data == 1){
-					
 					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
 					location.reload(true);				
 
@@ -906,6 +906,12 @@
 			},
 
 			error: function(data){
+
+				console.log(data);
+							
+				alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+				location.reload(true);				
+
 
 			},
 

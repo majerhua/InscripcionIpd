@@ -172,14 +172,14 @@ class TalentosController extends controller
 
   				if(!empty($idNuevoControl)){
   				  
-            echo "entro a la creacion de nuevos indicadores";
+            //echo "entro a la creacion de nuevos indicadores";
   					$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
             
-            echo "seguimos aquii";
+           // echo "seguimos aquii";
             //var_dump($nuevoControl);
 
-  					$envio = 1;
-  					return new JsonResponse($envio);
+  					$mensaje = 1;
+  					return new JsonResponse($mensaje);
   
   				}else{
   					$mensaje = 3;

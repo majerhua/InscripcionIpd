@@ -46,6 +46,7 @@ class DepartamentoRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function departamentosExportFind($id){
+
         $query = " SELECT distinct ubiDpto.ubidpto idDepartamento
         FROM ACADEMIA.inscribete AS ins
         inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
@@ -65,9 +66,11 @@ class DepartamentoRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
         $departamentos = $stmt->fetchAll();
         return $departamentos;
+    
     }
 
     public function departamentosPromotor($flagDis){
+    
         $query = "SELECT distinct ubidpto as idDepartamento from ACADEMIA.horario AS hor , CATASTRO.edificacionDisciplina as eddis,CATASTRO.edificacionesdeportivas AS edde, grubigeo as ubi where hor.discapacitados='$flagDis' and hor.estado=1
             and hor.edi_codigo=eddis.edi_codigo and edde.ede_codigo=eddis.ede_codigo and ubi.ubicodigo=edde.ubicodigo
             and ubidistrito!='00' AND ubidpto!='00' AND ubiprovincia!='00' and hor.vacantes<>0";
@@ -75,6 +78,7 @@ class DepartamentoRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
         $departamentos = $stmt->fetchAll();
         return $departamentos;
+    
     }
 
 	public function departamentosAll(){

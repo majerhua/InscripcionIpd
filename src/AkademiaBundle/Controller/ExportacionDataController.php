@@ -145,11 +145,11 @@ class ExportacionDataController extends Controller
 
     	//$perfil = $this->getUser->getIdPerfil();
     	//$idComplejo = $this->getUser->getIdComplejo();
-
+      
     	$perfil = $this->getUser()->getIdPerfil();
     	$idComplejo = $this->getUser()->getIdComplejo();
-
-    	$em = $this->getDoctrine()->getManager();
+    	
+      $em = $this->getDoctrine()->getManager();
 
     	if($perfil == 2){
     		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExport();		
@@ -166,5 +166,6 @@ class ExportacionDataController extends Controller
     	$mdlDisciplinasDeportivasExport = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinaDeportivaExport();
     	
       return $this->render('AkademiaBundle:Export:export.html.twig',array('departamentosExport' => $mdlDepartamentosExport,'departamentosAll' => $mdlDepartamentos,'ComplejoDeportivoExport' => $mdlComplejoDeportivoExport,'DisciplinaDeportivaExport' => $mdlDisciplinasDeportivasExport)); 
+    
     }
 }
