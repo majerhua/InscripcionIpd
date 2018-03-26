@@ -20,7 +20,12 @@ class AppKernel extends Kernel
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
             //new Realestate\MssqlBundle\RealestateMssqlBundle(),
+            new ApiRestFullAcademiaBundle\ApiRestFullAcademiaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

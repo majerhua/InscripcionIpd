@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@AkademiaBundle/Resources/config/services.yml" }
+    - { resource: "@ApiRestFullAcademiaBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -33,6 +34,30 @@ framework:
     assets: ~
     php_errors:
         log: true
+
+# Nelmio CORS Configuration
+nelmio_cors:
+    defaults:
+        allow_credentials: false
+        allow_origin: ['*']
+        allow_headers: ['*']
+        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+        max_age: 3600
+        hosts: []
+        origin_regex: false
+ 
+# FOSRest Configuration
+fos_rest:
+    body_listener: true
+    format_listener:
+        rules:
+            - { path: '^/control', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: ^/, priorities: ['html', '*/*'], fallback_format: html, prefer_extension: true }
+    param_fetcher_listener: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
 
 # Twig Configuration
 twig:
