@@ -143,28 +143,43 @@ class TalentosController extends controller
   			$abdominales = $request->get('abdominales');
   			$milmt = $request->get('milmt');
   			$idParticipante = $request->get('idParticipante');
+        $idInscribete = $request->get('idInscribete');
   			$fechaDato = $request->get('fechaDato');
-  			$fechaHoy = date('d-m-Y');
+  			$fechaHoy = date('Y-m-d');
   		
-      	var_dump($fechaHoy);
+      //	var_dump($fechaHoy);
         var_dump($fechaDato);
 
-  			$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControl($fechaDato, $idParticipante, $fechaHoy, $usuario);
+  			$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControl($fechaDato, $idParticipante, $usuario);
 
   			if($nuevoControl == 1){
 
+          $cantidadControl = $fc->getRepository('AkademiaBundle:Participante')->cantidadControl($idParticipante);
+          $num = $cantidadControl[0]['cantidad'];
+          var_dump($num);
+
+          if($num == 1 ){
+              /*CREAR UN MOVIMIENTO DE EVALUADO AUTOMATICAMENTE DEL PARTICIPANTE*/
+              $fc->getRepository('AkademiaBundle:Participante')->registrarMovEva($idInscribete,$usuario);
+          }
+
   				$idControl = $fc->getRepository('AkademiaBundle:Participante')->retornoIdControl($idParticipante);
   				$idNuevoControl = $idControl[0]['id'];
+          $idNewControl = intval($idNuevoControl);
 
-          var_dump($idNuevoControl);
+          var_dump($idNewControl);
+
 
   				if(!empty($idNuevoControl)){
   				  
-  					$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario);
+            echo "entro a la creacion de nuevos indicadores";
+  					$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
             
-            var_dump($nuevoControl);
-  					$mensaje = 1;
-  					return new JsonResponse($mensaje);
+            echo "seguimos aquii";
+            //var_dump($nuevoControl);
+
+  					$envio = 1;
+  					return new JsonResponse($envio);
   
   				}else{
   					$mensaje = 3;
@@ -178,6 +193,33 @@ class TalentosController extends controller
   
     	}	
     }
+
+    //NUEVO TALENTO
+    public function nuevoTalentoAction(Request $request){
+      if($request->isXmlHttpRequest()){
+
+          $fc = $this->getDoctrine()->getManager();
+          $usuario = $this->getUser()->getId();
+          $idInscribete = $request->get('idInscribete');
+          $idParticipante = $request->get('idParticipante');
+
+          $cantidadControl = $fc->getRepository('AkademiaBundle:Participante')->cantidadControl($idParticipante);
+          $num = $cantidadControl[0]['cantidad'];
+          var_dump($num);
+
+          if($num != 0 ){
+              $fc->getRepository('AkademiaBundle:Participante')->registrarMovTal($idInscribete,$usuario);
+              $mensaje = 1;
+              return new JsonResponse($mensaje);
+          }else{
+              $mensaje = 2;
+              return new JsonResponse($mensaje);
+          }
+      
+      }
+
+    }
+
 
     public function mostrarControlesIndAction(Request $request){
 

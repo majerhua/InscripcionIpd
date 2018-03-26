@@ -38,6 +38,7 @@
 		<h3 class="text-center" style="color:#08298A">{{talento[0]['nombre']}} </h3>
 		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
 		<input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
+		<input type="hidden" id="idInscribete" value="{{talento[0]['idInscribete']}}">
 	
 		<h4 style="color:grey">DEPORTISTA EN EVALUACIÓN</h4>
 
@@ -143,12 +144,40 @@
 
 								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
 									<p id="deportista_video_youtube">{{talento[0]['link']}}</p>
-								</div>						
+								</div>							
 							</div>
-						</div>
-
-						
+						</div>	
 					</div>
+					<hr>
+		
+					<div class="row">
+                        <div class="form-group col-xs-11 col-sm-11 col-md-11 col-ld-11 ">
+                            <div class="row">
+                                <div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
+                                    <p style="color:grey">¿Desea categorizar a este participante como TALENTO? </p>
+                                </div>
+                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2 accordion">  
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" name="cbx-talento" id="cbx-talento" value="1">
+                                        </span>
+                                        <p type="text" class="form-control">Si</p>
+                                    </div>
+                                </div>   
+                            </div>
+                         	<br>
+							<div id="advertencia" class="alert alert-danger collapse text-center">
+								<div class="row">
+									<div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
+										<p style="font-size:14px"> Al confirmar los cambios, ya no podrá crear nuevos controles e indicadores. El nuevo talento se visualizará en el módulo de Talentos. </p>
+									</div>
+									<div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">
+										 <button title="Guardar" id="btnCatTalento" class="btn btn-danger" data-toggle="modal"><i class="icon-save"></i></button>
+									</div>
+								</div>
+							</div>
+                        </div>
+                    </div>  
 				</div>
 			</div>
 		</div>
@@ -268,8 +297,8 @@
 	</div>
 </footer>
 
-<!-- MODAL EDITAR INFO PARTICIPANTE -->
 
+<!-- MODAL EDITAR INFO PARTICIPANTE -->
 
 <div id="modal-editar_participante" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -331,8 +360,7 @@
 										</div>
 									</div>
 								</li>
-
-								<li class="list-group-item">
+								<!--<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 											<p><strong>Categoría</strong></p>
@@ -346,10 +374,10 @@
 											</select>
 										</div>
 									</div>
-								</li>
+								</li>-->
 							</ul>
 						</div>
-					</div>
+	               	</div>
 				</div>
 				<div class="modal-footer">
 
@@ -363,9 +391,7 @@
 	</div>
 </div>
 
-
 <!-- MODAL NUEVA MEDIDA -->
-
 <div id="modal-nueva-medida" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
@@ -753,17 +779,14 @@
 
 {% endblock %}
 
-
 {% block javascripts %}
 
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 
-
 <script type="text/javascript">
 	
-
 	/* MOSTRAR MENSAJE DE ALERTA */
 	function showAlertMessage(alert, mensaje){
 		$(alert).text(mensaje).show('fade');
@@ -776,6 +799,29 @@
 	function hideAlertMessage(alert){
 		$(alert).hide('fade');
 	}
+
+
+	/* TALENTOOO */
+
+	$('#cbx-talento').on( 'click', function() {
+		
+	    if($(this).is(':checked'))
+	    {
+	        $("#advertencia").show();
+	        sessionStorage.setItem('flagCatTalento',$(this).val());
+	        //$("#btn-actualizar").attr('value',"Eliminar");
+	    
+	    }else{
+
+	    	$("#advertencia").hide();
+	    	sessionStorage.removeItem('flagCatTalento');
+	    	
+	    //	$("#btn-actualizar").attr('value',"Actualizar");
+
+	    }
+	});		
+
+
 
 	/*CREAR UNA NUEVA MEDIDA*/
 
@@ -793,6 +839,7 @@
     	let abdominales = $('#crear_abdominales').val();
     	let milmt = $('#crear_milmt').val();
     	let idParticipante = $('#idPartTalento').val();
+    	let idInscribete = $('#idInscribete').val();
     	let fechaDato = $('#fechaRegistro').val();
 
     	console.log(fechaDato);
@@ -810,8 +857,9 @@
   			"abdominales" : abdominales,
   			"milmt" : milmt,
   			"idParticipante" : idParticipante,
+  			"idInscribete" : idInscribete,
   			"fechaDato" : fechaDato,
-  		}
+  		};
 
   		$.ajax({
 
@@ -827,10 +875,16 @@
 
 				console.log(data);
 
-				alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-				location.reload(true);
+				if(data == 1){
 					
+					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+					location.reload(true);				
 
+				}else{
+					alertify.error('<p>Errorrrrrrrrrr</p>');
+				}
+
+				
 				/*if(data == 1){
 
 					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
@@ -853,7 +907,7 @@
 
 			error: function(data){
 
-			}
+			},
 
   		});
     
@@ -881,7 +935,60 @@
         });
      });*/
 
+    $('#btnCatTalento').on('click', function(){
 
+		if(sessionStorage.getItem('flagCatTalento') == '1' ){
+
+				let idInscribete = $('#idInscribete').val();
+				let idParticipante = $('#idPartTalento').val();
+
+				var data = {
+					"idInscribete" : idInscribete,
+					"idParticipante" : idParticipante,
+				};
+				$.ajax({
+
+		  			type:'POST',
+		  			dataType: 'json',
+					url: "{{url('akademia_nuevoTalento')}}",
+					data: data,
+
+					beforeSend: function(){					
+					},
+
+					success: function(data){
+
+						if(data == 1){
+							
+							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+							location.reload(true);
+						
+						}else if(data == 2){
+
+							alertify.error('<p style="color:white">El alumno no tiene ningun tipo de control. No puede cambiarlo a categoría talento.</p>');	
+						}else{
+
+							alertify.error('<p>Se produjo un error al cambiar la categoria. </p>')
+						}
+						
+						console.log(data);
+
+						
+					},
+					error: function(data){
+
+						console.log(data);
+					}	
+							
+				});
+
+
+
+		}else{
+
+		}
+
+    });
 
 	$('#btn_guardar_editar_deportista').on( 'click', function() {
 

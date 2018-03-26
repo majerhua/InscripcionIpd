@@ -116,7 +116,8 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
                 per.persexo as sexo,
                 dis.dis_descripcion as nombreDisciplina,
-                ede.ede_nombre as nombreComplejo
+                ede.ede_nombre as nombreComplejo,
+                ins.id as idInscribete
                 FROM 
                 ACADEMIA.inscribete ins 
                 inner join academia.horario hor on ins.horario_id = hor.id
@@ -165,9 +166,35 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function nuevoControl($fecha,$idParticipante,$fechaHoy,$usuario){
+    public function cantidadControl($idParticipante){
+
+        $query = "SELECT count(id) as cantidad from academia.control where id_participante = $idParticipante";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $datos = $stmt->fetchAll();
+
+        return $datos;
+    }
+
+    public function registrarMovEva($idInscribete, $usuario){
+
+        $query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id,fecha_modificacion, usuario_valida)
+                  values(3,2,$idInscribete,getdate(),$usuario)";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+    }
+
+    public function registrarMovTal($idInscribete, $usuario){
+
+        $query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id, fecha_modificacion, usuario_valida)
+                 values(4,2,$idInscribete, getdate(),$usuario)";
+        $stmt =$this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+    }
+
+    public function nuevoControl($fecha,$idParticipante,$usuario){
         
-        $query = "EXEC dbo.InsertarControl '$fecha',$idParticipante,'$fechaHoy',1,$usuario";
+        $query = "EXEC dbo.InsertarControl '$fecha',$idParticipante,1,$usuario";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $control = 1;
@@ -181,7 +208,6 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $control = $stmt->fetchAll();
-
         return $control;
 
     }
@@ -189,11 +215,9 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
     public function nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario){
 
         $query = "EXEC dbo.InsertarIndicadoresControl $peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario";
-
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
-        $control = 1;
-        return $control;
+      
     }
 
     

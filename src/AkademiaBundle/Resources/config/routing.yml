@@ -176,6 +176,11 @@ akademia_mostrarDetalleTalento:
     defaults: { _controller: AkademiaBundle:Talentos:mostrarDetalleTalento}
     methods:  [GET,POST]
 
+akademia_nuevoTalento:
+    path:     /ajax/nuevoTalento
+    defaults: { _controller: AkademiaBundle:Talentos:nuevoTalento}  
+    methods:  [GET,POST]
+
 
 ##INCIO EXPORTAR DATA ##
 akademia_export:
