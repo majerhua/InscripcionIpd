@@ -151,10 +151,36 @@ akademia_guardarTalento:
     defaults: { _controller: AkademiaBundle:Talentos:guardarTalento }
     methods:  [GET,POST]
 
+akademia_mostrarControlesInd:
+    path:     /ajax/mostrarControlesInd
+    defaults: { _controller: AkademiaBundle:Talentos:mostrarControlesInd}
+    methods:  [GET,POST]
+
 akademia_nuevoControl:
     path:     /ajax/control
     defaults: { _controller: AkademiaBundle:Talentos:nuevoControl}  
     methods:  [GET,POST]
+
+akademia_actualizarIndicador:
+    path:     /ajax/actualizarControl
+    defaults: { _controller: AkademiaBundle:Talentos:actualizarControl}
+    methods:  [GET,POST]
+
+akademia_mostrarTalentos:
+    path:     /ajax/mostrarTalentos
+    defaults: { _controller: AkademiaBundle:Talentos:mostrarTalentos}
+    methods:  [GET,POST]
+
+akademia_mostrarDetalleTalento:
+    path:     /detalle/{idParticipante}
+    defaults: { _controller: AkademiaBundle:Talentos:mostrarDetalleTalento}
+    methods:  [GET,POST]
+
+akademia_nuevoTalento:
+    path:     /ajax/nuevoTalento
+    defaults: { _controller: AkademiaBundle:Talentos:nuevoTalento}  
+    methods:  [GET,POST]
+
 
 ##INCIO EXPORTAR DATA ##
 akademia_export:

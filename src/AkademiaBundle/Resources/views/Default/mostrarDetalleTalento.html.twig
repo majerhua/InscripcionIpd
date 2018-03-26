@@ -1,0 +1,602 @@
+{% extends '::base.html.twig' %}
+{% block title %}La Academia{% endblock %}
+{% block body  %}
+
+<header>
+     <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    
+                </button>                       
+                <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                              
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <br>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li title="Horarios"><a href="{{url('akademia_mostrarTalentos')}}"><i class="icon-arrow-left" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
+                    <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section >
+    <br>
+    <div style="width:93%">
+        <p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+    </div>
+
+    <div class="proceso">
+    
+        <div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <div class="card row">
+
+                <h3 class="text-center" style="color:black">{{talento[0]['nombre']}} </h3>
+                <p  class="text-center" style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
+                <input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
+                <!--<h4 style="color:grey" class="text-center">TALENTO IPD</h4>-->
+                <hr>
+
+                {% if talento[0]['sexo'] == 0 %}
+                    <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">              
+                        <img src="{{ asset('assets/images/woman.png')}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
+                    </div>
+                {% else %}
+                    <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">              
+                        <img src="{{ asset('assets/images/man.png')}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
+                    </div>
+                {% endif %} 
+
+                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">              
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">              
+                            <div class="row">
+                                <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
+                                    <strong><p>DNI: </p></strong>
+                                </div>                      
+
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">                
+                                    <p id="deportista_dni">{{talento[0]['dni']}}</p>
+                                </div>                      
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">              
+                            <div class="row">
+                                <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
+                                    <strong><p>Edad: </p></strong>
+                                </div>                      
+
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">                
+                                    <p id="deportista_edad"> {{talento[0]['edad']}} años</p>
+                                </div>                      
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">              
+                            <div class="row">
+                                <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
+                                    <strong><p>Disciplina: </p></strong>
+                                </div>                      
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">                
+                                    <p id="deportista_disciplina">{{talento[0]['nombreDisciplina']}}</p>
+                                </div>                      
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">              
+
+                            <div class="row">
+
+                                <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
+                                    <strong><p>Complejo: </p></strong>
+                                </div>                      
+
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">                
+                                    <p id="deportista_complejo_deportivo"> {{talento[0]['nombreComplejo']}}</p>
+                                </div>                      
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">              
+                            <div class="row">
+                                <div class=" col-xs-5 col-sm-5 col-md-3 col-lg-4">              
+                                    <strong><p>Ficha técnica: </p></strong>
+                                </div>                      
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
+                                    <img id="deportista_ficha_tecnica"  src="{{talento[0]['foto']}}"  >             
+                                </div>                      
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">              
+                            <div class="row">
+                                <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
+                                    <strong><p>Video Youtube:</p></strong>
+                                </div>                      
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">                
+                                    <p id="deportista_video_youtube">{{talento[0]['link']}}</p>
+                                </div>                      
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                            <div class="row">
+                                <div class="col-xs-5 col-sm-5 col-md-3 col-lg-4">
+                                    <strong><p>Comentarios: </p></strong>
+                                </div>
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
+                                    <p id="comentarios_talentos">{{talento[0]['comentarios']}}</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12 ">
+                            <div class="row">
+                                <div class="form-group col-xs-8 col-sm-8 col-md-8 col-ld-8">
+                                    <p style="color:grey">¿Deseas que este participante sea visto desde el App Mobile ?</p>
+                                </div>
+                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2 accordion">  
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" name="cbx-horario" id="cbx-horario" value="1">
+                                        </span>
+                                        <p type="text" class="form-control">Si</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2 accordion">  
+                                   <button title="Guardar" id="boton" class="btn btn-danger" data-toggle="modal"><i class="icon-save"></i></button>
+                                </div>
+                            </div>
+                            <br>
+
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            
+            <h4 style="color:grey">HISTORIAL DE MEDICIONES FISICAS DEL DEPORTISTA</h4>
+
+            <div class="card">      
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="panel panel-default" style="overflow-x:auto;">
+                                    <table class="table"> 
+                                        <thead style="background:#A27218; color:#F2F2F2;"> 
+                                            <tr class="text-center"> 
+                                                
+                                                <th>Fecha</th> 
+                                                <th>Peso</th> 
+                                                <th>Talla</th>
+                                                <th>50m</th> 
+                                                <th>Flexib.<br>Tronco</th> 
+                                                <th>Equilib.</th> 
+                                                <th>Flex. Brazo</th> 
+                                                <th>Salto Horiz.</th> 
+                                                <th>Salto Verti.</th> 
+                                                <th>Lanz. Pelota</th>
+                                                <th>Abdom.</th>
+                                                
+                                                <th>1000m</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <td></td>
+                                                <td>kg</td>
+                                                <td>cm</td>
+                                                <td>seg</td>
+                                                <td>cm</td>
+                                                <td>Rpt./1 min</td>
+                                                <td>Rpt./30 seg</td>
+                                                <td>s/c cm</td>
+                                                <td>s/i cm</td>
+                                                <td>m</td>
+                                                <td>Rpt./30 seg</td>
+                                                <td>(seg)</td>
+                                                <td></td>
+                                            </tr>
+
+                                        </thead> 
+
+                                        <tbody class="text-center"> 
+
+                                            {% for numero in numeros %}
+                                                <tr>
+                                                    <td>{{numero['fecha']|date('d/m/Y')}}</td>
+                                                    {% for control in controles %}
+                                                        
+                                                        {% if control['control_id'] == numero['id'] %}
+
+                                                            <td>{{control['valor']}}</td> 
+
+                                                        {% endif %}
+
+                                                    {% endfor %}
+                                                   
+                                                </tr>
+                                            {% endfor %}                                            
+                                        </tbody> 
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
+                <br>
+                <br>
+                <br>
+                <img class="align-self-center foot" src="{{ asset('assets/images/ipdfooter.jpg')}}">
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <br><br>
+                <h4>La Academia</h4>
+                <p class="footerTex">
+                    Dirección:Calle Madre de Dios N° 463
+                </p>
+                <p class="footerTex">
+                    Teléfono: 204-8420 /anexo 1302
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <br><br>
+                <h4>Enlaces de Interés</h4>
+                <p><a class="footerTex" href="http://www.ipd.gob.pe/">Instituto Peruano del Deporte</a></p>
+                <p><a class="footerTex" href="https://www.facebook.com/recreacion.ipd/">Facebook Recreación</a></p>
+                <p><a class="footerTex" href="http://www.ipd.gob.pe/formacion-deportiva">Formación Deportiva</a></p>
+            </div>
+        </div>
+        <br>
+        <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
+    </div>
+</footer>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+
+
+<script type="text/javascript">
+    
+
+    /* MOSTRAR MENSAJE DE ALERTA */
+    function showAlertMessage(alert, mensaje){
+        $(alert).text(mensaje).show('fade');
+        setTimeout(function(){
+            hideAlertMessage(alert);    
+        }, 2000);
+    }
+
+    /* COULTAR ALERTA*/
+    function hideAlertMessage(alert){
+        $(alert).hide('fade');
+    }
+
+    /*CREAR UNA NUEVA MEDIDA*/
+
+    $('#crearIndicador').on('click',function(){
+
+        let peso = $('#crear_peso').val();
+        let talla = $('#crear_talla').val();
+        let ind50mt = $('#crear_50m').val();
+        let flexTronco = $('#crear_flexTronco').val();
+        let equilibrio = $('#crear_equilibrio').val();
+        let flexBrazo = $('#crear_flexion').val();
+        let saltoH = $('#crear_saltoH').val();
+        let saltoV = $('#crear_saltoV').val();
+        let lanzamiento = $('#crear_lanzamientoP').val();
+        let abdominales = $('#crear_abdominales').val();
+        let milmt = $('#crear_milmt').val();
+        let idParticipante = $('#idPartTalento').val();
+        let fechaDato = $('#fechaRegistro').val();
+
+        console.log(fechaDato);
+
+        var valorIndicadores = {
+            "peso" : peso,
+            "talla" : talla,
+            "ind50mt" : ind50mt,
+            "flexTronco" : flexTronco,
+            "equilibrio" :equilibrio,
+            "flexBrazo" : flexBrazo,
+            "saltoH" : saltoH,
+            "saltoV" : saltoV,
+            "lanzamiento" : lanzamiento,
+            "abdominales" : abdominales,
+            "milmt" : milmt,
+            "idParticipante" : idParticipante,
+            "fechaDato" : fechaDato,
+        }
+
+        $.ajax({
+
+            type:'POST',
+            dataType: 'json',
+            url: "{{url('akademia_nuevoControl')}}",
+            data: valorIndicadores,
+
+            beforeSend: function(){                 
+            },
+
+            success: function(data){
+
+                console.log(data);
+
+                alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');   
+                location.reload(true);
+                    
+
+                /*if(data == 1){
+
+                    alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');   
+                    location.reload(true);
+                    
+                                        
+                }else if(data == 2){
+
+                    alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');   
+                    console.log(data);
+
+                }else{
+
+                    alertify.error('<p style="color:white">no existen valor de indicadores </p>');  
+                    console.log(data);
+                }*/
+
+
+            },
+
+            error: function(data){
+
+            }
+
+        });
+    
+    });
+
+    /*GUARDAR DATOS */
+
+
+    /*$(function(){
+        $("input[name='file']").on("change", function(){
+            
+            var formData = new FormData($("#uploadimage")[0]);
+            var ruta = "imagen-ajax.php";
+            $.ajax({
+                url:"{{url('akademia_guardarTalento')}}" ,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $("#respuesta").html(datos);
+                }
+            });
+        });
+     });*/
+
+
+
+    $('#btn_guardar_editar_deportista').on( 'click', function() {
+
+    //$("#uploadimage").unbind('submit').bind('submit', function(){
+        
+        var formulario = $("#uploadimage")[0];
+        console.log(formulario);
+
+        let idParticipante = $("#idPart").text();
+        let link = $("#deportista_editar_video_youtube").val();
+        let ficha = $('#file');  
+        let imgFicha= ficha[0].files;   
+        let comentarios = $("#deportista_editar_comentarios").val();
+
+        //let ficha = new FormData($("#uploadimage")[0]);;
+        
+        //console.log(ficha, link, idParticipante);
+        var formData =  new FormData(formulario);
+
+        formData.append('idPart',idParticipante);
+        formData.append('link',link);
+        formData.append('comentarios',comentarios);
+        formData.append('archivo[]',imgFicha);
+
+        $.ajax({
+
+            type:'POST',
+            url: "{{url('akademia_guardarTalento')}}",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function(){             
+                
+            },
+
+            success: function (data){
+                if(data == 1){
+                    console.log("elemento guardado");
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+
+    });
+
+
+    function clearEdit(){
+
+        $("#fechaEdit").val("");
+        
+        for(let i=0; i < 11; i++){
+            
+            $("#"+(i+1)+"d").val("");
+        }
+
+
+    }
+
+    function listarControlInd(idcontrol){
+
+        let idParticipante = $('#idPartTalento').val();
+        let idControl = idcontrol;
+        
+        var data = {
+            "idParticipante" : idParticipante,
+            "idControl" : idcontrol,
+        }
+
+        $.ajax({
+
+            type:'POST',
+            dataType: 'json',
+            url: "{{url('akademia_mostrarControlesInd')}}",
+            data: data,
+
+            beforeSend: function(){             
+                
+            },
+            success: function(data){
+
+                if(data != 1){
+                    
+                    //console.log(idControl);
+
+                    //clearEdit();
+                    var datos =JSON.parse(data);                        
+                    $("#fechaEdit").val(datos[0].fecha);
+                    $("#idControlInd").text(idControl);
+                    
+                    for(let i=0; i < datos.length; i++){
+                        
+                        $("#"+(i+1)+"d").val(datos[i].valor);
+                    }
+
+                }else{
+
+                    alertify.error('<p style="color:white">Se produjo un error al cargar los datos </p>'); 
+                }
+            },
+            error: function(data){
+
+            },
+        });
+
+    }
+
+    $("#editarIndicador").on('click', function(){
+
+        let peso = parseFloat($('#1d').val());
+        let talla = parseFloat($('#2d').val());
+        let ind50mt = parseFloat($('#3d').val());
+        let flexTronco = parseFloat($('#4d').val());
+        let equilibrio = parseFloat($('#5d').val());
+        let flexBrazo = parseFloat($('#6d').val());
+        let saltoH = parseFloat($('#7d').val());
+        let saltoV = parseFloat($('#8d').val());
+        let lanzamiento = parseFloat($('#9d').val());
+        let abdominales = parseFloat($('#10d').val());
+        let milmt = parseFloat($('#11d').val());
+        let idControl = parseInt($('#idControlInd').text());
+        let fechaDato = $('#fechaEdit').val();
+
+        var valorIndicadores = {
+            "peso" : peso,
+            "talla" : talla,
+            "ind50mt" : ind50mt,
+            "flexTronco" : flexTronco,
+            "equilibrio" :equilibrio,
+            "flexBrazo" : flexBrazo,
+            "saltoH" : saltoH,
+            "saltoV" : saltoV,
+            "lanzamiento" : lanzamiento,
+            "abdominales" : abdominales,
+            "milmt" : milmt,
+            "idControl" : idControl,
+            "fechaDato" : fechaDato,
+        };
+
+        console.log(valorIndicadores);
+        
+        $.ajax({
+
+            type:'POST',
+            dataType: 'json',
+            url: "{{url('akademia_actualizarIndicador')}}",
+            data: valorIndicadores,
+
+            beforeSend: function(){                 
+            },
+
+            success: function(data){
+
+                if(data == 1){
+
+                    alertify.success('<p style="color:white"> Se actualizó correctamente el control</p>');
+                    location.reload(true);
+                    //window.reload();
+                    clearEdit();
+
+                }else if(data == 2){
+
+                    alertify.error('<p style="color:white">Se produjo un error al actualizar los datos </p>'); 
+                }else{
+
+                    alertify.error('<p>Se produjo un error</p>')
+                }
+            },
+            error: function(data){
+                console.log(data);
+            },
+        });
+
+
+    });
+
+
+</script>
+
+{% endblock %}

@@ -38,6 +38,7 @@
 		<h3 class="text-center" style="color:#08298A">{{talento[0]['nombre']}} </h3>
 		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
 		<input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
+		<input type="hidden" id="idInscribete" value="{{talento[0]['idInscribete']}}">
 	
 		<h4 style="color:grey">DEPORTISTA EN EVALUACIÓN</h4>
 
@@ -143,10 +144,40 @@
 
 								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
 									<p id="deportista_video_youtube">{{talento[0]['link']}}</p>
-								</div>						
+								</div>							
 							</div>
-						</div>
+						</div>	
 					</div>
+					<hr>
+		
+					<div class="row">
+                        <div class="form-group col-xs-11 col-sm-11 col-md-11 col-ld-11 ">
+                            <div class="row">
+                                <div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
+                                    <p style="color:grey">¿Desea categorizar a este participante como TALENTO? </p>
+                                </div>
+                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2 accordion">  
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" name="cbx-talento" id="cbx-talento" value="1">
+                                        </span>
+                                        <p type="text" class="form-control">Si</p>
+                                    </div>
+                                </div>   
+                            </div>
+                         	<br>
+							<div id="advertencia" class="alert alert-danger collapse text-center">
+								<div class="row">
+									<div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
+										<p style="font-size:14px"> Al confirmar los cambios, ya no podrá crear nuevos controles e indicadores. El nuevo talento se visualizará en el módulo de Talentos. </p>
+									</div>
+									<div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">
+										 <button title="Guardar" id="btnCatTalento" class="btn btn-danger" data-toggle="modal"><i class="icon-save"></i></button>
+									</div>
+								</div>
+							</div>
+                        </div>
+                    </div>  
 				</div>
 			</div>
 		</div>
@@ -202,19 +233,19 @@
 										<tbody class="text-center"> 
 
 											{% for numero in numeros %}
-											<tr>
-												<td>{{numero['fecha']|date('d/m/Y')}}</td>
-												{% for control in controles %}
-													
-													{% if control['control_id'] == numero['id'] %}
+												<tr>
+													<td>{{numero['fecha']|date('d/m/Y')}}</td>
+													{% for control in controles %}
+														
+														{% if control['control_id'] == numero['id'] %}
 
-														<td>{{control['valor']}}</td> 
+															<td>{{control['valor']}}</td> 
 
-													{% endif %}
+														{% endif %}
 
-												{% endfor %}
-												<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
-											</tr>
+													{% endfor %}
+													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida" onclick="listarControlInd({{numero['id']}})"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
+												</tr>
 											{% endfor %}											
 										</tbody> 
 									</table>
@@ -266,8 +297,8 @@
 	</div>
 </footer>
 
-<!-- MODAL EDITAR INFO PARTICIPANTE -->
 
+<!-- MODAL EDITAR INFO PARTICIPANTE -->
 
 <div id="modal-editar_participante" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -329,9 +360,24 @@
 										</div>
 									</div>
 								</li>
+								<!--<li class="list-group-item">
+									<div class="row">
+										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+											<p><strong>Categoría</strong></p>
+										</div>
+										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+											<select class="form-control">
+												<option value="0">--Seleccionar--</option>
+												<option value="2">Seleccionado</option>
+												<option value="3">Evaluado</option>
+												<option value="4">Talento</option>
+											</select>
+										</div>
+									</div>
+								</li>-->
 							</ul>
 						</div>
-					</div>
+	               	</div>
 				</div>
 				<div class="modal-footer">
 
@@ -345,9 +391,7 @@
 	</div>
 </div>
 
-
 <!-- MODAL NUEVA MEDIDA -->
-
 <div id="modal-nueva-medida" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
@@ -558,7 +602,7 @@
 								<p><strong>Fecha de evaluación:</strong></p>
 							</div>
 							<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
-								<input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
+								<input class="form-control"  id="fechaEdit" type="date" >
 							</div>
 						</div>
 					</div>
@@ -573,7 +617,7 @@
 												<p><strong>Peso</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+												<input id="1d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -584,7 +628,7 @@
 												<p><strong>Talla</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+												<input id="2d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -601,7 +645,7 @@
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_50m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+												<input id="3d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -612,7 +656,7 @@
 												<p><strong>Flexib. Tronco</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
+												<input id="4d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -628,7 +672,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="editar_equilibrio" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+												<input id="5d" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -641,7 +685,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="editar_flexion" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="6d" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -657,7 +701,7 @@
 												<p><strong>Salto Horizontal</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+												<input id="7d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -670,7 +714,7 @@
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="editar_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="22.54 cm">
+												<input id="8d" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -686,7 +730,7 @@
 												<p><strong>Lanzam. Pelota</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
+												<input id="9d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -697,7 +741,7 @@
 												<p><strong>Abdominales</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="10d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -705,14 +749,13 @@
 							</li>
 							<li class="list-group-item">
 								<div class="row">
-
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">	
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<p><strong>1000 met.</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="editar_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
+												<input id="11d" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -720,6 +763,7 @@
 								</div>
 							</li>
 						</ul>
+						<p style="color:white" id="idControlInd"></p>
 					</div>
 				</div>
 			</div>
@@ -735,17 +779,14 @@
 
 {% endblock %}
 
-
 {% block javascripts %}
 
 <script src="{{asset('assets/vendor/jquery/dist/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 
-
 <script type="text/javascript">
 	
-
 	/* MOSTRAR MENSAJE DE ALERTA */
 	function showAlertMessage(alert, mensaje){
 		$(alert).text(mensaje).show('fade');
@@ -757,8 +798,30 @@
 	/* COULTAR ALERTA*/
 	function hideAlertMessage(alert){
 		$(alert).hide('fade');
-
 	}
+
+
+	/* TALENTOOO */
+
+	$('#cbx-talento').on( 'click', function() {
+		
+	    if($(this).is(':checked'))
+	    {
+	        $("#advertencia").show();
+	        sessionStorage.setItem('flagCatTalento',$(this).val());
+	        //$("#btn-actualizar").attr('value',"Eliminar");
+	    
+	    }else{
+
+	    	$("#advertencia").hide();
+	    	sessionStorage.removeItem('flagCatTalento');
+	    	
+	    //	$("#btn-actualizar").attr('value',"Actualizar");
+
+	    }
+	});		
+
+
 
 	/*CREAR UNA NUEVA MEDIDA*/
 
@@ -776,8 +839,10 @@
     	let abdominales = $('#crear_abdominales').val();
     	let milmt = $('#crear_milmt').val();
     	let idParticipante = $('#idPartTalento').val();
+    	let idInscribete = $('#idInscribete').val();
     	let fechaDato = $('#fechaRegistro').val();
 
+    	console.log(fechaDato);
 
   		var valorIndicadores = {
   			"peso" : peso,
@@ -792,26 +857,38 @@
   			"abdominales" : abdominales,
   			"milmt" : milmt,
   			"idParticipante" : idParticipante,
+  			"idInscribete" : idInscribete,
   			"fechaDato" : fechaDato,
-  		}
+  		};
 
   		$.ajax({
 
   			type:'POST',
-  			dataType: 'json',
+  			dataType: "json",
 			url: "{{url('akademia_nuevoControl')}}",
 			data: valorIndicadores,
 
-			beforeSend: function(){				
-				
+			beforeSend: function(){					
 			},
 
 			success: function(data){
 
-				if(data == 1){
+				alert("Entroo");
+				console.log(data);
 
-					alert("control creado exitosamente");
+				if(data == 1){
 					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+					location.reload(true);				
+
+				}else{
+					alertify.error('<p>Errorrrrrrrrrr</p>');
+				}
+
+				
+				/*if(data == 1){
+
+					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+					location.reload(true);
 					
 										
 				}else if(data == 2){
@@ -823,22 +900,23 @@
 
 					alertify.error('<p style="color:white">no existen valor de indicadores </p>');	
 					console.log(data);
-				}
+				}*/
 
 
 			},
 
 			error: function(data){
 
-			}
+				console.log(data);
+							
+				alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+				location.reload(true);				
+
+
+			},
 
   		});
-    	
-
-    	
-    	
-
-    	
+    
     });
 
 	/*GUARDAR DATOS */
@@ -863,71 +941,238 @@
         });
      });*/
 
+    $('#btnCatTalento').on('click', function(){
 
+		if(sessionStorage.getItem('flagCatTalento') == '1' ){
+
+				let idInscribete = $('#idInscribete').val();
+				let idParticipante = $('#idPartTalento').val();
+
+				var data = {
+					"idInscribete" : idInscribete,
+					"idParticipante" : idParticipante,
+				};
+				$.ajax({
+
+		  			type:'POST',
+		  			dataType: 'json',
+					url: "{{url('akademia_nuevoTalento')}}",
+					data: data,
+
+					beforeSend: function(){					
+					},
+
+					success: function(data){
+
+						if(data == 1){
+							
+							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+							location.reload(true);
+						
+						}else if(data == 2){
+
+							alertify.error('<p style="color:white">El alumno no tiene ningun tipo de control. No puede cambiarlo a categoría talento.</p>');	
+						}else{
+
+							alertify.error('<p>Se produjo un error al cambiar la categoria. </p>')
+						}
+						
+						console.log(data);
+
+						
+					},
+					error: function(data){
+
+						console.log(data);
+					}	
+							
+				});
+
+
+
+		}else{
+
+		}
+
+    });
 
 	$('#btn_guardar_editar_deportista').on( 'click', function() {
 
-		//$("#uploadimage").unbind('submit').bind('submit', function(){
-   		
-   			var formulario = $("#uploadimage")[0];
-   			console.log(formulario);
-
-			let idParticipante = $("#idPart").text();
-			let link = $("#deportista_editar_video_youtube").val();
-	  		let ficha = $('#file');  
-	    	let imgFicha= ficha[0].files;   
-	    	let comentarios = $("#deportista_editar_comentarios").val();
-
-			//let ficha = new FormData($("#uploadimage")[0]);;
-			
-			//console.log(ficha, link, idParticipante);
-			var formData =  new FormData(formulario);
-
-		 	formData.append('idPart',idParticipante);
-		 	formData.append('link',link);
-		 	formData.append('comentarios',comentarios);
-	    	formData.append('archivo[]',imgFicha);
-
-		    $.ajax({
-
-				type:'POST',
-				url: "{{url('akademia_guardarTalento')}}",
-				data: formData,
-				cache: false,
-	            contentType: false,
-	            processData: false,
-
-				beforeSend: function(){				
-					
-				},
-
-				success: function (data){
-					if(data == 1){
-						console.log("elemento guardado");
-					}
-				},
-				error: function(data){
-					console.log(data);
-				}
-			});
-
-
-   		})
-   		//$(".text-danger").remove();
-   		
-   		
-		 
+	//$("#uploadimage").unbind('submit').bind('submit', function(){
 		
+		var formulario = $("#uploadimage")[0];
+		console.log(formulario);
 
-		/*var dataTalento = {
-			"idParticipante" : idParticipante,
-			"link" : link,
-			"ficha" : ficha,
-			"comentarios" : comentarios
-		};*/
+		let idParticipante = $("#idPart").text();
+		let link = $("#deportista_editar_video_youtube").val();
+  		let ficha = $('#file');  
+    	let imgFicha= ficha[0].files;   
+    	let comentarios = $("#deportista_editar_comentarios").val();
 
-	//});
+		//let ficha = new FormData($("#uploadimage")[0]);;
+		
+		//console.log(ficha, link, idParticipante);
+		var formData =  new FormData(formulario);
 
+	 	formData.append('idPart',idParticipante);
+	 	formData.append('link',link);
+	 	formData.append('comentarios',comentarios);
+    	formData.append('archivo[]',imgFicha);
+
+	    $.ajax({
+
+			type:'POST',
+			url: "{{url('akademia_guardarTalento')}}",
+			data: formData,
+			cache: false,
+            contentType: false,
+            processData: false,
+
+			beforeSend: function(){				
+				
+			},
+
+			success: function (data){
+				if(data == 1){
+					console.log("elemento guardado");
+				}
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+
+	});
+
+
+	function clearEdit(){
+
+		$("#fechaEdit").val("");
+		
+		for(let i=0; i < 11; i++){
+			
+			$("#"+(i+1)+"d").val("");
+		}
+
+
+	}
+
+	function listarControlInd(idcontrol){
+
+		let idParticipante = $('#idPartTalento').val();
+		let idControl = idcontrol;
+		
+		var data = {
+  			"idParticipante" : idParticipante,
+  			"idControl" : idcontrol,
+  		}
+
+  		$.ajax({
+
+	  		type:'POST',
+  			dataType: 'json',
+			url: "{{url('akademia_mostrarControlesInd')}}",
+			data: data,
+
+			beforeSend: function(){				
+				
+			},
+			success: function(data){
+
+				if(data != 1){
+					
+					//console.log(idControl);
+
+					//clearEdit();
+					var datos =JSON.parse(data);						
+					$("#fechaEdit").val(datos[0].fecha);
+					$("#idControlInd").text(idControl);
+					
+					for(let i=0; i < datos.length; i++){
+						
+						$("#"+(i+1)+"d").val(datos[i].valor);
+					}
+
+				}else{
+
+					alertify.error('<p style="color:white">Se produjo un error al cargar los datos </p>'); 
+				}
+			},
+			error: function(data){
+
+			},
+  		});
+
+	}
+
+	$("#editarIndicador").on('click', function(){
+
+		let peso = parseFloat($('#1d').val());
+    	let talla = parseFloat($('#2d').val());
+    	let ind50mt = parseFloat($('#3d').val());
+    	let flexTronco = parseFloat($('#4d').val());
+    	let equilibrio = parseFloat($('#5d').val());
+    	let flexBrazo = parseFloat($('#6d').val());
+    	let saltoH = parseFloat($('#7d').val());
+    	let saltoV = parseFloat($('#8d').val());
+    	let lanzamiento = parseFloat($('#9d').val());
+    	let abdominales = parseFloat($('#10d').val());
+    	let milmt = parseFloat($('#11d').val());
+    	let idControl = parseInt($('#idControlInd').text());
+    	let fechaDato = $('#fechaEdit').val();
+
+    	var valorIndicadores = {
+  			"peso" : peso,
+  			"talla" : talla,
+  			"ind50mt" : ind50mt,
+  			"flexTronco" : flexTronco,
+  			"equilibrio" :equilibrio,
+  			"flexBrazo" : flexBrazo,
+  			"saltoH" : saltoH,
+  			"saltoV" : saltoV,
+  			"lanzamiento" : lanzamiento,
+  			"abdominales" : abdominales,
+  			"milmt" : milmt,
+  			"idControl" : idControl,
+  			"fechaDato" : fechaDato,
+  		};
+
+  		console.log(valorIndicadores);
+  		
+  		$.ajax({
+
+	  		type:'POST',
+  			dataType: 'json',
+			url: "{{url('akademia_actualizarIndicador')}}",
+			data: valorIndicadores,
+
+			beforeSend: function(){					
+			},
+
+			success: function(data){
+
+				if(data == 1){
+
+					alertify.success('<p style="color:white"> Se actualizó correctamente el control</p>');
+					location.reload(true);
+					//window.reload();
+					clearEdit();
+
+				}else if(data == 2){
+
+					alertify.error('<p style="color:white">Se produjo un error al actualizar los datos </p>'); 
+				}else{
+
+					alertify.error('<p>Se produjo un error</p>')
+				}
+			},
+			error: function(data){
+				console.log(data);
+			},
+  		});
+
+
+	});
 
 
 </script>

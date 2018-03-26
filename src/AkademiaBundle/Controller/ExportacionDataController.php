@@ -29,26 +29,28 @@ class ExportacionDataController extends Controller
     	
     	$query2='';
     	//MONTH(mov.fecha_modificacion)='$numMes'
+
+
+
     	if( empty($numMes) && empty($departamento) )
     		$query2 = " YEAR(mov.fecha_modificacion)='$ano' ";	
     	
 
     	else if(!empty($numMes) && !empty($departamento) ){
 
-            if(!empty($complejo)){
+        if(!empty($complejo)){
 
-                if(!empty($disciplina))
-                    $query2 = "  YEAR(mov.fecha_modificacion)='$ano' AND ubiDpto.ubidpto='$departamento' AND MONTH(mov.fecha_modificacion)='$numMes' AND ede.ede_codigo='$complejo' AND dis.dis_codigo='$disciplina' ";     
-                else
-                    $query2 = "  YEAR(mov.fecha_modificacion)='$ano' AND ubiDpto.ubidpto='$departamento' AND MONTH(mov.fecha_modificacion)='$numMes' AND ede.ede_codigo='$complejo' "; 
-                 
-            }
+            if(!empty($disciplina))
+                $query2 = "  YEAR(mov.fecha_modificacion)='$ano' AND ubiDpto.ubidpto='$departamento' AND MONTH(mov.fecha_modificacion)='$numMes' AND ede.ede_codigo='$complejo' AND dis.dis_codigo='$disciplina' ";     
+            else
+                $query2 = "  YEAR(mov.fecha_modificacion)='$ano' AND ubiDpto.ubidpto='$departamento' AND MONTH(mov.fecha_modificacion)='$numMes' AND ede.ede_codigo='$complejo' ";              
+        }
 
     		else
                $query2 = "  YEAR(mov.fecha_modificacion)='$ano' AND ubiDpto.ubidpto='$departamento' AND MONTH(mov.fecha_modificacion)='$numMes' ";   	
     	}
 
-        else if(!empty($numMes) && empty($departamento) )
+      else if(!empty($numMes) && empty($departamento) )
             $query2 = "  YEAR(mov.fecha_modificacion)='$ano' AND MONTH(mov.fecha_modificacion)='$numMes' "; 
         
 
@@ -121,7 +123,7 @@ class ExportacionDataController extends Controller
                 inner join CATASTRO.disciplina dis on dis.dis_codigo = edi.dis_codigo
                 inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
                 inner join grpersona grApod on grApod.percodigo = apod.percodigo
-                inner join grubigeo ubi on ubi.ubicodigo = grApod.perubigeo
+                inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
 								inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
 								WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0 AND ".$query2;
 			
@@ -145,20 +147,40 @@ class ExportacionDataController extends Controller
 
     	//$perfil = $this->getUser->getIdPerfil();
     	//$idComplejo = $this->getUser->getIdComplejo();
-
+      
     	$perfil = $this->getUser()->getIdPerfil();
     	$idComplejo = $this->getUser()->getIdComplejo();
-
-    	$em = $this->getDoctrine()->getManager();
+    	
+      $em = $this->getDoctrine()->getManager();
 
     	if($perfil == 2){
-    		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExport();		
+    		
+        $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExport();		
     		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExport();
     
     	}else if($perfil == 1) {
 
-    		$mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind($idComplejo);
-    		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind($idComplejo);
+      /*
+    		$data = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind($idComplejo);
+
+        if(!empty($data)){
+            $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind($idComplejo);
+        }else{
+            $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);
+        }
+
+        $data2 = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind($idComplejo);
+
+        if(!empty($data2)){
+          $mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind($idComplejo);
+        }else{
+          $mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
+        }
+
+      */
+
+      $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);        
+    	$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
     	}
 
     	$mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
@@ -166,5 +188,6 @@ class ExportacionDataController extends Controller
     	$mdlDisciplinasDeportivasExport = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinaDeportivaExport();
     	
       return $this->render('AkademiaBundle:Export:export.html.twig',array('departamentosExport' => $mdlDepartamentosExport,'departamentosAll' => $mdlDepartamentos,'ComplejoDeportivoExport' => $mdlComplejoDeportivoExport,'DisciplinaDeportivaExport' => $mdlDisciplinasDeportivasExport)); 
+    
     }
 }

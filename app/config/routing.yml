@@ -10,4 +10,4 @@ akademia:
 
 #app:
 #    resource: '@AppBundle/Controller/'
- #   type: annotation
+#   type: annotation
