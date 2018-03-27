@@ -179,7 +179,7 @@ class ExportacionDataController extends Controller
 
 
     	//	$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
-    	}
+    	}  
 
     	$mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
 

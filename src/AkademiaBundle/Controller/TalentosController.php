@@ -17,13 +17,16 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\HttpFoundation\FileBag; 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+//use Symfony\Component\HttpFoundation\FileBag; 
+//use Symfony\Component\HttpFoundation\File\UploadedFile;
+//use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
 class TalentosController extends controller
 {
+
 	public function evaluadosAction(Request $request){
 
 	 	    $fc = $this->getDoctrine()->getManager();
@@ -52,77 +55,6 @@ class TalentosController extends controller
     }
 
 
-    public function guardarTalentoAction(Request $request){
-
-    	if($request->isXmlHttpRequest()){
-   			
-   			$idParticipante = $request->request->get('idPart');
-           	$link = $request->request->get('link');
-           	$imgficha = $request->request->get('archivo');
-            $comentarios = $request->request->get('comentarios');
-            var_dump($idParticipante);
-            var_dump($link);
-            var_dump($comentarios);
-            var_dump($imgficha);
-
-          	
-			//$nombre = $_FILES[$imgficha]['name'];
-			//$tipo = $_FILES['archivo']['type'];
-			//$tamanio = $_FILES['archivo']['size'];
-
-			//$file = $request->files->get('archivo');
-	    //	$fileResolucion = $file->get("archivo");
-			
-        //    $fileFicha = $request->files->get('archivo');
-           // var_dump($fileFicha);
-
-	     /*   if (!empty($fileFicha)){
-		        $nombreFicha = date('YmdHis').'.png';
-		       // $fileNombre = $nombreFicha . '.' . $imgficha->guessExtension();
-		        $ruta = "images/upload/";
-		        $fileResolucion->move($ruta, $nombreFicha);
-		      //  $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-		       // var_dump($fileResolucion);
-		    //}else{
-
-		      //  $fileNombre="";
-		       // var_dump($fileNombre);
-		    }*/
-
-		    var_dump($request->files->all());
-            //$file = $request->files();
-	   		//$fileResolucion = $file->get("ficha");
-	   		
-
-		/*	$nombre = $_FILES['archivo']['name'];
-			$tipo = $_FILES['archivo']['type'];
-			$tamanio = $_FILES['archivo']['size'];
-			$ruta = $_FILES['archivo']['tmp_name'];
-			$destino = "archivos/" . $nombre;*/
-
-
-            $mensaje = 1;
-            return new JsonResponse($mensaje);
-
-          //  $fc = $this->getDoctrine()->getManager();
-            
-           // $registro = $fc->getRepository('AkademiaBundle:Participante')->guardarTalento($idParticipante, $link, $imgficha, $comentarios);
-	        
-	      /*  if(empty($registro)){
-
-	        	$mensaje = 1;
-                return new JsonResponse($mensaje);
-	        
-	        }else{
-	        
-	        	$mensaje = 2;
-                return new JsonResponse($mensaje);
-	        }
-	        */
-    	}
-
-    }
-
 
     public function nuevoControlAction(Request $request){
     	if($request->isXmlHttpRequest()){
@@ -145,11 +77,12 @@ class TalentosController extends controller
   			$idParticipante = $request->get('idParticipante');
         $idInscribete = $request->get('idInscribete');
   			$fechaDato = $request->get('fechaDato');
-  			$fechaHoy = date('Y-m-d');
-  		
-      //	var_dump($fechaHoy);
-        var_dump($fechaDato);
+        //$fechaDato=  $request->get(new \DateTime('fechaDato'));
 
+        //$fechita = new \DateTime($fechaDato);
+  			//$fechaHoy = date('Y-m-d');
+  	
+  
   			$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControl($fechaDato, $idParticipante, $usuario);
 
   			if($nuevoControl == 1){
@@ -173,7 +106,7 @@ class TalentosController extends controller
   				if(!empty($idNuevoControl)){
   				  
             //echo "entro a la creacion de nuevos indicadores";
-  					$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
+  					$fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
             
            // echo "seguimos aquii";
             //var_dump($nuevoControl);
@@ -292,15 +225,51 @@ class TalentosController extends controller
     }
   }
 
+  public function guardarTalentoAction(Request $request){
+
+      $em = $this->getDoctrine()->getManager();
+      
+      $link = $request->get('link');
+      $comentarios = $request->get('comentarios');     
+      $file = $request->files;
+      $filefoto = $file->get("imagen");
+
+      var_dump($file);
+
+      exit;
+
+    /*  if (!empty($fileResolucion)){
+          
+          $nombreFicha = date('YmdHis').'.png';
+          $fileNombre = $nombreFicha . '.' . $fileResolucion->guessExtension();
+          $ruta = "images/upload/";
+          $fileResolucion->move($ruta, $nombreFicha);
+          //  $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+           // var_dump($fileResolucion);
+        //}else{
+
+          //  $fileNombre="";
+           // var_dump($fileNombre);
+      }*/
+
+    
+
+
+
+
+  }
+
 	public function GuardarResolucionAction(Request $request){
 	    
-	    //$session = new Session();
+
+       
+	    //$session = new Session();-
 	    //$User = $session->get('usuario');
 	    //if (empty($User)) {
 	      //  return $this->redirectToRoute('login_usuario');
 	    //}
 	    
-	    $coduser = $User['usucodigo'];
+	    /*$coduser = $User['usucodigo'];
 	    $em = $this->getDoctrine()->getManager();
 	   
 	    $codigoresol=$request->get('txtcodigoresol');
@@ -325,7 +294,7 @@ class TalentosController extends controller
 	    $GuardarResolucion= $em->getRepository('ResolucionBundle:query')
 	                     ->GuardarResolucion($codigoresol,$expediente ,$numero,$fecha,$tipo,$resuelve,$sancion,$fileName,$coduser);
 	    echo $GuardarResolucion['msj'];
-	    exit;
+	    exit;*/
 	}
 
   public function mostrarDetalleTalentoAction (Request $request, $idParticipante){

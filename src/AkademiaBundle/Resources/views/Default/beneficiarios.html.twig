@@ -1,3 +1,4 @@
+
 {% extends '::base.html.twig' %}
 {% block title %}La Academia{% endblock %}
 {% block body  %}
@@ -179,6 +180,8 @@
 														<td class="text-center" >Seleccionado</td>
 													{% elseif beneficiario['idCategoria'] == 3 %}
 														<td class="text-center">Evaluado</td>
+													{% elseif beneficiario['idCategoria'] == 4 %}
+														<td class="text-center">Talento</td>
 													{% endif %} 
 
 													{% if beneficiario['idAsistencia'] == 1 %}
@@ -354,14 +357,21 @@
 										<p><strong>Categoría</strong></p>
 									</div>
 									<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-										<select class="form-control" id="categoriaParticipante">
+										<select class="form-control" id="categoriaParticipante"  name="categoriaParticipante">
 											<option value="0">--Seleccionar--</option>
+											<option value="3" id="optiones">Evaluado</option>
+											<option value="4" id="optiones2">Talento</option>
+										
 											{% for categoria in categorias %}
 												{% if categoria['id'] != 3 and categoria['id'] != 4 %}
-												<option value="{{categoria['id']}}">{{categoria['descripcion']}}</option>
+													<option value="{{categoria['id']}}">{{categoria['descripcion']}}</option>
+
 												{% endif %}
 											{% endfor %}
 										</select>
+
+
+
 									</div>
 								</div>
 							</li>	
@@ -407,7 +417,10 @@
 
 			$('#btn-close-alert-editar-participante').click(function(){
 				hideAlertMessage('#alert-editar-participante')
-			});			
+			});	
+
+			$("#optiones").attr('hidden',true);
+			$("#optiones2").attr('hidden',true);		
 
 		});
 
@@ -462,15 +475,50 @@
 					var idCat = {{beneficiario['idCategoria']}};
 					var idAsis = {{beneficiario['idAsistencia']}};
 
+					let categoria = parseInt(idCat);
+
+
 					if(idAsis == 1){
 						
 						$("#asistenciaParticipante").val(0);
+
 
 					}else{
 
 						$("#cbx-categoria").show();
 						$("#asistenciaParticipante").val(idAsis);
-						$("#categoriaParticipante").val(idCat);
+
+						if(categoria == 3 || categoria == 4){
+
+							//$("#categoriaParticipante").attr('text','TALENTO');
+
+							console.log('1 o 2');
+
+							$("#optiones").attr('hidden',false);
+							$("#optiones2").attr('hidden',false);
+
+							if(categoria == 3){
+								$("#categoriaParticipante").val('3');
+							}else if (categoria == 4){
+								$("#categoriaParticipante").val('4');
+							}
+						
+							//$('select option[value="0"]').attr("selected", true);
+							
+							$("#categoriaParticipante").attr('readonly',true);
+							$("#categoriaParticipante").attr('disabled',true);
+					
+						}else{
+
+							$("#optiones").attr('hidden',true);
+							$("#optiones2").attr('hidden',true);
+							$("#categoriaParticipante").attr('readonly',false);
+							$("#categoriaParticipante").attr('disabled',false);
+							$("#categoriaParticipante").val(idCat);
+							
+						
+						}
+						
 					}
 
 					$("#fecha-modificacion").append("<p>{{beneficiario['fechita']}}</p>")

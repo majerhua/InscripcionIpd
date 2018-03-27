@@ -148,7 +148,7 @@ akademia_talentos:
 
 akademia_guardarTalento:
     path:     /ajax/guardarTalento
-    defaults: { _controller: AkademiaBundle:Talentos:guardarTalento }
+    defaults: { _controller: AkademiaBundle:Talentos:guardarTalento}
     methods:  [GET,POST]
 
 akademia_mostrarControlesInd:

@@ -302,8 +302,8 @@
 
 <div id="modal-editar_participante" class="modal fade" role="dialog">
 	<div class="modal-dialog">
-
-		<form id="uploadimage" enctype="multipart/form-data" method="POST">
+		
+		<form id="uploadimage" action="#" enctype="multipart/form-data">
 			<div class="modal-content">
 				<div class="modal-header text-center">
 					<button type="button" class="close text-center" data-dismiss="modal">&times;</button>
@@ -332,7 +332,7 @@
 											<p><strong>Video Youtube</strong></p>
 										</div>
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-											<input id="deportista_editar_video_youtube" class="form-control" name="video_youtube" type="text" placeholder=" www.youtube.com/jir931qXG">
+											<input id="link" class="form-control" name="link" value="hola" type="text" placeholder=" www.youtube.com/jir931qXG">
 										</div>
 									</div>
 								</li>
@@ -344,7 +344,7 @@
 										</div>
 
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-											<input type="file" name="files[]" multiple id="file" class="form-control" placeholder="ficha_tecnica.jpg">
+											<input type="file" name="imagen" multiple id="imagen" class="form-control" placeholder="ficha_tecnica.jpg">
 										</div>
 									 	
 									</div>
@@ -356,7 +356,7 @@
 											<p><strong>Comentarios:</strong></p>
 										</div>
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-											<textarea id="deportista_editar_comentarios" name="comentarios" maxlength="300" class="form-control" rows="5" id="comment"></textarea>
+											<textarea id="comentarios" name="comentarios" maxlength="300" class="form-control" rows="5" id="comment"></textarea>
 										</div>
 									</div>
 								</li>
@@ -377,12 +377,12 @@
 								</li>-->
 							</ul>
 						</div>
-	               	</div>
+	               	</div>x
 				</div>
 				<div class="modal-footer">
 
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button id="btn_guardar_editar_deportista" type="submit" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+					<button id="btn_guardar_editar_deportista" type="button" class="btn btn-danger">Guardar</button>
 
 				</div>
 			</div>
@@ -786,6 +786,42 @@
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
 
 <script type="text/javascript">
+
+
+/*IMAGENES*/
+
+	$('#btn_guardar_editar_deportista').on( 'click', function() {
+
+	//$("#uploadimage").unbind('submit').bind('submit', function(){		
+		var formulario = new FormData($("#uploadimage")[0]);
+		console.log(formulario);
+
+	    $.ajax({
+
+			type:'POST',
+			url: "{{url('akademia_guardarTalento')}}",
+			data: formulario,
+			cache: false,
+            contentType: false,
+            processData: false,
+
+			beforeSend: function(){				
+				
+			},
+
+			success: function (data){
+				
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+
+	});
+
+
+
+
 	
 	/* MOSTRAR MENSAJE DE ALERTA */
 	function showAlertMessage(alert, mensaje){
@@ -860,7 +896,7 @@
   			"idInscribete" : idInscribete,
   			"fechaDato" : fechaDato,
   		};
-
+console.log(valorIndicadores);
   		$.ajax({
 
   			type:'POST',
@@ -877,8 +913,9 @@
 				console.log(data);
 
 				if(data == 1){
+					
 					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-					location.reload(true);				
+					//location.reload(true);				
 
 				}else{
 					alertify.error('<p>Errorrrrrrrrrr</p>');
@@ -996,53 +1033,6 @@
 
     });
 
-	$('#btn_guardar_editar_deportista').on( 'click', function() {
-
-	//$("#uploadimage").unbind('submit').bind('submit', function(){
-		
-		var formulario = $("#uploadimage")[0];
-		console.log(formulario);
-
-		let idParticipante = $("#idPart").text();
-		let link = $("#deportista_editar_video_youtube").val();
-  		let ficha = $('#file');  
-    	let imgFicha= ficha[0].files;   
-    	let comentarios = $("#deportista_editar_comentarios").val();
-
-		//let ficha = new FormData($("#uploadimage")[0]);;
-		
-		//console.log(ficha, link, idParticipante);
-		var formData =  new FormData(formulario);
-
-	 	formData.append('idPart',idParticipante);
-	 	formData.append('link',link);
-	 	formData.append('comentarios',comentarios);
-    	formData.append('archivo[]',imgFicha);
-
-	    $.ajax({
-
-			type:'POST',
-			url: "{{url('akademia_guardarTalento')}}",
-			data: formData,
-			cache: false,
-            contentType: false,
-            processData: false,
-
-			beforeSend: function(){				
-				
-			},
-
-			success: function (data){
-				if(data == 1){
-					console.log("elemento guardado");
-				}
-			},
-			error: function(data){
-				console.log(data);
-			}
-		});
-
-	});
 
 
 	function clearEdit(){
