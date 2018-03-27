@@ -360,21 +360,6 @@
 										</div>
 									</div>
 								</li>
-								<!--<li class="list-group-item">
-									<div class="row">
-										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><strong>Categoría</strong></p>
-										</div>
-										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-											<select class="form-control">
-												<option value="0">--Seleccionar--</option>
-												<option value="2">Seleccionado</option>
-												<option value="3">Evaluado</option>
-												<option value="4">Talento</option>
-											</select>
-										</div>
-									</div>
-								</li>-->
 							</ul>
 						</div>
 	               	</div>x
@@ -811,6 +796,7 @@
 
 			success: function (data){
 				
+				alertify.success("Los cambios se efectuaron correctamente");
 			},
 			error: function(data){
 				console.log(data);
@@ -896,7 +882,9 @@
   			"idInscribete" : idInscribete,
   			"fechaDato" : fechaDato,
   		};
-console.log(valorIndicadores);
+	
+		console.log(valorIndicadores);
+  	
   		$.ajax({
 
   			type:'POST',
@@ -908,25 +896,11 @@ console.log(valorIndicadores);
 			},
 
 			success: function(data){
-
-				alert("Entroo");
-				console.log(data);
-
-				if(data == 1){
-					
-					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-					//location.reload(true);				
-
-				}else{
-					alertify.error('<p>Errorrrrrrrrrr</p>');
-				}
-
 				
-				/*if(data == 1){
+				if(data == 1){
 
 					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
 					location.reload(true);
-					
 										
 				}else if(data == 2){
 
@@ -937,19 +911,11 @@ console.log(valorIndicadores);
 
 					alertify.error('<p style="color:white">no existen valor de indicadores </p>');	
 					console.log(data);
-				}*/
-
-
+				}
 			},
 
-			error: function(data){
-
-				console.log(data);
-							
-				alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-				location.reload(true);				
-
-
+			error: function(error){
+				console.log(error);
 			},
 
   		});
@@ -985,26 +951,23 @@ console.log(valorIndicadores);
 				let idInscribete = $('#idInscribete').val();
 				let idParticipante = $('#idPartTalento').val();
 
-				var data = {
+				var dataEnvio = {
 					"idInscribete" : idInscribete,
-					"idParticipante" : idParticipante,
+					"idParticipante" : idParticipante
 				};
+
 				$.ajax({
 
 		  			type:'POST',
-		  			dataType: 'json',
 					url: "{{url('akademia_nuevoTalento')}}",
-					data: data,
-
-					beforeSend: function(){					
-					},
-
+					data: dataEnvio,
+					
 					success: function(data){
+						console.log(data);
 
 						if(data == 1){
-							
-							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-							location.reload(true);
+							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');
+							window.location.href = "{{url('akademia_mostrarTalentos')}}";	
 						
 						}else if(data == 2){
 
@@ -1013,15 +976,14 @@ console.log(valorIndicadores);
 
 							alertify.error('<p>Se produjo un error al cambiar la categoria. </p>')
 						}
-						
-						console.log(data);
 
 						
 					},
-					error: function(data){
+					error: function(error){
 
-						console.log(data);
-					}	
+						alert("se produjo un error");
+						console.log(error);
+					}
 							
 				});
 
@@ -1029,6 +991,7 @@ console.log(valorIndicadores);
 
 		}else{
 
+			alertify.error('<p>Se produjo un error al cambiar la categoria. </p>')
 		}
 
     });

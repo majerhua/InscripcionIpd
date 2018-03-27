@@ -89,7 +89,7 @@ class TalentosController extends controller
 
           $cantidadControl = $fc->getRepository('AkademiaBundle:Participante')->cantidadControl($idParticipante);
           $num = $cantidadControl[0]['cantidad'];
-          var_dump($num);
+       
 
           if($num == 1 ){
               /*CREAR UN MOVIMIENTO DE EVALUADO AUTOMATICAMENTE DEL PARTICIPANTE*/
@@ -100,10 +100,7 @@ class TalentosController extends controller
   				$idNuevoControl = $idControl[0]['id'];
           $idNewControl = intval($idNuevoControl);
 
-          var_dump($idNewControl);
-
-
-  				if(!empty($idNuevoControl)){
+    			if(!empty($idNuevoControl)){
   				  
             //echo "entro a la creacion de nuevos indicadores";
   					$fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
@@ -129,28 +126,27 @@ class TalentosController extends controller
 
     //NUEVO TALENTO
     public function nuevoTalentoAction(Request $request){
-      if($request->isXmlHttpRequest()){
 
-          $fc = $this->getDoctrine()->getManager();
-          $usuario = $this->getUser()->getId();
-          $idInscribete = $request->get('idInscribete');
-          $idParticipante = $request->get('idParticipante');
+      $fc = $this->getDoctrine()->getManager();
+      $usuario = $this->getUser()->getId();
 
-          $cantidadControl = $fc->getRepository('AkademiaBundle:Participante')->cantidadControl($idParticipante);
-          $num = $cantidadControl[0]['cantidad'];
-          var_dump($num);
+      $idInscribete = $request->request->get('idInscribete');
+      $idParticipante = $request->request->get('idParticipante');
 
-          if($num != 0 ){
-              $fc->getRepository('AkademiaBundle:Participante')->registrarMovTal($idInscribete,$usuario);
-              $mensaje = 1;
-              return new JsonResponse($mensaje);
-          }else{
-              $mensaje = 2;
-              return new JsonResponse($mensaje);
-          }
+      $cantidadControl = $fc->getRepository('AkademiaBundle:Participante')->cantidadControl($idParticipante);
+      $num = $cantidadControl[0]['cantidad'];
+
+      if($num != 0 ){
+        
+        $fc-> getRepository('AkademiaBundle:Participante')->registrarMovTal($idInscribete,$usuario);             
+        $mensaje = 1;
+        return new JsonResponse($mensaje);
+        
+      }else{
       
+        $mensaje = 2;
+        return new JsonResponse($mensaje);
       }
-
     }
 
 

@@ -188,7 +188,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
         $query = "INSERT into academia.movimientos(categoria_id, asistencia_id, inscribete_id, fecha_modificacion, usuario_valida)
                  values(4,2,$idInscribete, getdate(),$usuario)";
-        $stmt =$this->getEntityManager()->getConnection()->prepare($query);
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
     }
 
