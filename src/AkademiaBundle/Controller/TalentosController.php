@@ -23,22 +23,22 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class TalentosController extends controller
 {
 
-	public function evaluadosAction(Request $request){
+  public function evaluadosAction(Request $request){
 
-	 	    $fc = $this->getDoctrine()->getManager();
+        $fc = $this->getDoctrine()->getManager();
         $Seleccionados = $fc->getRepository('AkademiaBundle:Participante')->getMostrarSeleccionados();
 
-    	return $this->render('AkademiaBundle:Default:evaluados.html.twig', array("seleccionados" => $Seleccionados ));
+      return $this->render('AkademiaBundle:Default:evaluados.html.twig', array("seleccionados" => $Seleccionados ));
    
     }
 
     public function talentosAction(Request $request, $idParticipante){
 
-    	$fc = $this->getDoctrine()->getManager();
-    	$talento = $fc->getRepository('AkademiaBundle:Participante')->getMostrarTalento($idParticipante);
-    	$controles = $fc->getRepository('AkademiaBundle:Participante')->getMostrarControles($idParticipante);
-    	$numControl = $fc->getRepository('AkademiaBundle:Participante')->getNumeroControl($idParticipante);
-    	return $this->render('AkademiaBundle:Default:talento.html.twig',array('talento' => $talento, 'controles' => $controles, 'numeros' =>$numControl));
+      $fc = $this->getDoctrine()->getManager();
+      $talento = $fc->getRepository('AkademiaBundle:Participante')->getMostrarTalento($idParticipante);
+      $controles = $fc->getRepository('AkademiaBundle:Participante')->getMostrarControles($idParticipante);
+      $numControl = $fc->getRepository('AkademiaBundle:Participante')->getNumeroControl($idParticipante);
+      return $this->render('AkademiaBundle:Default:talento.html.twig',array('talento' => $talento, 'controles' => $controles, 'numeros' =>$numControl));
     }
 
 
@@ -53,30 +53,30 @@ class TalentosController extends controller
 
 
     public function nuevoControlAction(Request $request){
-    	if($request->isXmlHttpRequest()){
+      if($request->isXmlHttpRequest()){
 
-    		$fc = $this->getDoctrine()->getManager();
+        $fc = $this->getDoctrine()->getManager();
 
-    		$usuario = $this->getUser()->getId();
-	   
-    		$peso = $request->get('peso');
-  			$talla = $request->get('talla');
-  			$ind50mt = $request->get('ind50mt');
-  			$flexTronco = $request->get('flexTronco');
-  			$equilibrio = $request->get('equilibrio');
-  			$flexBrazo = $request->get('flexBrazo');
-  			$saltoH = $request->get('saltoH');
-  			$saltoV = $request->get('saltoV');
-  			$lanzamiento = $request->get('lanzamiento');
-  			$abdominales = $request->get('abdominales');
-  			$milmt = $request->get('milmt');
-  			$idParticipante = $request->get('idParticipante');
+        $usuario = $this->getUser()->getId();
+     
+        $peso = $request->get('peso');
+        $talla = $request->get('talla');
+        $ind50mt = $request->get('ind50mt');
+        $flexTronco = $request->get('flexTronco');
+        $equilibrio = $request->get('equilibrio');
+        $flexBrazo = $request->get('flexBrazo');
+        $saltoH = $request->get('saltoH');
+        $saltoV = $request->get('saltoV');
+        $lanzamiento = $request->get('lanzamiento');
+        $abdominales = $request->get('abdominales');
+        $milmt = $request->get('milmt');
+        $idParticipante = $request->get('idParticipante');
         $idInscribete = $request->get('idInscribete');
-  			$fechaDato = $request->get('fechaDato');
+        $fechaDato = $request->get('fechaDato');
   
-  			$nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControl($fechaDato, $idParticipante, $usuario);
+        $nuevoControl = $fc->getRepository('AkademiaBundle:Participante')->nuevoControl($fechaDato, $idParticipante, $usuario);
 
-  			if($nuevoControl == 1){
+        if($nuevoControl == 1){
 
           $cantidadControl = $fc->getRepository('AkademiaBundle:Participante')->cantidadControl($idParticipante);
           $num = $cantidadControl[0]['cantidad'];
@@ -88,28 +88,28 @@ class TalentosController extends controller
               $fc->getRepository('AkademiaBundle:Participante')->registrarMovEva($idInscribete,$usuario);
           }
 
-  				$idControl = $fc->getRepository('AkademiaBundle:Participante')->retornoIdControl($idParticipante);
-  				$idNuevoControl = $idControl[0]['id'];
+          $idControl = $fc->getRepository('AkademiaBundle:Participante')->retornoIdControl($idParticipante);
+          $idNuevoControl = $idControl[0]['id'];
           $idNewControl = intval($idNuevoControl);
 
-    			if(!empty($idNuevoControl)){
-  				  
-  					$fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
+          if(!empty($idNuevoControl)){
+            
+            $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
 
-  					$mensaje = 1;
-  					return new JsonResponse($mensaje);
+            $mensaje = 1;
+            return new JsonResponse($mensaje);
   
-  				}else{
-  					$mensaje = 3;
-  			  	return new JsonResponse($mensaje);
-  				}
+          }else{
+            $mensaje = 3;
+            return new JsonResponse($mensaje);
+          }
   
-  			}else{
-  				$mensaje = 2;
+        }else{
+          $mensaje = 2;
           return new JsonResponse($mensaje);
-  			}
+        }
   
-    	}	
+      } 
     }
 
     //NUEVO TALENTO
@@ -140,15 +140,15 @@ class TalentosController extends controller
 
     public function mostrarControlesIndAction(Request $request){
 
-    	if($request->isXmlHttpRequest()){
+      if($request->isXmlHttpRequest()){
 
-    		$fc = $this->getDoctrine()->getManager();
-    		$idParticipante = $request->get('idParticipante');
-    		$idControl = $request->get('idControl');
+        $fc = $this->getDoctrine()->getManager();
+        $idParticipante = $request->get('idParticipante');
+        $idControl = $request->get('idControl');
 
-    		$datos = $fc->getRepository('AkademiaBundle:Participante')->listarControlInd($idParticipante, $idControl);
+        $datos = $fc->getRepository('AkademiaBundle:Participante')->listarControlInd($idParticipante, $idControl);
 
-			if(!empty($datos)){
+      if(!empty($datos)){
             
                 $encoders = array(new JsonEncoder());
                 $normalizer = new ObjectNormalizer();
@@ -167,7 +167,7 @@ class TalentosController extends controller
                 return new JsonResponse($mensaje);
             }
 
-    	}
+      }
 
     }
 

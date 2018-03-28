@@ -21,11 +21,14 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 				    inner join ACADEMIA.participante par on par.id = ins.participante_id
 				    inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
 				    inner join grpersona grApod on grApod.percodigo = apod.percodigo
-				    inner join grubigeo ubi on ubi.ubicodigo = grApod.perubigeo
-					inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+
 					inner join ACADEMIA.horario hor on hor.id=ins.horario_id
 					inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
 				    inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+
+				    inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
+					inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+
 					WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0;";
 				           $stmt = $this->getEntityManager()->getConnection()->prepare($query);
            $stmt->execute();
@@ -44,11 +47,14 @@ class ComplejoDeportivoRepository extends \Doctrine\ORM\EntityRepository
 				    inner join ACADEMIA.participante par on par.id = ins.participante_id
 				    inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
 				    inner join grpersona grApod on grApod.percodigo = apod.percodigo
-				    inner join grubigeo ubi on ubi.ubicodigo = grApod.perubigeo
-					inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+
 					inner join ACADEMIA.horario hor on hor.id=ins.horario_id
 					inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
 				    inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+
+				    inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
+					inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+				    
 					WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0 AND ede.ede_codigo='$id' ";
            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
            $stmt->execute();

@@ -249,7 +249,6 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $query = "UPDATE academia.participante set visible_app = $visibilidad where id = $idParticipante";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
-    
     }
 
     public function listarTalentos(){
