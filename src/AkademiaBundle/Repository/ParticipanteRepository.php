@@ -111,8 +111,10 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 par.id as idParticipante,
                 par.dni as dni, 
                 par.link as link,
-                par.ficha_ruta as foto,
+                par.ficha_ruta as ficha,
+                par.foto_ruta as foto,
                 par.comentarios as comentarios,
+                par.visible_app as visible,
                 (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
                 per.persexo as sexo,
                 dis.dis_descripcion as nombreDisciplina,
@@ -158,9 +160,9 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function guardarTalento($idParticipante, $link, $imgficha, $comentarios){
+    public function guardarTalento($idParticipante, $link, $ficha,$foto, $comentarios){
 
-        $query = "UPDATE academia.participante  SET link= '$link',ficha='$imgficha',comentarios='$comentarios' WHERE id=$idParticipante";
+        $query = "UPDATE academia.participante  SET link='$link',ficha_ruta='$ficha',comentarios='$comentarios', foto_ruta='$foto' WHERE id=$idParticipante";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
 
@@ -242,6 +244,14 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         return $datos;    
     }
 
+    public function actualizarVisibilidad($idParticipante, $visibilidad){
+        
+        $query = "UPDATE academia.participante set visible_app = $visibilidad where id = $idParticipante";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+    
+    }
+
     public function listarTalentos(){
 
         $query ="SELECT 
@@ -281,6 +291,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
 
     }
+
 
 
 }

@@ -42,18 +42,22 @@
                 <h3 class="text-center" style="color:black">{{talento[0]['nombre']}} </h3>
                 <p  class="text-center" style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
                 <input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
-                <!--<h4 style="color:grey" class="text-center">TALENTO IPD</h4>-->
                 <hr>
 
-                {% if talento[0]['sexo'] == 0 %}
+                {% if talento[0]['foto'] != NULL %}
                     <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">              
-                        <img src="{{ asset('assets/images/woman.png')}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
+                        <img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">               
+
                     </div>
+                
                 {% else %}
+
                     <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">              
-                        <img src="{{ asset('assets/images/man.png')}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
+                        <img src="{{ asset('assets/images/man.png')}}" width="150" height="160" style="margin-top: 30px; margin-bottom: 10px;">
                     </div>
-                {% endif %} 
+
+                {% endif %}
+                
 
                 <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">              
                     <br>
@@ -118,21 +122,22 @@
                                     <strong><p>Ficha técnica: </p></strong>
                                 </div>                      
                                 <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
-                                    <img id="deportista_ficha_tecnica"  src="{{talento[0]['foto']}}"  >             
-                                </div>                      
+                                    <a href="{{ asset('assets/images/imagesFicha')}}/{{talento[0]['ficha']}}" target="_blank"> Link Ficha</a>           
+                                </div>  
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">              
                             <div class="row">
+
                                 <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
                                     <strong><p>Video Youtube:</p></strong>
                                 </div>                      
-                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">                
-                                    <p id="deportista_video_youtube">{{talento[0]['link']}}</p>
-                                </div>                      
+                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
+                                    <a href="{{talento[0]['link']}}" target="_blank"> Link Video </a>
+                                </div>                          
                             </div>
-                        </div>                        
+                        </div>                 
                     </div>
 
                     <div class="row">
@@ -146,30 +151,75 @@
                                 </div>
                             </div> 
                         </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4">
+                                    <strong><p>App : </p></strong>
+                                </div>
+                                <div class="form-group col-xs-7 col-sm-7 col-md-8 col-lg-8">
+                                    {% if talento[0]['visible'] == 0 %}
+                                        <p>No es visible.</p>
+                                    {% else %}
+                                        <p>Sí es visible.</p>
+                                    {% endif %}
+                                </div>
+                            </div> 
+                        </div>
+
                     </div>
+
                     <hr>
+
+
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-ld-12 ">
+                        <div class="form-group col-xs-11 col-sm-11 col-md-11 col-ld-11 ">
                             <div class="row">
                                 <div class="form-group col-xs-8 col-sm-8 col-md-8 col-ld-8">
-                                    <p style="color:grey">¿Deseas que este participante sea visto desde el App Mobile ?</p>
+                                    <p style="color:grey">¿Deseas que este participante sea visto desde el App Mobile ? </p>
                                 </div>
-                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2 accordion">  
+                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">  
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="cbx-horario" id="cbx-horario" value="1">
+                                            <input type="checkbox" name="cbx-visualizacion" id="cbx-visualizacion" value="1">
                                         </span>
                                         <p type="text" class="form-control">Si</p>
                                     </div>
                                 </div>
-                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2 accordion">  
-                                   <button title="Guardar" id="boton" class="btn btn-danger" data-toggle="modal"><i class="icon-save"></i></button>
+
+                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">  
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" name="cbx-novisualizacion" id="cbx-novisualizacion" value="0">
+                                        </span>
+                                        <p type="text" class="form-control">No</p>
+                                    </div>
                                 </div>
+
                             </div>
                             <br>
-
+                            <div id="advertencia" class="alert alert-success collapse text-center">
+                                <div class="row">
+                                    <div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
+                                        <p style="font-size:14px"> Este nuevo talento será visto a nivel nacional desde la aplicación AcademiaApp. <br>¿ Deseas continuar ?</p>
+                                    </div>
+                                    <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                                         <button title="Guardar" id="btnCatTalento" class="btn btn-danger" data-toggle="modal"><i class="icon-save"></i> Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div id="advertencia1" class="alert alert-danger collapse text-center">
+                                <div class="row">
+                                    <div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
+                                        <p style="font-size:14px"> No se mostrará información de este talento en la aplicación AcademiaApp <br>¿ Deseas continuar ?</p>
+                                    </div>
+                                    <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                                         <button title="Guardar" id="btnCatTalento1" class="btn btn-danger" data-toggle="modal"><i class="icon-save"> </i> Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>                   
+                    </div>  
                 </div>
             </div>
         </div>
@@ -298,6 +348,116 @@
 
 <script type="text/javascript">
     
+    /*MOSTRAR TALENTO EN LA APLICACION MOVIL*/
+
+    $('#cbx-visualizacion').on( 'click', function() {
+        
+        if($(this).is(':checked'))
+        {
+            $("#advertencia").show();
+            $("#advertencia1").hide();
+            $("#cbx-novisualizacion").prop('checked', false);
+            sessionStorage.setItem('flagCatTalento',$(this).val());
+        
+        }else{
+
+            $("#advertencia").hide();
+            sessionStorage.removeItem('flagCatTalento');
+        }
+    });   
+
+    $('#cbx-novisualizacion').on( 'click', function() {
+        
+        if($(this).is(':checked'))
+        {
+            $("#advertencia1").show();
+            $("#advertencia").hide();
+            $("#cbx-visualizacion").prop('checked', false);
+            sessionStorage.setItem('flagCatTalento',$(this).val());
+        
+        }else{
+
+            $("#advertencia1").hide();
+            sessionStorage.removeItem('flagCatTalento');
+        }
+
+    });     
+  
+    $("#btnCatTalento1").on('click', function(){
+
+        let visibilidad = sessionStorage.getItem('flagCatTalento');
+        let idParticipante = $('#idPartTalento').val();
+
+        var dataEnvio = {
+            "idParticipante" : idParticipante,
+            "visibilidad" : visibilidad
+        };
+
+        $.ajax({
+
+            type:'POST',
+            url: "{{url('akademia_visibilidadApp')}}",
+            data: dataEnvio,
+            
+            success: function(data){
+                if(data == 1){
+                
+                    alertify.success('<p style="color:white">El cambio se actualizó correctamente. </p>');
+                    location.reload(true);
+                
+                }else{
+
+                    alertify.error('<p>Se produjo un error al actualizar. </p>')
+                }
+                
+            },
+            error: function(error){
+
+                console.log(error);
+            }
+                    
+        });
+        
+    });
+
+    $('#btnCatTalento').on('click', function(){
+
+        let visibilidad = sessionStorage.getItem('flagCatTalento');
+        let idParticipante = $('#idPartTalento').val();
+
+        var dataEnvio = {
+            "idParticipante" : idParticipante,
+            "visibilidad" : visibilidad
+        };
+
+        $.ajax({
+
+            type:'POST',
+            url: "{{url('akademia_visibilidadApp')}}",
+            data: dataEnvio,
+            
+            success: function(data){
+                if(data == 1){
+                    alertify.success('<p style="color:white">El cambio se actualizó correctamente. </p>');
+                    location.reload(true);
+                
+                }else{
+
+                    alertify.error('<p>Se produjo un error al actualizar. </p>')
+                }
+                
+            },
+            error: function(error){
+
+                console.log(error);
+            }
+                    
+        });
+
+    });
+
+
+
 
     /* MOSTRAR MENSAJE DE ALERTA */
     function showAlertMessage(alert, mensaje){
@@ -311,290 +471,6 @@
     function hideAlertMessage(alert){
         $(alert).hide('fade');
     }
-
-    /*CREAR UNA NUEVA MEDIDA*/
-
-    $('#crearIndicador').on('click',function(){
-
-        let peso = $('#crear_peso').val();
-        let talla = $('#crear_talla').val();
-        let ind50mt = $('#crear_50m').val();
-        let flexTronco = $('#crear_flexTronco').val();
-        let equilibrio = $('#crear_equilibrio').val();
-        let flexBrazo = $('#crear_flexion').val();
-        let saltoH = $('#crear_saltoH').val();
-        let saltoV = $('#crear_saltoV').val();
-        let lanzamiento = $('#crear_lanzamientoP').val();
-        let abdominales = $('#crear_abdominales').val();
-        let milmt = $('#crear_milmt').val();
-        let idParticipante = $('#idPartTalento').val();
-        let fechaDato = $('#fechaRegistro').val();
-
-        console.log(fechaDato);
-
-        var valorIndicadores = {
-            "peso" : peso,
-            "talla" : talla,
-            "ind50mt" : ind50mt,
-            "flexTronco" : flexTronco,
-            "equilibrio" :equilibrio,
-            "flexBrazo" : flexBrazo,
-            "saltoH" : saltoH,
-            "saltoV" : saltoV,
-            "lanzamiento" : lanzamiento,
-            "abdominales" : abdominales,
-            "milmt" : milmt,
-            "idParticipante" : idParticipante,
-            "fechaDato" : fechaDato,
-        }
-
-        $.ajax({
-
-            type:'POST',
-            dataType: 'json',
-            url: "{{url('akademia_nuevoControl')}}",
-            data: valorIndicadores,
-
-            beforeSend: function(){                 
-            },
-
-            success: function(data){
-
-                console.log(data);
-
-                alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');   
-                location.reload(true);
-                    
-
-                /*if(data == 1){
-
-                    alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');   
-                    location.reload(true);
-                    
-                                        
-                }else if(data == 2){
-
-                    alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');   
-                    console.log(data);
-
-                }else{
-
-                    alertify.error('<p style="color:white">no existen valor de indicadores </p>');  
-                    console.log(data);
-                }*/
-
-
-            },
-
-            error: function(data){
-
-            }
-
-        });
-    
-    });
-
-    /*GUARDAR DATOS */
-
-
-    /*$(function(){
-        $("input[name='file']").on("change", function(){
-            
-            var formData = new FormData($("#uploadimage")[0]);
-            var ruta = "imagen-ajax.php";
-            $.ajax({
-                url:"{{url('akademia_guardarTalento')}}" ,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(datos)
-                {
-                    $("#respuesta").html(datos);
-                }
-            });
-        });
-     });*/
-
-
-
-    $('#btn_guardar_editar_deportista').on( 'click', function() {
-
-    //$("#uploadimage").unbind('submit').bind('submit', function(){
-        
-        var formulario = $("#uploadimage")[0];
-        console.log(formulario);
-
-        let idParticipante = $("#idPart").text();
-        let link = $("#deportista_editar_video_youtube").val();
-        let ficha = $('#file');  
-        let imgFicha= ficha[0].files;   
-        let comentarios = $("#deportista_editar_comentarios").val();
-
-        //let ficha = new FormData($("#uploadimage")[0]);;
-        
-        //console.log(ficha, link, idParticipante);
-        var formData =  new FormData(formulario);
-
-        formData.append('idPart',idParticipante);
-        formData.append('link',link);
-        formData.append('comentarios',comentarios);
-        formData.append('archivo[]',imgFicha);
-
-        $.ajax({
-
-            type:'POST',
-            url: "{{url('akademia_guardarTalento')}}",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-
-            beforeSend: function(){             
-                
-            },
-
-            success: function (data){
-                if(data == 1){
-                    console.log("elemento guardado");
-                }
-            },
-            error: function(data){
-                console.log(data);
-            }
-        });
-
-    });
-
-
-    function clearEdit(){
-
-        $("#fechaEdit").val("");
-        
-        for(let i=0; i < 11; i++){
-            
-            $("#"+(i+1)+"d").val("");
-        }
-
-
-    }
-
-    function listarControlInd(idcontrol){
-
-        let idParticipante = $('#idPartTalento').val();
-        let idControl = idcontrol;
-        
-        var data = {
-            "idParticipante" : idParticipante,
-            "idControl" : idcontrol,
-        }
-
-        $.ajax({
-
-            type:'POST',
-            dataType: 'json',
-            url: "{{url('akademia_mostrarControlesInd')}}",
-            data: data,
-
-            beforeSend: function(){             
-                
-            },
-            success: function(data){
-
-                if(data != 1){
-                    
-                    //console.log(idControl);
-
-                    //clearEdit();
-                    var datos =JSON.parse(data);                        
-                    $("#fechaEdit").val(datos[0].fecha);
-                    $("#idControlInd").text(idControl);
-                    
-                    for(let i=0; i < datos.length; i++){
-                        
-                        $("#"+(i+1)+"d").val(datos[i].valor);
-                    }
-
-                }else{
-
-                    alertify.error('<p style="color:white">Se produjo un error al cargar los datos </p>'); 
-                }
-            },
-            error: function(data){
-
-            },
-        });
-
-    }
-
-    $("#editarIndicador").on('click', function(){
-
-        let peso = parseFloat($('#1d').val());
-        let talla = parseFloat($('#2d').val());
-        let ind50mt = parseFloat($('#3d').val());
-        let flexTronco = parseFloat($('#4d').val());
-        let equilibrio = parseFloat($('#5d').val());
-        let flexBrazo = parseFloat($('#6d').val());
-        let saltoH = parseFloat($('#7d').val());
-        let saltoV = parseFloat($('#8d').val());
-        let lanzamiento = parseFloat($('#9d').val());
-        let abdominales = parseFloat($('#10d').val());
-        let milmt = parseFloat($('#11d').val());
-        let idControl = parseInt($('#idControlInd').text());
-        let fechaDato = $('#fechaEdit').val();
-
-        var valorIndicadores = {
-            "peso" : peso,
-            "talla" : talla,
-            "ind50mt" : ind50mt,
-            "flexTronco" : flexTronco,
-            "equilibrio" :equilibrio,
-            "flexBrazo" : flexBrazo,
-            "saltoH" : saltoH,
-            "saltoV" : saltoV,
-            "lanzamiento" : lanzamiento,
-            "abdominales" : abdominales,
-            "milmt" : milmt,
-            "idControl" : idControl,
-            "fechaDato" : fechaDato,
-        };
-
-        console.log(valorIndicadores);
-        
-        $.ajax({
-
-            type:'POST',
-            dataType: 'json',
-            url: "{{url('akademia_actualizarIndicador')}}",
-            data: valorIndicadores,
-
-            beforeSend: function(){                 
-            },
-
-            success: function(data){
-
-                if(data == 1){
-
-                    alertify.success('<p style="color:white"> Se actualizó correctamente el control</p>');
-                    location.reload(true);
-                    //window.reload();
-                    clearEdit();
-
-                }else if(data == 2){
-
-                    alertify.error('<p style="color:white">Se produjo un error al actualizar los datos </p>'); 
-                }else{
-
-                    alertify.error('<p>Se produjo un error</p>')
-                }
-            },
-            error: function(data){
-                console.log(data);
-            },
-        });
-
-
-    });
 
 
 </script>

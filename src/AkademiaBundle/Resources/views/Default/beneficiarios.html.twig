@@ -598,7 +598,8 @@
 						if(data == 1){
 
 							alertify.success('<p style="color:white">Beneficiario Actualizado</p>');
-							window.location.href = "{{url('akademia_beneficiarios',{idHorario:id})}}";
+							location.reload(true);
+							//window.location.href = "{{url('akademia_beneficiarios',{idHorario:id})}}";
 								
 						}
 						if(data == 2){
