@@ -67,7 +67,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     public function getMostrarSeleccionados(){
         
-        $query = "  SELECT 
+        $query = "SELECT 
                 (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
                 par.id as idParticipante,
                 per.perdni as dni, 
@@ -78,7 +78,8 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 mov.asistencia_id as idAsistencia,
                 mov.fecha_modificacion as fechita,
                 dis.dis_descripcion as nombreDisciplina,
-                ede.ede_nombre as nombreComplejo
+                ede.ede_nombre as nombreComplejo,
+                ubi.ubinombre as departamento
                 FROM 
                 ACADEMIA.inscribete ins 
                 inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id
@@ -87,14 +88,15 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 inner join academia.horario hor on ins.horario_id = hor.id
                 inner join catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
                 inner join catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
-                inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
+                inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+                inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
                 inner join academia.participante par on ins.participante_id = par.id
                 inner join grpersona per on per.percodigo = par.percodigo
                 inner join academia.movimientos mov on mov.id = ids.mov_id
                 WHERE 
                 ins.estado = 2 and 
                 mov.asistencia_id = 2
-                and (  mov.categoria_id = 2 or mov.categoria_id= 3 )";
+                and (  mov.categoria_id = 2 or mov.categoria_id = 3 )";
                 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -256,6 +258,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
         $query ="SELECT 
                 (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
                 par.id as idParticipante,
+                par.visible_app as visibilidad,
                 per.perdni as dni, 
                 (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
                 per.persexo as sexo,

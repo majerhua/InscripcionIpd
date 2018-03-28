@@ -52,7 +52,7 @@
                                 <input class="filtrar form-control" ident-buscar="{{cont}}" type="text" placeholder="Ingresa los campos a buscar ">
                             </div>
                             <br>
-                            <div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:80vh">
+                            <div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:100vh">
                                 <table class="table"> 
 
                                     <thead style=" color:white; background:#cb2f1d;"> 
@@ -65,6 +65,7 @@
                                             <th class="text-center">Sexo</th> 
                                             <th class="text-center">Complejo</th> 
                                             <th class="text-center">Disciplina</th> 
+                                            <th class="text-center">Visible</th>
                                             <th></th> 
                                         </tr>
                                     </thead> 
@@ -86,6 +87,11 @@
                                             
                                             <td class="text-center">{{talento['nombreComplejo']}}</td>
                                             <td class="text-center">{{talento['nombreDisciplina']}}</td>
+                                            {% if talento['visibilidad'] == 0 %}
+                                            <td  style="background: #F8D8CF;" class="text-center">No</td>
+                                            {% else %}
+                                            <td style=" background: #B6E09A;"class="text-center"> Si</td>
+                                            {% endif %}
                                             <td>
                                                <!-- <button class="btn" style="background:#086A87;color:white" href="/detalle/{{talento['idParticipante']}}"><i class="icon-checklist" style="font-size: 1.3em"></i></button>-->
                                                 <a href="/detalle/{{talento['idParticipante']}}" title="Más detalles" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em"></i></a>

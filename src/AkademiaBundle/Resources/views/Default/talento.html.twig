@@ -59,9 +59,17 @@
 				
 				{% else %}
 
+					{% if talento[0]['sexo'] == 0 %}
 					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">				
 						<img src="{{ asset('assets/images/woman.png')}}" width="150" height="160" style="margin-top: 30px; margin-bottom: 10px;">
 					</div>
+
+					{% else %}
+					
+					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">				
+						<img src="{{ asset('assets/images/man.png')}}" width="150" height="160" style="margin-top: 30px; margin-bottom: 10px;">
+					</div>
+					{% endif %}
 
 				{% endif %}
 				
@@ -217,7 +225,6 @@
 												<th>Salto Verti.</th> 
 												<th>Lanz. Pelota</th>
 												<th>Abdom.</th>
-												
 												<th>1000m</th>
 												<th></th>
 											</tr>
@@ -319,26 +326,19 @@
 					<h4 id="deportista_editar_nombre" class="title-card" style="color:#0B3861">{{talento[0]['nombre']}}</h4>
 				</div>
 				<input type="hidden" id="cod-participante" name="cod-participante" value="{{talento[0]['idParticipante']}}">
+				<!--<p id="idPart" style="color:white; font-size:12px"> {{talento[0]['idParticipante']}}</p>-->
 				<div class="modal-body">
 					<div class="row">
-						<!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-							<img src="{{ asset("assets/images/imagesFoto/talento[0][foto]")}}" width="150" height="150" style="margin-top: 30px; margin-bottom: 10px;">
-						</div>-->
+													
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
-								<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-								<p>hfhsdjfhsdf sjdfjskdfh sdjfhsd f iuerywr  </p>
-							</div>
-						</div>
-							
-						<p id="idPart" style="color:white; font-size:12px"> {{talento[0]['idParticipante']}}</p>
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div id="alerta-error" class="alert alert-danger collapse text-center"></div>
+
 							<ul class="list-group">
 								
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><strong>Foto de perfil</strong></p>
+											<p><span style="color:#B31A12">*</span><strong> Foto de perfil</strong></p>
 										</div>
 
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
@@ -351,7 +351,7 @@
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><strong>Video Youtube</strong></p>
+											<p><span style="color:#B31A12">*</span><strong> Video Youtube</strong></p>
 										</div>
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
 											<input id="link" class="form-control" name="link" type="text" placeholder=" www.youtube.com/jir931qXG">
@@ -362,7 +362,7 @@
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><strong>Ficha técnica</strong></p>
+											<p><span style="color:#B31A12">*</span><strong> Ficha técnica</strong></p>
 										</div>
 
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
@@ -375,7 +375,7 @@
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><strong>Comentarios:</strong></p>
+											<p><span style="color:#B31A12">*</span><strong> Comentarios:</strong></p>
 										</div>
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
 											<textarea id="comentarios" name="comentarios" maxlength="300" class="form-control" rows="5" id="comment"></textarea>
@@ -383,13 +383,14 @@
 									</div>
 								</li>
 							</ul>
+							<span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span>
 						</div>
 	               	</div>
 				</div>
 				<div class="modal-footer">
 
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button id="btn_guardar_editar_deportista" type="button" class="btn btn-danger" data-dismiss="modal" >Guardar</button>
+					<button id="btn_guardar_editar_deportista" type="button" class="btn btn-danger" >Guardar</button>
 
 				</div>
 			</div>
@@ -412,9 +413,13 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div id="alerta-errorControl" class="alert alert-danger collapse text-center"></div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div class="row text-center">
 							<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
-								<p><strong>Fecha de evaluación:</strong></p>
+								<p><span style="color:#B31A12">*</span><strong>Fecha de evaluación:</strong></p>
 							</div>
 							<div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
 								<input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
@@ -428,10 +433,12 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Peso</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Peso</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+												
+												<input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg" step=".01">
+
 											</div>
 										</div>
 									</div>
@@ -439,7 +446,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Talla</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Talla</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
@@ -455,7 +462,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>50 met</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>50 met</strong></p>
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -467,7 +474,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Flexib. Tronco</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Flexib. Tronco</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
@@ -482,7 +489,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Equilibrio</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Equilibrio</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
@@ -495,7 +502,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Flexion Brazo</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Flexion Brazo</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
@@ -512,7 +519,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Salto Horizontal</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Salto Horizontal</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
@@ -523,7 +530,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Salto Vertical</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Salto Vertical</strong></p>
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -541,7 +548,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Lanzam. Pelota</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Lanzam. Pelota</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
@@ -552,7 +559,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>Abdominales</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Abdominales</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
@@ -567,7 +574,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">	
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong>1000 met.</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>1000 met.</strong></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
@@ -578,6 +585,7 @@
 								</div>
 							</li>
 						</ul>
+						<span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span>
 					</div>
 				</div>
 			</div>
@@ -799,37 +807,47 @@
 
 	$('#btn_guardar_editar_deportista').on( 'click', function() {
 
-	//$("#uploadimage").unbind('submit').bind('submit', function(){		
-		var formulario = new FormData($("#uploadimage")[0]);
-		console.log(formulario);
+		if($("#imagen-foto").val() != "" && $("#link").val() != "" && $("#imagen-ficha").val() != "" && $("#comentarios").val() != "" ) {
 
-	    $.ajax({
+			$("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
+			var formulario = new FormData($("#uploadimage")[0]);
+			console.log(formulario);
 
-			type:'POST',
-			url: "{{url('akademia_guardarTalento')}}",
-			data: formulario,
-			cache: false,
-            contentType: false,
-            processData: false,
+		    $.ajax({
 
-			beforeSend: function(){				
-				
-			},
+				type:'POST',
+				url: "{{url('akademia_guardarTalento')}}",
+				data: formulario,
+				cache: false,
+	            contentType: false,
+	            processData: false,
 
-			success: function (data){
+				beforeSend: function(){				
+					
+				},
 
-				if( data == 1){
-					alertify.success("Los cambios se efectuaron correctamente");
-				}else{
+				success: function (data){
 
-					alertify.error("error");
+					if( data == 1){
+
+						alertify.success('<p style="color:white">Los cambios se efectuaron correctamente.</p>');	
+						location.reload(true);
+
+					}else{
+						alertify.error('<p style="color:white">Se ha producido un error.</p>');
+					}
+					
+				},
+				error: function(data){
+					console.log(data);
 				}
-				
-			},
-			error: function(data){
-				console.log(data);
-			}
-		});
+			});
+
+		}else{
+
+			$("#btn_guardar_editar_deportista").attr("data-dismiss", "");
+			showAlertMessage('#alerta-error', "Verifique que ningún campo se encuentre vacío.");
+		}		
 
 	});
 
@@ -877,100 +895,89 @@
 
     $('#crearIndicador').on('click',function(){
 
-    	let peso = $('#crear_peso').val();
-    	let talla = $('#crear_talla').val();
-    	let ind50mt = $('#crear_50m').val();
-    	let flexTronco = $('#crear_flexTronco').val();
-    	let equilibrio = $('#crear_equilibrio').val();
-    	let flexBrazo = $('#crear_flexion').val();
-    	let saltoH = $('#crear_saltoH').val();
-    	let saltoV = $('#crear_saltoV').val();
-    	let lanzamiento = $('#crear_lanzamientoP').val();
-    	let abdominales = $('#crear_abdominales').val();
-    	let milmt = $('#crear_milmt').val();
-    	let idParticipante = $('#idPartTalento').val();
-    	let idInscribete = $('#idInscribete').val();
-    	let fechaDato = $('#fechaRegistro').val();
+    	if($('#crear_peso').val() != "" && $('#crear_talla').val() != "" && $('#crear_50m').val() != "" && $('#crear_flexTronco').val() != "" && $('#crear_equilibrio').val() != "" && $('#crear_flexion').val() != "" && $('#crear_saltoH').val() != "" && $('#crear_saltoV').val() != "" && $('#crear_lanzamientoP').val() != "" && $('#crear_abdominales').val() != "" && $('#crear_milmt').val() != "" && $('#idPartTalento').val() != "" && $('#idInscribete').val() != "" && $('#fechaRegistro').val()){
 
-    	console.log(fechaDato);
+    			$("#crearIndicador").attr("data-dismiss", "modal");
 
-  		var valorIndicadores = {
-  			"peso" : peso,
-  			"talla" : talla,
-  			"ind50mt" : ind50mt,
-  			"flexTronco" : flexTronco,
-  			"equilibrio" :equilibrio,
-  			"flexBrazo" : flexBrazo,
-  			"saltoH" : saltoH,
-  			"saltoV" : saltoV,
-  			"lanzamiento" : lanzamiento,
-  			"abdominales" : abdominales,
-  			"milmt" : milmt,
-  			"idParticipante" : idParticipante,
-  			"idInscribete" : idInscribete,
-  			"fechaDato" : fechaDato,
-  		};
-	
-		console.log(valorIndicadores);
-  	
-  		$.ajax({
+		    	let peso = $('#crear_peso').val();
+		    	let talla = $('#crear_talla').val();
+		    	let ind50mt = $('#crear_50m').val();
+		    	let flexTronco = $('#crear_flexTronco').val();
+		    	let equilibrio = $('#crear_equilibrio').val();
+		    	let flexBrazo = $('#crear_flexion').val();
+		    	let saltoH = $('#crear_saltoH').val();
+		    	let saltoV = $('#crear_saltoV').val();
+		    	let lanzamiento = $('#crear_lanzamientoP').val();
+		    	let abdominales = $('#crear_abdominales').val();
+		    	let milmt = $('#crear_milmt').val();
+		    	let idParticipante = $('#idPartTalento').val();
+		    	let idInscribete = $('#idInscribete').val();
+		    	let fechaDato = $('#fechaRegistro').val();
 
-  			type:'POST',
-  			dataType: "json",
-			url: "{{url('akademia_nuevoControl')}}",
-			data: valorIndicadores,
+		    	console.log(fechaDato);
 
-			beforeSend: function(){					
-			},
+		  		var valorIndicadores = {
+		  			"peso" : peso,
+		  			"talla" : talla,
+		  			"ind50mt" : ind50mt,
+		  			"flexTronco" : flexTronco,
+		  			"equilibrio" :equilibrio,
+		  			"flexBrazo" : flexBrazo,
+		  			"saltoH" : saltoH,
+		  			"saltoV" : saltoV,
+		  			"lanzamiento" : lanzamiento,
+		  			"abdominales" : abdominales,
+		  			"milmt" : milmt,
+		  			"idParticipante" : idParticipante,
+		  			"idInscribete" : idInscribete,
+		  			"fechaDato" : fechaDato,
+		  		};
+			
+				console.log(valorIndicadores);
+		  	
+		  		$.ajax({
 
-			success: function(data){
-				
-				if(data == 1){
+		  			type:'POST',
+		  			dataType: "json",
+					url: "{{url('akademia_nuevoControl')}}",
+					data: valorIndicadores,
 
-					alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-					location.reload(true);
-										
-				}else if(data == 2){
+					beforeSend: function(){					
+					},
 
-					alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');	
-					console.log(data);
+					success: function(data){
+						
+						if(data == 1){
 
-				}else{
+							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
+							location.reload(true);
+												
+						}else if(data == 2){
 
-					alertify.error('<p style="color:white">no existen valor de indicadores </p>');	
-					console.log(data);
-				}
-			},
+							alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');	
+							console.log(data);
 
-			error: function(error){
-				console.log(error);
-			},
+						}else{
 
-  		});
+							alertify.error('<p style="color:white">no existen valor de indicadores </p>');	
+							console.log(data);
+						}
+					},
+
+					error: function(error){
+						console.log(error);
+					},
+
+		  		});
+
+    	}else{
+
+    		$("#crearIndicador").attr("data-dismiss", "");
+			showAlertMessage('#alerta-errorControl', "Verifique que ningún campo se encuentre vacío.");
+    	}
+    	
     
     });
-
-	/*GUARDAR DATOS */
-
-
-	/*$(function(){
-        $("input[name='file']").on("change", function(){
-            
-            var formData = new FormData($("#uploadimage")[0]);
-            var ruta = "imagen-ajax.php";
-            $.ajax({
-                url:"{{url('akademia_guardarTalento')}}" ,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(datos)
-                {
-                    $("#respuesta").html(datos);
-                }
-            });
-        });
-     });*/
 
     $('#btnCatTalento').on('click', function(){
 
@@ -994,12 +1001,14 @@
 						console.log(data);
 
 						if(data == 1){
-							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');
+							alertify.success('<p style="color:white">El nuevo talento fue categorizado exitosamente.</p>');
 							window.location.href = "{{url('akademia_mostrarTalentos')}}";	
 						
 						}else if(data == 2){
-
-							alertify.error('<p style="color:white">El alumno no tiene ningun tipo de control. No puede cambiarlo a categoría talento.</p>');	
+							
+							$("#advertencia").hide();
+            				$("#cbx-talento").prop('checked', false);
+							alertify.error('<p style="color:white">El alumno no tiene ningun tipo de control. No puede cambiar su categoría.</p>');	
 						}else{
 
 							alertify.error('<p>Se produjo un error al cambiar la categoria. </p>')
@@ -1062,9 +1071,7 @@
 
 				if(data != 1){
 					
-					//console.log(idControl);
 
-					//clearEdit();
 					var datos =JSON.parse(data);						
 					$("#fechaEdit").val(datos[0].fecha);
 					$("#idControlInd").text(idControl);
