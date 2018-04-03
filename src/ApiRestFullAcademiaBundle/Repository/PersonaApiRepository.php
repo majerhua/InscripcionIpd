@@ -63,7 +63,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         return $persona;
     }
 
-    public function disciplinaAll(){
+    public function disciplinaAllGeneral(){
         $query = "        
                     WITH ParticipantesOrdenados AS  
                     (  
@@ -156,10 +156,10 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     )  
                     SELECT  distinct departamentoId,provinciaId ,grubi.ubinombre provinciaNombre   
                     FROM ParticipantesOrdenados po
-                    INNER JOIN grubigeo grubi ON grubi.ubiprovincia = po.provinciaId
+                    INNER JOIN grubigeo grubi ON grubi.ubidpto = po.departamentoId
                     WHERE  
                     ubidistrito ='00' AND ubidpto != '00' AND ubiprovincia !='00' 
-                    AND grubi.ubidpto = po.departamentoId AND grubi.ubiprovincia = po.provinciaId
+                    AND grubi.ubiprovincia = po.provinciaId
                     AND ubidpto = '$departamentoId' ";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -169,4 +169,96 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public function distritoAll($departamentoId,$provinciaId){
+
+        $query = "        
+                   WITH ParticipantesOrdenados AS  
+                    (  
+                    SELECT
+                    ROW_NUMBER() OVER(ORDER BY par.id ASC) AS num_id,
+                    ubi.ubidpto idDepartamento,
+                    ubi.ubiprovincia idProvincia,
+                    ubi.ubidistrito idDistrito,
+                    ubi.ubicodigo disUbicodigo,
+                    ede.ede_codigo idComplejo  
+                    FROM  ACADEMIA.movimientos AS mov
+                    INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+                    GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
+                    
+                    INNER JOIN ACADEMIA.inscribete ins ON ins.id = ids.mov_ins_id
+                    INNER JOIN academia.horario hor on ins.horario_id = hor.id
+                    INNER JOIN catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                    INNER JOIN catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                    INNER JOIN catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
+                    INNER JOIN academia.participante par on ins.participante_id = par.id
+                    INNER JOIN grpersona per on per.percodigo = par.percodigo 
+                    INNER JOIN grubigeo as ubi ON ubi.ubicodigo = ede.ubicodigo
+                    WHERE mov.asistencia_id=2 AND mov.categoria_id = 4
+                    )  
+                    SELECT distinct idDepartamento departamentoId ,idProvincia provinciaId ,idDistrito distritoId,
+                      disUbicodigo ubicodigo ,  grubi.ubinombre distritoNombre   
+                    FROM ParticipantesOrdenados po
+                    INNER JOIN grubigeo grubi ON grubi.ubidpto= po.idDepartamento
+                    WHERE  
+                    ubidistrito != '00' AND ubidpto != '00' AND ubiprovincia !='00' 
+                    AND grubi.ubiprovincia = po.idProvincia
+                    AND grubi.ubidistrito = po.idDistrito AND ubidpto='$departamentoId' AND ubiprovincia='$provinciaId'";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $distritos = $stmt->fetchAll();
+        return $distritos;  
+    }
+
+
+
+    public function complejoDeportivoAll($ubicodigo){
+
+        $query = "        
+                  SELECT distinct
+                    ede.ede_codigo complejoId,  
+                    ede.ede_nombre complejoNombre,
+                    ubi.ubicodigo ubicodigo
+                    FROM  ACADEMIA.movimientos AS mov
+                    INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+                    GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
+                    
+                    INNER JOIN ACADEMIA.inscribete ins ON ins.id = ids.mov_ins_id
+                    INNER JOIN academia.horario hor on ins.horario_id = hor.id
+                    INNER JOIN catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                    INNER JOIN catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                    INNER JOIN catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+                    INNER JOIN grubigeo ubi on ede.ubicodigo = ubi.ubicodigo 
+                    WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND ubi.ubicodigo = '$ubicodigo' ";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $complejos = $stmt->fetchAll();
+        return $complejos;  
+    }
+
+
+    public function disciplinaAll($complejoId){
+        $query = "        
+                SELECT distinct
+                ede.ede_codigo complejoId,  
+                dis.dis_codigo disciplinaId,
+                dis.dis_descripcion disciplinaNombre
+                FROM  ACADEMIA.movimientos AS mov
+                INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+                GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
+                
+                INNER JOIN ACADEMIA.inscribete ins ON ins.id = ids.mov_ins_id
+                INNER JOIN academia.horario hor on ins.horario_id = hor.id
+                INNER JOIN catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                INNER JOIN catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                INNER JOIN catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+                INNER JOIN grubigeo ubi on ede.ubicodigo = ubi.ubicodigo 
+                WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND ede.ede_codigo='$complejoId' ";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $disciplinas = $stmt->fetchAll();
+        return $disciplinas;  
+    }
 }

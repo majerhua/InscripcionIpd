@@ -74,56 +74,54 @@ class ExportacionDataController extends Controller
     					fputcsv($handle, ['Departamento', 'Complejo', 'Disciplina','DNI','ApellidoPaterno','ApellidoMaterno','Nombres','F.Nacimiento','Edad','Sexo','FechaMovimiento','Mes','Categoria','Asistencia','Horario','Discapacidad'],';');
 
     	$query1 = "SELECT ubiDpto.ubinombre Departamento, ede.ede_nombre as Complejo,dis.dis_descripcion as Disciplina,
- 							grPar.perdni DNI,grPar.perapepaterno ApellidoPaterno, grPar.perapematerno ApellidoMaterno ,
- 							grPar.pernombres,CONVERT(varchar, grPar.perfecnacimiento, 103) FechaNacimiento,(cast(datediff(dd,grPar.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
-						  CASE grPar.persexo
-						  WHEN 0 THEN 'Masculino'
-						  WHEN 1 THEN 'Femenino'
-						  ELSE 'Otro' END
-						  AS sexo,
-							CONVERT(varchar, mov.fecha_modificacion, 103) FechaMovimiento,
+                  grPar.perdni DNI,grPar.perapepaterno ApellidoPaterno, grPar.perapematerno ApellidoMaterno ,
+                  grPar.pernombres,CONVERT(varchar, grPar.perfecnacimiento, 103) FechaNacimiento,
+                  (cast(datediff(dd,grPar.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                  CASE grPar.persexo
+                    WHEN 0 THEN 'Masculino'
+                    WHEN 1 THEN 'Femenino'
+                    ELSE 'Otro' END
+                    AS sexo,
+                  CONVERT(varchar, mov.fecha_modificacion, 103) FechaMovimiento,
+                      CASE MONTH(mov.fecha_modificacion) 
+                      WHEN 1 THEN 'Enero'
+                      WHEN 2 THEN 'Febrero'
+                      WHEN 3 THEN 'Marzo'
+                      WHEN 4 THEN 'Abril'
+                      WHEN 5 THEN 'Mayo'
+                      WHEN 6 THEN 'Junio'
+                      WHEN 7 THEN 'Julio'
+                      WHEN 8 THEN 'Agosto'
+                      WHEN 9 THEN 'Septiembre'
+                      WHEN 10 THEN 'Octubre'
+                      WHEN 11 THEN 'Noviembre'
+                      WHEN 12 THEN 'Diciembre'
+                      ELSE 'No existe Mes' END
+                      AS Mes,                      
+                  cat.descripcion Categoria, asis.descripcion
+                  Asistencia,CONVERT(varchar(100),hor.turno)+' '+CONVERT( varchar(100),CONVERT(VARCHAR(5), hor.horaInicio , 108))+' - '+CONVERT(varchar(100),CONVERT(VARCHAR(5), hor.horaFin , 108) )+' ,'+ CONVERT(varchar(40),hor.edadMinima)+' a '+ CONVERT(varchar(40),edadMaxima)+' anos' AS Horario,
+                      CASE par.discapacitado
+                      WHEN 0 THEN 'No'
+                      WHEN 1 THEN 'Si'
+                      ELSE 'No se sabe' END
+                      AS Discapacidad
+                      FROM ACADEMIA.inscribete AS ins 
+                  inner join ACADEMIA.participante par on par.id = ins.participante_id
+                      inner join grpersona grPar on grPar.percodigo = par.percodigo
+                      inner join ACADEMIA.horario hor on hor.id=ins.horario_id
+                      inner join ACADEMIA.movimientos mov on mov.inscribete_id = ins.id
+                      inner join ACADEMIA.categoria cat on cat.id=mov.categoria_id
+                      inner join ACADEMIA.asistencia asis on asis.id = mov.asistencia_id
+                      inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                      inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+                      inner join CATASTRO.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                      inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
+                      inner join grpersona grApod on grApod.percodigo = apod.percodigo
+                      inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
+                  inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
 
-                            
+                      WHERE
 
-                          CASE MONTH(mov.fecha_modificacion) 
-                          WHEN 1 THEN 'Enero'
-                          WHEN 2 THEN 'Febrero'
-                          WHEN 3 THEN 'Marzo'
-                          WHEN 4 THEN 'Abril'
-                          WHEN 5 THEN 'Mayo'
-                          WHEN 6 THEN 'Junio'
-                          WHEN 7 THEN 'Julio'
-                          WHEN 8 THEN 'Agosto'
-                          WHEN 9 THEN 'Septiembre'
-                          WHEN 10 THEN 'Octubre'
-                          WHEN 11 THEN 'Noviembre'
-                          WHEN 12 THEN 'Diciembre'
-                          ELSE 'No existe Mes' END
-                          AS Mes 
-                             ,
-							cat.descripcion Categoria, asis.descripcion
- 							Asistencia,CONVERT(varchar(100),hor.turno)+' '+CONVERT( varchar(100),CONVERT(VARCHAR(5), hor.horaInicio , 108))+' - '+CONVERT(varchar(100),CONVERT(VARCHAR(5), hor.horaFin , 108) )+' ,'+ CONVERT(varchar(40),hor.edadMinima)+' a '+ CONVERT(varchar(40),edadMaxima)+' anos' AS Horario,
-                            CASE par.discapacitado
-                            WHEN 0 THEN 'No'
-                            WHEN 1 THEN 'Si'
-                            ELSE 'No se sabe' END
-                            AS Discapacidad
-
-                 FROM ACADEMIA.inscribete AS ins 
-                inner join ACADEMIA.participante par on par.id = ins.participante_id
-                inner join grpersona grPar on grPar.percodigo = par.percodigo
-                inner join ACADEMIA.horario hor on hor.id=ins.horario_id
-                inner join ACADEMIA.movimientos mov on mov.inscribete_id = ins.id
-                inner join ACADEMIA.categoria cat on cat.id=mov.categoria_id
-                inner join ACADEMIA.asistencia asis on asis.id = mov.asistencia_id
-                inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
-                inner join CATASTRO.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
-                inner join CATASTRO.disciplina dis on dis.dis_codigo = edi.dis_codigo
-                inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
-                inner join grpersona grApod on grApod.percodigo = apod.percodigo
-                inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
-								inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
-                WHERE
                 ubi.ubidistrito <> '00' AND 
                 ubi.ubiprovincia <> '00' AND 
                 ubi.ubiprovincia <> '00' AND 
@@ -131,9 +129,9 @@ class ExportacionDataController extends Controller
                 ubiDpto.ubiprovincia = '00' AND 
                 ubiDpto.ubidpto <> '00' AND ".$query2;
 			
-  						
   						  $query = $query1+' '+$query2;
 
+  				
 
     	$results = $conn->query($query1);
     	while($row = $results->fetch()) {
@@ -161,6 +159,7 @@ class ExportacionDataController extends Controller
     		$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExport();
     
     	}else if($perfil == 1) {
+
 
       $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);        
     	$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
