@@ -166,11 +166,11 @@
 
 											{% for beneficiario in beneficiarios %}
 												
-												{% if "now"|date("t") - 5 - "now"|date("d") <= 0 and  "now"|date("m") > beneficiario['fechita']|date("m") %}
-                                                    <tr style="background-color: #EF9A9A">
-                                                {% else %}
-                                                    <tr> 
-                                                {% endif %}
+												{% if "now"|date("t") - 5 - "now"|date("d") <= 0 and  ("now"|date("m") > beneficiario['fechita']|date("m") or beneficiario['TipoAsistencia'] == 1)  %}
+													<tr style="background-color: #EF9A9A">
+												{% else %}
+													<tr> 
+												{% endif %}
 
 													<td class="text-center">{{beneficiario['idInscribete']}}</td>
 													<td>{{beneficiario['nombre']}}</td> 
