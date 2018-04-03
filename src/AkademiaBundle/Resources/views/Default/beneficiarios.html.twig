@@ -146,7 +146,7 @@
 									<table class="table"> 
 										<thead style="background:#F2F2F2; color:#585858"> 
 											<tr> 
-												<th class="text-center">Cod-inscripción</th>
+												<th class="text-center">Inscripción</th>
 												<th class="text-center">Nombre</th> 
 												<th class="text-center">DNI</th>
 												<th class="text-center">Edad</th> 
@@ -160,8 +160,18 @@
 
 										<tbody class="buscar" style="color:#494343"> 
 
+
+
+												
+
 											{% for beneficiario in beneficiarios %}
-												<tr> 
+												
+												{% if "now"|date("t") - 5 - "now"|date("d") <= 0 and  "now"|date("m") > beneficiario['fechita']|date("m") %}
+                                                    <tr style="background-color: #EF9A9A">
+                                                {% else %}
+                                                    <tr> 
+                                                {% endif %}
+
 													<td class="text-center">{{beneficiario['idInscribete']}}</td>
 													<td>{{beneficiario['nombre']}}</td> 
 													<td class="text-center">{{beneficiario['dni']}}</td> 

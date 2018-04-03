@@ -197,7 +197,8 @@ class HorarioRepository extends \Doctrine\ORM\EntityRepository
                         ins.estado as estadoInscribete,
                         mov.categoria_id as idCategoria,
                         mov.asistencia_id as idAsistencia,
-                        mov.fecha_modificacion as fechita
+                        mov.fecha_modificacion as fechita,
+                        mov.asistencia_id as TipoAsistencia
                         FROM 
                         ACADEMIA.inscribete ins 
                         inner join 
