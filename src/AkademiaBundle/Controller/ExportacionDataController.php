@@ -109,13 +109,11 @@ class ExportacionDataController extends Controller
                             ELSE 'No se sabe' END
                             AS Discapacidad
 
-                 FROM ACADEMIA.inscribete AS ins
-                inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
-                GROUP BY m.inscribete_id) ids ON ins.id = ids.mov_ins_id 
+                 FROM ACADEMIA.inscribete AS ins 
                 inner join ACADEMIA.participante par on par.id = ins.participante_id
                 inner join grpersona grPar on grPar.percodigo = par.percodigo
                 inner join ACADEMIA.horario hor on hor.id=ins.horario_id
-                inner join ACADEMIA.movimientos mov on mov.id = ids.mov_id
+                inner join ACADEMIA.movimientos mov on mov.inscribete_id = ins.id
                 inner join ACADEMIA.categoria cat on cat.id=mov.categoria_id
                 inner join ACADEMIA.asistencia asis on asis.id = mov.asistencia_id
                 inner join CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
@@ -125,7 +123,7 @@ class ExportacionDataController extends Controller
                 inner join grpersona grApod on grApod.percodigo = apod.percodigo
                 inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
 								inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
-								WHERE ubiDpto.ubidistrito=0 AND ubiDpto.ubiprovincia=0 AND ubiDpto.ubidpto!=0 AND ".$query2;
+								WHERE ubiDpto.ubidistrito='00' AND ubiDpto.ubiprovincia = '00' AND ubiDpto.ubidpto <> '00' AND ".$query2;
 			
   						
   						$query = $query1+' '+$query2;

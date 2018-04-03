@@ -137,12 +137,12 @@ akademia_logout:
     path:    /logout
 
 akademia_evaluados:
-    path:     /evaluados
+    path:     /ajax/evaluados
     defaults: { _controller: AkademiaBundle:Talentos:evaluados}
     methods:  [GET,POST]
 
 akademia_talentos:
-    path:     /talentos/{idParticipante}
+    path:     /ajax/talentos/{idParticipante}
     defaults: { _controller: AkademiaBundle:Talentos:talentos}
     methods:  [GET,POST]
 
@@ -177,7 +177,7 @@ akademia_mostrarTalentos:
     methods:  [GET,POST]
 
 akademia_mostrarDetalleTalento:
-    path:     /detalle/{idParticipante}
+    path:     /ajax/detalle/{idParticipante}
     defaults: { _controller: AkademiaBundle:Talentos:mostrarDetalleTalento}
     methods:  [GET,POST]
 
