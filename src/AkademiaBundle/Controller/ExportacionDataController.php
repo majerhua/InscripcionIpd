@@ -123,10 +123,16 @@ class ExportacionDataController extends Controller
                 inner join grpersona grApod on grApod.percodigo = apod.percodigo
                 inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
 								inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
-								WHERE ubiDpto.ubidistrito='00' AND ubiDpto.ubiprovincia = '00' AND ubiDpto.ubidpto <> '00' AND ".$query2;
+                WHERE
+                ubi.ubidistrito <> '00' AND 
+                ubi.ubiprovincia <> '00' AND 
+                ubi.ubiprovincia <> '00' AND 
+                ubiDpto.ubidistrito = '00' AND 
+                ubiDpto.ubiprovincia = '00' AND 
+                ubiDpto.ubidpto <> '00' AND ".$query2;
 			
   						
-  						$query = $query1+' '+$query2;
+  						  $query = $query1+' '+$query2;
 
 
     	$results = $conn->query($query1);
