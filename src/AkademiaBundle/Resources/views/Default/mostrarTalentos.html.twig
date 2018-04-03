@@ -93,8 +93,7 @@
                                             <td style=" background: #B6E09A;"class="text-center"> Si</td>
                                             {% endif %}
                                             <td>
-                                               <!-- <button class="btn" style="background:#086A87;color:white" href="/detalle/{{talento['idParticipante']}}"><i class="icon-checklist" style="font-size: 1.3em"></i></button>-->
-                                                <a href="/detalle/{{talento['idParticipante']}}" title="Más detalles" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em"></i></a>
+                                                <a href="{{url('akademia_mostrarDetalleTalento',{idParticipante: talento['idParticipante']})}}" title="Más detalles" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em"></i></a>
                                             </td>
                                         </tr>
                                         

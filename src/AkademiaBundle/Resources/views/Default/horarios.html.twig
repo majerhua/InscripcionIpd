@@ -122,8 +122,7 @@
 
 													<td><button  title="Editar horario" type="button" id="{{horario['idHorario']}}" onclick="editarHorario({{horario['idHorario']}},{{horario['idDisciplina']}} )" class="btn btn-danger" data-toggle="modal" data-target="#modal-editar"><i class="icon-pencil-square-o" style="font-size:1em; margin-top:5px; color:white" ></i></button></td>
 
-
-													<td><a href="/academia/web/beneficiarios/{{horario['idHorario']}}"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
+													<td><a href="{{url('akademia_beneficiarios',{idHorario:horario['idHorario']})}}"  title="Mostrar Inscritos" type="button" class="btn btn-default"><i class="icon-checklist" style="font-size: 1.3em;"></i></a></td>
 												</tr> 
 												<input type="hidden" value="{{horario['idDisciplina']}}">				
 												

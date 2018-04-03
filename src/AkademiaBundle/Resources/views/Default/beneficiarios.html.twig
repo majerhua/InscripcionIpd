@@ -560,19 +560,24 @@
 
 			
 			var asistencia = $("#asistenciaParticipante").val();
-			
-			if(asistencia == 3){
+			var categoria = $("#categoriaParticipante").val();
 
-				var asistencia = 3;
-				var categoria = 1;
-				var idFicha = $("#idFicha").text();
+			if(asistencia != 0 && categoria != 0){
 
-			}else{
+				$("#btn-actualizarEstado").attr("data-dismiss", "modal");
 
-				var asistencia = $("#asistenciaParticipante").val();
-				var categoria = $("#categoriaParticipante").val();
-				var idFicha = $("#idFicha").text();
-			}
+				if(asistencia == 3){
+
+					var asistencia = 3;
+					var categoria = 1;
+					var idFicha = $("#idFicha").text();
+
+				}else{
+
+					var asistencia = $("#asistenciaParticipante").val();
+					var categoria = $("#categoriaParticipante").val();
+					var idFicha = $("#idFicha").text();
+				}
 			//if(asistencia != 0 && categoria != 0){
 
 				console.log(asistencia, categoria, idFicha);
@@ -613,6 +618,12 @@
 						console.log(data);
 					},
 				});
+
+			}else{
+
+				$("#btn-actualizarEstado").attr("data-dismiss", "");
+				showAlertMessage('#alerta-error', "Verifique que no existan campos vacíos.");
+			}
 
 		});
 

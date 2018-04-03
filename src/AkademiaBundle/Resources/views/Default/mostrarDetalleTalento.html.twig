@@ -549,6 +549,10 @@
             </div>
 
             <div class="modal-body">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="alerta-errorActualizar" class="alert alert-danger collapse text-center"></div>
+                </div>
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="row text-center">
@@ -1003,70 +1007,79 @@
 
     $("#editarIndicador").on('click', function(){
 
-        let peso = parseFloat($('#1d').val());
-        let talla = parseFloat($('#2d').val());
-        let ind50mt = parseFloat($('#3d').val());
-        let flexTronco = parseFloat($('#4d').val());
-        let equilibrio = parseFloat($('#5d').val());
-        let flexBrazo = parseFloat($('#6d').val());
-        let saltoH = parseFloat($('#7d').val());
-        let saltoV = parseFloat($('#8d').val());
-        let lanzamiento = parseFloat($('#9d').val());
-        let abdominales = parseFloat($('#10d').val());
-        let milmt = parseFloat($('#11d').val());
-        let idControl = parseInt($('#idControlInd').text());
-        let fechaDato = $('#fechaEdit').val();
 
-        var valorIndicadores = {
-            "peso" : peso,
-            "talla" : talla,
-            "ind50mt" : ind50mt,
-            "flexTronco" : flexTronco,
-            "equilibrio" :equilibrio,
-            "flexBrazo" : flexBrazo,
-            "saltoH" : saltoH,
-            "saltoV" : saltoV,
-            "lanzamiento" : lanzamiento,
-            "abdominales" : abdominales,
-            "milmt" : milmt,
-            "idControl" : idControl,
-            "fechaDato" : fechaDato,
-        };
+        if($('#1d').val() != "" && $('#2d').val() != "" && $('#3d').val() != "" && $('#4d').val() != "" && $('#5d').val() != "" && $('#6d').val() != "" && $('#7d').val() != "" && $('#8d').val() != "" && $('#9d').val() != "" && $('#10d').val() != "" && $('#11d').val() != "" && $('#fechaEdit').val() !="" ){
 
-        console.log(valorIndicadores);
-        
-        $.ajax({
+            $("#editarIndicador").attr("data-dismiss", "modal");
 
-            type:'POST',
-            dataType: 'json',
-            url: "{{url('akademia_actualizarIndicador')}}",
-            data: valorIndicadores,
+            let peso = parseFloat($('#1d').val());
+            let talla = parseFloat($('#2d').val());
+            let ind50mt = parseFloat($('#3d').val());
+            let flexTronco = parseFloat($('#4d').val());
+            let equilibrio = parseFloat($('#5d').val());
+            let flexBrazo = parseFloat($('#6d').val());
+            let saltoH = parseFloat($('#7d').val());
+            let saltoV = parseFloat($('#8d').val());
+            let lanzamiento = parseFloat($('#9d').val());
+            let abdominales = parseFloat($('#10d').val());
+            let milmt = parseFloat($('#11d').val());
+            let idControl = parseInt($('#idControlInd').text());
+            let fechaDato = $('#fechaEdit').val();
 
-            beforeSend: function(){                 
-            },
+            var valorIndicadores = {
+                "peso" : peso,
+                "talla" : talla,
+                "ind50mt" : ind50mt,
+                "flexTronco" : flexTronco,
+                "equilibrio" :equilibrio,
+                "flexBrazo" : flexBrazo,
+                "saltoH" : saltoH,
+                "saltoV" : saltoV,
+                "lanzamiento" : lanzamiento,
+                "abdominales" : abdominales,
+                "milmt" : milmt,
+                "idControl" : idControl,
+                "fechaDato" : fechaDato,
+            };
 
-            success: function(data){
+            console.log(valorIndicadores);
+            
+            $.ajax({
 
-                if(data == 1){
+                type:'POST',
+                dataType: 'json',
+                url: "{{url('akademia_actualizarIndicador')}}",
+                data: valorIndicadores,
 
-                    alertify.success('<p style="color:white"> Se actualizó correctamente el control</p>');
-                    location.reload(true);
-                    //window.reload();
-                    clearEdit();
+                beforeSend: function(){                 
+                },
 
-                }else if(data == 2){
+                success: function(data){
 
-                    alertify.error('<p style="color:white">Se produjo un error al actualizar los datos </p>'); 
-                }else{
+                    if(data == 1){
 
-                    alertify.error('<p>Se produjo un error</p>')
-                }
-            },
-            error: function(data){
-                console.log(data);
-            },
-        });
+                        alertify.success('<p style="color:white"> Se actualizó correctamente el control</p>');
+                        location.reload(true);
+                        clearEdit();
 
+                    }else if(data == 2){
+
+                        alertify.error('<p style="color:white">Se produjo un error al actualizar los datos </p>'); 
+                    }else{
+
+                        alertify.error('<p>Se produjo un error</p>')
+                    }
+                },
+                error: function(data){
+                    console.log(data);
+                },
+            });
+
+        }else{
+
+            $("#editarIndicador").attr("data-dismiss", "");
+            showAlertMessage('#alerta-errorActualizar', "Verifique que ningún campo se encuentre vacío.");
+        }
 
     });
 
