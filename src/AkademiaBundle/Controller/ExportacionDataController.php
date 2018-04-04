@@ -106,7 +106,7 @@ class ExportacionDataController extends Controller
                       ELSE 'No se sabe' END
                       AS Discapacidad
                       FROM ACADEMIA.inscribete AS ins 
-                  inner join ACADEMIA.participante par on par.id = ins.participante_id
+                      inner join ACADEMIA.participante par on par.id = ins.participante_id
                       inner join grpersona grPar on grPar.percodigo = par.percodigo
                       inner join ACADEMIA.horario hor on hor.id=ins.horario_id
                       inner join ACADEMIA.movimientos mov on mov.inscribete_id = ins.id
@@ -118,16 +118,16 @@ class ExportacionDataController extends Controller
                       inner join ACADEMIA.apoderado apod on apod.id = par.apoderado_id
                       inner join grpersona grApod on grApod.percodigo = apod.percodigo
                       inner join grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
-                  inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+                      inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
 
                       WHERE
 
-                ubi.ubidistrito <> '00' AND 
-                ubi.ubiprovincia <> '00' AND 
-                ubi.ubiprovincia <> '00' AND 
-                ubiDpto.ubidistrito = '00' AND 
-                ubiDpto.ubiprovincia = '00' AND 
-                ubiDpto.ubidpto <> '00' AND ".$query2;
+                      ubi.ubidistrito <> '00' AND 
+                      ubi.ubiprovincia <> '00' AND 
+                      ubi.ubiprovincia <> '00' AND 
+                      ubiDpto.ubidistrito = '00' AND 
+                      ubiDpto.ubiprovincia = '00' AND 
+                      ubiDpto.ubidpto <> '00' AND ".$query2;
 			
   						  $query = $query1+' '+$query2;
 

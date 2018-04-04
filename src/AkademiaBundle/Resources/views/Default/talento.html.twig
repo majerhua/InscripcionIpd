@@ -45,15 +45,17 @@
 
 		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
 			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-			<p>Módulo para realizar un seguimiento del talento seleccionado. Crea nuevos controles que hagan referencia a la evolución de sus indicadores. </p>
+			<p>Crea nuevos controles que hagan referencia a la evolución de sus indicadores. </p>
 		</div>
 
 		<div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="card row">
 
 				{% if talento[0]['foto'] != NULL %}
-					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">				
-						<img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">				
+					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">	
+					
+					<img src="{{asset(talento[0]['foto'])}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">			
+						<!--<img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">-->
 
 					</div>
 				
@@ -144,7 +146,8 @@
 								</div>	
 								{% if talento[0]['ficha'] != NULL %}					
 									<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
-										<a href="{{ asset('assets/images/imagesFicha')}}/{{talento[0]['ficha']}}" target="_blank"> Link Ficha</a>			
+										<a href="{{asset(talento[0]['ficha'])}}" target="_blank"> Link Ficha </a>
+										<!--<a href="{{ asset('assets/images/imagesFicha')}}/{{talento[0]['ficha']}}" target="_blank"> Link Ficha</a>-->			
 									</div>
 						
 								{% endif %}	
@@ -164,6 +167,26 @@
 								{% endif %}
 							</div>
 						</div>	
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">				
+							<div class="row">
+
+								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
+									<strong><p>Discapacidad: </p></strong>
+								</div>	
+											
+								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
+									{% if talento[0]['discapacidad'] == 0 %}		
+										<p id="discapacidad"> No </p>
+									{% else %}
+										<p id="discapacidad"> Sí </p>
+									{% endif %}
+								</div>							
+								
+							</div>
+						</div>
+
 					</div>
 					<hr>
 		
@@ -433,7 +456,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Peso</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Peso</strong><br><span>Kg</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												
@@ -446,7 +469,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Talla</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Talla</strong><br><span>cm</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
@@ -462,7 +485,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> 50 met</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> 50 met</strong><br><span>mt</span></p>
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -474,7 +497,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Flexib. Tronco</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Flexib. Tronco</strong><br><span>cm</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
@@ -489,7 +512,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Equilibrio</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Equilibrio</strong><br><span>Rpt./1 min</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
@@ -502,7 +525,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Flexión Brazo</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Flexión Brazo</strong><br><span>Rpt./30 seg</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
@@ -519,7 +542,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Salto Horizontal</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Salto Horizontal</strong><br><span>cm</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
@@ -530,7 +553,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Salto Vertical</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Salto Vertical</strong><br><span>cm</span></p>
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -548,7 +571,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Lanzam. Pelota</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> Lanzam. Pelota</strong><br><span>mt.</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
@@ -559,7 +582,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong>Abdominales</strong></p>
+												<p><span style="color:#B31A12">*</span><strong>Abdominales</strong><br><span>Rpt./30 seg</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
@@ -574,7 +597,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">	
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> 1000 met.</strong></p>
+												<p><span style="color:#B31A12">*</span><strong> 1000 met.</strong><br><span>mt</span></p>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												<input id="crear_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
@@ -836,7 +859,7 @@
 					if( data == 1){
 
 						alertify.success('<p style="color:white">Los cambios se efectuaron correctamente.</p>');	
-						location.reload(true);
+						//location.reload(true);
 
 					}else{
 						alertify.error('<p style="color:white">Se ha producido un error.</p>');

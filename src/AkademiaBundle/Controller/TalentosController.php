@@ -225,6 +225,7 @@ class TalentosController extends controller
       $nombreFicha = date('YmdHis');
       $fileFichaName = $nombreFicha.'.'.$fileFicha->guessExtension();
       $rutaFicha = "assets/images/imagesFicha/";
+      $rutaFichaAll = $rutaFicha.$fileFichaName;
       $fileFicha->move($rutaFicha, $fileFichaName);
 
       
@@ -235,13 +236,14 @@ class TalentosController extends controller
       $nombreFoto = date('YmdHis');
       $fileFotoName = $nombreFoto.'.'.$fileFoto->guessExtension();
       $rutaFoto = "assets/images/imagesFoto/";
+      $rutaFotoAll = $rutaFoto.$fileFotoName;
       $fileFoto->move($rutaFoto, $fileFotoName);
 
 
       if(!empty($fileFicha)){
        
         //GUARDAR FICHA
-        $fc->getRepository('AkademiaBundle:Participante')->guardarTalento($idParticipante, $link, $fileFichaName,$fileFotoName, $comentarios);
+        $fc->getRepository('AkademiaBundle:Participante')->guardarTalento($idParticipante, $link, $rutaFichaAll,$rutaFotoAll, $comentarios);
 
         $mensaje = 1;
         return new JsonResponse($mensaje);

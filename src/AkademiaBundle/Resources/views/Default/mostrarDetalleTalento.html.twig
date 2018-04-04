@@ -45,8 +45,11 @@
                 <hr>
 
                 {% if talento[0]['foto'] != NULL %}
-                    <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">              
-                        <img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">               
+                    <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
+
+                        <img src="{{asset(talento[0]['foto'])}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">      
+
+                        <!--<img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">-->               
 
                     </div>
                 
@@ -59,7 +62,12 @@
                 {% endif %}
                 
 
-                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">              
+                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">   
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-11 col-md-11 col-lg-11 text-right">                
+                            <button title="Editar" id="boton" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#modal-editar_participante"><i class="icon-pencil-square-o"></i></button>
+                        </div>
+                    </div>           
                     <br>
                     <div class="row">
                         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">              
@@ -115,15 +123,19 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                   <div class="row">
                         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">              
                             <div class="row">
                                 <div class=" col-xs-5 col-sm-5 col-md-3 col-lg-4">              
                                     <strong><p>Ficha técnica: </p></strong>
-                                </div>                      
-                                <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
-                                    <a href="{{ asset('assets/images/imagesFicha')}}/{{talento[0]['ficha']}}" target="_blank"> Link Ficha</a>           
                                 </div>  
+                                {% if talento[0]['ficha'] != NULL %}                    
+                                    <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
+                                        <a href="{{asset(talento[0]['ficha'])}}" target="_blank"> Link Ficha </a>
+                                        <!--<a href="{{ asset('assets/images/imagesFicha')}}/{{talento[0]['ficha']}}" target="_blank"> Link Ficha</a>-->            
+                                    </div>
+                        
+                                {% endif %} 
                             </div>
                         </div>
 
@@ -132,12 +144,14 @@
 
                                 <div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">                
                                     <strong><p>Video Youtube:</p></strong>
-                                </div>                      
+                                </div>  
+                                {% if talento[0]['link'] != NULL %}                     
                                 <div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">
                                     <a href="{{talento[0]['link']}}" target="_blank"> Link Video </a>
                                 </div>                          
+                                {% endif %}
                             </div>
-                        </div>                 
+                        </div>  
                     </div>
 
                     <div class="row">
@@ -538,6 +552,90 @@
     </div>
 </div>
 
+<!--MODAL EDITAR PARTICIPANTE-->
+<div id="modal-editar_participante" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        
+        <form id="uploadimage" action="#" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+                    <h4 id="deportista_editar_nombre" class="title-card" style="color:#0B3861">{{talento[0]['nombre']}}</h4>
+                </div>
+                <input type="hidden" id="cod-participante" name="cod-participante" value="{{talento[0]['idParticipante']}}">
+                <!--<p id="idPart" style="color:white; font-size:12px"> {{talento[0]['idParticipante']}}</p>-->
+                <div class="modal-body">
+                    <div class="row">
+                                                    
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="alerta-error" class="alert alert-danger collapse text-center"></div>
+
+                            <ul class="list-group">
+                                
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+                                            <p><span style="color:#B31A12">*</span><strong> Foto de perfil</strong></p>
+                                        </div>
+
+                                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+                                            <input type="file" name="imagen-foto" multiple id="imagen-foto" class="form-control" placeholder="foto.jpg">
+                                        </div>
+                                        
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+                                            <p><span style="color:#B31A12">*</span><strong> Video Youtube</strong></p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+                                            <input id="link" class="form-control" name="link" type="text" placeholder=" www.youtube.com/jir931qXG">
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+                                            <p><span style="color:#B31A12">*</span><strong> Ficha técnica</strong></p>
+                                        </div>
+
+                                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+                                            <input type="file" name="imagen-ficha" multiple id="imagen-ficha" class="form-control" placeholder="ficha_tecnica.jpg">
+                                        </div>
+                                        
+                                    </div>
+                                </li>
+                            
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+                                            <p><span style="color:#B31A12">*</span><strong> Comentarios:</strong></p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+                                            <textarea id="comentarios" name="comentarios" maxlength="300" class="form-control" rows="5" id="comment"></textarea>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="btn_guardar_editar_deportista" type="button" class="btn btn-danger" >Guardsdasdaar</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <!-- MODAL EDITAR MEDIDA -->
 <div id="modal-editar-medida" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -748,6 +846,54 @@
 
 
 <script type="text/javascript">
+
+/*IMAGENES*/
+
+    $('#btn_guardar_editar_deportista').on( 'click', function() {
+
+        if($("#imagen-foto").val() != "" && $("#link").val() != "" && $("#imagen-ficha").val() != "" && $("#comentarios").val() != "" ) {
+
+            $("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
+            var formulario = new FormData($("#uploadimage")[0]);
+            console.log(formulario);
+
+            $.ajax({
+
+                type:'POST',
+                url: "{{url('akademia_guardarTalento')}}",
+                data: formulario,
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                beforeSend: function(){             
+                    
+                },
+
+                success: function (data){
+
+                    if( data == 1){
+
+                        alertify.success('<p style="color:white">Los cambios se efectuaron correctamente.</p>');    
+                        location.reload(true);
+
+                    }else{
+                        alertify.error('<p style="color:white">Se ha producido un error.</p>');
+                    }
+                    
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+
+        }else{
+
+            $("#btn_guardar_editar_deportista").attr("data-dismiss", "");
+            showAlertMessage('#alerta-error', "Verifique que ningún campo se encuentre vacío.");
+        }       
+
+    });
     
     /*MOSTRAR TALENTO EN LA APLICACION MOVIL*/
 

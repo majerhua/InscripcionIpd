@@ -38,7 +38,7 @@
         
         <div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
             <button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
-            <p>Módulo para la visualización de talentos en el aplicativo móvil. hhfghashfakhfghaksf ausfasgfhgsf</p>
+            <p>Módulo para la visualización de talentos en el aplicativo móvil.</p>
         </div>
     
         {% set cont = 0 %}
@@ -52,7 +52,7 @@
                                 <input class="filtrar form-control" ident-buscar="{{cont}}" type="text" placeholder="Ingresa los campos a buscar ">
                             </div>
                             <br>
-                            <div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:100vh">
+                            <div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:80vh">
                                 <table class="table"> 
 
                                     <thead style=" color:white; background:#cb2f1d;"> 
@@ -63,6 +63,7 @@
                                             <th class="text-center">Nombre</th> 
                                             <th class="text-center">Edad</th>
                                             <th class="text-center">Sexo</th> 
+                                            <th class="text-center">Departamento</th>
                                             <th class="text-center">Complejo</th> 
                                             <th class="text-center">Disciplina</th> 
                                             <th class="text-center">Visible</th>
@@ -84,7 +85,7 @@
                                             {% else %}
                                                 <td>Masculino</td> 
                                             {% endif %} 
-                                            
+                                            <td class="text-center">{{talento['departamento']}}</td>
                                             <td class="text-center">{{talento['nombreComplejo']}}</td>
                                             <td class="text-center">{{talento['nombreDisciplina']}}</td>
                                             {% if talento['visibilidad'] == 0 %}

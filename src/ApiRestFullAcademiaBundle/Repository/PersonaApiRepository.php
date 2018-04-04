@@ -25,9 +25,10 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     per.persexo as sexo,
                     ede.ede_nombre as nombreComplejo,
                     dis.dis_descripcion as nombreDisciplina,
-                    par.foto_ruta as foto,
-                    par.ficha_ruta as ficha_tecnica,
+                    ('http://172.16.20.55/academia/web/' + par.ficha_ruta) as ficha_tecnica,
+                    ('http://172.16.20.55/academia/web/' + par.foto_ruta) as foto,
                     par.link as link,
+                    par.visible_app as visibilidad,
                     par.comentarios as comentarios      
                     FROM  ACADEMIA.movimientos AS mov
                     INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
@@ -54,6 +55,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                             foto talentoFotoPerfil,
                             ficha_tecnica talentoFotoFicha,
                             link talentoVideo,
+                            visibilidad,
                             comentarios talentoComentarios   
                         FROM ParticipantesOrdenados   
                         WHERE num_id  BETWEEN '$inicio' AND '$fin';";
@@ -261,4 +263,17 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         $disciplinas = $stmt->fetchAll();
         return $disciplinas;  
     }
+
+     public function indicadoresTalento($idParticipante){
+
+        $query = "EXEC dbo.mostrarIndicadoresControl $idParticipante";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $controles = $stmt->fetchAll();
+
+        return $controles;
+
+    }
+
+
 }

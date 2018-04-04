@@ -116,6 +116,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 par.foto_ruta as foto,
                 par.comentarios as comentarios,
                 par.visible_app as visible,
+                par.discapacitado as discapacidad,
                 (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
                 per.persexo as sexo,
                 dis.dis_descripcion as nombreDisciplina,
@@ -151,6 +152,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function getNumeroControl($idParticipante){
+       
         $query = "SELECT distinct(control_id) as id, co.fecha as fecha FROM ACADEMIA.indicador_control ic
                   INNER JOIN ACADEMIA.control co on ic.control_id = co.id where co.id_participante = $idParticipante";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -267,7 +269,8 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 mov.asistencia_id as idAsistencia,
                 mov.fecha_modificacion as fechita,
                 dis.dis_descripcion as nombreDisciplina,
-                ede.ede_nombre as nombreComplejo
+                ede.ede_nombre as nombreComplejo,
+                ubi.ubinombre as departamento
                 FROM 
                 ACADEMIA.inscribete ins 
                 inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id
@@ -277,6 +280,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 inner join catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
                 inner join catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
                 inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
+                inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
                 inner join academia.participante par on ins.participante_id = par.id
                 inner join grpersona per on per.percodigo = par.percodigo
                 inner join academia.movimientos mov on mov.id = ids.mov_id

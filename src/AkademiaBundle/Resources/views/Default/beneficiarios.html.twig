@@ -142,7 +142,8 @@
 								  	<input class="filtrar form-control" type="text" ident-buscar="{{cont}}"  placeholder=" ingresa los campos a buscar ">
 								</div>
 								<br>
-								<div class="panel panel-default" style="overflow-x:auto;">
+									
+								<div class="panel panel-default" style="overflow-x:auto; overflow-y:scroll; height:80vh;">
 									<table class="table"> 
 										<thead style="background:#F2F2F2; color:#585858"> 
 											<tr> 
@@ -153,16 +154,12 @@
 												<th class="text-center">Sexo</th> 
 												<th class="text-center">Categoría</th>
 												<th class="text-center">Asistencia</th>
-												<th></th>
+					
 											</tr>
 
 										</thead> 
 
 										<tbody class="buscar" style="color:#494343"> 
-
-
-
-												
 
 											{% for beneficiario in beneficiarios %}
 												

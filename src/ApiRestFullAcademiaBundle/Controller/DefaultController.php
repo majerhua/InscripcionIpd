@@ -126,5 +126,23 @@ class DefaultController extends FOSRestController
     }
     return $restresult;
   }
+
+  /**
+   * @Rest\Get("/indicadores")
+   */
+  public function indicadoresTalentoAction(Request $request)
+  {
+      $idParticipante = $request->get('participanteId');
+
+      $fc = $this->getDoctrine()->getManager();
+      $indicadores = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->indicadoresTalento($idParticipante);
+
+      if($indicadores === null){
+        return new View("Error al mostrar los datos", Response::HTTP_NOT_FOUND);
+      }
+
+      return $indicadores;
+  }
+
 }
 
