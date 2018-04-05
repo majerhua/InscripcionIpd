@@ -30,7 +30,7 @@
 <section >
     <br>
     <div style="width:93%">
-        <p class="text-right" style="color:grey" >Usuario: {{ app.user.username}} </p>
+        <p class="text-right" style="color:grey"> Usuario: {{ app.user.username}} </p>
     </div>
 
     <div class="proceso">
@@ -194,41 +194,31 @@
                                 </div>
                                 <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">  
                                     <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="cbx-visualizacion" id="cbx-visualizacion" value="1">
-                                        </span>
-                                        <p type="text" class="form-control">Si</p>
+
+                                          {% if talento[0]['visible'] == 0 %} 
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="cbx-visualizacion" id="cbx-visualizacion">
+                                            </span>
+                                            <p type="text" id="valorVisual" class="form-control">Si</p> 
+                                          {% else %}
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="cbx-visualizacion" id="cbx-visualizacion" checked>
+                                            </span>
+                                            <p type="text" id="valorVisual" class="form-control">Si</p>
+                                          {% endif %}
+                                       
                                     </div>
                                 </div>
-
-                                <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">  
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" name="cbx-novisualizacion" id="cbx-novisualizacion" value="0">
-                                        </span>
-                                        <p type="text" class="form-control">No</p>
-                                    </div>
-                                </div>
-
                             </div>
                             <br>
-                            <div id="advertencia" class="alert alert-success collapse text-center">
+                            <div id="advertencia" class="alert collapse text-center">
                                 <div class="row">
                                     <div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
-                                        <p style="font-size:14px"> Este nuevo talento será visto a nivel nacional desde la aplicación AcademiaApp. <br>¿ Deseas continuar ?</p>
+                                        <p style="font-size:14px" id="alertaSi"> Este nuevo talento será visto a nivel nacional desde la aplicación AcademiaApp. <br>¿ Deseas continuar ?</p>
+                                         <p style="font-size:14px" id="alertaNo"> No se mostrará información de este talento en la aplicación AcademiaApp <br>¿ Deseas continuar ?</p>
                                     </div>
                                     <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">
                                          <button title="Guardar" id="btnCatTalento" class="btn btn-danger" data-toggle="modal"><i class="icon-save"></i> Guardar</button>
-                                    </div>
-                                </div>
-                            </div>
-                             <div id="advertencia1" class="alert alert-danger collapse text-center">
-                                <div class="row">
-                                    <div class="form-group col-xs-10 col-sm-10 col-md-10 col-ld-10">
-                                        <p style="font-size:14px"> No se mostrará información de este talento en la aplicación AcademiaApp <br>¿ Deseas continuar ?</p>
-                                    </div>
-                                    <div class="form-group col-xs-2 col-sm-2 col-md-2 col-ld-2">
-                                         <button title="Guardar" id="btnCatTalento1" class="btn btn-danger" data-toggle="modal"><i class="icon-save"> </i> Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -250,9 +240,8 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="panel panel-default" style="overflow-x:auto;">
                                     <table class="table"> 
-                                        <thead style="background:#cb2f1d; color:#F2F2F2;"> 
-                                            <tr class="text-center"> 
-                                                
+                                        <thead> 
+                                            <tr style="background:#cb2f1d; color:#F2F2F2" class="text-center"> 
                                                 <th>Fecha</th> 
                                                 <th>Peso</th> 
                                                 <th>Talla</th>
@@ -267,7 +256,7 @@
                                                 <th>1000m</th>
                                                 <th></th>
                                             </tr>
-                                            <tr class="text-center">
+                                            <tr style="background:#C44A32; color:#F2F2F2;">
                                                 <td></td>
                                                 <td>kg</td>
                                                 <td>cm</td>
@@ -280,6 +269,21 @@
                                                 <td>m</td>
                                                 <td>Rpt./30 seg</td>
                                                 <td>(seg)</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="background:#D87A52; color:#F2F2F2;">
+                                                <td></td>
+                                                <td>Med. Básicas</td>
+                                                <td>Med. Básicas</td>
+                                                <td>Velocidad</td>
+                                                <td>Flex. Elast.</td>
+                                                <td>Equilibrio</td>
+                                                <td>Fuerza</td>
+                                                <td>Fuerza</td>
+                                                <td>Fuerza</td>
+                                                <td>Fuerza</td>
+                                                <td>Fuerza</td>
+                                                <td>Resistencia</td>
                                                 <td></td>
                                             </tr>
 
@@ -846,9 +850,15 @@
 
 
 <script type="text/javascript">
+    
+    $(document).ready(function(){
 
-/*IMAGENES*/
+        $("#advertencia").hide();
+    
+           
+    });
 
+    /*IMAGENES*/
     $('#btn_guardar_editar_deportista').on( 'click', function() {
 
         if($("#imagen-foto").val() != "" && $("#link").val() != "" && $("#imagen-ficha").val() != "" && $("#comentarios").val() != "" ) {
@@ -896,44 +906,38 @@
     });
     
     /*MOSTRAR TALENTO EN LA APLICACION MOVIL*/
-
+    
+    sessionStorage.removeItem('flagCatTalento');
+  
     $('#cbx-visualizacion').on( 'click', function() {
         
         if($(this).is(':checked'))
         {
             $("#advertencia").show();
-            $("#advertencia1").hide();
-            $("#cbx-novisualizacion").prop('checked', false);
-            sessionStorage.setItem('flagCatTalento',$(this).val());
+            $("#advertencia").addClass("alert-success").removeClass( "alert-danger" );
+            $("#alertaSi").show();
+            $("#alertaNo").hide();
+            $("#valorVisual").text('Si');
+            sessionStorage.setItem('flagCatTalento',1);
         
         }else{
 
-            $("#advertencia").hide();
-            sessionStorage.removeItem('flagCatTalento');
+            $("#advertencia").show();
+            $("#advertencia").addClass("alert-danger").removeClass("alert-success");
+            $("#alertaSi").hide();
+            $("#alertaNo").show();
+            $("#valorVisual").text('No');
+            sessionStorage.setItem('flagCatTalento',0);
         }
     });   
 
-    $('#cbx-novisualizacion').on( 'click', function() {
-        
-        if($(this).is(':checked'))
-        {
-            $("#advertencia1").show();
-            $("#advertencia").hide();
-            $("#cbx-visualizacion").prop('checked', false);
-            sessionStorage.setItem('flagCatTalento',$(this).val());
-        
-        }else{
-
-            $("#advertencia1").hide();
-            sessionStorage.removeItem('flagCatTalento');
-        }
-
-    });     
   
-    $("#btnCatTalento1").on('click', function(){
+    $('#btnCatTalento').on('click', function(){
 
         let visibilidad = sessionStorage.getItem('flagCatTalento');
         let idParticipante = $('#idPartTalento').val();
+        console.log(visibilidad, idParticipante);
+
 
         var dataEnvio = {
             "idParticipante" : idParticipante,
@@ -946,42 +950,11 @@
             url: "{{url('akademia_visibilidadApp')}}",
             data: dataEnvio,
             
-            success: function(data){
-                if(data == 1){
-                
-                    alertify.success('<p style="color:white">El cambio se actualizó correctamente. </p>');
-                    location.reload(true);
-                
-                }else{
+            beforeSend:function(){
 
-                    alertify.error('<p>Se produjo un error al actualizar. </p>')
-                }
-                
+              $("#btnCatTalento").attr("disabled", true);    
+            
             },
-            error: function(error){
-
-                console.log(error);
-            }
-                    
-        });
-        
-    });
-
-    $('#btnCatTalento').on('click', function(){
-
-        let visibilidad = sessionStorage.getItem('flagCatTalento');
-        let idParticipante = $('#idPartTalento').val();
-
-        var dataEnvio = {
-            "idParticipante" : idParticipante,
-            "visibilidad" : visibilidad
-        };
-
-        $.ajax({
-
-            type:'POST',
-            url: "{{url('akademia_visibilidadApp')}}",
-            data: dataEnvio,
             
             success: function(data){
                 if(data == 1){

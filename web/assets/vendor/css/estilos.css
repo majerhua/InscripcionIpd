@@ -12,7 +12,14 @@ body{
 
 }
 
-
+.dimension{
+	color:#3A3C85; 
+	font-size:14px;
+}
+.undmedida{
+	color:grey;
+	font-size: 14px;
+}
 /*ELIMINAR HORARIO*/
 
 #accordion input {

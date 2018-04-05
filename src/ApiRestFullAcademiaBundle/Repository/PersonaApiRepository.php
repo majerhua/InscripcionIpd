@@ -266,7 +266,20 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
 
      public function indicadoresTalento($idParticipante){
 
-        $query = "EXEC dbo.mostrarIndicadoresControl $idParticipante";
+        $query = "WITH controlMaximo AS ( 
+                    SELECT  MAX(ic.control_id) as maximoControl
+                    FROM   
+                    ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id 
+                    WHERE co.id_participante = $idParticipante    
+                )
+
+                SELECT ic.indicador_id, ind.descripcion,ind.unidad_medida, ic.control_id, ic.valor,co.id_participante,CONVERT(varchar,co.fecha,105) fecha 
+                FROM 
+                ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id 
+                INNER JOIN controlMaximo cm on ic.control_id = cm.maximoControl
+                INNER JOIN ACADEMIA.indicador ind on ind.id = ic.indicador_id 
+                WHERE co.id_participante = $idParticipante ";
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $controles = $stmt->fetchAll();
