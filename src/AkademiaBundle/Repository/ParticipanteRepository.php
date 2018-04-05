@@ -67,7 +67,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     public function getMostrarSeleccionados(){
         
-        $query = "  SELECT 
+        $query = "SELECT 
                 (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre,
                 par.id as idParticipante,
                 per.perdni as dni, 
@@ -79,7 +79,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 mov.fecha_modificacion as fechita,
                 dis.dis_descripcion as nombreDisciplina,
                 ede.ede_nombre as nombreComplejo,
-                ubi.ubinombre as departamento
+                ubiDpto.ubinombre as departamento
                 FROM 
                 ACADEMIA.inscribete ins 
                 inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id
@@ -90,12 +90,18 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 inner join catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
                 inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
                 inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
+                inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
                 inner join academia.participante par on ins.participante_id = par.id
                 inner join grpersona per on per.percodigo = par.percodigo
                 inner join academia.movimientos mov on mov.id = ids.mov_id
                 WHERE 
-                ins.estado = 2 and 
-                mov.asistencia_id = 2  and (  mov.categoria_id = 2 or mov.categoria_id= 3 )";
+                ubi.ubidistrito <> '00' AND 
+                ubi.ubiprovincia <> '00' AND 
+                ubiDpto.ubidistrito = '00' AND 
+                ubiDpto.ubiprovincia = '00' AND 
+                ubiDpto.ubidpto <> '00' AND
+                ins.estado = 2 AND
+                mov.asistencia_id = 2  AND (  mov.categoria_id = 2 OR mov.categoria_id= 3 )";
   
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -270,7 +276,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 mov.fecha_modificacion as fechita,
                 dis.dis_descripcion as nombreDisciplina,
                 ede.ede_nombre as nombreComplejo,
-                ubi.ubinombre as departamento
+                ubiDpto.ubinombre as departamento
                 FROM 
                 ACADEMIA.inscribete ins 
                 inner join (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id
@@ -279,12 +285,20 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 inner join academia.horario hor on ins.horario_id = hor.id
                 inner join catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
                 inner join catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
-                inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
-                inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
+                inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo   
                 inner join academia.participante par on ins.participante_id = par.id
-                inner join grpersona per on per.percodigo = par.percodigo
+               
                 inner join academia.movimientos mov on mov.id = ids.mov_id
-                WHERE 
+                 inner join grpersona per on per.percodigo = par.percodigo
+                 inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
+                inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+
+               WHERE 
+                ubi.ubidistrito <> '00' AND 
+                ubi.ubiprovincia <> '00' AND 
+                ubiDpto.ubidistrito = '00' AND 
+                ubiDpto.ubiprovincia = '00' AND 
+                ubiDpto.ubidpto <> '00' AND
                 ins.estado = 2 and 
                 mov.categoria_id = 4 and 
                 mov.asistencia_id = 2";
