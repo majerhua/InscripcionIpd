@@ -55,20 +55,17 @@ class TalentosController extends controller
       if($request->isXmlHttpRequest()){
 
         $fc = $this->getDoctrine()->getManager();
-
         $usuario = $this->getUser()->getId();
-     
+
         $peso = $request->get('peso');
         $talla = $request->get('talla');
-        $ind50mt = $request->get('ind50mt');
-        $flexTronco = $request->get('flexTronco');
-        $equilibrio = $request->get('equilibrio');
-        $flexBrazo = $request->get('flexBrazo');
-        $saltoH = $request->get('saltoH');
+        $ind30mt = $request->get('ind30mt');
+        $saltoLargo = $request->get('saltoLargo');
+        $lanzPelota = $request->get('lanzPelota');
         $saltoV = $request->get('saltoV');
-        $lanzamiento = $request->get('lanzamiento');
         $abdominales = $request->get('abdominales');
-        $milmt = $request->get('milmt');
+        $agCubitoDorsal = $request->get('agCubitoDorsal');
+
         $idParticipante = $request->get('idParticipante');
         $idInscribete = $request->get('idInscribete');
         $fechaDato = $request->get('fechaDato');
@@ -93,7 +90,7 @@ class TalentosController extends controller
 
           if(!empty($idNuevoControl)){
             
-            $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNewControl,$usuario);
+            $fc->getRepository('AkademiaBundle:Participante')->nuevoControlIndicador($peso,$talla,$ind30mt,$saltoLargo,$lanzPelota,$saltoV,$abdominales,$agCubitoDorsal,$idNewControl,$usuario);
 
             $mensaje = 1;
             return new JsonResponse($mensaje);
@@ -179,20 +176,17 @@ class TalentosController extends controller
      
         $peso = $request->get('peso');
         $talla = $request->get('talla');
-        $ind50mt = $request->get('ind50mt');
-        $flexTronco = $request->get('flexTronco');
-        $equilibrio = $request->get('equilibrio');
-        $flexBrazo = $request->get('flexBrazo');
-        $saltoH = $request->get('saltoH');
+        $ind30mt = $request->get('ind30mt');
+        $saltoLargo = $request->get('saltoLargo');
+        $lanzPelota = $request->get('lanzPelota');
         $saltoV = $request->get('saltoV');
-        $lanzamiento = $request->get('lanzamiento');
         $abdominales = $request->get('abdominales');
-        $milmt = $request->get('milmt');
+        $agCubitoDorsal = $request->get('agCubitoDorsal');
+    
         $idControl = $request->get('idControl');
         $fechaDato = $request->get('fechaDato');
-      
 
-        $controlActualizado = $fc->getRepository('AkademiaBundle:Participante')->actualizarControlIndicador($fechaDato,$peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idControl);
+        $controlActualizado = $fc->getRepository('AkademiaBundle:Participante')->actualizarControlIndicador($fechaDato,$peso,$talla,$ind30mt,$saltoLargo,$lanzPelota,$saltoV,$abdominales,$agCubitoDorsal,$idControl);
 
         if($controlActualizado == 1){
 

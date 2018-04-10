@@ -240,35 +240,30 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="panel panel-default" style="overflow-x:auto;">
                                     <table class="table"> 
+
                                         <thead> 
                                             <tr style="background:#cb2f1d; color:#F2F2F2" class="text-center"> 
                                                 <th>Fecha</th> 
                                                 <th>Peso</th> 
                                                 <th>Talla</th>
-                                                <th>50m</th> 
-                                                <th>Flexib.<br>Tronco</th> 
-                                                <th>Equilib.</th> 
-                                                <th>Flex. Brazo</th> 
-                                                <th>Salto Horiz.</th> 
-                                                <th>Salto Verti.</th> 
-                                                <th>Lanz. Pelota</th>
-                                                <th>Abdom.</th>
-                                                <th>1000m</th>
+                                                <th>30m</th> 
+                                                <th>Salto largo <br>sin impulso</th> 
+                                                <th>Lanzamiento <br>de pelota</th> 
+                                                <th>Salto Vert.</th> 
+                                                <th>Abdominales</th> 
+                                                <th>Agilidad <br>cubito dorsal</th> 
                                                 <th></th>
                                             </tr>
                                             <tr style="background:#C44A32; color:#F2F2F2;">
                                                 <td></td>
                                                 <td>kg</td>
-                                                <td>cm</td>
-                                                <td>seg</td>
-                                                <td>cm</td>
-                                                <td>Rpt./1 min</td>
-                                                <td>Rpt./30 seg</td>
-                                                <td>s/c cm</td>
-                                                <td>s/i cm</td>
                                                 <td>m</td>
-                                                <td>Rpt./30 seg</td>
-                                                <td>(seg)</td>
+                                                <td>seg/100</td>
+                                                <td>cm</td>
+                                                <td>m</td>
+                                                <td>cm</td>
+                                                <td>Rpt/30 seg</td>
+                                                <td>Rpt/20 seg</td>
                                                 <td></td>
                                             </tr>
                                             <tr style="background:#D87A52; color:#F2F2F2;">
@@ -276,14 +271,11 @@
                                                 <td>Med. Básicas</td>
                                                 <td>Med. Básicas</td>
                                                 <td>Velocidad</td>
-                                                <td>Flex. Elast.</td>
-                                                <td>Equilibrio</td>
+                                                <td>Fuerza explosiva</td>
                                                 <td>Fuerza</td>
-                                                <td>Fuerza</td>
-                                                <td>Fuerza</td>
-                                                <td>Fuerza</td>
-                                                <td>Fuerza</td>
-                                                <td>Resistencia</td>
+                                                <td>Potencia</td>
+                                                <td>Fuerza de core</td>
+                                                <td>Agilidad</td>
                                                 <td></td>
                                             </tr>
 
@@ -356,205 +348,6 @@
         <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">&copy; 2018 Todos los derechos reservados</p>
     </div>
 </footer>
-
-
-<!-- MODAL NUEVA MEDIDA -->
-<div id="modal-nueva-medida" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <button type="button" class="close text-center" data-dismiss="modal">&times;</button>
-                <h4 class="title-card" style="color:#2D2D52">REGISTRAR MEDIDAS</h4>
-                
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="alerta-errorControl" class="alert alert-danger collapse text-center"></div>
-                    </div>
-                    
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="row text-center">
-                            <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <p><span style="color:#B31A12">*</span><strong>Fecha de evaluación:</strong></p>
-                            </div>
-                            <div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
-                                <input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Peso</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Talla</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>50 met</strong></p>
-                                            </div>
-
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_50m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Flexib. Tronco</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_flexTronco" class="form-control" type="number" min="0" class="validate" placeholder="14 cm">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Equilibrio</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-                                                <input id="crear_equilibrio" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Flexion Brazo</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-                                                <input id="crear_flexion" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Salto Horizontal</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_saltoH" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Salto Vertical</strong></p>
-                                            </div>
-
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-                                                <input id="crear_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="22.54 cm">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Lanzam. Pelota</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_lanzamientoP" class="form-control" type="number" min="0" class="validate" placeholder="25 m">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>Abdominales</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">  
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong>1000 met.</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_milmt" class="form-control" type="number" min="0" class="validate" placeholder="267.4 seg">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" id="crearIndicador" class="btn btn-danger" data-dismiss="modal">Guardar</button>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--MODAL EDITAR PARTICIPANTE-->
 <div id="modal-editar_participante" class="modal fade" role="dialog">
@@ -640,9 +433,173 @@
     </div>
 </div>
 
+<!-- MODAL NUEVA MEDIDA -->
+<div id="modal-nueva-medida" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close text-center" data-dismiss="modal">&times;</button>
+                <h4 class="title-card" style="color:#2D2D52">REGISTRAR MEDIDAS</h4>
+                
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="alerta-errorControl" class="alert alert-danger collapse text-center"></div>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="row text-center">
+                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p><span style="color:#B31A12">*</span><strong> Fecha de evaluación</strong></p>
+                            </div>
+                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <input class="form-control"  id="fechaRegistro" type="date"  name="fechaRegistro">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> Peso</strong><span class="undmedida"> (kg)</span></p>
+                                                <span class="dimension">Medidas Básicas</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                
+                                                <input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (cm)</span></p>
+                                                <span class="dimension">Medidas Básicas</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+                                                <span class="dimension">Velocidad</span>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <input id="crear_30m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> Salto largo sin impulso</strong><br><span class="undmedida"> (cm)</span></p>
+                                                <span class="dimension">Fuerza Explosiva</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                                <input id="crear_saltoLargo" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(m)</span></p>
+                                                <span class="dimension">Fuerza</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <input id="crear_lanzPelota" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong>Salto vertical</strong><br><span class="undmedida">(cm)</span></p>
+                                                <span class="dimension">Potencia</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <input id="crear_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+                                            </div>
+                                        </div>
+                                    </div>                                  
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> Abdominales</strong><br><span class="undmedida"> (Rpt./30 seg)</span></p>
+                                                <span class="dimension">Fuerza core</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                                <input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <p><span style="color:#B31A12">*</span><strong> Agilidad cubito dorsal</strong><br><span class="undmedida">(Rpt. /20 seg)</span></p>
+                                                <span class="dimension">Agilidad</span>
+                                            </div>
+                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                <input id="crear_agCubitoDorsal" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span style="color:#B31A12; font-size:12px;"> (*) Campos obligatorios.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="crearIndicador" class="btn btn-danger" data-dismiss="modal">Guardar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- MODAL EDITAR MEDIDA -->
 <div id="modal-editar-medida" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -651,33 +608,38 @@
             </div>
 
             <div class="modal-body">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="alerta-errorActualizar" class="alert alert-danger collapse text-center"></div>
-                </div>
-
                 <div class="row">
+
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="alerta-errorActualizar" class="alert alert-danger collapse text-center"></div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="row text-center">
-                            <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <p><strong>Fecha de evaluación:</strong></p>
+                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p><span style="color:#B31A12">*</span><strong> Fecha de evaluación</strong></p>
                             </div>
-                            <div class="form-group col-xs-8 col-sm-4 col-md-4 col-lg-4">
-                                <input class="form-control"  id="fechaEdit" type="date" >
+                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <input class="form-control"  id="fechaRegistro" name="fechaRegistro" type="date" >
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Peso</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Peso</strong><span class="undmedida"> (kg)</span></p>
+                                                <span class="dimension">Medidas Básicas</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="1d" class="form-control" type="number" min="0" class="validate">
+                                                
+                                                <input id="1d" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+
                                             </div>
                                         </div>
                                     </div>
@@ -685,10 +647,11 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Talla</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (cm)</span></p>
+                                                <span class="dimension">Medidas Básicas</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="2d" class="form-control" type="number" min="0" class="validate">
+                                                <input id="2d" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
                                             </div>
                                         </div>
                                     </div>
@@ -701,39 +664,12 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>50 met</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+                                                <span class="dimension">Velocidad</span>
                                             </div>
 
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="3d" class="form-control" type="number" min="0" class="validate">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Flexib. Tronco</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="4d" class="form-control" type="number" min="0" class="validate">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Equilibrio</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-                                                <input id="5d" class="form-control" type="number" min="0" class="validate">
-
+                                                <input id="3d" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
                                             </div>
                                         </div>
                                     </div>
@@ -741,11 +677,12 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Flexion Brazo</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Salto largo sin impulso</strong><br><span class="undmedida"> (cm)</span></p>
+                                                <span class="dimension">Fuerza Explosiva</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                                                <input id="6d" class="form-control" type="number" min="0" class="validate">
+                                                <input id="4d" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
 
                                             </div>
                                         </div>
@@ -755,42 +692,45 @@
 
                             <li class="list-group-item">
                                 <div class="row">
+                                    
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Salto Horizontal</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(m)</span></p>
+                                                <span class="dimension">Fuerza</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="7d" class="form-control" type="number" min="0" class="validate">
+                                                <input id="5d" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Salto Vertical</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong>Salto vertical</strong><br><span class="undmedida">(cm)</span></p>
+                                                <span class="dimension">Potencia</span>
                                             </div>
-
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-                                                <input id="8d" class="form-control" type="number" min="0" class="validate">
-
+                                                <input id="6d" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                  
                                 </div>
                             </li>
 
                             <li class="list-group-item">
                                 <div class="row">
+                                    
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Lanzam. Pelota</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Abdominales</strong><br><span class="undmedida"> (Rpt./30 seg)</span></p>
+                                                <span class="dimension">Fuerza core</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="9d" class="form-control" type="number" min="0" class="validate">
+
+                                                <input id="7d" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+
                                             </div>
                                         </div>
                                     </div>
@@ -798,31 +738,18 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>Abdominales</strong></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Agilidad cubito dorsal</strong><br><span class="undmedida">(Rpt. /20 seg)</span></p>
+                                                <span class="dimension">Agilidad</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="10d" class="form-control" type="number" min="0" class="validate">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">  
-                                        <div class="row">
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong>1000 met.</strong></p>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="11d" class="form-control" type="number" min="0" class="validate">
-
+                                                <input id="8d" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                         </ul>
+                        <span style="color:#B31A12; font-size:12px;"> (*) Campos obligatorios.</span>
                         <p style="color:white" id="idControlInd"></p>
                     </div>
                 </div>
@@ -976,26 +903,22 @@
 
     });
 
-
     /*CREAR UNA NUEVA MEDIDA*/
 
     $('#crearIndicador').on('click',function(){
 
-        if($('#crear_peso').val() != "" && $('#crear_talla').val() != "" && $('#crear_50m').val() != "" && $('#crear_flexTronco').val() != "" && $('#crear_equilibrio').val() != "" && $('#crear_flexion').val() != "" && $('#crear_saltoH').val() != "" && $('#crear_saltoV').val() != "" && $('#crear_lanzamientoP').val() != "" && $('#crear_abdominales').val() != "" && $('#crear_milmt').val() != "" && $('#idPartTalento').val() != "" && $('#idInscribete').val() != "" && $('#fechaRegistro').val()){
+        if($('#crear_peso').val() != "" && $('#crear_talla').val() != "" && $('#crear_30m').val() != "" && $('#crear_saltoLargo').val() != "" && $('#crear_lanzPelota').val() != "" && $('#crear_saltoV').val() != "" && $('#crear_abdominales').val() != "" && $('#crear_agCubitoDorsal').val() != "" && $('#idPartTalento').val() != "" && $('#idInscribete').val() != "" && $('#fechaRegistro').val()){
 
                 $("#crearIndicador").attr("data-dismiss", "modal");
 
                 let peso = $('#crear_peso').val();
                 let talla = $('#crear_talla').val();
-                let ind50mt = $('#crear_50m').val();
-                let flexTronco = $('#crear_flexTronco').val();
-                let equilibrio = $('#crear_equilibrio').val();
-                let flexBrazo = $('#crear_flexion').val();
-                let saltoH = $('#crear_saltoH').val();
+                let ind30mt = $('#crear_30m').val();
+                let saltoLargo = $('#crear_saltoLargo').val();
+                let lanzPelota = $('#crear_lanzPelota').val();
                 let saltoV = $('#crear_saltoV').val();
-                let lanzamiento = $('#crear_lanzamientoP').val();
                 let abdominales = $('#crear_abdominales').val();
-                let milmt = $('#crear_milmt').val();
+                let agCubitoDorsal = $('#crear_agCubitoDorsal').val();
                 let idParticipante = $('#idPartTalento').val();
                 let idInscribete = $('#idInscribete').val();
                 let fechaDato = $('#fechaRegistro').val();
@@ -1005,15 +928,12 @@
                 var valorIndicadores = {
                     "peso" : peso,
                     "talla" : talla,
-                    "ind50mt" : ind50mt,
-                    "flexTronco" : flexTronco,
-                    "equilibrio" :equilibrio,
-                    "flexBrazo" : flexBrazo,
-                    "saltoH" : saltoH,
+                    "ind30mt" : ind30mt,
+                    "saltoLargo" : saltoLargo,
+                    "lanzPelota" :lanzPelota,
                     "saltoV" : saltoV,
-                    "lanzamiento" : lanzamiento,
                     "abdominales" : abdominales,
-                    "milmt" : milmt,
+                    "agCubitoDorsal" : agCubitoDorsal,
                     "idParticipante" : idParticipante,
                     "idInscribete" : idInscribete,
                     "fechaDato" : fechaDato,
@@ -1064,7 +984,6 @@
         
     
     });
-
 
     function clearEdit(){
 
@@ -1124,39 +1043,36 @@
 
     }
 
+
+    /*EDITAR INDICADOR*/
+    
     $("#editarIndicador").on('click', function(){
 
-
-        if($('#1d').val() != "" && $('#2d').val() != "" && $('#3d').val() != "" && $('#4d').val() != "" && $('#5d').val() != "" && $('#6d').val() != "" && $('#7d').val() != "" && $('#8d').val() != "" && $('#9d').val() != "" && $('#10d').val() != "" && $('#11d').val() != "" && $('#fechaEdit').val() !="" ){
+          if($('#1d').val() != "" && $('#2d').val() != "" && $('#3d').val() != "" && $('#4d').val() != "" && $('#5d').val() != "" && $('#6d').val() != "" && $('#7d').val() != "" && $('#8d').val() != "" && $('#fechaEdit').val() !="" ){
 
             $("#editarIndicador").attr("data-dismiss", "modal");
 
             let peso = parseFloat($('#1d').val());
             let talla = parseFloat($('#2d').val());
-            let ind50mt = parseFloat($('#3d').val());
-            let flexTronco = parseFloat($('#4d').val());
-            let equilibrio = parseFloat($('#5d').val());
-            let flexBrazo = parseFloat($('#6d').val());
-            let saltoH = parseFloat($('#7d').val());
-            let saltoV = parseFloat($('#8d').val());
-            let lanzamiento = parseFloat($('#9d').val());
-            let abdominales = parseFloat($('#10d').val());
-            let milmt = parseFloat($('#11d').val());
+            let ind30mt = parseFloat($('#3d').val());
+            let saltoLargo = parseFloat($('#4d').val());
+            let lanzPelota = parseFloat($('#5d').val());
+            let saltoV = parseFloat($('#6d').val());
+            let abdominales = parseFloat($('#7d').val());
+            let agCubitoDorsal = parseFloat($('#8d').val());
+         
             let idControl = parseInt($('#idControlInd').text());
             let fechaDato = $('#fechaEdit').val();
 
             var valorIndicadores = {
                 "peso" : peso,
                 "talla" : talla,
-                "ind50mt" : ind50mt,
-                "flexTronco" : flexTronco,
-                "equilibrio" :equilibrio,
-                "flexBrazo" : flexBrazo,
-                "saltoH" : saltoH,
+                "ind30mt" : ind30mt,
+                "saltoLargo" : saltoLargo,
+                "lanzPelota" :lanzPelota,
                 "saltoV" : saltoV,
-                "lanzamiento" : lanzamiento,
                 "abdominales" : abdominales,
-                "milmt" : milmt,
+                "agCubitoDorsal" : agCubitoDorsal,
                 "idControl" : idControl,
                 "fechaDato" : fechaDato,
             };
@@ -1199,6 +1115,7 @@
             $("#editarIndicador").attr("data-dismiss", "");
             showAlertMessage('#alerta-errorActualizar', "Verifique que ningún campo se encuentre vacío.");
         }
+
 
     });
 

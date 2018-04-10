@@ -224,18 +224,18 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function nuevoControlIndicador($peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario){
 
-        $query = "EXEC dbo.InsertarIndicadoresControl $peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idNuevoControl,$usuario";
+    public function nuevoControlIndicador($peso,$talla,$ind30mt,$saltoLargo,$lanzPelota,$saltoV,$abdominales,$agCubitoDorsal,$idNewControl,$usuario){
+
+        $query = "EXEC dbo.InsertarIndicadoresControl $peso,$talla,$ind30mt,$saltoLargo,$lanzPelota,$saltoV,$abdominales,$agCubitoDorsal,$idNewControl,$usuario";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-        $stmt->execute();
-      
+        $stmt->execute(); 
+
     }
-
     
-    public function actualizarControlIndicador($fechaDato,$peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idControl){
+    public function actualizarControlIndicador($fechaDato,$peso,$talla,$ind30mt,$saltoLargo,$lanzPelota,$saltoV,$abdominales,$agCubitoDorsal,$idControl){
 
-        $query = "EXEC dbo.actualizarIndicadorControl '$fechaDato',$peso,$talla,$ind50mt,$flexTronco,$equilibrio,$flexBrazo,$saltoH,$lanzamiento,$saltoV,$abdominales,$milmt,$idControl";
+        $query = "EXEC dbo.actualizarIndicadorControl '$fechaDato',$peso,$talla,$ind30mt,$saltoLargo,$lanzPelota,$saltoV,$abdominales,$agCubitoDorsal,$idControl";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();

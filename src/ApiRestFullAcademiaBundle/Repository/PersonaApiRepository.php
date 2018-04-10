@@ -29,7 +29,8 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     ('http://172.16.20.55/academia/web/' + par.foto_ruta) as foto,
                     par.link as link,
                     par.visible_app as visibilidad,
-                    par.comentarios as comentarios      
+                    par.comentarios as comentarios,
+                    par.id as idParticipante      
                     FROM  ACADEMIA.movimientos AS mov
                     INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
                     GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
@@ -44,7 +45,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     
                     WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND dis.dis_codigo='$idDisciplina'
                     )  
-                    SELECT idInscribete talentoId,
+                    SELECT idInscribete inscribeteId,
                             nombre talentoNombre,
                             apellidoMaterno talentoApellidoMaterno,
                             apellidoPaterno talentoApellidoPaterno,
@@ -56,7 +57,8 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                             ficha_tecnica talentoFotoFicha,
                             link talentoVideo,
                             visibilidad,
-                            comentarios talentoComentarios   
+                            comentarios talentoComentarios,
+                            idParticipante participanteId   
                         FROM ParticipantesOrdenados   
                         WHERE num_id  BETWEEN '$inicio' AND '$fin';";
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -270,14 +272,16 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     SELECT  MAX(ic.control_id) as maximoControl
                     FROM   
                     ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id 
-                    WHERE co.id_participante = $idParticipante    
+                    WHERE co.id_participante = $idParticipante
                 )
 
-                SELECT ic.indicador_id, ind.descripcion,ind.unidad_medida, ic.control_id, ic.valor,co.id_participante,CONVERT(varchar,co.fecha,105) fecha 
+
+                SELECT ic.indicador_id, ind.descripcion,ind.unidad_medida,dim.descripcion as dimension, ic.control_id, ic.valor,co.id_participante,CONVERT(varchar,co.fecha,105) fecha 
                 FROM 
                 ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id 
                 INNER JOIN controlMaximo cm on ic.control_id = cm.maximoControl
                 INNER JOIN ACADEMIA.indicador ind on ind.id = ic.indicador_id 
+                INNER JOIN ACADEMIA.dimension dim on dim.id = ind.id_dimension
                 WHERE co.id_participante = $idParticipante ";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
