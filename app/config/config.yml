@@ -51,14 +51,14 @@ fos_rest:
     body_listener: true
     format_listener:
         rules:
-            - { path: '^/control', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: '^/servicios', priorities: ['json'], fallback_format: json, prefer_extension: false }
             - { path: ^/, priorities: ['html', '*/*'], fallback_format: html, prefer_extension: true }
     param_fetcher_listener: true
     view:
         view_response_listener: 'force'
         formats:
             json: true
-
+            
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
@@ -67,8 +67,8 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver_class: \Realestate\MssqlBundle\Driver\PDODblib\Driver
-        #driver: pdo_sqlsrv
+        #driver_class: \Realestate\MssqlBundle\Driver\PDODblib\Driver
+        driver: pdo_sqlsrv
         host: '%database_host%'
         port: '%database_port%'
         dbname: '%database_name%'

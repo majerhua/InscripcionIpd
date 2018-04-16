@@ -144,5 +144,48 @@ class DefaultController extends FOSRestController
       return $indicadores;
   }
 
+  /**
+   * @Rest\Get("/evolucion")
+   */
+  public function evolucionTalentoAction(Request $request)
+  {
+    $participanteId = $request->get('participanteId');
+    $indicadorId = $request->get('indicadorId');
+
+    $fc = $this->getDoctrine()->getManager();
+    $evolucion = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->controlesTalento($participanteId,$indicadorId);
+
+    if( $evolucion === null){
+      return new View("Se produjo un error en la petición", Response::HTTP_NOT_FOUND);
+    }
+    return $evolucion;
+
+  }
+
+  /**
+   * @Rest\Get("/beneficiario-all-filter")
+   */
+  public function beneficiarioAllFilterAction(Request $request)
+  {
+
+    $inicio = $request->get('inicio');
+    $fin = $request->get('fin');
+    $anio = $request->get('anio');
+    $departamentoId = $request->get('departamentoId');
+    $provinciaId = $request->get('provinciaId');
+    $distritoId = $request->get('distritoId');
+    $complejoId = $request->get('complejoId');
+    $disciplinaId = $request->get('disciplinaId');
+     
+    $em = $this->getDoctrine()->getManager(); 
+            
+    $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->beneficiarioAllFilter($anio ,$departamentoId,$provinciaId,$distritoId,$complejoId,$disciplinaId,$inicio,$fin);
+
+    if ($restresult === null) {
+      return new View("No exite Beneficiario", Response::HTTP_NOT_FOUND);
+    }
+    return $restresult;
+  }
+  
 }
 

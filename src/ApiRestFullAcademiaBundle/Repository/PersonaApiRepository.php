@@ -30,7 +30,8 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     par.link as link,
                     par.visible_app as visibilidad,
                     par.comentarios as comentarios,
-                    par.id as idParticipante      
+                    par.id as idParticipante,
+                    hor.discapacitados as discapacidad      
                     FROM  ACADEMIA.movimientos AS mov
                     INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
                     GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
@@ -58,13 +59,27 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                             link talentoVideo,
                             visibilidad,
                             comentarios talentoComentarios,
-                            idParticipante participanteId   
+                            idParticipante participanteId,
+                            discapacidad      
                         FROM ParticipantesOrdenados   
                         WHERE num_id  BETWEEN '$inicio' AND '$fin';";
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $persona = $stmt->fetchAll();
         return $persona;
+    }
+
+    public function anioAll(){
+        
+        $query="SELECT DISTINCT YEAR(fecha_modificacion) AS fecha FROM academia.movimientos 
+                WHERE asistencia_id = 2 AND categoria_id = 4";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $anio = $stmt->fetchAll();
+        return $anio;
+    
     }
 
     public function disciplinaAllGeneral(){
@@ -266,7 +281,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         return $disciplinas;  
     }
 
-     public function indicadoresTalento($idParticipante){
+    public function indicadoresTalento($idParticipante){
 
         $query = "WITH controlMaximo AS ( 
                     SELECT  MAX(ic.control_id) as maximoControl
@@ -290,6 +305,142 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
 
         return $controles;
 
+    }
+
+    public function controlesTalento($participanteId, $indicadorId){
+
+        $query= "SELECT ic.indicador_id, ind.descripcion,ind.unidad_medida,dim.descripcion as dimension, ic.control_id, ic.valor,co.id_participante,CONVERT(varchar,co.fecha,105) fecha 
+                FROM 
+                ACADEMIA.indicador_control ic INNER JOIN ACADEMIA.control co on ic.control_id = co.id 
+                INNER JOIN ACADEMIA.indicador ind on ind.id = ic.indicador_id 
+                INNER JOIN ACADEMIA.dimension dim on dim.id = ind.id_dimension
+                WHERE co.id_participante = $participanteId AND ic.indicador_id = $indicadorId";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $indicadores = $stmt->fetchAll();
+
+        return $indicadores;
+    }
+
+    public function beneficiarioAllFilter($anio,$departamentoId,$provinciaId,$distritoId,$complejoId,$disciplinaId,$inicio,$fin){
+        
+        $queryBase = "WITH ParticipantesOrdenados AS  
+                    (  
+                    SELECT
+                    ROW_NUMBER() OVER(ORDER BY par.id ASC) AS num_id,
+                    ubi.ubidpto departamentoId,
+                    ubi.ubiprovincia provinciaId,
+                    ubi.ubidistrito distritoId,
+                    ubi.ubicodigo ubicodigo,
+                    ede.ede_codigo complejoId,
+                    dis.dis_codigo disciplinaId,
+                    ins.id idInscribete,
+                    per.pernombres as nombre,
+                    per.perapepaterno as apellidoPaterno,
+                    per.perapematerno as apellidoMaterno,
+                    (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                    per.persexo as sexo,
+                    ede.ede_nombre as nombreComplejo,
+                    dis.dis_descripcion as nombreDisciplina,
+                    par.foto_ruta as foto,
+                    par.ficha_ruta as ficha_tecnica,
+                    par.link as link,
+                    par.visible_app as visibilidad,
+                    par.comentarios as comentarios ,
+                    par.id as idParticipante ,
+                    hor.discapacitados as discapacidad     
+                    YEAR(mov.fecha_modificacion) as anio   
+                    FROM  ACADEMIA.movimientos AS mov
+                    INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+                    GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
+                    
+                    INNER JOIN ACADEMIA.inscribete ins ON ins.id = ids.mov_ins_id
+                    INNER JOIN academia.horario hor on ins.horario_id = hor.id
+                    INNER JOIN catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                    INNER JOIN catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                    INNER JOIN catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
+                    INNER JOIN academia.participante par on ins.participante_id = par.id
+                    INNER JOIN grpersona per on per.percodigo = par.percodigo 
+                    INNER JOIN grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
+                    
+                    WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 
+                    )  
+                    SELECT 
+                    nombre talentoNombre,
+                    apellidoMaterno talentoApellidoMaterno,
+                    apellidoPaterno talentoApellidoPaterno,
+                    edad talentoEdad,
+                    sexo talentoSexo, 
+                    nombreComplejo complejoDeportivoNombre,
+                    nombreDisciplina disciplinaDeportivaNombre,
+                    foto talentoFotoPerfil,
+                    ficha_tecnica talentoFotoFicha,
+                    link talentoVideo,
+                    visibilidad,
+                    comentarios talentoComentarios,
+                    idParticipante participanteId,
+                    discapacidad  
+                    FROM ParticipantesOrdenados  WHERE num_id  BETWEEN '$inicio' AND '$fin' AND";
+
+        if( empty( $departamentoId ) ){
+
+            if(!empty($anio) && !empty($disciplinaId)){
+
+                $queryComplemento = "  anio = '$anio' AND disciplinaId='$disciplinaId'";
+
+            }else{
+
+                $queryComplemento = "  anio = '$anio' ";
+            }
+
+        }else if( !empty($departamentoId)){
+            
+            if ( !empty($anio) && !empty($disciplinaId) ) {
+                
+                $queryComplemento = "  anio = '$anio' AND disciplinaId='$disciplinaId' AND departamentoId ='$departamentoId'";
+            
+            }else if( empty($provinciaId) ){
+                
+                $queryComplemento = "  anio = '$anio' AND departamentoId = '$departamentoId' "; 
+
+            }else if( !empty($provinciaId) ){
+                
+                if( empty($distritoId) && !empty($anio) && !empty($disciplinaId) ){
+
+                     $queryComplemento = "  anio = '$anio' AND departamentoId = '$departamentoId' AND provinciaId = '$provinciaId' AND disciplinaId='$disciplinaId' ";
+
+                }else if( !empty($distritoId) ){
+                    
+                    if(empty($complejoId) && !empty($anio) && !empty($disciplinaId)){
+                        
+                        $queryComplemento = "  anio = '$anio' AND departamentoId = '$departamentoId' AND provinciaId = '$provinciaId' AND ubicodigo = '$distritoId' AND disciplinaId='$disciplinaId' ";
+
+                    }else if ( !empty($complejoId) ) {
+
+                        if(empty($disciplinaId)){
+                       
+                          $queryComplemento = "  anio = '$anio' AND departamentoId = '$departamentoId' AND provinciaId = '$provinciaId' AND ubicodigo = '$distritoId' AND complejoId='$complejoId' ";    
+                       
+                        }else if(!empty($disciplinaId)){
+                       
+                          $queryComplemento = "  anio = '$anio' AND departamentoId = '$departamentoId' AND provinciaId = '$provinciaId' AND ubicodigo = '$distritoId' AND complejoId='$complejoId' AND disciplinaId='$disciplinaId' ";  
+                        }
+                        
+                    }
+                    
+                }
+            
+            }
+
+        }
+
+        $query = $queryBase.$queryComplemento;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $beneficiarioAllFilter = $stmt->fetchAll();
+        return $beneficiarioAllFilter;  
     }
 
 

@@ -1,7 +1,7 @@
 api_rest_full_academia:
     resource: "@ApiRestFullAcademiaBundle/Controller/"
     type:     annotation
-    prefix:   /control
+    prefix:   /servicios
 
 akademia:
     resource: "@AkademiaBundle/Resources/config/routing.yml"
