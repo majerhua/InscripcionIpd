@@ -34,15 +34,13 @@
 	</div>
 
 	<div class="proceso">
-
 		<h3 class="text-center" style="color:#08298A">{{talento[0]['nombre']}} </h3>
 		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
 		<input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
 		<input type="hidden" id="idInscribete" value="{{talento[0]['idInscribete']}}">
-	
+
 		<h4 style="color:grey">DEPORTISTA EN EVALUACIÓN</h4>
-
-
+		
 		<div id="alert-info" class="alert alert-warning alert-dismissible text-center" role="alert" style="margin-top: 10px; margin-bottom: 20px;">
 			<button id="btn-close-alert-info" type="button" class="close"><span aria-hidden="true">&times;</span></button>
 			<p>Crea nuevos controles que hagan referencia a la evolución de sus indicadores. </p>
@@ -50,10 +48,8 @@
 
 		<div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="card row">
-
 				{% if talento[0]['foto'] != NULL %}
 					<div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">	
-					
 					<img src="{{asset(talento[0]['foto'])}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">			
 						<!--<img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">-->
 
@@ -74,12 +70,9 @@
 					{% endif %}
 
 				{% endif %}
-				
-
-				<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">				
-					
+			
+				<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">			
 					<div class="row">
-
 						<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11 text-right">				
 							<button title="Editar" id="boton" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#modal-editar_participante"><i class="icon-pencil-square-o"></i></button>
 						</div>
@@ -102,7 +95,6 @@
 								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
 									<strong><p>Edad: </p></strong>
 								</div>						
-
 								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
 									<p id="deportista_edad"> {{talento[0]['edad']}} años</p>
 								</div>						
@@ -111,7 +103,6 @@
 					</div>
 
 					<div class="row">
-
 						<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">				
 							<div class="row">
 								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
@@ -124,13 +115,10 @@
 						</div>
 
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">				
-
 							<div class="row">
-
 								<div class="form-group col-xs-5 col-sm-5 col-md-3 col-lg-4">				
 									<strong><p>Complejo: </p></strong>
 								</div>						
-
 								<div class="form-group col-xs-7 col-sm-7 col-md-9 col-lg-8">				
 									<p id="deportista_complejo_deportivo"> {{talento[0]['nombreComplejo']}}</p>
 								</div>						
@@ -281,7 +269,11 @@
 													<td>{{numero['fecha']|date('d/m/Y')}}</td>
 													{% for control in controles %}
 														{% if control['control_id'] == numero['id'] %}
-															<td>{{control['valor']}}</td> 
+														  	{% if control['valor'] == 0.00 %}
+                                                                <td> -- </td> 
+                                                            {% else %}
+                                                                <td>{{control['valor']}}</td> 
+                                                            {% endif %}
 														{% endif %}
 													{% endfor %}
 													<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-editar-medida" onclick="listarControlInd({{numero['id']}})"><i class="icon-checklist" style="font-size: 1.3em;"></i></button></td>
@@ -366,7 +358,31 @@
 										</div>
 
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-											<input type="file" name="imagen-foto" multiple id="imagen-foto" class="form-control" placeholder="foto.jpg">
+											<span class="imagen-foto">
+												<input type="file" name="imagen-foto" multiple id="imagen-foto">
+											</span>
+											<label for="imagen-foto">
+												<span><i class="icon-search" style="font-size: 1em;"></i> Buscar imagen</span>
+											</label>
+										</div>
+									 	
+									</div>
+								</li>
+
+								<li class="list-group-item">
+									<div class="row">
+										
+										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+											<p><span style="color:#B31A12">*</span><strong> Ficha técnica</strong></p>
+										</div>
+
+										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+											<span class="imagen-ficha">
+												<input type="file" name="imagen-ficha" multiple id="imagen-ficha">
+											</span>
+											<label for="imagen-ficha">
+												<span><i class="icon-search" style="font-size: 1em;"></i> Buscar imagen</span>
+											</label>
 										</div>
 									 	
 									</div>
@@ -375,7 +391,7 @@
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><span style="color:#B31A12">*</span><strong> Video Youtube</strong></p>
+											<p><span style="color:#B31A12">*</span><strong> Link video Youtube</strong></p>
 										</div>
 										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
 											<input id="link" class="form-control" name="link" type="text" placeholder=" www.youtube.com/jir931qXG">
@@ -383,18 +399,7 @@
 									</div>
 								</li>
 								
-								<li class="list-group-item">
-									<div class="row">
-										<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-											<p><span style="color:#B31A12">*</span><strong> Ficha técnica</strong></p>
-										</div>
-
-										<div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-											<input type="file" name="imagen-ficha" multiple id="imagen-ficha" class="form-control" placeholder="ficha_tecnica.jpg">
-										</div>
-									 	
-									</div>
-								</li>
+								
 							
 								<li class="list-group-item">
 									<div class="row">
@@ -407,7 +412,9 @@
 									</div>
 								</li>
 							</ul>
-							<span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span>
+							<span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span><br>
+							<span style="color:grey; font-size:12px;"> Los formatos válidos en las imágenes son: 'png','jpg' o 'jpeg'. Peso máximo de 5M. </span>
+							
 						</div>
 	               	</div>
 				</div>
@@ -488,7 +495,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+												<p><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
 												<span class="dimension">Velocidad</span>
 											</div>
 
@@ -501,7 +508,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Salto largo sin impulso</strong><br><span class="undmedida"> (cm)</span></p>
+												<p><strong> Salto largo sin impulso</strong><br><span class="undmedida"> (cm)</span></p>
 												<span class="dimension">Fuerza Explosiva</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -520,7 +527,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(m)</span></p>
+												<p><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(m)</span></p>
 												<span class="dimension">Fuerza</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -531,7 +538,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong>Salto vertical</strong><br><span class="undmedida">(cm)</span></p>
+												<p><strong>Salto vertical</strong><br><span class="undmedida">(cm)</span></p>
 												<span class="dimension">Potencia</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -548,7 +555,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Abdominales</strong><br><span class="undmedida"> (Rpt./30 seg)</span></p>
+												<p><strong> Abdominales</strong><br><span class="undmedida"> (Rpt./30 seg)</span></p>
 												<span class="dimension">Fuerza core</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -562,7 +569,7 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Agilidad cubito dorsal</strong><br><span class="undmedida">(Rpt. /20 seg)</span></p>
+												<p><strong> Agilidad cubito dorsal</strong><br><span class="undmedida">(Rpt. /20 seg)</span></p>
 												<span class="dimension">Agilidad</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -740,6 +747,7 @@
 							</li>
 						</ul>
 						<span style="color:#B31A12; font-size:12px;"> (*) Campos obligatorios.</span>
+
 						<p style="color:white" id="idControlInd"></p>
 					</div>
 				</div>
@@ -764,6 +772,20 @@
 
 <script type="text/javascript">
 
+/*MOSTRAR NAME A LAS IMAGENES*/
+jQuery('input[type=file]').change(function(){
+ 	
+ 	var filename = jQuery(this).val().split('\\').pop();
+ 	var idname = jQuery(this).attr('id');
+ 	
+ 	console.log(jQuery(this));
+ 	console.log(filename);
+ 	console.log(idname);
+ 	
+ 	jQuery('span.'+idname).next().find('span').html(filename);	
+ 
+ 	
+});
 
 /*IMAGENES*/
 
@@ -771,7 +793,7 @@
 
 		if($("#imagen-foto").val() != "" && $("#link").val() != "" && $("#imagen-ficha").val() != "" && $("#comentarios").val() != "" ) {
 
-			$("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
+		//	$("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
 			var formulario = new FormData($("#uploadimage")[0]);
 			console.log(formulario);
 
@@ -792,11 +814,22 @@
 
 					if( data == 1){
 
+						$("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
 						alertify.success('<p style="color:white">Los cambios se efectuaron correctamente.</p>');	
-						//location.reload(true);
+						location.reload(true);
 
-					}else{
+					}else if ( data == 3){
+						
+						$("#btn_guardar_editar_deportista").attr("data-dismiss", "");
+						showAlertMessage('#alerta-error', "El formato de la imagen no corresponde a lo requerido . (jpg, jpeg , png)");
+						formulario = 0;
+						//alertify.error('<p style="color:white">Se ha producido un error.</p>');
+					
+					}else if( data == 2){
+
+						$("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
 						alertify.error('<p style="color:white">Se ha producido un error.</p>');
+						location.reload(true);
 					}
 					
 				},
@@ -857,81 +890,108 @@
 
     $('#crearIndicador').on('click',function(){
 
-    	if($('#crear_peso').val() != "" && $('#crear_talla').val() != "" && $('#crear_30m').val() != "" && $('#crear_saltoLargo').val() != "" && $('#crear_lanzPelota').val() != "" && $('#crear_saltoV').val() != "" && $('#crear_abdominales').val() != "" && $('#crear_agCubitoDorsal').val() != "" && $('#idPartTalento').val() != "" && $('#idInscribete').val() != "" && $('#fechaRegistro').val()){
+        if($('#crear_peso').val() != "" && $('#crear_talla').val() != "" && $('#idPartTalento').val() != "" && $('#idInscribete').val() != "" && $('#fechaRegistro').val()){
 
-    			$("#crearIndicador").attr("data-dismiss", "modal");
+                $("#crearIndicador").attr("data-dismiss", "modal");
+                
+                var ind30mt  = $('#crear_30m').val();
+                var saltoLargo =  $('#crear_saltoLargo').val();
+                var lanzPelota = $('#crear_lanzPelota').val();
+                var saltoV = $('#crear_saltoV').val();
+                var abdominales = $('#crear_abdominales').val();
+                var agCubitoDorsal = $('#crear_agCubitoDorsal').val();
 
-		    	let peso = $('#crear_peso').val();
-		    	let talla = $('#crear_talla').val();
-		    	let ind30mt = $('#crear_30m').val();
-		    	let saltoLargo = $('#crear_saltoLargo').val();
-		    	let lanzPelota = $('#crear_lanzPelota').val();
-		    	let saltoV = $('#crear_saltoV').val();
-		    	let abdominales = $('#crear_abdominales').val();
-		    	let agCubitoDorsal = $('#crear_agCubitoDorsal').val();
-		    	let idParticipante = $('#idPartTalento').val();
-		    	let idInscribete = $('#idInscribete').val();
-		    	let fechaDato = $('#fechaRegistro').val();
+                if( ind30mt == ""){
+                     ind30mt = 0;
+                }
 
-		    	console.log(fechaDato);
+                if( saltoLargo == ""){
+                    saltoLargo = 0;
+                }
 
-		  		var valorIndicadores = {
-		  			"peso" : peso,
-		  			"talla" : talla,
-		  			"ind30mt" : ind30mt,
-		  			"saltoLargo" : saltoLargo,
-		  			"lanzPelota" :lanzPelota,
-		  			"saltoV" : saltoV,
-		  			"abdominales" : abdominales,
-		  			"agCubitoDorsal" : agCubitoDorsal,
-		  			"idParticipante" : idParticipante,
-		  			"idInscribete" : idInscribete,
-		  			"fechaDato" : fechaDato,
-		  		};
-			
-				console.log(valorIndicadores);
-		  	
-		  		$.ajax({
+                if(lanzPelota  == ""){
+                    lanzPelota = 0;
+                }
 
-		  			type:'POST',
-		  			dataType: "json",
-					url: "{{url('akademia_nuevoControl')}}",
-					data: valorIndicadores,
+                if( saltoV == ""){
+                    saltoV = 0;
+                }
 
-					beforeSend: function(){					
-					},
+                if( abdominales == ""){
+                    abdominales = 0;
+                }
 
-					success: function(data){
-						
-						if(data == 1){
+                if( agCubitoDorsal == ""){
+                    agCubitoDorsal = 0;
+                }
 
-							alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');	
-							location.reload(true);
-												
-						}else if(data == 2){
+                let peso = $('#crear_peso').val();
+                let talla = $('#crear_talla').val();
+                let idParticipante = $('#idPartTalento').val();
+                let idInscribete = $('#idInscribete').val();
+                let fechaDato = $('#fechaRegistro').val();
 
-							alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');	
-							console.log(data);
+                console.log(peso,talla,ind30mt);
+                console.log(fechaDato);
 
-						}else{
 
-							alertify.error('<p style="color:white">no existen valor de indicadores </p>');	
-							console.log(data);
-						}
-					},
+                var valorIndicadores = {
+                    "peso" : peso,
+                    "talla" : talla,
+                    "ind30mt" : ind30mt,
+                    "saltoLargo" : saltoLargo,
+                    "lanzPelota" :lanzPelota,
+                    "saltoV" : saltoV,
+                    "abdominales" : abdominales,
+                    "agCubitoDorsal" : agCubitoDorsal,
+                    "idParticipante" : idParticipante,
+                    "idInscribete" : idInscribete,
+                    "fechaDato" : fechaDato,
+                };
+            
+                console.log(valorIndicadores);
+            
+                $.ajax({
 
-					error: function(error){
-						console.log(error);
-					},
+                    type:'POST',
+                    dataType: "json",
+                    url: "{{url('akademia_nuevoControl')}}",
+                    data: valorIndicadores,
 
-		  		});
+                    beforeSend: function(){                 
+                    },
 
-    	}else{
+                    success: function(data){
+                        
+                        if(data == 1){
 
-    		$("#crearIndicador").attr("data-dismiss", "");
-			showAlertMessage('#alerta-errorControl', "Verifique que ningún campo se encuentre vacío.");
-    	}
-    	
+                            alertify.success('<p style="color:white">El nuevo control se creó exitosamente</p>');   
+                            location.reload(true);
+                                                
+                        }else if(data == 2){
+
+                            alertify.success('<p style="color:white">Se produjo un error al crear el nuevo control</p>');   
+                            console.log(data);
+
+                        }else{
+
+                            alertify.error('<p style="color:white">no existen valor de indicadores </p>');  
+                            console.log(data);
+                        }
+                    },
+
+                    error: function(error){
+                        console.log(error);
+                    },
+
+                });
+
+        }else{
+
+            $("#crearIndicador").attr("data-dismiss", "");
+            showAlertMessage('#alerta-errorControl', "Verifique que el peso y la talla no se encuentren vacíos.");
+        }
+        
     
     });
 

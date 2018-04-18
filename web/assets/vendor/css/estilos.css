@@ -12,6 +12,55 @@ body{
 
 }
 
+/*ESTILO DE INPUT PARA LA FOTO DE PERFIL*/
+
+input[type="file"]#imagen-foto {
+ width: 0.1px;
+ height: 0.1px;
+ opacity: 0;
+ overflow: hidden;
+ position: absolute;
+ z-index: -1;
+ }
+
+label[for="imagen-foto"] {
+ font-size: 10px;
+ font-weight: normal;
+ color: #fff;
+ background-color: #106BA0;
+ display: inline-block;
+ transition: all .5s;
+ cursor: pointer;
+ padding: 10px 30px !important;
+ width: fit-content;
+ text-align: center;
+ }
+
+
+/*ESTILO DE INPUT PARA LA FOTO DE LA FICHA*/
+
+input[type="file"]#imagen-ficha {
+ width: 0.1px;
+ height: 0.1px;
+ opacity: 0;
+ overflow: hidden;
+ position: absolute;
+ z-index: -1;
+ }
+
+label[for="imagen-ficha"] {
+ font-size: 10px;
+ font-weight: normal;
+ color: #fff;
+ background-color: #106BA0;
+ display: inline-block;
+ transition: all .5s;
+ cursor: pointer;
+ padding: 10px 30px !important;
+ width: fit-content;
+ text-align: center;
+ }
+
 .dimension{
 	color:#3A3C85; 
 	font-size:14px;

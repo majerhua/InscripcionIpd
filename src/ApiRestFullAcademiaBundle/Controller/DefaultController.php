@@ -186,6 +186,53 @@ class DefaultController extends FOSRestController
     }
     return $restresult;
   }
-  
+
+  /**
+   * @Rest\Post("/envio-mail/")
+  */
+  public function postAction(Request $request)
+  {
+    
+    /*$idUser = $request->get('userId');
+    $idParticipante = $request->get('participanteId');
+    $comentario = $request->get('comentario');
+    $organizacion = $Request->get('organizacion');
+    
+    $fc = $this->getDoctrine()->getManager();
+    $datosParticipante = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataParticipante($idParticipante);
+
+    $nombreParticipante = $datosParticipante[0]['nombre'];
+    $disciplinaParticipante = $datosParticipante[0]['disciplina']; */
+
+
+   /* $datosUsuario = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataUsuario($idUser);
+
+    $nombre = $request->request->get('nombre');
+    $email= $request->request->get('email');
+    $mensaje=$request->request->get('message');
+    $correo = 'consultasacademiaipd@gmail.com';
+    $subject = 'La Academia - Comentarios de '.$nombre;
+    $message = 'Hemos recibido un nuevo comentario y/o sugerencia de la web LA ACADEMIA'. "\r\n" ."\r\n".'NOMBRE: '.$nombre. "\r\n" ."\r\n".'CORREO ELECTRÓNICO: '.$email ."\r\n"."\r\n".'COMENTARIO: '."\r\n"."\r\n". $mensaje ;
+    $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+    mail($correo, $subject, $message, $headers);
+    return new JsonResponse("Enviado"); */
+
+    /*$data = new User;
+    $name = $request->get('name');
+    $role = $request->get('role');
+    if(empty($name) || empty($role))
+    {
+      return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE); 
+    } 
+    
+    $data->setName($name);
+    $data->setRole($role);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($data);
+    $em->flush();
+    return new View("User Added Successfully", Response::HTTP_OK);*/
+  }
+
 }
 

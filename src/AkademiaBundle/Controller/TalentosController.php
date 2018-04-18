@@ -215,28 +215,50 @@ class TalentosController extends controller
 
       $file = $request->files;
       $fileFicha = $file->get('imagen-ficha');
-   
-      $nombreFicha = date('YmdHis');
-      $fileFichaName = $nombreFicha.'.'.$fileFicha->guessExtension();
-      $rutaFicha = "assets/images/imagesFicha/";
-      $rutaFichaAll = $rutaFicha.$fileFichaName;
-      $fileFicha->move($rutaFicha, $fileFichaName);
+      $extensionFicha = $fileFicha->getClientOriginalExtension();
+      //getClientOriginalExtension()
 
+      if( $extensionFicha == 'png' || $extensionFicha == 'jpg' || $extensionFicha == 'jpeg' ){
+
+        $nombreFicha = date('YmdHis');
+        $fileFichaName = $nombreFicha.'.'.$fileFicha->guessExtension();
+        $rutaFicha = "assets/images/imagesFicha/";
+        $rutaFichaAll = $rutaFicha.$fileFichaName;
+        $fileFicha->move($rutaFicha, $fileFichaName);
+
+      }else{
+
+        $mensaje = 3;
+        return new JsonResponse($mensaje);
+       
+      }
+
+      
       
       //SUBIDA DE FOTO
 
       $fileFoto = $file->get('imagen-foto');
+      $extensionFoto = $fileFoto->getClientOriginalExtension();
 
-      $nombreFoto = date('YmdHis');
-      $fileFotoName = $nombreFoto.'.'.$fileFoto->guessExtension();
-      $rutaFoto = "assets/images/imagesFoto/";
-      $rutaFotoAll = $rutaFoto.$fileFotoName;
-      $fileFoto->move($rutaFoto, $fileFotoName);
+       if( $extensionFicha == 'png' || $extensionFicha == 'jpg' || $extensionFicha == 'jpeg' ){
+        $nombreFoto = date('YmdHis');
+        $fileFotoName = $nombreFoto.'.'.$fileFoto->guessExtension();
+        $rutaFoto = "assets/images/imagesFoto/";
+        $rutaFotoAll = $rutaFoto.$fileFotoName;
+        $fileFoto->move($rutaFoto, $fileFotoName);
 
+       }else{
 
-      if(!empty($fileFicha)){
+        $mensaje = 3;
+        return new JsonResponse($mensaje);
        
-        //GUARDAR FICHA
+       }
+
+      
+
+      if(!empty($fileFicha) || !empty($fileFoto) ){
+       
+        //GUARDAR FICHA y FOTO
         $fc->getRepository('AkademiaBundle:Participante')->guardarTalento($idParticipante, $link, $rutaFichaAll,$rutaFotoAll, $comentarios);
 
         $mensaje = 1;
