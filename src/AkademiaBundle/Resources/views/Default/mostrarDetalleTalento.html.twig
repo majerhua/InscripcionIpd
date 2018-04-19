@@ -361,7 +361,7 @@
                 </div>
                 <input type="hidden" id="cod-participante" name="cod-participante" value="{{talento[0]['idParticipante']}}">
                 <!--<p id="idPart" style="color:white; font-size:12px"> {{talento[0]['idParticipante']}}</p>-->
-                <div class="modal-body">
+               <div class="modal-body">
                     <div class="row">
                                                     
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -376,7 +376,31 @@
                                         </div>
 
                                         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-                                            <input type="file" name="imagen-foto" multiple id="imagen-foto" class="form-control" placeholder="foto.jpg">
+                                            <span class="imagen-foto">
+                                                <input type="file" name="imagen-foto" multiple id="imagen-foto">
+                                            </span>
+                                            <label for="imagen-foto">
+                                                <span><i class="icon-search" style="font-size: 1em;"></i> Buscar imagen</span>
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        
+                                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+                                            <p><span style="color:#B31A12">*</span><strong> Ficha técnica</strong></p>
+                                        </div>
+
+                                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+                                            <span class="imagen-ficha">
+                                                <input type="file" name="imagen-ficha" multiple id="imagen-ficha">
+                                            </span>
+                                            <label for="imagen-ficha">
+                                                <span><i class="icon-search" style="font-size: 1em;"></i> Buscar imagen</span>
+                                            </label>
                                         </div>
                                         
                                     </div>
@@ -385,7 +409,7 @@
                                 <li class="list-group-item">
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-                                            <p><span style="color:#B31A12">*</span><strong> Video Youtube</strong></p>
+                                            <p><span style="color:#B31A12">*</span><strong> Link video Youtube</strong></p>
                                         </div>
                                         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
                                             <input id="link" class="form-control" name="link" type="text" placeholder=" www.youtube.com/jir931qXG">
@@ -393,18 +417,7 @@
                                     </div>
                                 </li>
                                 
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-                                            <p><span style="color:#B31A12">*</span><strong> Ficha técnica</strong></p>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
-                                            <input type="file" name="imagen-ficha" multiple id="imagen-ficha" class="form-control" placeholder="ficha_tecnica.jpg">
-                                        </div>
-                                        
-                                    </div>
-                                </li>
+                                
                             
                                 <li class="list-group-item">
                                     <div class="row">
@@ -417,14 +430,16 @@
                                     </div>
                                 </li>
                             </ul>
-                            <span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span>
+                            <span style="color:#B31A12; font-size:12px;">(*) Campos obligatorios.</span><br>
+                            <span style="color:grey; font-size:12px;"> Los formatos válidos en las imágenes son: 'png','jpg' o 'jpeg'. Peso máximo de 5M. </span>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button id="btn_guardar_editar_deportista" type="button" class="btn btn-danger" >Guardsdasdaar</button>
+                    <button id="btn_guardar_editar_deportista" type="button" class="btn btn-danger" >Guardar</button>
 
                 </div>
             </div>
@@ -778,6 +793,22 @@
 
 <script type="text/javascript">
     
+    /*MOSTRAR NAME A LAS IMAGENES*/
+    jQuery('input[type=file]').change(function(){
+        
+        var filename = jQuery(this).val().split('\\').pop();
+        var idname = jQuery(this).attr('id');
+        
+        console.log(jQuery(this));
+        console.log(filename);
+        console.log(idname);
+        
+        jQuery('span.'+idname).next().find('span').html(filename);  
+     
+        
+    });
+
+
     $(document).ready(function(){
 
         $("#advertencia").hide();
@@ -785,12 +816,14 @@
            
     });
 
-    /*IMAGENES*/
+
+   /*IMAGENES*/
+
     $('#btn_guardar_editar_deportista').on( 'click', function() {
 
         if($("#imagen-foto").val() != "" && $("#link").val() != "" && $("#imagen-ficha").val() != "" && $("#comentarios").val() != "" ) {
 
-            $("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
+        //  $("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
             var formulario = new FormData($("#uploadimage")[0]);
             console.log(formulario);
 
@@ -811,11 +844,22 @@
 
                     if( data == 1){
 
+                        $("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
                         alertify.success('<p style="color:white">Los cambios se efectuaron correctamente.</p>');    
                         location.reload(true);
 
-                    }else{
+                    }else if ( data == 3){
+                        
+                        $("#btn_guardar_editar_deportista").attr("data-dismiss", "");
+                        showAlertMessage('#alerta-error', "El formato de la imagen no corresponde a lo requerido . (jpg, jpeg , png)");
+                        formulario = 0;
+                        //alertify.error('<p style="color:white">Se ha producido un error.</p>');
+                    
+                    }else if( data == 2){
+
+                        $("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
                         alertify.error('<p style="color:white">Se ha producido un error.</p>');
+                        location.reload(true);
                     }
                     
                 },
@@ -831,7 +875,7 @@
         }       
 
     });
-    
+
     /*MOSTRAR TALENTO EN LA APLICACION MOVIL*/
     
     sessionStorage.removeItem('flagCatTalento');

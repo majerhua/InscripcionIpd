@@ -431,8 +431,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                 inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
                 inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
                 inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
-                INNER JOIN grpersona per on per.percodigo = par.percodigo  
-                                  
+                INNER JOIN grpersona per on per.percodigo = par.percodigo                     
                 WHERE 
                 ubi.ubidistrito <> '00' AND 
                 ubi.ubiprovincia <> '00' AND 
@@ -452,7 +451,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
 
         $query = "SELECT 
                 ( app.paterno+' '+ app.materno+' '+ app.nombre) as nombre,
-                app.dni,
+                app.numeroDoc as dni,
                 app.correo,
                 app.organizacion,
                 app.telefono

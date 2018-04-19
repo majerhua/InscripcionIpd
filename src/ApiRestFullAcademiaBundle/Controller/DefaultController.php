@@ -190,14 +190,12 @@ class DefaultController extends FOSRestController
   /**
    * @Rest\Post("/envio-mail")
   */
-  public function postEmail(Request $request)
+  public function envioEmail(Request $request)
   {
     
     $idUser = $request->get('userId');
     $idParticipante = $request->get('participanteId');
     $comentario = $request->get('comentario');
-   // $organizacion = $request->get('organizacion');
-    
 
     if(empty($idUser) || empty($idParticipante) || empty($comentario)){
       
@@ -205,10 +203,10 @@ class DefaultController extends FOSRestController
 
     }else{
 
-      $fc = $this->getDoctrine()->getManager();
-
       //DATOS PARTICIPANTE
+      $fc = $this->getDoctrine()->getManager();
       $datosParticipante = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataParticipante($idParticipante);
+
 
       $id = $datosParticipante[0]['id'];
       $dniParticipante = $datosParticipante[0]['dni'];
@@ -218,7 +216,8 @@ class DefaultController extends FOSRestController
       $departamento = $datosParticipante[0]['departamento'];
 
       //DATOS DEL INTERESADOO
-      $datosUsuario = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataUsuario($idUser);
+      $em = $this->getDoctrine()->getManager();
+      $datosUsuario = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataUsuario($idUser);
 
       $nombreUsuario = $datosUsuario[0]['nombre'];
       $correoUsuario = $datosUsuario[0]['correo'];
@@ -226,17 +225,24 @@ class DefaultController extends FOSRestController
       $organizacionUsuario = $datosUsuario[0]['organizacion'];
       $telefonoUsuario = $datosUsuario[0]['telefono'];
 
-      $correoEnvio = 'isabel1625.luna@gmail.com';
-      
-      $subject = 'NUEVO CONTACTO PARA RECLUTAMIENTO DE TALENTO DEPORTIVO por '. $nombreUsuario;
-      
-      $message = $nombreUsuario.' con Nº de documento de identidad: ('. $dniUsuario .') de la organización '. $organizacionUsuario. ', desea contactar al talento deportivo con ID: ('.$id.') '.$nombreParticipante.' con Nº de documento de identidad: '. $dniParticipante .' , que viene practicando la disciplina '. $disciplinaParticipante.' y que realiza sus actividades en el Complejo '.$complejo .' en el departamento de '. $departamento .'.'. "\r\n" ."\r\n".'DESCRIPCION DEL MENSAJE: '."\r\n"."\r\n". $comentario."\r\n".
 
-      'Para responder al mensaje, contactarse con el solicitante al: '. "\r\n"  . 'Celular/Teléfono: '.$telefonoUsuario. "\r\n" ."\r\n".'Correo: '.$correoUsuario ."\r\n" ;
-      $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
-          'X-Mailer: PHP/' . phpversion();
-      mail($correoEnvio, $subject, $message, $headers);
+      $correo = 'isabel1625.luna@gmail.com';
+      
+      $subject = 'NUEVO CONTACTO PARA RECLUTAMIENTO DE TALENTO DEPORTIVO por '. $nombreUsuario.'';
 
+      $message =  '<html>'.
+                  '<head><title>Talento</title></head>'.
+                  '<body><h2>Hola! '.$nombre.' </h2>'.
+                  $nombreUsuario.'con Nº de documento de identidad: ('.$dniUsuario .') de la organización '. $organizacionUsuario. ', desea contactar al talento deportivo con ID: ('.$id.') '.$nombreParticipante.' con Nº de documento de identidad: '. $dniParticipante .' , que viene practicando la disciplina '. $disciplinaParticipante.' y que realiza sus actividades en el Complejo '.$complejo .' en el departamento de '. $departamento .'. <br><br> DESCRIPCION DEL MENSAJE: <br>'. $comentario.
+                  '<br>'.
+                  ' Para responder al mensaje, contactarse con el solicitante al: <br> Celular/Teléfono: '.$telefonoUsuario.
+                  '<br> Correo: '.$correoUsuario . 
+                  '</body>'.
+                  '</html>';
+      
+      $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
+      mail($correo,$subject,$message,$headers); 
+           
       return new view("El mensaje ha sido enviado satisfactoriamente", Response::HTTP_OK);
 
     }
