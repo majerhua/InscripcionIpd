@@ -405,8 +405,6 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     discapacidad  
                     FROM ParticipantesOrdenados  WHERE num_id  BETWEEN '$inicio' AND '$fin' AND anio = '$anio' ";
 
-    
-
         $query = $queryBase.$queryComplemento;
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
@@ -418,17 +416,30 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
 
     public function dataParticipante($participanteId){
 
-        $query ="SELECT 
+        $query = "SELECT 
                 dis.dis_descripcion as disciplina, 
                 par.id, 
+                par.dni,
+                ubiDpto.ubinombre as departamento,
+                ede.ede_nombre as nombreComplejo,
                 (per.perapepaterno+' '+per.perapematerno+' '+per.pernombres) as nombre
                 FROM ACADEMIA.participante par
                 INNER JOIN ACADEMIA.inscribete ins ON ins.participante_id = par.id
                 INNER JOIN ACADEMIA.horario hor on ins.horario_id = hor.id
                 INNER JOIN CATASTRO.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
-                INNER JOIN CATASTRO.disciplina dis on dis.dis_codigo = edi.dis_codigo
-                INNER JOIN grpersona per on per.percodigo = par.percodigo                    
-                WHERE par.id = $participanteId AND ins.estado = 2;";
+                inner join catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+                inner join grubigeo ubi on ede.ubicodigo = ubi.ubicodigo
+                inner join grubigeo ubiDpto on ubiDpto.ubidpto = ubi.ubidpto
+                INNER JOIN grpersona per on per.percodigo = par.percodigo  
+                                  
+                WHERE 
+                ubi.ubidistrito <> '00' AND 
+                ubi.ubiprovincia <> '00' AND 
+                ubiDpto.ubidistrito = '00' AND 
+                ubiDpto.ubiprovincia = '00' AND 
+                ubiDpto.ubidpto <> '00' AND 
+                par.id = $participanteId AND ins.estado = 2 ";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -437,5 +448,21 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         return $data;
     }
 
+    public function dataUsuario($idUsuario){
+
+        $query = "SELECT 
+                ( app.paterno+' '+ app.materno+' '+ app.nombre) as nombre,
+                app.dni,
+                app.correo,
+                app.organizacion,
+                app.telefono
+                FROM ACADEMIA.usuario_app app WHERE id = $idUsuario";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $dataUsuario = $stmt->fetchAll();
+
+        return $dataUsuario;
+    }
 
 }

@@ -188,50 +188,59 @@ class DefaultController extends FOSRestController
   }
 
   /**
-   * @Rest\Post("/envio-mail/")
+   * @Rest\Post("/envio-mail")
   */
-  public function postAction(Request $request)
+  public function postEmail(Request $request)
   {
     
-    /*$idUser = $request->get('userId');
+    $idUser = $request->get('userId');
     $idParticipante = $request->get('participanteId');
     $comentario = $request->get('comentario');
-    $organizacion = $Request->get('organizacion');
+   // $organizacion = $request->get('organizacion');
     
-    $fc = $this->getDoctrine()->getManager();
-    $datosParticipante = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataParticipante($idParticipante);
 
-    $nombreParticipante = $datosParticipante[0]['nombre'];
-    $disciplinaParticipante = $datosParticipante[0]['disciplina']; */
+    if(empty($idUser) || empty($idParticipante) || empty($comentario)){
+      
+      return new view("LOS DATOS DE ENVIO NO ESTAN COMPLETOS", Response::HTTP_NOT_ACCEPTABLE);
 
+    }else{
 
-   /* $datosUsuario = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataUsuario($idUser);
+      $fc = $this->getDoctrine()->getManager();
 
-    $nombre = $request->request->get('nombre');
-    $email= $request->request->get('email');
-    $mensaje=$request->request->get('message');
-    $correo = 'consultasacademiaipd@gmail.com';
-    $subject = 'La Academia - Comentarios de '.$nombre;
-    $message = 'Hemos recibido un nuevo comentario y/o sugerencia de la web LA ACADEMIA'. "\r\n" ."\r\n".'NOMBRE: '.$nombre. "\r\n" ."\r\n".'CORREO ELECTRÓNICO: '.$email ."\r\n"."\r\n".'COMENTARIO: '."\r\n"."\r\n". $mensaje ;
-    $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-    mail($correo, $subject, $message, $headers);
-    return new JsonResponse("Enviado"); */
+      //DATOS PARTICIPANTE
+      $datosParticipante = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataParticipante($idParticipante);
 
-    /*$data = new User;
-    $name = $request->get('name');
-    $role = $request->get('role');
-    if(empty($name) || empty($role))
-    {
-      return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE); 
-    } 
-    
-    $data->setName($name);
-    $data->setRole($role);
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($data);
-    $em->flush();
-    return new View("User Added Successfully", Response::HTTP_OK);*/
+      $id = $datosParticipante[0]['id'];
+      $dniParticipante = $datosParticipante[0]['dni'];
+      $nombreParticipante = $datosParticipante[0]['nombre'];
+      $disciplinaParticipante = $datosParticipante[0]['disciplina'];
+      $complejo = $datosParticipante[0]['nombreComplejo'];
+      $departamento = $datosParticipante[0]['departamento'];
+
+      //DATOS DEL INTERESADOO
+      $datosUsuario = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataUsuario($idUser);
+
+      $nombreUsuario = $datosUsuario[0]['nombre'];
+      $correoUsuario = $datosUsuario[0]['correo'];
+      $dniUsuario = $datosUsuario[0]['dni'];
+      $organizacionUsuario = $datosUsuario[0]['organizacion'];
+      $telefonoUsuario = $datosUsuario[0]['telefono'];
+
+      $correoEnvio = 'isabel1625.luna@gmail.com';
+      
+      $subject = 'NUEVO CONTACTO PARA RECLUTAMIENTO DE TALENTO DEPORTIVO por '. $nombreUsuario;
+      
+      $message = $nombreUsuario.' con Nº de documento de identidad: ('. $dniUsuario .') de la organización '. $organizacionUsuario. ', desea contactar al talento deportivo con ID: ('.$id.') '.$nombreParticipante.' con Nº de documento de identidad: '. $dniParticipante .' , que viene practicando la disciplina '. $disciplinaParticipante.' y que realiza sus actividades en el Complejo '.$complejo .' en el departamento de '. $departamento .'.'. "\r\n" ."\r\n".'DESCRIPCION DEL MENSAJE: '."\r\n"."\r\n". $comentario."\r\n".
+
+      'Para responder al mensaje, contactarse con el solicitante al: '. "\r\n"  . 'Celular/Teléfono: '.$telefonoUsuario. "\r\n" ."\r\n".'Correo: '.$correoUsuario ."\r\n" ;
+      $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .
+          'X-Mailer: PHP/' . phpversion();
+      mail($correoEnvio, $subject, $message, $headers);
+
+      return new view("El mensaje ha sido enviado satisfactoriamente", Response::HTTP_OK);
+
+    }
+
   }
 
 }
