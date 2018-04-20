@@ -464,4 +464,51 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         return $dataUsuario;
     }
 
+
+    public function registrarUsuario($nombre,$paterno,$materno,$numeroDoc,$telefono,$correo,$organizacion,$estado,$password,$token,$fechaNacimiento,$sexo,$tipoDoc){
+
+        $message = 0;
+        try {
+
+            $query = " INSERT INTO ACADEMIA.usuario_app(nombre,paterno,materno,numeroDoc,telefono,correo,organizacion,estado,password,token,fechaNacimiento,sexo,tipoDoc)
+                        VALUES('$nombre','$paterno','$materno','$numeroDoc','$telefono','$correo','$organizacion','$estado','$password','$token','$fechaNacimiento','$sexo','$tipoDoc'); ";
+
+            $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+            $a = $stmt->execute();
+            $message = 1;
+        }
+        catch (UniqueConstraintViolationException $e) {
+            return $e->getMessage() ;
+        } 
+        catch(Exception $e) {
+            $message = $e->getMessage();
+        }
+
+        return $message;
+    }
+
+    public function activarCuentaUsuario($token){
+
+        $query = "UPDATE ACADEMIA.usuario_app SET estado=1 WHERE token='$token';";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $a = $stmt->execute();
+    
+        return $a;
+    }
+
+    public function loginUsuarioApp($correo,$password){
+
+        $query = "SELECT * from ACADEMIA.usuario_app  WHERE correo='$correo' AND password='$password' AND estado = 1 ;";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $usuarioApp = $stmt->fetchAll();
+        return $usuarioApp;  
+    }
+
+
+
+
+
 }

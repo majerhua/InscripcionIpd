@@ -295,6 +295,17 @@ class TalentosController extends controller
       $mensaje = 1;
       return new JsonResponse($mensaje);
 
-
   }
+
+  public function activarCuentaUsuarioAction (Request $request, $token){
+
+      $em = $this->getDoctrine()->getManager();
+      $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->activarCuentaUsuario($token);
+
+      return $this->render('AkademiaBundle:Default:viewCuentaActivada.html.twig');
+  }
+
+
+
+
 }

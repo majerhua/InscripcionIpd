@@ -232,10 +232,10 @@ class DefaultController extends FOSRestController
 
       $message =  '<html>'.
                   '<head><title>Talento</title></head>'.
-                  '<body><h2>Hola! '.$nombre.' </h2>'.
-                  $nombreUsuario.'con Nº de documento de identidad: ('.$dniUsuario .') de la organización '. $organizacionUsuario. ', desea contactar al talento deportivo con ID: ('.$id.') '.$nombreParticipante.' con Nº de documento de identidad: '. $dniParticipante .' , que viene practicando la disciplina '. $disciplinaParticipante.' y que realiza sus actividades en el Complejo '.$complejo .' en el departamento de '. $departamento .'. <br><br> DESCRIPCION DEL MENSAJE: <br>'. $comentario.
-                  '<br>'.
-                  ' Para responder al mensaje, contactarse con el solicitante al: <br> Celular/Teléfono: '.$telefonoUsuario.
+                  '<body><h2> DETECCION DE TALENTOS </h2>'.
+                  $nombreUsuario.'con DNI: '.$dniUsuario .', de la organización '. $organizacionUsuario. '; desea contactar al talento deportivo: '.$id.' - '.$nombreParticipante.' con DNI: '. $dniParticipante .' , que viene practicando la disciplina <strong>'. $disciplinaParticipante.' </strong> y que realiza sus actividades en el Complejo '.$complejo .' - Departamento de '. $departamento .'. <br><br><h3> DESCRIPCION DEL MENSAJE:</h3> <br>'. $comentario.
+                  '<br><br><hr>'.
+                  ' Para responder al mensaje, puede contactarse con el solicitante al: <br> Celular/Teléfono: '.$telefonoUsuario.
                   '<br> Correo: '.$correoUsuario . 
                   '</body>'.
                   '</html>';
@@ -247,6 +247,75 @@ class DefaultController extends FOSRestController
 
     }
 
+  }
+
+  /**
+   * @Rest\Post("/registrarUsuario")
+   */
+  public function registrarUsuarioAction(Request $request)
+  {
+
+    $nombre = $request->get('nombre');
+    $paterno = $request->get('paterno');
+    $materno = $request->get('materno');
+    $numeroDoc = $request->get('numeroDoc');
+    $telefono = $request->get('telefono');
+    $correo = $request->get('correo');
+    $organizacion = $request->get('organizacion');
+    $password = $request->get('password');
+    $fechaNacimiento = $request->get('fechaNacimiento');
+    $sexo = $request->get('sexo');
+    $tipoDoc = $request->get('tipoDoc');
+    $estado = 0;
+
+    $em = $this->getDoctrine()->getManager(); 
+    
+    if( !empty($nombre) &&  !empty($paterno) && !empty($materno)  &&  !empty($numeroDoc)  &&  !empty($telefono) && !empty($correo)   && !empty($password) ){
+
+      $token = md5( uniqid() );
+
+      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->registrarUsuario($nombre ,$paterno,$materno,$numeroDoc,$telefono,$correo,$organizacion,$estado,$password,$token,$fechaNacimiento,$sexo,$tipoDoc);
+      //if($restresult == 1){
+        $subject =  'La Academia App Ipd';
+        $message =  '<html>'.
+                    '<head><title>La Academia App</title></head>'.
+                    '<body><h2>Binvenido a la Academia app estimado(a)! '.$nombre.' </h2>'.
+                    '<a href="http://10.10.118.10/Akademia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
+                    '</body>'.
+                    '</html>';
+                
+        $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
+        mail($correo,$subject,$message,$headers);
+      //}
+    }else{
+      
+      return new View("No se pudo registrar", Response::HTTP_NOT_FOUND);
+    }
+
+    return $restresult;
+  }
+
+  /**
+   * @Rest\Get("/loginApp")
+   */
+  public function loginUsuarioAppAction(Request $request)
+  {
+
+    $correo = $request->get('correo');
+    $password = $request->get('password');
+
+    $em = $this->getDoctrine()->getManager(); 
+    
+    if( !empty($correo)   && !empty($password) ){
+      
+      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->loginUsuarioApp($correo,$password);
+      
+    }else{
+      
+      return new View("No se pudo registrar", Response::HTTP_NOT_FOUND);
+    }
+
+    return $restresult;
   }
 
 }
