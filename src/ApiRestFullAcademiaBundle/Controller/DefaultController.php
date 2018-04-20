@@ -207,7 +207,6 @@ class DefaultController extends FOSRestController
       $fc = $this->getDoctrine()->getManager();
       $datosParticipante = $fc->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataParticipante($idParticipante);
 
-
       $id = $datosParticipante[0]['id'];
       $dniParticipante = $datosParticipante[0]['dni'];
       $nombreParticipante = $datosParticipante[0]['nombre'];
@@ -215,7 +214,7 @@ class DefaultController extends FOSRestController
       $complejo = $datosParticipante[0]['nombreComplejo'];
       $departamento = $datosParticipante[0]['departamento'];
 
-      //DATOS DEL INTERESADOO
+      //DATOS DEL INTERESADO
       $em = $this->getDoctrine()->getManager();
       $datosUsuario = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->dataUsuario($idUser);
 
@@ -226,8 +225,8 @@ class DefaultController extends FOSRestController
       $telefonoUsuario = $datosUsuario[0]['telefono'];
 
 
-      $correo = 'isabel1625.luna@gmail.com';
-      
+      $correo = 'consultasacademiaipd@gmail.com';
+    
       $subject = 'Reclutamiento de talento por '. $nombreUsuario.'';
 
       $message =  '<html>'.
@@ -280,7 +279,7 @@ class DefaultController extends FOSRestController
         $message =  '<html>'.
                     '<head><title>La Academia App</title></head>'.
                     '<body><h2>Binvenido a la Academia app estimado(a)! '.$nombre.' </h2>'.
-                    '<a href="http://10.10.118.10/Akademia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
+                    '<a href="http://appweb.ipd.gob.pe/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
                     '</body>'.
                     '</html>';
                 
@@ -313,6 +312,48 @@ class DefaultController extends FOSRestController
     }else{
       
       return new View("No se pudo registrar", Response::HTTP_NOT_FOUND);
+    }
+
+    return $restresult;
+  }
+
+   /**
+   * @Rest\Post("/recuperarPassword")
+   */
+  public function recuperarPasswordAction(Request $request)
+  {
+
+    $correo = $request->get('correo');
+
+    $em = $this->getDoctrine()->getManager(); 
+    
+    if( !empty($correo) ){
+
+
+      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->recuperarPassword($correo);
+
+      if(!empty($restresult)){
+
+          $subject ='La Academia App Ipd';
+          $message ='<html>'.
+                    '<head><title>La Academia App</title></head>'.
+                    '<body><h3>Binvenido a la Academia App estimado(a)! '.$restresult[0]['nombre'].' </h3>'.
+                    '<hr>'.
+                    '<p>Verificamos que realizaste una solitud para recordar tu contraseña. </p><br>'.
+                    '<p>Tu Contraseña es: '.$restresult[0]['password'].'</p> <br>'.
+                    '<hr>'.
+                    '<p> Gracias por usar la aplicación Academia App . </p>'.
+                    '<p> Saludos cordiales, de todo el equipo del Instituto Peruano del Deporte</p>'.
+                    '</body>'.
+                    '</html>';
+                
+        $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=UTF-8'. "\r\n";
+        mail($correo,$subject,$message,$headers);
+      }
+
+    }else{
+      
+      return new View("No se enviar correo", Response::HTTP_NOT_FOUND);
     }
 
     return $restresult;

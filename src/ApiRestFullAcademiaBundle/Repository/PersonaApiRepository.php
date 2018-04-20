@@ -25,8 +25,8 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     per.persexo as sexo,
                     ede.ede_nombre as nombreComplejo,
                     dis.dis_descripcion as nombreDisciplina,
-                    ('http://172.16.20.55/academia/web/' + par.ficha_ruta) as ficha_tecnica,
-                    ('http://172.16.20.55/academia/web/' + par.foto_ruta) as foto,
+                    ('http://appweb.ipd.gob.pe/academia/web/academia/web/' + par.ficha_ruta) as ficha_tecnica,
+                    ('http://appweb.ipd.gob.pe/academia/web/academia/web/' + par.foto_ruta) as foto,
                     par.link as link,
                     par.visible_app as visibilidad,
                     par.comentarios as comentarios,
@@ -507,8 +507,13 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         return $usuarioApp;  
     }
 
+    public function recuperarPassword($correo){
 
-
-
+        $query = " SELECT nombre,password FROM ACADEMIA.usuario_app WHERE estado=1 AND correo='$correo'; ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $usuarioApp = $stmt->fetchAll();
+        return $usuarioApp;  
+    }
 
 }
