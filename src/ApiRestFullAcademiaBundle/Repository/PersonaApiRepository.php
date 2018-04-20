@@ -474,7 +474,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                         VALUES('$nombre','$paterno','$materno','$numeroDoc','$telefono','$correo','$organizacion','$estado','$password','$token','$fechaNacimiento','$sexo','$tipoDoc'); ";
 
             $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-            $a = $stmt->execute();
+            $stmt->execute();
             $message = 1;
         }
         catch (UniqueConstraintViolationException $e) {
@@ -490,11 +490,9 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
     public function activarCuentaUsuario($token){
 
         $query = "UPDATE ACADEMIA.usuario_app SET estado=1 WHERE token='$token';";
-
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
-        $a = $stmt->execute();
-    
-        return $a;
+        $stmt->execute();
+
     }
 
     public function loginUsuarioApp($correo,$password){
