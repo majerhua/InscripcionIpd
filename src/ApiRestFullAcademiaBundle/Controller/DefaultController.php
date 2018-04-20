@@ -228,19 +228,19 @@ class DefaultController extends FOSRestController
 
       $correo = 'isabel1625.luna@gmail.com';
       
-      $subject = 'NUEVO CONTACTO PARA RECLUTAMIENTO DE TALENTO DEPORTIVO por '. $nombreUsuario.'';
+      $subject = 'Reclutamiento de talento por '. $nombreUsuario.'';
 
       $message =  '<html>'.
                   '<head><title>Talento</title></head>'.
-                  '<body><h2> DETECCION DE TALENTOS </h2>'.
-                  $nombreUsuario.'con DNI: '.$dniUsuario .', de la organización '. $organizacionUsuario. '; desea contactar al talento deportivo: '.$id.' - '.$nombreParticipante.' con DNI: '. $dniParticipante .' , que viene practicando la disciplina <strong>'. $disciplinaParticipante.' </strong> y que realiza sus actividades en el Complejo '.$complejo .' - Departamento de '. $departamento .'. <br><br><h3> DESCRIPCION DEL MENSAJE:</h3> <br>'. $comentario.
-                  '<br><br><hr>'.
+                  '<body><h3> ¡ Talento detectado ! </h3>'.
+                  $nombreUsuario.' con DNI: '.$dniUsuario .', de la organización <strong>'. $organizacionUsuario. '</strong>, desea contactar al talento deportivo: <br> Código de matrícula:  '.$id.'<br> Nombre: '.$nombreParticipante.' <br> DNI : '. $dniParticipante .' ,<br> Disciplina: '. $disciplinaParticipante.' <br> Complejo deportivo: '.$complejo .' <br> Departamento: '. $departamento .'. <br><br><h4> Descripción del mensaje </h4> <br>'. $comentario.
+                  '<br><br>'.
                   ' Para responder al mensaje, puede contactarse con el solicitante al: <br> Celular/Teléfono: '.$telefonoUsuario.
                   '<br> Correo: '.$correoUsuario . 
                   '</body>'.
                   '</html>';
       
-      $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
+      $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=UTF-8'. "\r\n";
       mail($correo,$subject,$message,$headers); 
            
       return new view("El mensaje ha sido enviado satisfactoriamente", Response::HTTP_OK);
@@ -284,7 +284,7 @@ class DefaultController extends FOSRestController
                     '</body>'.
                     '</html>';
                 
-        $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
+        $headers = 'From: soporte@ipd.gob.pe' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=UTF-8'. "\r\n";
         mail($correo,$subject,$message,$headers);
       //}
     }else{
