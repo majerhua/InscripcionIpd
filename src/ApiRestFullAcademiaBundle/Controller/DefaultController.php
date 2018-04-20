@@ -279,7 +279,7 @@ class DefaultController extends FOSRestController
         $message =  '<html>'.
                     '<head><title>La Academia App</title></head>'.
                     '<body><h2>Binvenido a la Academia app estimado(a)! '.$nombre.' </h2>'.
-                    '<a href="http://appweb.ipd.gob.pe/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
+                    '<a href="http://172.16.20.55/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
                     '</body>'.
                     '</html>';
                 
