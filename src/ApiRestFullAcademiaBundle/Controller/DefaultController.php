@@ -163,6 +163,22 @@ class DefaultController extends FOSRestController
   }
 
   /**
+   * @Rest\Get("/departamentos")
+   */
+  public function departamentoSinFiltroAction(Request $request)
+  {
+
+    $em = $this->getDoctrine()->getManager(); 
+    $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->departamentosSinFiltro();
+
+    if ($restresult === null) {
+      return new View(" No existe ningun talento captado en este departamento.", Response::HTTP_NOT_FOUND);
+    }
+    return $restresult;
+  }
+
+
+  /**
    * @Rest\Get("/departamentoTalento")
    */
   public function departamentoTalentoAction(Request $request)

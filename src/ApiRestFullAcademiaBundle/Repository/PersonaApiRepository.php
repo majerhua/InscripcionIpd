@@ -114,6 +114,17 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         return $disciplinas;
     }
 
+    public function departamentosSinFiltro(){
+        
+        $query = " SELECT ubidpto as departamentoId, ubinombre as departamentoNombre FROM grubigeo WHERE  ubidistrito = '00' AND ubidpto != '00' AND ubiprovincia = '00' ";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $departamento = $stmt->fetchAll();
+        return $departamento;
+
+    }
+
     public function departamentoAll(){
 
         $query = "        
@@ -374,6 +385,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     per.perapepaterno as apellidoPaterno,
                     per.perapematerno as apellidoMaterno,
                     (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                    per.perfecnacimiento as fechaNacimiento,
                     per.persexo as sexo,
                     ede.ede_nombre as nombreComplejo,
                     dis.dis_descripcion as nombreDisciplina,
@@ -404,6 +416,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     nombre talentoNombre,
                     apellidoMaterno talentoApellidoMaterno,
                     apellidoPaterno talentoApellidoPaterno,
+                    fechaNacimiento talentoFechaNacimiento,
                     edad talentoEdad,
                     sexo talentoSexo, 
                     nombreComplejo complejoDeportivoNombre,
