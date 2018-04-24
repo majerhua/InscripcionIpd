@@ -12,6 +12,76 @@ body{
 
 }
 
+/*PAGINA DE ACTIVACION*/
+
+.section{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+background-color: #757575;
+}
+  .section>div:nth-child(3){
+    display: flex;
+    flex-direction: row;
+    width: 243px;
+    justify-content: space-between;
+  }
+
+    .section>div:nth-child(3) > span{
+      color:#95C11E;
+    }
+  
+.tituloAct{
+  color:white;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+
+.parrafoAct{
+  color:white;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+}
+
+
+@media only screen and (min-width: 550px) {
+
+  .section>div:nth-child(3){
+    width: 263px;
+  }
+
+  .tituloAct{
+    font-size: 2em;
+  }
+
+
+  .parrafoAct{
+    font-size: 1.1em;
+  }
+}
+
+
+@media only screen and (min-width: 920px) {
+
+  .section>div:nth-child(3){
+    width: 288px;
+  }
+
+  .tituloAct{
+    font-size: 2.1em;
+  }
+
+
+  .parrafoAct{
+    font-size: 1.2em;
+  }
+}
+
 /*ESTILO DE INPUT PARA LA FOTO DE PERFIL*/
 
 input[type="file"]#imagen-foto {
