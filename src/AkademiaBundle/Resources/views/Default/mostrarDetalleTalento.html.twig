@@ -10,14 +10,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    
                 </button>                       
                 <img src="{{ asset('assets/images/logo_academia.png') }}" class="img-responsive" alt="" />                              
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <br>
                 <ul class="nav navbar-nav navbar-right">
-                    
                     <li title="Horarios"><a href="{{url('akademia_mostrarTalentos')}}"><i class="icon-arrow-left" style="font-size:1.5em; color:white"></i></a></li>
                     <li title="Inicio"><a href="{{url('akademia_panel')}}"><i class="icon-home" style="font-size:1.5em; color:white"></i></a></li>
                     <li title="Cerrar sesión"><a href="{{url('akademia_logout')}}"><i class="icon-logout" style="font-size:1.5em; color:white" ></i></a></li>
@@ -34,35 +32,30 @@
     </div>
 
     <div class="proceso">
-    
         <div class="proceso container-card col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
             <div class="card row">
-
                 <h3 class="text-center" style="color:black">{{talento[0]['nombre']}} </h3>
-                <p  class="text-center" style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
+
+                <p  class="text-center" style="color:grey; font-size:12px">CODIGO DEL ALUMNO: {{talento[0]['idParticipante']}}</p>
+                <p  class="text-center" style="color:grey; font-size:12px">CODIGO DE MATRICULA: {{talento[0]['idInscribete']}}</p>
+
                 <input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
                 <input type="hidden" id="idInscribete" value="{{talento[0]['idInscribete']}}">
                 <hr>
-
                 {% if talento[0]['foto'] != NULL %}
                     <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3"> 
 
                         <img src="{{asset(talento[0]['foto'])}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">      
-
                         <!--<img src="{{ asset('assets/images/imagesFoto')}}/{{talento[0]['foto']}}" width="140" height="170" style="margin-top: 30px; margin-bottom: 10px;">-->               
 
                     </div>
-                
                 {% else %}
-
                     <div class="text-center col-xs-12 col-sm-3 col-md-3 col-lg-3">              
                         <img src="{{ asset('assets/images/man.png')}}" width="150" height="160" style="margin-top: 30px; margin-bottom: 10px;">
                     </div>
 
                 {% endif %}
                 
-
                 <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">   
                     <div class="row">
                         <div class="col-xs-12 col-sm-11 col-md-11 col-lg-11 text-right">                
@@ -350,6 +343,8 @@
 </footer>
 
 <!--MODAL EDITAR PARTICIPANTE-->
+
+
 <div id="modal-editar_participante" class="modal fade" role="dialog">
     <div class="modal-dialog">
         
@@ -360,7 +355,6 @@
                     <h4 id="deportista_editar_nombre" class="title-card" style="color:#0B3861">{{talento[0]['nombre']}}</h4>
                 </div>
                 <input type="hidden" id="cod-participante" name="cod-participante" value="{{talento[0]['idParticipante']}}">
-                <!--<p id="idPart" style="color:white; font-size:12px"> {{talento[0]['idParticipante']}}</p>-->
                <div class="modal-body">
                     <div class="row">
                                                     
@@ -456,15 +450,12 @@
             <div class="modal-header text-center">
                 <button type="button" class="close text-center" data-dismiss="modal">&times;</button>
                 <h4 class="title-card" style="color:#2D2D52">REGISTRAR MEDIDAS</h4>
-                
             </div>
-
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div id="alerta-errorControl" class="alert alert-danger collapse text-center"></div>
                     </div>
-                    
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="row text-center">
                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -487,7 +478,7 @@
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 
-                                                <input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+                                                <input id="crear_peso" class="form-control" type="number" min="0" class="validate">
 
                                             </div>
                                         </div>
@@ -496,11 +487,11 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (cm)</span></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (mt)</span></p>
                                                 <span class="dimension">Medidas Básicas</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+                                                <input id="crear_talla" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -513,12 +504,12 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+                                                <p><strong> 30 mt </strong><span class="undmedida">(seg/100)</span></p>
                                                 <span class="dimension">Velocidad</span>
                                             </div>
 
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_30m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+                                                <input id="crear_30m" class="form-control" type="number" min="0" class="validate" >
                                             </div>
                                         </div>
                                     </div>
@@ -531,7 +522,7 @@
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                                                <input id="crear_saltoLargo" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+                                                <input id="crear_saltoLargo" class="form-control" type="number" min="0" class="validate">
 
                                             </div>
                                         </div>
@@ -549,7 +540,7 @@
                                                 <span class="dimension">Fuerza</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_lanzPelota" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+                                                <input id="crear_lanzPelota" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -560,7 +551,7 @@
                                                 <span class="dimension">Potencia</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+                                                <input id="crear_saltoV" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>                                  
@@ -578,7 +569,7 @@
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                                                <input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+                                                <input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" >
 
                                             </div>
                                         </div>
@@ -591,7 +582,7 @@
                                                 <span class="dimension">Agilidad</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="crear_agCubitoDorsal" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+                                                <input id="crear_agCubitoDorsal" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -635,7 +626,7 @@
                                 <p><span style="color:#B31A12">*</span><strong> Fecha de evaluación</strong></p>
                             </div>
                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <input class="form-control"  id="fechaRegistro" name="fechaRegistro" type="date" >
+                                <input class="form-control"  id="fechaEdit" name="fechaEdit" type="date" >
                             </div>
                         </div>
                     </div>
@@ -653,7 +644,7 @@
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 
-                                                <input id="1d" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+                                                <input id="1d" class="form-control" type="number" min="0" class="validate">
 
                                             </div>
                                         </div>
@@ -662,11 +653,11 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (cm)</span></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (mt)</span></p>
                                                 <span class="dimension">Medidas Básicas</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="2d" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+                                                <input id="2d" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -679,12 +670,12 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+                                                <p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(seg/100)</span></p>
                                                 <span class="dimension">Velocidad</span>
                                             </div>
 
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="3d" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+                                                <input id="3d" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -697,7 +688,7 @@
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                                                <input id="4d" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+                                                <input id="4d" class="form-control" type="number" min="0" class="validate" >
 
                                             </div>
                                         </div>
@@ -711,11 +702,11 @@
                                     <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="row">
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(m)</span></p>
+                                                <p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(mt)</span></p>
                                                 <span class="dimension">Fuerza</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="5d" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+                                                <input id="5d" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -726,7 +717,7 @@
                                                 <span class="dimension">Potencia</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="6d" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+                                                <input id="6d" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>                                  
@@ -744,7 +735,7 @@
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-                                                <input id="7d" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+                                                <input id="7d" class="form-control" type="number" min="0" class="validate" >
 
                                             </div>
                                         </div>
@@ -757,7 +748,7 @@
                                                 <span class="dimension">Agilidad</span>
                                             </div>
                                             <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                                <input id="8d" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+                                                <input id="8d" class="form-control" type="number" min="0" class="validate">
                                             </div>
                                         </div>
                                     </div>
@@ -765,6 +756,7 @@
                             </li>
                         </ul>
                         <span style="color:#B31A12; font-size:12px;"> (*) Campos obligatorios.</span>
+
                         <p style="color:white" id="idControlInd"></p>
                     </div>
                 </div>

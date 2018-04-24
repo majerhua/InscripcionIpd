@@ -35,9 +35,11 @@
 
 	<div class="proceso">
 		<h3 class="text-center" style="color:#08298A">{{talento[0]['nombre']}} </h3>
-		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO {{talento[0]['idParticipante']}}</p>
+		<p style="color:grey; font-size:12px">CODIGO DEL ALUMNO:  {{talento[0]['idParticipante']}}</p>
+		<p style="color:grey; font-size:12px">CODIGO DE INSCRIPCION:  {{talento[0]['idInscribete']}}</p>
 		<input type="hidden" id="idPartTalento" value="{{talento[0]['idParticipante']}}">
 		<input type="hidden" id="idInscribete" value="{{talento[0]['idInscribete']}}">
+
 
 		<h4 style="color:grey">DEPORTISTA EN EVALUACIÓN</h4>
 		
@@ -469,7 +471,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												
-												<input id="crear_peso" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+												<input id="crear_peso" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -478,11 +480,11 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (cm)</span></p>
+												<p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (mt)</span></p>
 												<span class="dimension">Medidas Básicas</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_talla" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+												<input id="crear_talla" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -495,12 +497,12 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+												<p><strong> 30 mt </strong><span class="undmedida">(seg/100)</span></p>
 												<span class="dimension">Velocidad</span>
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_30m" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+												<input id="crear_30m" class="form-control" type="number" min="0" class="validate" >
 											</div>
 										</div>
 									</div>
@@ -513,7 +515,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_saltoLargo" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+												<input id="crear_saltoLargo" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -531,7 +533,7 @@
 												<span class="dimension">Fuerza</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_lanzPelota" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+												<input id="crear_lanzPelota" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -542,7 +544,7 @@
 												<span class="dimension">Potencia</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_saltoV" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+												<input id="crear_saltoV" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>									
@@ -560,7 +562,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="crear_abdominales" class="form-control" type="number" min="0" class="validate" >
 
 											</div>
 										</div>
@@ -573,7 +575,7 @@
 												<span class="dimension">Agilidad</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="crear_agCubitoDorsal" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+												<input id="crear_agCubitoDorsal" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -635,7 +637,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 												
-												<input id="1d" class="form-control" type="number" min="0" class="validate" placeholder="56 Kg">
+												<input id="1d" class="form-control" type="number" min="0" class="validate">
 
 											</div>
 										</div>
@@ -644,11 +646,11 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (cm)</span></p>
+												<p><span style="color:#B31A12">*</span><strong> Talla</strong><span class="undmedida"> (mt)</span></p>
 												<span class="dimension">Medidas Básicas</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="2d" class="form-control" type="number" min="0" class="validate" placeholder="168 cm">
+												<input id="2d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -661,12 +663,12 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(mt)</span></p>
+												<p><span style="color:#B31A12">*</span><strong> 30 mt </strong><span class="undmedida">(seg/100)</span></p>
 												<span class="dimension">Velocidad</span>
 											</div>
 
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="3d" class="form-control" type="number" min="0" class="validate" placeholder="8 seg">
+												<input id="3d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -679,7 +681,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="4d" class="form-control" type="number" min="0" class="validate" placeholder="20 Rpt./1 min">
+												<input id="4d" class="form-control" type="number" min="0" class="validate" >
 
 											</div>
 										</div>
@@ -693,11 +695,11 @@
 									<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
 										<div class="row">
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(m)</span></p>
+												<p><span style="color:#B31A12">*</span><strong> Lanzamiento de Pelota</strong><br><span class="undmedida">(mt)</span></p>
 												<span class="dimension">Fuerza</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="5d" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+												<input id="5d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -708,7 +710,7 @@
 												<span class="dimension">Potencia</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="6d" class="form-control" type="number" min="0" class="validate" placeholder="8 m">
+												<input id="6d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>									
@@ -726,7 +728,7 @@
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
-												<input id="7d" class="form-control" type="number" min="0" class="validate" placeholder="16 Rpt./30 seg">
+												<input id="7d" class="form-control" type="number" min="0" class="validate" >
 
 											</div>
 										</div>
@@ -739,7 +741,7 @@
 												<span class="dimension">Agilidad</span>
 											</div>
 											<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input id="8d" class="form-control" type="number" min="0" class="validate" placeholder="149.52 cm">
+												<input id="8d" class="form-control" type="number" min="0" class="validate">
 											</div>
 										</div>
 									</div>
@@ -793,7 +795,6 @@ jQuery('input[type=file]').change(function(){
 
 		if($("#imagen-foto").val() != "" && $("#link").val() != "" && $("#imagen-ficha").val() != "" && $("#comentarios").val() != "" ) {
 
-		//	$("#btn_guardar_editar_deportista").attr("data-dismiss", "modal");
 			var formulario = new FormData($("#uploadimage")[0]);
 			console.log(formulario);
 
@@ -823,7 +824,6 @@ jQuery('input[type=file]').change(function(){
 						$("#btn_guardar_editar_deportista").attr("data-dismiss", "");
 						showAlertMessage('#alerta-error', "El formato de la imagen no corresponde a lo requerido . (jpg, jpeg , png)");
 						formulario = 0;
-						//alertify.error('<p style="color:white">Se ha producido un error.</p>');
 					
 					}else if( data == 2){
 
@@ -868,14 +868,11 @@ jQuery('input[type=file]').change(function(){
 	    {
 	        $("#advertencia").show();
 	        sessionStorage.setItem('flagCatTalento',$(this).val());
-	        //$("#btn-actualizar").attr('value',"Eliminar");
 	    
 	    }else{
 
 	    	$("#advertencia").hide();
 	    	sessionStorage.removeItem('flagCatTalento');
-	    	
-	    //	$("#btn-actualizar").attr('value',"Actualizar");
 
 	    }
 	});		

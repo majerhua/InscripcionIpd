@@ -163,6 +163,43 @@ class DefaultController extends FOSRestController
   }
 
   /**
+   * @Rest\Get("/departamentoTalento")
+   */
+  public function departamentoTalentoAction(Request $request)
+  {
+
+    $disciplinaId = $request->get('disciplinaId');
+     
+    $em = $this->getDoctrine()->getManager(); 
+    $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->departamentoTalento($disciplinaId);
+
+    if ($restresult === null) {
+      return new View(" No existe ningun talento captado en este departamento.", Response::HTTP_NOT_FOUND);
+    }
+    return $restresult;
+  }
+
+  /**
+   * @Rest\Get("/departamento-disciplina")
+   */
+  public function departamentoDisciplinaAction(Request $request)
+  {
+
+    $inicio = $request->get('inicio');
+    $fin = $request->get('fin');
+    $departamentoId = $request->get('departamentoId');
+    $disciplinaId = $request->get('disciplinaId');
+     
+    $em = $this->getDoctrine()->getManager(); 
+    $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->departamentoDisciplina($departamentoId,$disciplinaId,$inicio,$fin);
+
+    if ($restresult === null) {
+      return new View(" No existe ningun talento captado en este departamento. ", Response::HTTP_NOT_FOUND);
+    }
+    return $restresult;
+  }
+
+  /**
    * @Rest\Get("/beneficiario-all-filter")
    */
   public function beneficiarioAllFilterAction(Request $request)
@@ -213,6 +250,7 @@ class DefaultController extends FOSRestController
       $disciplinaParticipante = $datosParticipante[0]['disciplina'];
       $complejo = $datosParticipante[0]['nombreComplejo'];
       $departamento = $datosParticipante[0]['departamento'];
+      $idInscribete = $datosParticipante[0]['idInscribete'];
 
       //DATOS DEL INTERESADO
       $em = $this->getDoctrine()->getManager();
@@ -224,15 +262,14 @@ class DefaultController extends FOSRestController
       $organizacionUsuario = $datosUsuario[0]['organizacion'];
       $telefonoUsuario = $datosUsuario[0]['telefono'];
 
-
-      $correo = 'consultasacademiaipd@gmail.com';
+      $correo = 'isabel1625.luna@gmail.com';
     
       $subject = 'Reclutamiento de talento por '. $nombreUsuario.'';
 
       $message =  '<html>'.
                   '<head><title>Talento</title></head>'.
                   '<body><h3> ¡ Talento detectado ! </h3>'.
-                  $nombreUsuario.' con DNI: '.$dniUsuario .', de la organización <strong>'. $organizacionUsuario. '</strong>, desea contactar al talento deportivo: <br> Código de matrícula:  '.$id.'<br> Nombre: '.$nombreParticipante.' <br> DNI : '. $dniParticipante .' ,<br> Disciplina: '. $disciplinaParticipante.' <br> Complejo deportivo: '.$complejo .' <br> Departamento: '. $departamento .'. <br><br><h4> Descripción del mensaje </h4> <br>'. $comentario.
+                  $nombreUsuario.' con DNI: '.$dniUsuario .', de la organización <strong>'. $organizacionUsuario. '</strong>, desea contactar al talento deportivo: <br> Código de matrícula:  '.$idInscribete.'<br> Código del alumno:  '.$id.'<br> Nombre: '.$nombreParticipante.' <br> DNI : '. $dniParticipante .' ,<br> Disciplina: '. $disciplinaParticipante.' <br> Complejo deportivo: '.$complejo .' <br> Departamento: '. $departamento .'. <br><br><h4> Descripción del mensaje </h4> <br>'. $comentario.
                   '<br><br>'.
                   ' Para responder al mensaje, puede contactarse con el solicitante al: <br> Celular/Teléfono: '.$telefonoUsuario.
                   '<br> Correo: '.$correoUsuario . 
@@ -351,12 +388,14 @@ class DefaultController extends FOSRestController
         mail($correo,$subject,$message,$headers);
       }
 
+      $mensaje = 1;
+      return $mensaje;
+
     }else{
       
       return new View("No se enviar correo", Response::HTTP_NOT_FOUND);
     }
 
-    return $restresult;
   }
 
 }
