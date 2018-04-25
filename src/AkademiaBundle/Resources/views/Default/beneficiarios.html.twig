@@ -570,7 +570,7 @@
 			var asistencia = $("#asistenciaParticipante").val();
 			var categoria = $("#categoriaParticipante").val();
 
-			if(asistencia != 0 && categoria != 0){
+			if(asistencia != 0 && categoria != 0 ) || (asistencia == 3 && categoria == 0){
 
 				$("#btn-actualizarEstado").attr("data-dismiss", "modal");
 

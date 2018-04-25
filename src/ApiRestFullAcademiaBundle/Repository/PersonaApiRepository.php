@@ -368,7 +368,8 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
 
         return $departamento;
     }
-     public function departamentoDisciplina($departamentoId,$disciplinaId,$inicio,$fin){
+    
+    public function departamentoDisciplina($departamentoId,$disciplinaId,$inicio,$fin){
         
         $query = "  WITH ParticipantesOrdenados AS  
                     (  
