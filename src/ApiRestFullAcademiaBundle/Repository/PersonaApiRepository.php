@@ -390,8 +390,8 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     per.persexo as sexo,
                     ede.ede_nombre as nombreComplejo,
                     dis.dis_descripcion as nombreDisciplina,
-                    par.foto_ruta as foto,
-                    par.ficha_ruta as ficha_tecnica,
+                    ('http://172.16.20.55/academia/web/' + par.ficha_ruta) as ficha_tecnica,
+                    ('http://172.16.20.55/academia/web/' + par.foto_ruta) as foto,
                     par.link as link,
                     par.visible_app as visibilidad,
                     par.comentarios as comentarios ,
@@ -588,7 +588,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
 
         $message = 0;
        
-            $query = " INSERT INTO ACADEMIA.usuario_app(nombre,paterno,materno,numeroDoc,telefono,correo,organizacion,estado,password,token,fechaNacimiento,sexo,tipoDoc) VALUES('$nombre','$paterno','$materno','$numeroDoc','$telefono','$correo','$organizacion','$estado','$password','$token','$fechaNacimiento','$sexo','$tipoDoc'); ";
+            $query = " INSERT INTO ACADEMIA.usuario_app(nombre,paterno,materno,numeroDoc,telefono,correo,organizacion,estado,password,token,fechaNacimiento,sexo,tipoDoc) VALUES('$nombre','$paterno','$materno','$numeroDoc','$telefono','$correo','$organizacion','$estado','$password','$token', '$fechaNacimiento','$sexo','$tipoDoc'); ";
 
             $stmt = $this->getEntityManager()->getConnection()->prepare($query);
             $stmt->execute();
