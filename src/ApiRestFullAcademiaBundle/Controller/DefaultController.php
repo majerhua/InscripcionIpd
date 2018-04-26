@@ -278,7 +278,7 @@ class DefaultController extends FOSRestController
       $organizacionUsuario = $datosUsuario[0]['organizacion'];
       $telefonoUsuario = $datosUsuario[0]['telefono'];
 
-      $correo = 'isabel1625.luna@gmail.com';
+      $correo = 'consultasacademiaipd@gmail.com';
     
       $subject = 'Reclutamiento de talento por '. $nombreUsuario.'';
 
@@ -333,7 +333,7 @@ class DefaultController extends FOSRestController
         $message =  '<html>'.
                     '<head><title>La Academia App</title></head>'.
                     '<body><h3>Bienvenido a la Academia App estimado(a)! '.$nombre.' </h3>'.
-                    '<a href="http://172.16.20.55/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
+                    '<a href="http://appweb.ipd.gob.pe/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
                     '</body>'.
                     '</html>';
                 
