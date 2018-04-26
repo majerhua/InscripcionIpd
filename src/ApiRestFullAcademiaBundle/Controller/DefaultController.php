@@ -322,11 +322,12 @@ class DefaultController extends FOSRestController
 
     $em = $this->getDoctrine()->getManager(); 
     
-    if( !empty($nombre) &&  !empty($paterno) && !empty($materno)  &&  !empty($numeroDoc)  &&  !empty($telefono) && !empty($correo)   && !empty($password) ){
+    if( !empty($nombre) &&  !empty($paterno) && !empty($materno)  &&  !empty($numeroDoc)  &&  !empty($telefono) && !empty($correo)   && !empty($password)){
 
       $token = md5( uniqid() );
 
       $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->registrarUsuario($nombre ,$paterno,$materno,$numeroDoc,$telefono,$correo,$organizacion,$estado,$password,$token,$fechaNacimiento,$sexo,$tipoDoc);
+
       //if($restresult == 1){
         $subject =  'La Academia App Ipd';
         $message =  '<html>'.

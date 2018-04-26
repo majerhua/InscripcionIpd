@@ -88,7 +88,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     (  
                     SELECT
                     dis.dis_descripcion as disciplinaNombre,
-                    dis.dis_codigo disciplinaId      
+                    dis.dis_codigo disciplinaId
                     FROM  ACADEMIA.movimientos AS mov
                     INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
                     GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
@@ -101,7 +101,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     INNER JOIN academia.participante par on ins.participante_id = par.id
                     INNER JOIN grpersona per on per.percodigo = par.percodigo 
                     
-                    WHERE mov.asistencia_id=2 AND mov.categoria_id = 4
+                    WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND par.visible_app = 1
                     )  
                     SELECT distinct 
                             disciplinaId,
@@ -430,7 +430,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                     idParticipante participanteId,
                     discapacidad  
                     FROM ParticipantesOrdenados  
-                    WHERE num_id  BETWEEN $inicio AND $fin AND departamentoId = $departamentoId ";
+                    WHERE num_id  BETWEEN $inicio AND $fin AND departamentoId = $departamentoId AND visibilidad=1 ";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
@@ -587,20 +587,13 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
     public function registrarUsuario($nombre,$paterno,$materno,$numeroDoc,$telefono,$correo,$organizacion,$estado,$password,$token,$fechaNacimiento,$sexo,$tipoDoc){
 
         $message = 0;
-        try {
-
+       
             $query = " INSERT INTO ACADEMIA.usuario_app(nombre,paterno,materno,numeroDoc,telefono,correo,organizacion,estado,password,token,fechaNacimiento,sexo,tipoDoc) VALUES('$nombre','$paterno','$materno','$numeroDoc','$telefono','$correo','$organizacion','$estado','$password','$token','$fechaNacimiento','$sexo','$tipoDoc'); ";
 
             $stmt = $this->getEntityManager()->getConnection()->prepare($query);
             $stmt->execute();
             $message = 1;
-        }
-        catch (UniqueConstraintViolationException $e) {
-            return $e->getMessage() ;
-        } 
-        catch(Exception $e) {
-            $message = $e->getMessage();
-        }
+      
 
         return $message;
     }
