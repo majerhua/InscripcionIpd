@@ -411,7 +411,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
                    INNER JOIN grpersona per on per.percodigo = par.percodigo
                    INNER JOIN grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
                    
-                   WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND dis.dis_codigo= $disciplinaId and ubi.ubidpto = departamentoId AND par.visible_app = 1
+                   WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND dis.dis_codigo= $disciplinaId and ubi.ubidpto = $departamentoId AND par.visible_app = 1
                    )  
                    SELECT 
                     num_id,
