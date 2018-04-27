@@ -372,65 +372,67 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
     public function departamentoDisciplina($departamentoId,$disciplinaId,$inicio,$fin){
         
         $query = "  WITH ParticipantesOrdenados AS  
-                    (  
-                    SELECT
-                    ROW_NUMBER() OVER(ORDER BY par.id ASC) AS num_id,
-                    ubi.ubidpto departamentoId,
-                    ubi.ubiprovincia provinciaId,
-                    ubi.ubidistrito distritoId,
-                    ubi.ubicodigo ubicodigo,
-                    ede.ede_codigo complejoId,
-                    dis.dis_codigo disciplinaId,
-                    ins.id idInscribete,
-                    per.pernombres as nombre,
-                    per.perapepaterno as apellidoPaterno,
-                    per.perapematerno as apellidoMaterno,
-                    (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
-                    per.perfecnacimiento as fechaNacimiento,
-                    per.persexo as sexo,
-                    ede.ede_nombre as nombreComplejo,
-                    dis.dis_descripcion as nombreDisciplina,
-                    ('http://appweb.ipd.gob.pe/academia/web/' + par.ficha_ruta) as ficha_tecnica,
-                    ('http://appweb.ipd.gob.pe/academia/web/' + par.foto_ruta) as foto,
-                    par.link as link,
-                    par.visible_app as visibilidad,
-                    par.comentarios as comentarios ,
-                    par.id as idParticipante ,
-                    hor.discapacitados as discapacidad,    
-                    YEAR(mov.fecha_modificacion) as anio   
-                    FROM  ACADEMIA.movimientos AS mov
-                    INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
-                    GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
-                    
-                    INNER JOIN ACADEMIA.inscribete ins ON ins.id = ids.mov_ins_id
-                    INNER JOIN academia.horario hor on ins.horario_id = hor.id
-                    INNER JOIN catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
-                    INNER JOIN catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
-                    INNER JOIN catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
-                    INNER JOIN academia.participante par on ins.participante_id = par.id
-                    INNER JOIN grpersona per on per.percodigo = par.percodigo 
-                    INNER JOIN grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
-                    
-                    WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND dis.dis_codigo= $disciplinaId
-                    )  
-                    SELECT 
-                    nombre talentoNombre,
-                    apellidoMaterno talentoApellidoMaterno,
-                    apellidoPaterno talentoApellidoPaterno,
-                    fechaNacimiento talentoFechaNacimiento,
-                    edad talentoEdad,
-                    sexo talentoSexo, 
-                    nombreComplejo complejoDeportivoNombre,
-                    nombreDisciplina disciplinaDeportivaNombre,
-                    foto talentoFotoPerfil,
-                    ficha_tecnica talentoFotoFicha,
-                    link talentoVideo,
-                    visibilidad,
-                    comentarios talentoComentarios,
-                    idParticipante participanteId,
-                    discapacidad  
-                    FROM ParticipantesOrdenados  
-                    WHERE num_id  BETWEEN $inicio AND $fin AND departamentoId = $departamentoId AND visibilidad=1 ";
+                   (  
+                   SELECT
+                   ROW_NUMBER() OVER(ORDER BY par.id ASC) AS num_id,
+                   ubi.ubidpto departamentoId,
+                   ubi.ubiprovincia provinciaId,
+                   ubi.ubidistrito distritoId,
+                   ubi.ubicodigo ubicodigo,
+                   ede.ede_codigo complejoId,
+                   dis.dis_codigo disciplinaId,
+                   ins.id idInscribete,
+                   per.pernombres as nombre,
+                   per.perapepaterno as apellidoPaterno,
+                   per.perapematerno as apellidoMaterno,
+                   (cast(datediff(dd,per.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
+                   per.perfecnacimiento as fechaNacimiento,
+                   per.persexo as sexo,
+                   ede.ede_nombre as nombreComplejo,
+                   dis.dis_descripcion as nombreDisciplina,
+                   ('http://appweb.ipd.gob.pe/academia/web/' + par.ficha_ruta) as ficha_tecnica,
+                   ('http://appweb.ipd.gob.pe/academia/web/' + par.foto_ruta) as foto,
+                   par.link as link,
+                   par.visible_app as visibilidad,
+                   par.comentarios as comentarios ,
+                   par.id as idParticipante ,
+                   hor.discapacitados as discapacidad,    
+                   YEAR(mov.fecha_modificacion) as anio  
+                   FROM  ACADEMIA.movimientos AS mov
+                   INNER JOIN (SELECT m.inscribete_id as mov_ins_id, MAX(m.id) mov_id FROM ACADEMIA.movimientos m
+                   GROUP BY m.inscribete_id) ids ON mov.id = ids.mov_id
+                   
+                   INNER JOIN ACADEMIA.inscribete ins ON ins.id = ids.mov_ins_id
+                   INNER JOIN academia.horario hor on ins.horario_id = hor.id
+                   INNER JOIN catastro.edificacionDisciplina edi on edi.edi_codigo = hor.edi_codigo
+                   INNER JOIN catastro.disciplina dis on dis.dis_codigo = edi.dis_codigo
+                   INNER JOIN catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo
+                   INNER JOIN academia.participante par on ins.participante_id = par.id
+                   INNER JOIN grpersona per on per.percodigo = par.percodigo
+                   INNER JOIN grubigeo ubi on ubi.ubicodigo = ede.ubicodigo
+                   
+                   WHERE mov.asistencia_id=2 AND mov.categoria_id = 4 AND dis.dis_codigo= $disciplinaId and ubi.ubidpto = departamentoId AND par.visible_app = 1
+                   )  
+                   SELECT 
+                    num_id,
+                    departamentoId,
+                   nombre talentoNombre,
+                   apellidoMaterno talentoApellidoMaterno,
+                   apellidoPaterno talentoApellidoPaterno,
+                   fechaNacimiento talentoFechaNacimiento,
+                   edad talentoEdad,
+                   sexo talentoSexo,
+                   nombreComplejo complejoDeportivoNombre,
+                   nombreDisciplina disciplinaDeportivaNombre,
+                   foto talentoFotoPerfil,
+                   ficha_tecnica talentoFotoFicha,
+                   link talentoVideo,
+                   visibilidad,
+                   comentarios talentoComentarios,
+                   idParticipante participanteId,
+                   discapacidad  
+                   FROM ParticipantesOrdenados  
+                   WHERE num_id between $inicio and $fin ";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
