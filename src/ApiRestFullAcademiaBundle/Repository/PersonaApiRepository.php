@@ -611,7 +611,7 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
     public function loginUsuarioApp($correo,$password){
 
         $query = "SELECT * from ACADEMIA.usuario_app  WHERE correo='$correo' AND password='$password' AND estado = 1 ;";
-
+        
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
         $usuarioApp = $stmt->fetchAll();
@@ -625,6 +625,15 @@ class PersonaApiRepository extends \Doctrine\ORM\EntityRepository
         $stmt->execute();
         $usuarioApp = $stmt->fetchAll();
         return $usuarioApp;  
+    }
+
+    public function recuperarToken($correo){
+
+        $query = " SELECT token FROM ACADEMIA.usuario_app WHERE  correo='$correo'; ";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+        $stmt->execute();
+        $tokenUser = $stmt->fetchAll();
+        return $tokenUser;  
     }
 
 }

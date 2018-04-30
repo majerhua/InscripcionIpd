@@ -78,7 +78,7 @@ class ExportacionDataController extends Controller
                   grPar.pernombres,CONVERT(varchar, grPar.perfecnacimiento, 103) FechaNacimiento,
                   (cast(datediff(dd,grPar.perfecnacimiento,GETDATE()) / 365.25 as int)) as edad,
                   CASE grPar.persexo
-                    WHEN 0 THEN 'Femenino'
+                    WHEN 2 THEN 'Femenino'
                     WHEN 1 THEN 'Masculino'
                     ELSE 'Otro' END
                     AS sexo,
@@ -164,8 +164,7 @@ class ExportacionDataController extends Controller
       $mdlDepartamentosExport = $em->getRepository('AkademiaBundle:Departamento')->departamentosExportFind2($idComplejo);        
     	$mdlComplejoDeportivoExport = $em->getRepository('AkademiaBundle:ComplejoDeportivo')->complejoDeportivoExportFind2($idComplejo);
     	}
-
-
+      
     	$mdlDepartamentos = $em->getRepository('AkademiaBundle:Departamento')->departamentosAll();
 
     	$mdlDisciplinasDeportivasExport = $em->getRepository('AkademiaBundle:DisciplinaDeportiva')->disciplinaDeportivaExport();

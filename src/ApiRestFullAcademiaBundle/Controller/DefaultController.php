@@ -324,16 +324,17 @@ class DefaultController extends FOSRestController
     
     if( !empty($nombre) &&  !empty($paterno) && !empty($materno)  &&  !empty($numeroDoc)  &&  !empty($telefono) && !empty($correo)   && !empty($password)){
 
+      $passwordEncrypt = base64_encode( $password );
       $token = md5( uniqid() );
 
-      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->registrarUsuario($nombre ,$paterno,$materno,$numeroDoc,$telefono,$correo,$organizacion,$estado,$password,$token,$fechaNacimiento,$sexo,$tipoDoc);
+      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->registrarUsuario($nombre ,$paterno,$materno,$numeroDoc,$telefono,$correo,$organizacion,$estado,$passwordEncrypt,$token,$fechaNacimiento,$sexo,$tipoDoc);
 
       //if($restresult == 1){
         $subject =  'La Academia App Ipd';
         $message =  '<html>'.
                     '<head><title>La Academia App</title></head>'.
                     '<body><h3>Bienvenido a la Academia App estimado(a)! '.$nombre.' </h3>'.
-                    '<a href="http://appweb.ipd.gob.pe/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
+                    '<a href="http://10.10.118.10/Akademia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
                     '</body>'.
                     '</html>';
                 
@@ -353,15 +354,16 @@ class DefaultController extends FOSRestController
    */
   public function loginUsuarioAppAction(Request $request)
   {
-
+    
     $correo = $request->get('correo');
     $password = $request->get('password');
+    $passwordEncrypt = base64_encode( $password );
 
     $em = $this->getDoctrine()->getManager(); 
     
     if( !empty($correo)   && !empty($password) ){
       
-      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->loginUsuarioApp($correo,$password);
+      $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->loginUsuarioApp($correo,$passwordEncrypt);
       
     }else{
       
@@ -378,14 +380,14 @@ class DefaultController extends FOSRestController
   {
 
     $correo = $request->get('correo');
-
     $em = $this->getDoctrine()->getManager(); 
     
     if( !empty($correo) ){
 
-
+      
       $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->recuperarPassword($correo);
-
+      $tokenUser = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->recuperarToken($correo);
+      
       if(!empty($restresult)){
 
           $subject ='La Academia App Ipd';
@@ -393,9 +395,10 @@ class DefaultController extends FOSRestController
                     '<head><title>La Academia App</title></head>'.
                     '<body><h3>Binvenido a la Academia App estimado(a)! '.$restresult[0]['nombre'].' </h3>'.
                     '<hr>'.
-                    '<p>Verificamos que realizaste una solitud para recordar tu contraseña. </p><br>'.
-                    '<p>Tu Contraseña es: '.$restresult[0]['password'].'</p> <br>'.
+                    '<p>Verificamos que realizaste una solitud para recuperar tu cuenta. </p><br>'.
+                    '<p>Tu Contraseña es: '.base64_decode($restresult[0]['password']).'</p> <br>'.
                     '<hr>'.
+                    '<a href="http://10.10.118.10/Akademia/web/activacion/cuenta/'.$tokenUser[0]['token'].'">Activa tu cuenta aquí </a>'.
                     '<p> Gracias por usar la aplicación Academia App . </p>'.
                     '<p> Saludos cordiales, de todo el equipo del Instituto Peruano del Deporte</p>'.
                     '</body>'.

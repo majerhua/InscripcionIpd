@@ -175,7 +175,7 @@
 													<td class="text-center">{{beneficiario['dni']}}</td> 
 													<td class="text-center">{{beneficiario['edad']}}</td> 
 													
-													{% if beneficiario['sexo'] == 0 %}
+													{% if beneficiario['sexo'] == 2 %}
 														<td class="text-center"> Femenino </td> 
 													{% else %}
 														<td class="text-center"> Masculino </td>
@@ -473,7 +473,7 @@
 					$("#idFicha").append("<p>{{beneficiario['idInscribete']}}</p>")
 
 					
-					if ("{{beneficiario['sexo']}}" == 0){
+					if ("{{beneficiario['sexo']}}" == 2){
 					 	$("#sexoParticipante").append("<p>Femenino</p>");	
 					}else{
 					 	$("#sexoParticipante").append("<p>Masculino</p>");

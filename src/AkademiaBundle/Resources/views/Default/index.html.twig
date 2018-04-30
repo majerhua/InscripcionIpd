@@ -229,9 +229,9 @@
 						<label>Sexo</label>
 						<div>
 					    	<select id="sexo" class="effect-3 text"  name="sexo" >
-					    		<option value="2"selected>-- Seleccionar --</option>
+					    		<option value="0"selected>-- Seleccionar --</option>
 					      		<option value="1">Masculino</option>
-					      		<option value="0">Femenino</option>
+					      		<option value="2">Femenino</option>
 					    	</select>
 					    	<span class="focus-border"></span>
 					    </div>
@@ -403,9 +403,9 @@
                         <label for="sexo-hijo">Sexo</label>
                         <div>
                         	<select  class="effect-3 text" type="text"  id="sexo-hijo"  name="sexo-hijo" >
-                           		<option value="2" selected>-- Seleccionar --</option>
+                           		<option value="0" selected>-- Seleccionar --</option>
 					      		<option value="1">Masculino</option>
-					      		<option value="0">Femenino</option>
+					      		<option value="2">Femenino</option>
                         	</select>
                         	<span class="focus-border"></span>
                     	</div>
@@ -895,7 +895,7 @@
                 }else if(fechaApoderadoPaso1=="" || edadApoderado == undefined || edadApoderado < 18 || edadApoderado > 100 ){
                 	console.log(edadApoderado);
                   alertify.error('<p style="color:white">Su fecha de Nacimiento no es la indicada</p>'); 
-                }else if($("#sexo").val()==2){
+                }else if($("#sexo").val()==0){
                    alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
                 }else{
                     sessionStorage.clear()
@@ -984,7 +984,7 @@ $("#boton3").on('click',function(){
       alertify.error('<p style="color:white">Se requiere el campo nombres</p>'); 
     }else if($("#fechaNacimiento-hijo").val()==""){
       alertify.error('<p style="color:white">Se requiere el campo fecha de nacimiento</p>'); 
-    }else if($("#sexo-hijo").val()==2){
+    }else if($("#sexo-hijo").val()==0){
        alertify.error('<p style="color:white">Debe seleccionar el campo sexo</p>');              
     }else if($("#parentesco").val()==""){
        alertify.error('<p style="color:white">Debe seleccionar el campo parentesco</p>');              
@@ -1079,7 +1079,7 @@ $("#mensajeEdad").empty();
             $("#apellidoMaterno").val('');
             $("#nombre").val('');
             $("#fechaNacimiento").val('');
-            $("#sexo").val(2);
+            $("#sexo").val(0);
 
 	     	$("#apellidoPaterno").attr('readonly', false);
 	     	$("#apellidoPaterno").attr('disabled', false);
@@ -1112,11 +1112,11 @@ $("#mensajeEdad").empty();
 							$("#fechaNacimiento").val(valor.fechaNacimiento);
 						
 						
-							if (valor.sexo >= 0 && valor.sexo < 2) {
+							if (valor.sexo >= 1 && valor.sexo < 3) {
 				                if(valor.sexo == 1){
 				                    $("#sexo").val(1);	
 				                }else{
-				                    $("#sexo").val(0);
+				                    $("#sexo").val(2);
 				                }
 							}
 
@@ -1146,7 +1146,7 @@ $("#mensajeEdad").empty();
 			             	$("#apellidoMaterno").val('');
 			             	$("#nombre").val('');
 			             	$("#fechaNacimiento").val('');
-			             	$("#sexo").val(2);
+			             	$("#sexo").val(0);
 			      
 						}
 					});	
@@ -1161,7 +1161,7 @@ $("#mensajeEdad").empty();
 		            $("#apellidoMaterno").val('');
 		            $("#nombre").val('');
 		            $("#fechaNacimiento").val('');
-		            $("#sexo").val(2);
+		            $("#sexo").val(0);
 		        }
 
 				$('.cargarDatosApoderado').hide();
@@ -1214,7 +1214,7 @@ $("#mensajeEdad").empty();
                 $("#apellidoMaterno-hijo").val("");
                 $("#nombre-hijo").val("");
                 $("#fechaNacimiento-hijo").val("");
-                $("#sexo-hijo").val(2);
+                $("#sexo-hijo").val(0);
 				
 				if(data != 1){
 					var dataHijo = JSON.parse(data);
@@ -1227,11 +1227,11 @@ $("#mensajeEdad").empty();
 							$("#nombre-hijo").val(filtro(valor.nombre,'letras'));
 					        $("#fechaNacimiento-hijo").val(valor.fechaNacimiento); 
 
-								if (valor.sexo >= 0  && valor.sexo < 2) {
+								if (valor.sexo >= 0  && valor.sexo < 3) {
 					                if(valor.sexo == 1){
 					                    $("#sexo-hijo").val(1);	
 					                }else{
-					                    $("#sexo-hijo").val(0);
+					                    $("#sexo-hijo").val(2);
 					                }
 								} 
 								
