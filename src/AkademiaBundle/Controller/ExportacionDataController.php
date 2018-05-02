@@ -29,9 +29,7 @@ class ExportacionDataController extends Controller
     	
     	$query2='';
     	//MONTH(mov.fecha_modificacion)='$numMes'
-
-
-
+      
     	if( empty($numMes) && empty($departamento) )
     		$query2 = " YEAR(mov.fecha_modificacion)='$ano' ";	
     	

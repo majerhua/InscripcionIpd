@@ -334,7 +334,7 @@ class DefaultController extends FOSRestController
         $message =  '<html>'.
                     '<head><title>La Academia App</title></head>'.
                     '<body><h3>Bienvenido a la Academia App estimado(a)! '.$nombre.' </h3>'.
-                    '<a href="http://10.10.118.10/Akademia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
+                    '<a href="http://appweb.ipd.gob.pe/academia/web/activacion/cuenta/'.$token.'">Activa tu cuenta aquí </a>'.
                     '</body>'.
                     '</html>';
                 
@@ -383,7 +383,6 @@ class DefaultController extends FOSRestController
     $em = $this->getDoctrine()->getManager(); 
     
     if( !empty($correo) ){
-
       
       $restresult = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->recuperarPassword($correo);
       $tokenUser = $em->getRepository('ApiRestFullAcademiaBundle:PersonaApi')->recuperarToken($correo);
@@ -391,6 +390,7 @@ class DefaultController extends FOSRestController
       if(!empty($restresult)){
 
           $subject ='La Academia App Ipd';
+
           $message ='<html>'.
                     '<head><title>La Academia App</title></head>'.
                     '<body><h3>Binvenido a la Academia App estimado(a)! '.$restresult[0]['nombre'].' </h3>'.
@@ -398,7 +398,7 @@ class DefaultController extends FOSRestController
                     '<p>Verificamos que realizaste una solitud para recuperar tu cuenta. </p><br>'.
                     '<p>Tu Contraseña es: '.base64_decode($restresult[0]['password']).'</p> <br>'.
                     '<hr>'.
-                    '<a href="http://10.10.118.10/Akademia/web/activacion/cuenta/'.$tokenUser[0]['token'].'">Activa tu cuenta aquí </a>'.
+                    '<a href="http://appweb.ipd.gob.pe/academia/web/activacion/cuenta/'.$tokenUser[0]['token'].'">Activa tu cuenta aquí </a>'.
                     '<p> Gracias por usar la aplicación Academia App . </p>'.
                     '<p> Saludos cordiales, de todo el equipo del Instituto Peruano del Deporte</p>'.
                     '</body>'.

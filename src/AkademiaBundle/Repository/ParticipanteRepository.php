@@ -136,7 +136,7 @@ class ParticipanteRepository extends \Doctrine\ORM\EntityRepository
                 inner join catastro.edificacionesdeportivas ede on ede.ede_codigo = edi.ede_codigo 
                 inner join academia.participante par on ins.participante_id = par.id
                 inner join grpersona per on per.percodigo = par.percodigo
-                WHERE par.id = $idParticipante";
+                WHERE par.id = $idParticipante and ins.estado= 2";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($query);
         $stmt->execute();
